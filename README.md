@@ -1,7 +1,7 @@
 
 #### Introduction
 
-This is the new repo for a creative-commons book I've written called 'Essential JavaScript Design Patterns For Beginners'. Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. To read the latest version online at any time see: http://addyosmani.com/resources/essentialjsdesignpatterns/book/
+This is the new repo for a creative-commons book I've written called 'Essential JavaScript Design Patterns For Beginners'. Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. You can read the latest version [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/ "Read Online") at any time.
 
 #### Why is this needed?
 
