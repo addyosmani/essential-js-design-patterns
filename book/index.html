@@ -807,41 +807,66 @@ myRevealingModule.get();
 
 <p>Although many examples of where the observer pattern can be used correctly exist, a popular one in academic circles is the example of a spreadsheet application. Let us imagine that this application is Google Docs, where a number of UI components may be in use: the spreadsheet's formula bar (ssFormula), a pie-chart (ssPieChart) and a bar graph (ssBarGraph). The data source for all of these components will be referred to as 'ssSpreadsheetData'. ssFormula, ssPieChart and ssBarGraph are all observer objects. ssSpreadsheetData may be considered the subject object. The ssSpreadsheet data object notifies its observers when a data change occurs which could make its state inconsistent with the observers. </p>
 
-<p>Let us now take a look at an example of the observer pattern implemented in JavaScript. The following demo is a minimalist version of pub/sub (originally Twitter's Dustin Diaz but modified for our needs) that allows you to see the most powerful aspects of the pattern in action. A live demo of this example can be found <a href="http://jsfiddle.net/addyosmani/sp8s2/">here</a>. </p>
+<p>Let us now take a look at an example of the observer pattern implemented in JavaScript. The following demo is a minimalist version of pub/sub I released on GitHub under a project called 'pubsubz'. Sample usage of this implementation can be found lower down the page.</p>
 
 
 <p>
 <h3>Observer implementation</h3>
 <p>
 <pre  class="brush: js">
-function Observer(){
-    this.functions = [];
-}
+var pubsub = {};
+(function(q) {
 
-Observer.prototype = {
-    subscribe : function(fn) {
-        this.functions.push(fn);
-    },
-    
-    unsubscribe : function(fn) {
-        this.functions = this.functions.filter(
-            function(el) {
-                if ( el !== fn ) {
-                    return el;
+    var topics = {},
+        subUid = -1;
+
+    q.publish = function(topic, args) {
+
+        if (!topics[topic]) {
+            return false;
+        }
+
+        setTimeout(function() {
+            var subscribers = topics[topic],
+                len = subscribers ? subscribers.length : 0;
+
+            while (len--) {
+                subscribers[len].func(topic, args);
+            }
+        }, 0);
+
+        return true;
+
+    };
+
+    q.subscribe = function(topic, func) {
+
+        if (!topics[topic]) {
+            topics[topic] = [];
+        }
+
+        var token = (++subUid).toString();
+        topics[topic].push({
+            token: token,
+            func: func
+        });
+        return token;
+    };
+
+    q.unsubscribe = function(token) {
+        for (var m in topics) {
+            if (topics[m]) {
+                for (var i = 0, j = topics[m].length; i < j; i++) {
+                    if (topics[m][i].token === token) {
+                        topics[m].splice(i, 1);
+                        return token;
+                    }
                 }
             }
-        );
-    },
-    
-    update : function(o, thisObj) {
-        var scope = thisObj || window;
-        this.functions.forEach(
-            function(el) {
-                el.call(scope, o);
-            }
-        );
-    }
-};
+        }
+        return false;
+    };
+}(pubsub));
 </pre>
 </p>
 </p>
@@ -850,28 +875,39 @@ Observer.prototype = {
 <h3>Subscribing and publishing</h3>
 <p>
 <pre  class="brush: js">
-/*
-    * Publishers are in charge of "publishing" eg: Creating the Event
-    * They're also in charge of "notifying" (firing the event)
-*/
-var obs = new Observer;
-obs.update('here is some test information');
 
-/*
-    * Subscribers basically... "subscribe" (or listen)
-    * And once they've been "notified" their callback functions are invoked
-*/
-var fn = function() {
-    // my callback stuff
+var testSubscriber = function( topics , data ){
+    console.log( topics + ": " + data );
 };
-obs.subscribe(fn);
 
 /*
-    * Unsubscribe if you no longer wish to be notified
+* Publishers are in charge of "publishing" notifications about events
 */
-obs.unsubscribe(fn);
+pubsub.publish( 'example1', 'hello world!' );
+pubsub.publish( 'example1', ['test','a','b','c'] );
+pubsub.publish( 'example1', [{'color':'blue'},{'text':'hello'}] );
+
+
+/*
+* Subscribers basically "subscribe" (or listen)
+* And once they've been "notified" their callback functions are invoked
+*/
+var testSubscription = pubsub.subscribe( 'example1', testSubscriber );
+
+
+/*
+* Unsubscribe if you no longer wish to be notified
+*/
+
+setTimeout(function(){
+    pubsub.unsubscribe( testSubscription );
+}, 0);
+
+pubsub.publish( 'example1', 'hello again! (this will fail)' );
+
 </pre>
 </p>
+<p>A jsFiddle version of this example can be found at <a href="http://jsfiddle.net/LxPrq/">http://jsfiddle.net/LxPrq/</a></p>
 </p>
 
 <p><strong>Note:</strong>If you are interested in a pub/sub pattern implementation using jQuery, I recommend Ben Alman's <a href="https://gist.github.com/661855">GitHub Gist</a> for an example of how to achieve this.</p>
