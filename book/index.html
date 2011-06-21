@@ -526,7 +526,7 @@ var mySingleton = {
 	method1:function(){
 		console.log('hello world');
 	}
-}
+};
 
 </pre>
 </p>
@@ -549,8 +549,8 @@ var mySingleton = function(){
 			showPrivate();
 		},
 		publicVar:'the public can see this!'
-	}
-}
+	};
+};
  
 var single = mySingleton();
 single.publicMethod();  // logs 'something private'
@@ -567,22 +567,22 @@ var Singleton =(function(){
 	function init (){
 		/*singleton code here*/
 		return {
-			publicMethod:function(){
-				console.log('hello world')
+			publicMethod: function(){
+				console.log('hello world');
 			},
-			publicProperty:'test'
-		}
+			publicProperty: 'test'
+		};
 	}
  
 	return {
-		getInstance :function(){
+		getInstance: function(){
 			if (!instantiated){
 				instantiated = init();
 			}
 			return instantiated; 
 		}
-	}
-})()
+	};
+})();
  
 /*calling public methods is then as easy as:*/
 Singleton.getInstance().publicMethod();
@@ -659,9 +659,9 @@ var testModule = (function(){
 		},
 		resetCounter: function() {
 			console.log('counter value prior to reset:' + counter);
-			counter = 0
+			counter = 0;
 		}
-	}
+	};
 })();
 
 /*test*/
@@ -681,7 +681,7 @@ var myNamespace = (function(){
 	var myPrivateVar = 0;
 		var myPrivateMethod = function(someText){
 		console.log(someText);
-	}
+	};
 	
 	return {
 		myPublicVar: "foo",	
@@ -689,7 +689,7 @@ var myNamespace = (function(){
 			myPrivateVar++;
 			myPrivateMethod(bar);
 		}
-	}
+	};
 	
 })();
 
@@ -714,19 +714,19 @@ var someModule = (function(){
   };
 
   return {
-        //public attributes
-        publicVar    : 10,
-        //public methods
-        publicMethod : function(){
-        return ' Followed By Public Test ';
-         }, 
+    //public attributes
+    publicVar: 10,
+    //public methods
+    publicMethod: function(){
+      return ' Followed By Public Test ';
+    },
 
-         //let's access the private members
-          getData : function(){
-          return privateMethod() + this.publicMethod() + privateVar;
-         }
-       }
-    })(); //the parens here cause the anonymous function to execute and return
+    //let's access the private members
+    getData: function(){
+      return privateMethod() + this.publicMethod() + privateVar;
+    }
+  }
+})(); //the parens here cause the anonymous function to execute and return
         
 someModule.getData();
 
@@ -767,10 +767,10 @@ someModule.getData();
     function getPerson () {
        return name;
     }
-    return{
+    return {
         set: setPerson,
         get: getPerson
-    }
+    };
 }());
 
 // Sample usage:
@@ -952,11 +952,11 @@ var vehicle = {
 var car = Object.create(vehicle, {
 	'id' : {
 		value: MY_GLOBAL.nextId(),
-		enumerable:true /*writable:false, configurable:false by default*/
+		enumerable: true /*writable:false, configurable:false by default*/
 	},
 	'model':{
 		value: 'Ford',
-		enumerable:true
+		enumerable: true
 	}
 });
 
@@ -1021,7 +1021,7 @@ $(function(){
 		  
 		  /* purchase the car */
 		  buyVehicle: function(model, id){
-		  	return 'You have successfully purchased Item ' + id + ', a ' + model';
+		  	return 'You have successfully purchased Item ' + id + ', a ' + model;
 		  },
 		  
 		  /* arrange a viewing */
@@ -1077,7 +1077,7 @@ CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'
 /*Let's store some default values in an array*/
 var defaultSettings = {};
 defaultSettings['carModel']   = 'Mercedes';
-defaultSettings['carYear]     = 2010;
+defaultSettings['carYear']    = 2010;
 defaultSettings['carMiles']   = 5000;
 defaultSettings['carTint']    = 'Metallic Blue';
 
@@ -1181,7 +1181,7 @@ var Car = (function() {
    };
    return function (model, year, miles) {
        return new Car(model, year, miles);
-   }
+   };
 })();
 
 var civic = new Car("Honda Civic", 2009, 20000);
@@ -1246,7 +1246,7 @@ function augment(receivingClass, givingClass) {
 	}
 	/* provide all methods*/
 	else {
-		for (methodName in givingClass.prototype) {
+		for (var methodName in givingClass.prototype) {
 			/* check to make sure the receiving class doesn't 
 			   have a method of the same name as the one currently 
 			   being processed */
@@ -1328,14 +1328,14 @@ function ConcreteClass(){
 		this.preTask();
 		console.log('doing something');
 		this.postTask();
-	}
+	};
 }
 
 function AbstractDecorator(decorated){
 	this.performTask = function()
 	{
 		decorated.performTask();
-	}
+	};
 }
 
 function ConcreteDecoratorClass(decorated){
@@ -1345,12 +1345,12 @@ function ConcreteDecoratorClass(decorated){
 	this.preTask = function()
 	{
 		console.log('pre-calling..');
-	}
+	};
 	
 	this.postTask = function()
 	{
 		console.log('post-calling..');
-	}
+	};
 	
 }
 
@@ -1384,14 +1384,14 @@ The <strong>Module Pattern</strong> is based on the idea of having an encapsulat
 $(function(){
 	var itemClass = (function(){
 		var someItem = $('#item');
-		return{
+		return {
 			thisItem: function(){
-                thisItem = document.createElement("div");
+                var thisItem = document.createElement("div");
                 $(thisItem)
                     .html("test")
                     .appendTo("#container");
 			}
-		}
+		};
 	})();
 });
 
@@ -1462,8 +1462,8 @@ $(function(){
 <pre  class="brush: js">
    
  //Here jQuery makes use of its event system on top of DOM events 
-    $('.button').click(function(){})
-    $('.button').trigger('click', function(){})
+    $('.button').click(function(){});
+    $('.button').trigger('click', function(){});
 
   </pre>
 </p>
@@ -1518,7 +1518,7 @@ $('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
   <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample which extends the jQuery.fn object for a minimal plugin, underlying prototypal code makes this possible:<br>
   <br>
 <pre  class="brush: js">  
-    $.fn.plugin = function(){}
+    $.fn.plugin = function(){};
     $('#container').plugin();
   </pre>
 </p>
@@ -1538,7 +1538,7 @@ $('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
              content: 'Hello user!'
          }, userConfig);
          return this.html(useConfig.content);
-     });
+     };
   
   </pre>
 <p>A side-note here is that prototypal inheritance in JavaScript uses differential inheritance to only define objects once in a prototype chain until they are overridden. This makes it easier to save memory.</p>
