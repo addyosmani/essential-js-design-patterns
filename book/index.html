@@ -52,34 +52,35 @@
         <li><a href="#designpatternsjavascript">Design Patterns in JavaScript
           </a>
           <ul>
-            <li class="subitem">Creational Pattern</li>
-            <li class="subitem">Constructor Pattern</li>
-            <li class="subitem">Singleton Pattern</li>
-            <li class="subitem">Module Pattern</li>
-            <li class="subitem">Revealing Module Pattern</li>
-            <li class="subitem">Observer Pattern</li>
-            <li class="subitem">Prototype Pattern</li>
-            <li class="subitem">Command Pattern</li>
-            <li class="subitem">DRY Pattern</li>
-            <li class="subitem">Facade Pattern</li>
-            <li class="subitem">Factory Pattern</li>
-            <li class="subitem">Mixin Pattern</a>
-            <li class="subitem">Decorator Pattern</li>
+            <li class="subitem"><a href="#creationalpatternjavascript">Creational Pattern</a></li>
+            <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
+            <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
+            <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
+            <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
+            <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
+            <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
+            <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
+            <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
+            <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
+            <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
+            <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
+            <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
           </ul>
         </li>
         <li><a href="#designpatternsjquery">A High-level View Of Design Patterns in jQuery        </a></li>
         <ul>
-          <li class="subitem">Lazy Initialisation</li>
-          <li class="subitem">Composite Pattern</li>
-          <li class="subitem">Wrapper Pattern</li>
-          <li class="subitem">Facade Pattern</li>
-          <li class="subitem">Observer Pattern</li>
-          <li class="subitem">Iterator Pattern</li>
-          <li class="subitem">Strategy Pattern</li>
-          <li class="subitem">Proxy Pattern</li>
-          <li class="subitem">Builder Pattern</li>
-          <li class="subitem">Prototype Pattern</li>
-          <li class="subitem">Flyweight Pattern</li>
+          <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
+          <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
+          <li class="subitem"><a href="#compositepatternjquery">Composite Pattern</a></li>
+          <li class="subitem"><a href="#wrapperpatternjquery">Wrapper Pattern</a></li>
+          <li class="subitem"><a href="#facadepatternjquery">Facade Pattern</a></li>
+          <li class="subitem"><a href="#observerpatternjquery">Observer Pattern</a></li>
+          <li class="subitem"><a href="#iteratorpatternjquery">Iterator Pattern</a></li>
+          <li class="subitem"><a href="#strategypatternjquery">Strategy Pattern</a></li>
+          <li class="subitem"><a href="#proxypatternjquery">Proxy Pattern</a></li>
+          <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
+          <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
+          <li class="subitem"><a href="#flyweightpatternjquery">Flyweight Pattern</a></li>
         </ul>
         <li><a href="#conclusions">Conclusions</a></li>
         <li><a href="#references">References</a></li>
@@ -416,21 +417,22 @@ and I've modified it where necessary to suit our discussion in this section of t
 <p>&nbsp;</p>
 <p><strong>The patterns we will be exploring are the:</strong></p>
 <ul>
-  <li>Creational Pattern</li>
-  <li>Constructor Pattern</li>
-  <li>Singleton Pattern</li>
-  <li>Module Pattern</li>
-  <li>Revealing Module Pattern</li>
-  <li>Observer Pattern</li>
-  <li>Prototype Pattern</li>
-  <li>Command Pattern</li>
-  <li>DRY Pattern</li>
-  <li>Facade Pattern</li>
-  <li>Factory Pattern</li>
-  <li>Mixin Pattern</li>
-  <li>Decorator Pattern</li>
+  <li><a href="#creationalpatternjavascript">Creational Pattern</a></li>
+  <li><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
+  <li><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
+  <li><a href="#modulepatternjavascript">Module Pattern</a></li>
+  <li><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
+  <li><a href="#observerpatternjavascript">Observer Pattern</a></li>
+  <li><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
+  <li><a href="#commandpatternjavascript">Command Pattern</a></li>
+  <li><a href="#drypatternjavascript">DRY Pattern</a></li>
+  <li><a href="#facadepatternjavascript">Facade Pattern</a></li>
+  <li><a href="#factorypatternjavascript">Factory Pattern</a></li>
+  <li><a href="#mixinpatternjavascript">Mixin Pattern</a></li>
+  <li><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
 </ul>
 <p>&nbsp;</p>
+<p><a name="creationalpatternjavascript"></a></p>
 <h2>The Creational Pattern</h2>
 <p>This pattern is the basis for a number of other patterns in this section and is actually quite straightforward to understand. As you might guess, a creational pattern deals with the concept of creating objects within an application. In JavaScript, the traditional way of creating objects (collections of name/value pairs) is as follows:</p>
 <p><pre  class="brush: js">
@@ -446,6 +448,7 @@ newObject['someValue'] = 'Hello World';
 </pre></p>
 <p>A lot of the time, you'll have reasons for approaching this in a much more object-specific way but the above simplistic approach to creation shows you how easy it is to apply this pattern where non-specific object types need to be created. You simply use a constructor to instantiate an instance of your object for later on when you need it. There are however situations where this is neither an advantage nor a desired feature.</p>
 <p>&nbsp;</p>
+<p><a name="constructorpatternjavascript"></a></p>
 <h2>The Constructor Pattern</h2>
 <p>The phrase &lsquo;constructor&rsquo; is familiar to most developers, however if you&rsquo;re a beginner it can be useful to review what a constructor is before we get into talking about a pattern dedicated to it. Constructors are used to create specific types of objects - they both prepare the object for use and can also accept parameters which the constructor uses to set the values of member variables when the object if first created. The idea that a constructor is a paradigm can be found in the majority of programming languages, including JavaScript.  You&rsquo;re also able to define custom constructors that define properties and methods for your own types of objects. <br></p>
 
@@ -512,6 +515,7 @@ console.log(civic.toString());
 
 <p>Side-note: <a href="http://en.wikipedia.org/wiki/Douglas_Crockford">Douglas Crockford</a> recommends capitalizing your constructor functions so that it is easier to distinguish between them and normal functions.</p>
 <h2>&nbsp;</h2>
+<p><a name="singletonpatternjavascript"></a></p>
 <h2>The Singleton Pattern</h2>
 <p>In conventional software engineering, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object. The singleton pattern is thus known because traditionally, it restricts instantiation of a class to a single object. With JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so-as to provide a single point of access for functions.</p>
 <p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or 'class' that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
@@ -638,7 +642,7 @@ console.log(singletonTest.pointX); // outputs 5
 
 </pre></p>
 <p>&nbsp;</p>
-<h2>&nbsp;</h2>
+<p><a name="modulepatternjavascript"></a></p>
 <h2>The Module Pattern</h2>
 <p>Let's now look at the popular <em>module</em> pattern. The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
 
@@ -735,6 +739,7 @@ someModule.getData();
 <p>To continue reading more about the module pattern, I strongly recommend <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">Ben Cherry's JavaScript Module Pattern In-Depth</a> article.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p><a name="revealingmodulepatternjavascript"></a></p>
 <h2>The Revealing Module Pattern</h2>
 <p>Now you&rsquo;re probably a little more familiar with what the Module pattern is. Let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern, often described as a neat extension to a rather robust pattern.</p>
 <p>The Revealing Module Pattern came about as Heilmann (now at Mozilla) was frustrated with the fact that in you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
@@ -788,6 +793,7 @@ myRevealingModule.get();
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p><a name="observerpatternjavascript"></a></p>
 <h2>The Observer Pattern</h2>
 
 <p>The observer pattern (also known as the publisher/subscriber model) is a design pattern which allows an object (known as an observer) to watch another object (the subject) where the pattern provides a means for the subject and observer to form a publish-subscribe relationship. Observers are able to register so that they can receive events from the subject and when the subject needs to notify observers regarding events, it sends the events to each observer. The pub/sub model is quite popularly used in implementing event handling systems as it is both quite effective and is relatively straight-forward to use.</p>
@@ -917,6 +923,7 @@ pubsub.publish( 'example1', 'hello again! (this will fail)' );
 
 <p>
 </p>
+<p><a name="prototypepatternjavascript"></a></p>
 <h2>The Prototype Pattern</h2>
 <p>The prototype pattern is based on the concept of prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates.If the prototype of the constructor function used contains a property called 'name' for example (as per the code sample below), then each object created by that same constructor will also have this same property.</p>
 <p>Looking at the definitions for the prototype pattern in existing literature non-specific to JavaScript, you *may* find references to concepts outside the scope of the language such as classes. The reality is that prototypal inheritance avoids using classes altogether. There isn't a 'definition' object nor a core object in theory. We're simply creating copies of existing functional objects.</p>
@@ -999,6 +1006,7 @@ car.getModel();
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+<p><a name="commandpatternjavascript"></a></p>
 <h2>The Command Pattern</h2>
 <p>The command pattern aims to encapsulate method invocation, requests or operations into a single object and gives you the ability to both parameterize and pass method calls around that can be executed at your discretion. In addition, it enables you to decouple objects invoking the action from the objects which implement them, giving you a greater degree of overall flexibility in swapping out concrete 'classes'.</p>
 
@@ -1063,6 +1071,7 @@ CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+<p><a name="drypatternjavascript"></a></p>
 <h2>The DRY Pattern </h2>
 <p><strong>Disclaimer: </strong>DRY is essentially a way of thinking and many patterns aim to achieve a level of DRY-ness with their design. In this section we'll be covering what it means for code to be DRY but also covering the DRY design pattern based on these same concepts.</p>
 <p>A challenge that developers writing large applications frequently have is writing similar code multiple times. Sometimes this occurs because your script or application may have multiple similar ways of performing something. Repetitive code writing generally reduces productivity and leaves you open to having to re-write code you&rsquo;ve already written similar times before, thus leaving you with less time to add in new functionality.</p>
@@ -1134,6 +1143,7 @@ $('.someCheckbox').click(function(){        
 </pre><br>
 </p>
 <p>&nbsp;</p>
+<p><a name="facadepatternjavascript"></a></p>
 <h2>The Facade Pattern</h2>
 <p><br>
   This pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. Facades are often considered an essential part of a developer&rsquo;s pattern toolkit - they can make library utilities significantly easier to understand by creating convenience routines that simplify the use of complex systems. <br>
@@ -1162,6 +1172,7 @@ var addMyEvent = function(el,ev,fn){
 </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="factorypatternjavascript"></a></p>
 <h2>The Factory Pattern</h2>
 <p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
 <p>Specifically, the Factory Pattern suggests defining an interface for creating an object where you allow the subclasses to decide which class to instantiate. This pattern handles the problem by defining a completely separate method for the creation of objects and which sub-classes are able to override so they can specify the &lsquo;type&rsquo; of factory product that will be created.</p>
@@ -1208,6 +1219,7 @@ var mondeo = new Car("Ford Mondeo", 2010, 5000);
 <br />
 <br />
 
+<p><a name="mixinpatternjavascript"></a></p>
 <h2>The Mixin Pattern</h2>
 
 <p>In traditional object-oriented programming languages, <strong>mixins</strong> are classes which provide the functionality to be inherited by a subclass. Inheriting from mixins are a means of collecting functionality and classes may inherit functionality from multiple mixins through multiple inheritance.</p>
@@ -1273,6 +1285,7 @@ vehicle.driveBackward();
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+<p><a name="decoratorpatternjavascript"></a></p>
 <h2>The Decorator Pattern</h2>
 <p>Decorator patterns are an alternative to creating subclasses. This pattern can be used to wrap objects within another object of the same interface and allows you to both add behaviour to methods and also pass the method call to the original object (ie the constructor of the decorator).</p>
 <p>The decorator pattern is used when you need to keep adding new functionality to overridden methods. This can be achieved by stacking multiple decorators on top of one another. </p>
@@ -1374,6 +1387,7 @@ decorator2.performTask();
 <p>Let's take a look at what some of these patterns are and how they are used.<br>
 </p>
 <p>&nbsp;</p>
+<p><a name="modulepatternjquery"></a></p>
 <h2><strong>Module Pattern</strong></h2>
 
 <p><br>
@@ -1401,7 +1415,7 @@ $(function(){
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+<p><a name="lazyinitialisationjquery"></a></p>
 <h2><strong>Lazy Initialization</strong></h2>
 <p><br>
   <strong>Lazy Initialization </strong>is a design pattern where you employ a tactic of delaying any expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the .ready() function in jQuery that only executes a function once the DOM has fully loaded.<br>
@@ -1416,6 +1430,7 @@ $(function(){
 </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="compositepatternjquery"></a></p>
 <h2><strong>The Composite Pattern</strong></h2>
 <p><br>
   <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both in a uniform manner. This is demonstrated by the code sample below:<br>
@@ -1428,6 +1443,7 @@ $(function(){
   </pre>
 <br>
 <br>
+<p><a name="wrapperpatternjquery"></a></p>
 <h2><strong>The Wrapper Pattern</strong></h2>
 <p><br>
   <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a compatible interface. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
@@ -1440,6 +1456,7 @@ $(function(){
 
 </pre>
 <p>&nbsp;</p>
+<p><a name="facadepatternjquery"></a></p>
 <h2><strong>The Facade Pattern</strong></h2>
 <p><br>
   <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's $.ajax():<br>
@@ -1455,6 +1472,7 @@ $(function(){
   </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="observerpatternjquery"></a></p>
 <h2><strong>The Observer Pattern</strong> </h2>
 <p><br>
   <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered a subset of PubSub (publish/subscribe pattern).<br>
@@ -1468,6 +1486,7 @@ $(function(){
   </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="iteratorpatternjquery"></a></p>
 <h2><strong>The Iterator Pattern</strong></h2>
 <p><br>
   <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form. Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's .each() iterator, you are actually able to use the underlying code behind .each() to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. <br>
@@ -1481,6 +1500,7 @@ $(function(){
   </pre>
 <p>An interesting side-note is that jQuery's 'each' method is backwards from the ECMAScript 5 way of doing this but may change at some point in the future.</p>
 <p>&nbsp;</p>
+<p><a name="strategypatternjquery"></a></p>
 <h2><strong>The Strategy Pattern</strong></h2>
 <p><br>
   <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them. An example of this is where jQuery's toggle() allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
@@ -1492,6 +1512,7 @@ $(function(){
   </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="proxypatternjquery"></a></p>
 <h2><strong>The Proxy Pattern</strong></h2>
 <p><br>
   <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else. The proxy can be an interface to almost anything: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's .proxy() function takes as input a function and returns a new one that will always have a particular context. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
@@ -1504,6 +1525,7 @@ $(function(){
   </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="builderpatternjquery"></a></p>
 <h2><strong>The Builder Pattern</strong></h2>
 <p><br>
   <strong>The Builder Pattern</strong>'s main concept is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below is an example of how jQuery utilizes this pattern to allow an element which you may wish to append to the document body to be constructed using a string definition. <br>
@@ -1513,6 +1535,7 @@ $('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
   </pre>
 </p>
 <p>&nbsp;</p>
+<p><a name="prototypepatternjquery"></a></p>
 <h2><strong>The Prototype Pattern</strong></h2>
 <p><br>
   <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample which extends the jQuery.fn object for a minimal plugin, underlying prototypal code makes this possible:<br>
@@ -1524,6 +1547,7 @@ $('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
 </p>
 <p><br>
 </p>
+<p><a name="flyweightpatternjquery"></a></p>
 <h2><strong>The Flyweight Pattern</strong></h2>
 <p><br>
   <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed.<br>
