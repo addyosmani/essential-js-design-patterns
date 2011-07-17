@@ -14,13 +14,13 @@
     <p>
   
     <h1 class="booktitle">&nbsp;</h1>
-    <h1 class="booktitle">Essential JavaScript Design Patterns For Beginners</h1>
+    <h1 class="booktitle">Essential JavaScript Design Patterns For Beginners, Volume 1.</h1>
     <p class="bookauthor">Authored By <a href="http://www.twitter.com/addyosmani">Addy Osmani</a></p>
     
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p class="copyright">
-      Copyright 2011 © Addy Osmani. Last edited: May 23rd 2011.
+      Copyright 2011 © Addy Osmani. Last edited: July 17th, 2011.
     </p>
     <p class="copyright">Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Attribution-NonCommercial-ShareAlike 3.0</a> unported license. You are free to remix, tweak, and build upon this work non-commercially, as long as you credit Addy Osmani (the copyright holder) and license your new creations under the identical terms. Any of the above conditions can be waived if you get permission from the copyright holder. For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">link to the license</a>. </p>
     <p class="copyright">&nbsp;</p>
@@ -690,7 +690,7 @@ var myNamespace = (function(){
 </p>
 
 
-<p>A piece of trivia is that the module pattern was originally formally defined by Douglas Crockford (famous for his book 'JavaScript: The Good Parts, and more), although it is likely that variations of this pattern were used long before this. Another piece of trviai is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the module pattern was a strong influence for YUI when creating their components.</p>
+<p>A piece of trivia is that the module pattern was originally formally defined by Douglas Crockford (famous for his book 'JavaScript: The Good Parts, and more), although it is likely that variations of this pattern were used long before this. Another piece of trivial is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the module pattern was a strong influence for YUI when creating their components.</p>
 <p>So, you've seen why the singleton pattern can be useful, but why is the module pattern a good choice?. For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective. Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing!. oh, and thanks to David Engfer for the joke).</p>
 <p>The disadvantages of the module pattern are that as you access both public and private members differently, when you wish to change visibility, you actually have to make changes to each place the member was used. You also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of your application. Here's a final module pattern example:</p>
 <p>
@@ -730,7 +730,7 @@ someModule.getData();
 <p>&nbsp;</p>
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
 <p>Now you&rsquo;re probably a little more familiar with what the Module pattern is. Let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern, often described as a neat extension to a rather robust pattern.</p>
-<p>The Revealing Module Pattern came about as Heilmann (now at Mozilla) was frustrated with the fact that in you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
+<p>The Revealing Module Pattern came about as Heilmann (now at Mozilla) was frustrated with the fact that if you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
 <p>The result of his efforts were an updated pattern where you would simply define all of your functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions you wished to reveal as public.</p>
 <p>Once again, you&rsquo;re probably wondering what the benefits of this approach are. The RMP allows the syntax of your script to be fairly consistent - it also makes it very clear at the end which of your functions and variables may be accessed publicly, something that is quite useful. In addition, you are also able to reveal private functions with more specific names if you wish.</p>
 <p>An example of how to use the revealing module pattern can be found below:</p>
