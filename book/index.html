@@ -27,7 +27,9 @@
   </div>
   <div class="content">
     <h1><strong>Foreword</strong></h1>
-    <p>I would like to thank <a href="http://twitter.com/rmurphey">Rebecca Murphey</a> for inspiring me to open-source this mini-book and release it for free download and distribution - making knowledge both open and easily available is something we should all strive for where possible. I would also like to extend my thanks to the very talented <a href="http://twitter.com/slexaxton">Alex Sexton</a> who was kind enough to be the technical reviewer for this publication. I hope that it helps you learn more about design patterns and the usefulness of their application to JavaScript code.</p>
+    <p>I would like to thank <a href="http://twitter.com/rmurphey">Rebecca Murphey</a> for inspiring me to open-source this mini-book and release it for free download and distribution - making knowledge both open and easily available is something we should all strive for where possible. I would also like to extend my thanks to the very talented <a href="http://twitter.com/slexaxton">Alex Sexton</a> who was kind enough to be the technical reviewer for this publication. I hope that it helps you learn more about design patterns and the usefulness of their application to JavaScript.</p>
+    <p>Volume 2 of Essential JavaScript Design Patterns is currently being written and will be more detailed than this first edition. The ETA for it's online release is late summer, 2011.</p>
+    
     <p>&nbsp;</p>
 <h1><strong>Introduction</strong></h1>
     <p>At the beginning of this book I will be focusing on a discussion about the importance and history of design patterns in any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter '<a href="#whatisapattern">What is a Pattern?</a>' to continue reading.</p>
@@ -182,7 +184,7 @@ Once you&rsquo;ve exposed yourself to a wealth of information on pattern literat
 If you would like to try your hand at writing a design pattern (even if just for the learning experience of going through the process), the tips I have for doing so would be as follows:</p>
 <p>&nbsp;</p>
 <ul type="disc">
-  <li><strong>Bare in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
+  <li><strong>Bear in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
   <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best practices. </li>
   
   <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behaviour  in the user-experience that would not be incurred without the use of a pattern.</li>
@@ -255,7 +257,7 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h2>Summary Table Of Design Pattern Categorization</h2>
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
 and I've modified it where necessary to suit our discussion in this section of the book. 
-<p>I recommending using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book. Also bare in mind that there will be patterns in this table that reference the concept of 'classes' - something which can be simulated, but which don't come with out-of-the box support in JavaScript.</p>
+<p>I recommending using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book. Also bear in mind that there will be patterns in this table that reference the concept of 'classes' - something which can be simulated, but which don't come with out-of-the box support in JavaScript.</p>
 <p>That said, it's still a great starting point for learning and I recommend reviewing it.
 <p><br>
 <p>
@@ -1103,7 +1105,8 @@ $('.someCheckbox').click(function(){ 
 
 
 $('.someCheckbox').click(function(){        
-    var checked = this.checked;
+    var checked = this.checked,
+		fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
     /*
         What are we repeating?
         1. input_ precedes each field name
@@ -1116,9 +1119,9 @@ $('.someCheckbox').click(function(){        
         3. merge this call using terse coding (ie. if checked, 
             set a value, otherwise don't)
   */  
-       $.each(['carModel', 'carYear', 'carMiles', 'carTint'], function(i,key){
-               $('#input_' + v).val(checked ? defaultSettings[key] : '');
-       });
+	$.each(fields, function(i,key){
+		$('#input_' + key).val(checked ? defaultSettings[key] : '');
+	});
 });
 
 
@@ -1541,7 +1544,7 @@ $('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
   <br>
   Design  patterns make it easier to reuse successful designs and architectures.  It&rsquo;s important for every developer to be aware of design patterns but  it&rsquo;s also essential to know how and when to use them. Implementing the  right patterns intelligently can be worth the effort but the opposite is  also true. A badly implementing pattern can yield little benefit to a  project. <br>
   <br>
-  Also bare in mind that it&rsquo;s not the number of patterns you implement that&rsquo;s important but how  you choose to implement them. For example, don&rsquo;t choose a pattern just  for the sake of using &lsquo;one&rsquo; but rather try understanding the pros and  cons of what particular patterns have to offer and make a judgement  based on it&rsquo;s fitness for your application.</p>
+  Also bear in mind that it&rsquo;s not the number of patterns you implement that&rsquo;s important but how  you choose to implement them. For example, don&rsquo;t choose a pattern just  for the sake of using &lsquo;one&rsquo; but rather try understanding the pros and  cons of what particular patterns have to offer and make a judgement  based on it&rsquo;s fitness for your application.</p>
 <p>If I&rsquo;ve encouraged your interest in this area further and you would like to learn more about design patterns, there are a number of excellent titles on this area available for generic software development but also those that cover specific languages.</p>
 <p>For JavaScript developers, I recommend checking out two books:</p>
 <ol>
