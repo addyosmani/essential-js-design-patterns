@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">17</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">d03eeabf-7554-4cae-bf06-c17fbb931fcd</dc:identifier>
+        <dc:title>Essential JavaScript Design Patterns For Beginners</dc:title>
+        <dc:creator opf:file-as="Unknown" opf:role="aut">Addy Osmani</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (0.8.11) [http://calibre-ebook.com]</dc:contributor>
+        <dc:date>2011-07-25T05:51:26+00:00</dc:date>
+        <dc:publisher>AddyOsmani.com</dc:publisher>
+        <dc:language>en</dc:language>
+        <meta content="{&quot;Addy Osmani&quot;: &quot;&quot;}" name="calibre:author_link_map"/>
+        <meta content="JavaScript Design Patterns" name="calibre:series"/>
+        <meta content="1.50" name="calibre:series_index"/>
+        <meta content="0" name="calibre:rating"/>
+        <meta content="2011-07-25T05:51:25+00:00" name="calibre:timestamp"/>
+        <meta content="Essential JavaScript Design Patterns For Beginners" name="calibre:title_sort"/>
+    </metadata>
+    <guide>
+        <reference href="Essential JavaScript Design Patterns For Beginners - Addy Osmani.jpg" type="cover" title="Cover"/>
+    </guide>
+</package>

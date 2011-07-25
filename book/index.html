@@ -13,14 +13,12 @@
   <div class="header">
     <p>
   
-    <h1 class="booktitle">&nbsp;</h1>
     <h1 class="booktitle">Essential JavaScript Design Patterns For Beginners, Volume 1.</h1>
     <p class="bookauthor">Authored By <a href="http://www.twitter.com/addyosmani">Addy Osmani</a></p>
     
     <p>&nbsp;</p>
-    <p>&nbsp;</p>
     <p class="copyright">
-      Copyright 2011 © Addy Osmani. Last edited: July 17th, 2011.
+      Copyright 2011 © Addy Osmani. Last edited: July 25th, 2011.
     </p>
     <p class="copyright">Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Attribution-NonCommercial-ShareAlike 3.0</a> unported license. You are free to remix, tweak, and build upon this work non-commercially, as long as you credit Addy Osmani (the copyright holder) and license your new creations under the identical terms. Any of the above conditions can be waived if you get permission from the copyright holder. For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">link to the license</a>. </p>
     <p class="copyright">&nbsp;</p>
@@ -29,22 +27,11 @@
     <h1><strong>Foreword</strong></h1>
     <p>I would like to thank <a href="http://twitter.com/rmurphey">Rebecca Murphey</a> for inspiring me to open-source this mini-book and release it for free download and distribution - making knowledge both open and easily available is something we should all strive for where possible. I would also like to extend my thanks to the very talented <a href="http://twitter.com/slexaxton">Alex Sexton</a> who was kind enough to be the technical reviewer for this publication. I hope that it helps you learn more about design patterns and the usefulness of their application to JavaScript.</p>
     <p>Volume 2 of Essential JavaScript Design Patterns is currently being written and will be more detailed than this first edition. The ETA for it's online release is late summer, 2011.</p>
-    
     <p>&nbsp;</p>
-<h1><strong>Introduction</strong></h1>
-    <p>At the beginning of this book I will be focusing on a discussion about the importance and history of design patterns in any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter '<a href="#whatisapattern">What is a Pattern?</a>' to continue reading.</p>
-    <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.    </p>
-    <p>Design patterns can be traced back to the early work of a civil engineer named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
-    <p>In  collaboration with Sarah Ishikawra and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language'. </p>
-    <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry more than likely since its inception, albeit in a less formalized form. </p>
-    <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>'Design Patterns: Elements Of Reusable Object-Oriented Software</em>'. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
-    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section &lsquo;Categories of Design Patterns&rsquo;.</p>
-    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript, but also to abstracted libraries such as jQuery or Dojo as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
-    <p>&nbsp;</p>
-    <h1><em>Contents
-    </em></h1>
+    <h1><em>Contents</em></h1>
     <div id="contents-list">
       <ul>
+      	<li><a href="#introduction">Introduction</a></li>
         <li><a href="#whatisapattern">What is a Pattern?</a></li>
         <li><a href="#patternity">'Pattern'-ity Testing, Proto-Patterns &amp; The Rule Of Three</a></li>
         <li><a href="#designpatternstructure">The Structure Of A Design Pattern</a></li>
@@ -69,7 +56,7 @@
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
           </ul>
         </li>
-        <li><a href="#designpatternsjquery">A High-level View Of Design Patterns in jQuery        </a></li>
+        <li><a href="#designpatternsjquery">A High-level View Of Design Patterns In jQuery        </a></li>
         <ul>
           <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
           <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
@@ -89,6 +76,16 @@
       </ul>
 </div>
    </p>
+	<h1 id="introduction"><strong>Introduction</strong></h1>
+    <p>At the beginning of this book I will be focusing on a discussion about the importance and history of design patterns in any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter '<a href="#whatisapattern">What is a Pattern?</a>' to continue reading.</p>
+    <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.    </p>
+    <p>Design patterns can be traced back to the early work of a civil engineer named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
+    <p>In  collaboration with Sarah Ishikawra and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language'. </p>
+    <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry more than likely since its inception, albeit in a less formalized form. </p>
+    <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>'Design Patterns: Elements Of Reusable Object-Oriented Software</em>'. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
+    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section &lsquo;Categories of Design Patterns&rsquo;.</p>
+    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript, but also to abstracted libraries such as jQuery or Dojo as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
+    <p>&nbsp;</p>
     <p>&nbsp;</p>
     <h1 id="whatisapattern">What is a Pattern?</h1>
     <p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript applications. Another way of looking at patterns are as templates for how you solve problems - ones which can be used in quite a few different situations.</p>
@@ -1235,7 +1232,7 @@ Mixin.prototype = {
 function augment(receivingClass, givingClass) {
 	/* only provide certain methods */
 	if (arguments[2]) {
-		for (var i=0, len=arguments.length; i&lt;len; i++) {
+		for (var i=2, len=arguments.length; i&lt;len; i++) {
 			receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
 		}
 	}
