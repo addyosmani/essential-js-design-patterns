@@ -58,6 +58,15 @@
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
           </ul>
         </li>
+        <li><a href="#detailedpatterns">JavaScript Patterns In Greater Detail</a></li>
+        <ul>
+          <li class="subitem"><a href="#detailedobserver">Observer (Publish/Subscribe)</a>
+          <li class="subitem"><a href="#detailmvcmvp">MVC &amp; MVP Structural Patterns</a>
+          <li class="subitem"><a href="#detaildecorator">Decorator Pattern</a>
+          <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
+          <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
+          <li class="subitem"><a href="#detailmodule">Module Pattern</a>
+        </ul>
         <li><a href="#designpatternsjquery">A High-level View Of Design Patterns In jQuery        </a></li>
         <ul>
           <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
@@ -72,15 +81,6 @@
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
           <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
           <li class="subitem"><a href="#flyweightpatternjquery">Flyweight Pattern</a></li>
-        </ul>
-        <li><a href="#detailedpatterns">JavaScript Patterns In Greater Detail</a></li>
-        <ul>
-          <li class="subitem"><a href="#detailedobserver">Observer (Pub/Sub)</a>
-          <li class="subitem"><a href="#detailmvcmvp">MVC &amp; MVP</a>
-          <li class="subitem"><a href="#detaildecorator">Decorators</a>
-          <li class="subitem"><a href="#detailnamespacing">Namespacing</a>
-          <li class="subitem"><a href="#detailflyweight">Flyweights</a>
-          <li class="subitem"><a href="#detailmodule">Modules</a>
         </ul>
         <li><a href="#conclusions">Conclusions</a></li>
         <li><a href="#references">References</a></li>
@@ -1571,180 +1571,8 @@ decorator2.performTask();
 </p>
 
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<h1 id="designpatternsjquery">Design Patterns in jQuery</h1>
-<p>&nbsp;</p>
-<p>Now that we've taken a look at vanilla-JavaScript implementations of popular design patterns, let's switch gears and find out what of these design patterns might look like when implemented using jQuery. jQuery (as you may know) is currently the most popular JavaScript library and provides a layer of 'sugar' on top of regular JavaScript with a syntax that can be easier to understand at a glance.</p>
-<p>Before we dive into this section, it's important to remember that many vanilla-JavaScript design patterns can be intermixed with jQuery when used correctly because jQuery is still essentially JavaScript itself. <br>
-  <br>
-  jQuery is an interesting topic to discuss in the realm of patterns because the library actually uses a number of design patterns itself. &nbsp;What impresses me is just how cleanly all of the patterns it uses have been implemented so that they exist in harmony. </p>
-<p>Let's take a look at what some of these patterns are and how they are used.<br>
-</p>
-<p>&nbsp;</p>
-<h2 id="modulepatternjquery"><strong>Module Pattern</strong></h2>
-
-<p><br>
-The <strong>Module Pattern</strong> is based on the idea of having an encapsulated module which doesn't conflict with other modules in your code nor modules created by others which are included through other scripts on the page. This pattern is covered in greater detail in the section on pattern implementations in JavaScript but below is a version showing how you can use it in jQuery.
-  <br>
-<pre  class="brush: js">
-   
-$(function(){
-	var itemClass = (function(){
-		var someItem = $('#item');
-		return {
-			thisItem: function(){
-                var thisItem = document.createElement("div");
-                $(thisItem)
-                    .html("test")
-                    .appendTo("#container");
-			}
-		};
-	})();
-});
 
 
-
-
-</pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="lazyinitialisationjquery"><strong>Lazy Initialization</strong></h2>
-<p><br>
-  <strong>Lazy Initialization </strong>is a design pattern where you employ a tactic of delaying any expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the .ready() function in jQuery that only executes a function once the DOM has fully loaded.<br>
-  <br>
-<pre  class="brush: js">
-   
-  $(document).ready(function(){
-      $('#content').fadeIn();
-  });
-
-
-</pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="compositepatternjquery"><strong>The Composite Pattern</strong></h2>
-<p><br>
-  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both in a uniform manner. This is demonstrated by the code sample below:<br>
-  <br>
-<pre  class="brush: js">
-   
- $('#someDiv').addClass('active');  // a single element
-  $('div').addClass('active');      // a collection of elements
-  
-  </pre>
-<br>
-<br>
-<h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
-<p><br>
-  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a compatible interface. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
-  <br>
-<pre  class="brush: js">
-   
-  $('.container').css({
-        opacity: .5 //apply opacity in modern browsers (eg. Chrome, FireFox) but use filter for IE
-    });
-
-</pre>
-<p>&nbsp;</p>
-<h2 id="facadepatternjquery"><strong>The Facade Pattern</strong></h2>
-<p><br>
-  <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's $.ajax():<br>
-  <br>
-<pre  class="brush: js">
-   
-    $.get();
-    $.post();
-    $.getJSON();
-    $.getScript();
-  
-  
-  </pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
-<p><br>
-  <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered a subset of PubSub (publish/subscribe pattern).<br>
-  <br>
-<pre  class="brush: js">
-   
- //Here jQuery makes use of its event system on top of DOM events 
-    $('.button').click(function(){});
-    $('.button').trigger('click', function(){});
-
-  </pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="iteratorpatternjquery"><strong>The Iterator Pattern</strong></h2>
-<p><br>
-  <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form. Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's .each() iterator, you are actually able to use the underlying code behind .each() to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. <br>
-  <br>
-<pre  class="brush: js">
-   
-   
-    $.each(function(){});
-    $('.items').each(function(){});
-  
-  </pre>
-<p>An interesting side-note is that jQuery's 'each' method is backwards from the ECMAScript 5 way of doing this but may change at some point in the future.</p>
-<p>&nbsp;</p>
-<h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
-<p><br>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them. An example of this is where jQuery's toggle() allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
-  <br>
-<pre  class="brush: js">
-
-   $('#container').toggle(function(){}, function(){});
-
-  </pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="proxypatternjquery"><strong>The Proxy Pattern</strong></h2>
-<p><br>
-  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else. The proxy can be an interface to almost anything: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's .proxy() function takes as input a function and returns a new one that will always have a particular context. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
-  <br>
-<pre  class="brush: js">
-  
-      $.proxy(function(){}, obj);
-  
-  </pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="builderpatternjquery"><strong>The Builder Pattern</strong></h2>
-<p><br>
-  <strong>The Builder Pattern</strong>'s main concept is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below is an example of how jQuery utilizes this pattern to allow an element which you may wish to append to the document body to be constructed using a string definition. <br>
-  <br>
-<pre  class="brush: js">
-$('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
-  </pre>
-</p>
-<p>&nbsp;</p>
-<h2 id="prototypepatternjquery"><strong>The Prototype Pattern</strong></h2>
-<p><br>
-  <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample which extends the jQuery.fn object for a minimal plugin, underlying prototypal code makes this possible:<br>
-  <br>
-<pre  class="brush: js">  
-    $.fn.plugin = function(){};
-    $('#container').plugin();
-  </pre>
-</p>
-<p><br>
-</p>
-<h2 id="flyweightpatternjquery"><strong>The Flyweight Pattern</strong></h2>
-<p><br>
-  <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed.<br>
-  <br>
-<pre  class="brush: js">
-    // The userConfig is shared here:
-    $.fn.plugin = function(userConfig){
-         userConfig = $.extend({
-             content: 'Hello user!'
-         }, userConfig);
-         return this.html(useConfig.content);
-     };
-  
-  </pre>
-<p>A side-note here is that prototypal inheritance in JavaScript uses differential inheritance to only define objects once in a prototype chain until they are overridden. This makes it easier to save memory.</p>
-<p></p>
 <p>&nbsp;</p>
 
 <h1 id="detailedpatterns">Patterns In Greater Detail</h1>
@@ -2660,11 +2488,11 @@ var PhotosController = Spine.Controller.sub({
 <p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
 <p>&nbsp;</p>
 
-<h1 id="detaildecorator">Decorators</h1>
+<h1 id="detaildecorator">Decorator Pattern</h1>
 
 
 
-<p>In this section we're going to review the <strong>decorator</strong> pattern, a structural pattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
+<p>In this section we're going to continue exploring the <strong>decorator</strong>  - a structural  designpattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
 <p><!--more--></p>
 <p>Traditionally, the decorator is defined as a design pattern that allows behaviour to be added to an existing object dynamically. The idea is that the decoration itself isn&#39;t essential to the base functionality of an object otherwise it would be baked into the &#39;superclass&#39; object itself.</p>
 <h2>Subclassing</h2>
@@ -2957,9 +2785,9 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <p>&nbsp;</p>
 
 
-<h1 id="detailnamespacing">Namespacing</h1>
+<h1 id="detailnamespacing">Namespacing Patterns</h1>
 
-<p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however ig you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
+<p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however iF you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
 
 <h2>What is namespacing?</h2>
 <p>In many programming languages, namespacing is a technique employed to avoid <b>collisions</b> with other objects or variables in the global namespace. They&#39;re also extremely useful for helping organize blocks of functionality in your application into easily manageable groups that can be uniquely identified.</p>
@@ -4055,6 +3883,181 @@ var myLibrary = library(function() {
 
 
 <p>Note: I have also written extensively on modern module formats including AMD and CommonJS. If you would like to learn more about these and the upcoming modules in ES.next, please feel free to continue reading about them <a href="http://addyosmani.com/writing-modular-js/">here</a>.</p>
+
+<p>&nbsp;</p>
+<h1 id="designpatternsjquery">A High-level View Of Design Patterns in jQuery</h1>
+<p>&nbsp;</p>
+<p>Now that we've taken a look at vanilla-JavaScript implementations of popular design patterns, let's switch gears and find out what of these design patterns might look like when implemented using jQuery. jQuery (as you may know) is currently the most popular JavaScript library and provides a layer of 'sugar' on top of regular JavaScript with a syntax that can be easier to understand at a glance.</p>
+<p>Before we dive into this section, it's important to remember that many vanilla-JavaScript design patterns can be intermixed with jQuery when used correctly because jQuery is still essentially JavaScript itself. <br>
+  <br>
+  jQuery is an interesting topic to discuss in the realm of patterns because the library actually uses a number of design patterns itself. &nbsp;What impresses me is just how cleanly all of the patterns it uses have been implemented so that they exist in harmony. </p>
+<p>Let's take a look at what some of these patterns are and how they are used.<br>
+</p>
+<p>&nbsp;</p>
+<h2 id="modulepatternjquery"><strong>Module Pattern</strong></h2>
+
+<p><br>
+The <strong>Module Pattern</strong> is based on the idea of having an encapsulated module which doesn't conflict with other modules in your code nor modules created by others which are included through other scripts on the page. This pattern is covered in greater detail in the section on pattern implementations in JavaScript but below is a version showing how you can use it in jQuery.
+  <br>
+<pre  class="brush: js">
+   
+$(function(){
+	var itemClass = (function(){
+		var someItem = $('#item');
+		return {
+			thisItem: function(){
+                var thisItem = document.createElement("div");
+                $(thisItem)
+                    .html("test")
+                    .appendTo("#container");
+			}
+		};
+	})();
+});
+
+
+
+
+</pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="lazyinitialisationjquery"><strong>Lazy Initialization</strong></h2>
+<p><br>
+  <strong>Lazy Initialization </strong>is a design pattern where you employ a tactic of delaying any expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the .ready() function in jQuery that only executes a function once the DOM has fully loaded.<br>
+  <br>
+<pre  class="brush: js">
+   
+  $(document).ready(function(){
+      $('#content').fadeIn();
+  });
+
+
+</pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="compositepatternjquery"><strong>The Composite Pattern</strong></h2>
+<p><br>
+  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both in a uniform manner. This is demonstrated by the code sample below:<br>
+  <br>
+<pre  class="brush: js">
+   
+ $('#someDiv').addClass('active');  // a single element
+  $('div').addClass('active');      // a collection of elements
+  
+  </pre>
+<br>
+<br>
+<h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
+<p><br>
+  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a compatible interface. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
+  <br>
+<pre  class="brush: js">
+   
+  $('.container').css({
+        opacity: .5 //apply opacity in modern browsers (eg. Chrome, FireFox) but use filter for IE
+    });
+
+</pre>
+<p>&nbsp;</p>
+<h2 id="facadepatternjquery"><strong>The Facade Pattern</strong></h2>
+<p><br>
+  <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's $.ajax():<br>
+  <br>
+<pre  class="brush: js">
+   
+    $.get();
+    $.post();
+    $.getJSON();
+    $.getScript();
+  
+  
+  </pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
+<p><br>
+  <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered a subset of PubSub (publish/subscribe pattern).<br>
+  <br>
+<pre  class="brush: js">
+   
+ //Here jQuery makes use of its event system on top of DOM events 
+    $('.button').click(function(){});
+    $('.button').trigger('click', function(){});
+
+  </pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="iteratorpatternjquery"><strong>The Iterator Pattern</strong></h2>
+<p><br>
+  <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form. Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's .each() iterator, you are actually able to use the underlying code behind .each() to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. <br>
+  <br>
+<pre  class="brush: js">
+   
+   
+    $.each(function(){});
+    $('.items').each(function(){});
+  
+  </pre>
+<p>An interesting side-note is that jQuery's 'each' method is backwards from the ECMAScript 5 way of doing this but may change at some point in the future.</p>
+<p>&nbsp;</p>
+<h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
+<p><br>
+  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them. An example of this is where jQuery's toggle() allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
+  <br>
+<pre  class="brush: js">
+
+   $('#container').toggle(function(){}, function(){});
+
+  </pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="proxypatternjquery"><strong>The Proxy Pattern</strong></h2>
+<p><br>
+  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else. The proxy can be an interface to almost anything: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's .proxy() function takes as input a function and returns a new one that will always have a particular context. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
+  <br>
+<pre  class="brush: js">
+  
+      $.proxy(function(){}, obj);
+  
+  </pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="builderpatternjquery"><strong>The Builder Pattern</strong></h2>
+<p><br>
+  <strong>The Builder Pattern</strong>'s main concept is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below is an example of how jQuery utilizes this pattern to allow an element which you may wish to append to the document body to be constructed using a string definition. <br>
+  <br>
+<pre  class="brush: js">
+$('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
+  </pre>
+</p>
+<p>&nbsp;</p>
+<h2 id="prototypepatternjquery"><strong>The Prototype Pattern</strong></h2>
+<p><br>
+  <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample which extends the jQuery.fn object for a minimal plugin, underlying prototypal code makes this possible:<br>
+  <br>
+<pre  class="brush: js">  
+    $.fn.plugin = function(){};
+    $('#container').plugin();
+  </pre>
+</p>
+<p><br>
+</p>
+<h2 id="flyweightpatternjquery"><strong>The Flyweight Pattern</strong></h2>
+<p><br>
+  <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed.<br>
+  <br>
+<pre  class="brush: js">
+    // The userConfig is shared here:
+    $.fn.plugin = function(userConfig){
+         userConfig = $.extend({
+             content: 'Hello user!'
+         }, userConfig);
+         return this.html(useConfig.content);
+     };
+  
+  </pre>
+<p>A side-note here is that prototypal inheritance in JavaScript uses differential inheritance to only define objects once in a prototype chain until they are overridden. This makes it easier to save memory.</p>
+<p></p>
 
 
 <p>&nbsp;</p>
