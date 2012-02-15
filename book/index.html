@@ -48,6 +48,7 @@
             <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
             <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
             <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
+             <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
             <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
             <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
             <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
@@ -804,7 +805,6 @@ myRevealingModule.get();
 	<li>Abstract coupling between subjects and observers where each can be extended and re-used individually.</li>
 </ul>
 </p>
-<p>&nbsp;</p>
 <p>A draw-back of the pattern is that observers are ignorant to the existence of each other and are blind to the cost of switching in subject. Due to the dynamic relationship between subjects and observers the update dependency can be difficult to track.</p>
 
 <p>Although many examples of where the observer pattern can be used correctly exist, a popular one in academic circles is the example of a spreadsheet application. Let us imagine that this application is Google Docs, where a number of UI components may be in use: the spreadsheet's formula bar (ssFormula), a pie-chart (ssPieChart) and a bar graph (ssBarGraph). The data source for all of these components will be referred to as 'ssSpreadsheetData'. ssFormula, ssPieChart and ssBarGraph are all observer objects. ssSpreadsheetData may be considered the subject object. The ssSpreadsheet data object notifies its observers when a data change occurs which could make its state inconsistent with the observers. </p>
@@ -917,7 +917,139 @@ pubsub.publish( 'example1', 'hello again! (this will fail)' );
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+
+<h2 id="mediatorpatternjavascript">The Mediator Pattern</h2>
+
 <p>
+The dictionary refers to a Mediator as 'a neutral party who assists in negotiations and conflict resolution'.
+</p>
+<p>
+In software engineering, a Mediator is a behavioural design pattern that allows us to expose a unified interface through which the different parts of a system may communicate. If it appears a system may have too many direct relationships between modules (colleagues), it may be time to have a central point of control that modules communicate through instead. The Mediator promotes loose coupling by ensuring that instead of modules referring to each other explicitly, their interaction is handled through this central point.
+</p>
+<p>
+If you would prefer an analogy, consider a typical airport traffic control system. A tower (Mediator) handles what planes (modules) can take off and land because all communications are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a mediator plays in software design.
+</p>
+<p>
+In real-world terms, a mediator encapsulates how disparate modules interact with each other by acting as an intermediary. At it's most basic, a mediator could be implemented as a central base for accessing functionality as follows:</p>
+
+<pre class="brush: js">
+// Our app namespace can act as a mediator
+var app = app || {};
+
+// Communicate through the mediator for Ajax requests
+app.sendRequest = function ( options ) {
+    return $.ajax($.extend({}, options);
+}
+
+// When a request for a URL resolves, do something with the view
+app.populateView = function( url, view ){
+  $.when(app.sendRequest({url: url, method: 'GET'})
+     .then(function(){
+         //populate the view
+     });
+}
+
+// Empty a view of any content it may contain
+app.resetView = function( view ){
+   view.html('');
+}
+</pre>
+
+<p>That said, in the JavaScript world it's become quite common for the Mediator to act as a messaging bus on top of the Observer-pattern. Rather than modules calling a Publish/Subscribe implementation, they'll use a Mediator with these capabilities built in instead. A possible implementation of this (based on work by Ryan Florence) could look as follows:</p>
+
+<pre class="brush: js">
+var mediator = (function(){
+    // Subscribe to an event, supply a callback to be executed 
+    // when that event is broadcast
+    var subscribe = function(channel, fn){
+        if (!mediator.channels[channel]) mediator.channels[channel] = [];
+        mediator.channels[channel].push({ context: this, callback: fn });
+        return this;
+    },
+
+    // Publish/broadcast an event to the rest of the application
+    publish = function(channel){
+        if (!mediator.channels[channel]) return false;
+        var args = Array.prototype.slice.call(arguments, 1);
+        for (var i = 0, l = mediator.channels[channel].length; i < l; i++) {
+            var subscription = mediator.channels[channel][i];
+            subscription.callback.apply(subscription.context, args);
+        }
+        return this;
+    };
+
+    return {
+        channels: {},
+        publish: publish,
+        subscribe: subscribe,
+        installTo: function(obj){
+            obj.subscribe = subscribe;
+            obj.publish = publish;
+        }
+    };
+
+}());
+</pre>
+
+<p>Here are two sample uses of the implementation from above. It's effectively centralized Publish/Subscribe where a mediated implementation of the Observer pattern is used:</p>
+
+<pre class="brush: js">
+(function(Mediator){
+
+    function initialize(){
+
+      // Set a default value for 'name'
+      mediator.name = "tim";
+
+      // Subscribe to an event called 'nameChange' with
+      // a callback function which will log the original
+      // name and (if everything works) the new name
+
+      mediator.subscribe('nameChange', function(arg){
+          console.log(this.name);
+          this.name = arg;
+          console.log(this.name);
+     });
+    }
+
+    function updateName(){
+      // Publish/Broadcast the 'nameChange' event with the new data
+      mediator.publish('nameChange', 'david'); // tim, david
+    }
+
+})(mediator);
+
+</pre>
+
+<h3>Advantages &amp; Disadvantages</h3>
+
+<p>The benefits of the Mediator pattern are that that it simplifies object interaction and can aid with decoupling those using it as a communication hub. In the above example, rather than using the Observer pattern to explicitly set many-to-many listeners and events, a Mediator allows you to broadcast events globally between subscribers and publishers. Broadcasted events can be handled by any number of modules at once and a mediator can used for a number of other purposes such as permissions management, given that it can control what messages can be subscribed to and which can be broadcast.</p>
+
+<p>
+Perhaps the biggest downside of using the Mediator pattern is that it can introduce a single point of failure. Placing a Mediator between modules can also cause a performance hit as they are always communicating indirectly.Because of the nature of loose coupling, its difficult to establish how a system might react by only looking at the broadcasts. That said, it's useful to remind ourselves that decoupled systems have a number of other benefits - if our modules communicated with each other directly, changes to modules (e.g another module throwing an exception) could easily have a domino effect on the rest of your application. This problem is less of a concern with decoupled systems.</p>
+
+<p>At the end of the day, tight coupling causes all kinds of headaches and this is just another alternative solution, but one which can work very well if implemented correctly.</p>
+
+<h3>Mediator Vs. Observer</h3>
+<p>
+Developers often wonder what the differences are between the Mediator pattern and the Observer pattern. Admittedly, there is a bit of overlap, but let's refer back to the GoF for an explanation:</p>
+<p>
+<em>"In the Observer pattern, there is no single object that encapsulates a constraint. Instead, the Observer and the Subject must cooperate to maintain the constraint. Communication patterns are determined by the way observers and subjects are interconnected: a single subject usually has many observers, and sometimes the observer of one subject is a subject of another observer."</em></p>
+
+<p>
+The Mediator pattern centralizes rather than simply just distributing. It places the responsibility for maintaining a constraint squarely in the mediator.</p>
+
+<h3>Mediator Vs. Facade</h3>
+<p>
+Some developers may also wonder whether there are similarities between the Mediator and Facade patterns. They do both abstract the functionality of existing modules, but there are some subtle differences.</p>
+
+<p>
+The Mediator centralizes communication between modules where it's explicitly referenced by these modules. In a sense this is multidirectional. The Facade however just defines a simpler interface to a module or system but doesn't add any additional functionality. Other modules in the system aren't directly aware of the concept of a facade and could be considered unidirectional.
+</p>
+
+<p>
+ <p>&nbsp;</p>
+  <p>&nbsp;</p>
 </p>
 <h2 id="prototypepatternjavascript">The Prototype Pattern</h2>
 <p>The prototype pattern is based on the concept of prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates.If the prototype of the constructor function used contains a property called 'name' for example (as per the code sample below), then each object created by that same constructor will also have this same property.</p>
@@ -1137,32 +1269,106 @@ $('.someCheckbox').click(function(){        
 </p>
 <p>&nbsp;</p>
 <h2 id="facadepatternjavascript">The Facade Pattern</h2>
-<p><br>
-  This pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. Facades are often considered an essential part of a developer&rsquo;s pattern toolkit - they can make library utilities significantly easier to understand by creating convenience routines that simplify the use of complex systems. <br>
-  <br>
-  An example of where the Facade pattern can be found is in the creation of uniform JavaScript APIs which often seek to provide consistent experiences across all browsers. Facades provide us with an ability to indirectly interact with subsystems in a way that may be less prone to error than accessing the subsystem directly.<br>
-  <br>
-  Facade&rsquo;s advantages include ease of use and often a small size-footprint in implementing the pattern. It does however have some pitfalls - Facade is inefficient when used consecutively and each time it&rsquo;s called a new check must be made to determine the features available for attaching event listeners. Let&rsquo;s take a look at the pattern in action:<br>
-  <br>
-  This is an unoptimized code example but here we utilize Facade to simplify an interface for attaching events. We do this by creating a common method that can be used in one&rsquo;s code which does the task of checking for the existence of features so that it can provide a safe and cross-browser compatible solution.</p>
-<p>
-<pre  class="brush: js">
 
+<p>When we put up a facade, we present an outward appearance to the world which may conceal a very different reality. This was the inspiration for the name behind the next pattern we're going to review - the facade pattern. The facade pattern provides a convenient higher-level interface to a larger body of code, hiding its true underlying complexity. Think of it as simplifying the API being presented to other developers, something which almost always improves usability.</p>
+
+<p>
+Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a 'facade' or limited abstraction of these methods is presented to the public for use.</p>
+
+<p>
+This allows us to interact with the facade rather than the subsystem behind the scenes. Whenever you're using jQuery's ```$(el).css()``` or ```$(el).animate()``` methods, you're actually using a facade - the simpler public interface that avoids you having to manually call the many internal methods in jQuery core required to get some behaviour working.</p>
+
+<p>
+The facade pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. This gives us the ability to indirectly interact with subsystems in a way that can sometimes be less prone to error than accessing the subsystem directly. A facade's advantages include ease of use and often a small size-footprint in implementing the pattern. </p>
+
+<p>
+Let’s take a look at the pattern in action. This is an unoptimized code example, but here we're utilizing a facade to simplify an interface for listening to events cross-browser. We do this by creating a common method that can be used in one’s code which does the task of checking for the existence of features so that it can provide a safe and cross-browser compatible solution.</p>
+
+<pre class="brush: js">
 
 var addMyEvent = function(el,ev,fn){
-   if(el.addEventListener){
-			el.addEventListener(ev,fn, false);
+   if(el.addEventListener){
+            el.addEventListener(ev,fn, false);
       }else if(el.attachEvent){
-			el.attachEvent('on'+ev, fn);
+            el.attachEvent('on'+ev, fn);
       } else{
- 			el['on' + ev] = fn;
-    }
-}; 
-
-
+           el['on' + ev] = fn;
+    }
+};
 
 </pre>
+
+<p>
+In a similar manner, we're all familiar with jQuery's <code>$(document).ready(..)</code>. Internally, this is actually being powered by a method called <code>bindReady()</code>, which is doing this:</p>
+
+<pre class="brush: js">
+
+bindReady: function() {
+    ...
+    if ( document.addEventListener ) {
+      // Use the handy event callback
+      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+
+      // A fallback to window.onload, that will always work
+      window.addEventListener( "load", jQuery.ready, false );
+
+    // If IE event model is used
+    } else if ( document.attachEvent ) {
+
+      document.attachEvent( "onreadystatechange", DOMContentLoaded );
+
+      // A fallback to window.onload, that will always work
+      window.attachEvent( "onload", jQuery.ready );
+               ...
+
+</pre>
+<p>
+This is another example of a facade, where the rest of the world simply uses the limited interface exposed by <code>$(document).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
+
+<p>
+Facades don't just have to be used on their own, however. They can also be integrated with other patterns such as the module pattern. As you can see below, our instance of the module patterns contains a number of methods which have been privately defined. A facade is then used to supply a much simpler API to accessing these methods:
 </p>
+<pre class="brush: js">
+
+var module = (function() {
+    var _private = {
+        i:5,
+        get : function() {
+            console.log('current value:' + this.i);
+        },
+        set : function( val ) {
+            this.i = val;
+        },
+        run : function() {
+            console.log('running');
+        },
+        jump: function(){
+            console.log('jumping');
+        }
+    };
+    return {
+        facade : function( args ) {
+            _private.set(args.val);
+            _private.get();
+            if ( args.run ) {
+                _private.run();
+            }
+        }
+    }
+}());
+ 
+ 
+module.facade({run: true, val:10});
+//outputs current value: 10, running
+
+</pre>
+
+<p>
+In this example, calling <code>module.facade()</code> will actually trigger a set of private behaviour within the module, but again, the user isn't concerned with this. We've made it much easier for them to consume a feature without needing to worry about implementation-level details.
+</p>
+
+
+
 <p>&nbsp;</p>
 <h2 id="factorypatternjavascript">The Factory Pattern</h2>
 <p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
