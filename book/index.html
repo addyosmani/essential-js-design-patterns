@@ -3890,53 +3890,90 @@ var myLibrary = library(function() {
 <h2 id="modulepatternjquery"><strong>Module Pattern</strong></h2>
 
 <p><br>
-The <strong>Module Pattern</strong> is based on the idea of having an encapsulated module which doesn't conflict with other modules in your code nor modules created by others which are included through other scripts on the page. This pattern is covered in greater detail in the section on pattern implementations in JavaScript but below is a version showing how you can use it in jQuery.
+The <strong>Module Pattern</strong> allows us to encapsulate logic for a unit of code such that we can have both private and public methods and variables. This can be applied to writing jQuery plugins, where a private API holds any code we don't wish to expose and a public API contains anything a user will be allowed to interact with. 
   <br>
 <pre  class="brush: js">
-   
-$(function(){
-	var itemClass = (function(){
-		var someItem = $('#item');
-		return {
-			thisItem: function(){
-                var thisItem = document.createElement("div");
-                $(thisItem)
-                    .html("test")
-                    .appendTo("#container");
-			}
-		};
-	})();
-});
+!function(exports, $, undefined){
+
+    var Plugin = function(){
+
+        // Our private API
+        var priv = {},
+
+            // Our public API
+            Plugin = {},
+
+            // Plugin defaults
+            defaults = {};
+
+        // Private options and methods
+        priv.options = {};
+        priv.method1 = function(){};
+        priv.method2 = function(){};
+
+        // Public methods
+        Plugin.method1 = function(){...};
+        Plugin.method2 = function(){...};
+
+        // Public initializatio
+        Plugin.init = function(options) {
+            $.extend(priv.options, defaults, options);
+            priv.method1();
+            return Plugin;
+        }
+
+        // Return the Public API (Plugin) we want
+        // to expose
+        return Plugin;
+    }
 
 
+    exports.Plugin = Plugin;
 
-
+}(this, jQuery);
 </pre>
 </p>
+<p>This can then be used as follows:</p>
+<pre class="brush: js">
+var myPlugin = new Plugin;
+myPlugin.init(/* custom options */);
+myPlugin.method1();
+</pre>
 <p>&nbsp;</p>
 <h2 id="lazyinitialisationjquery"><strong>Lazy Initialization</strong></h2>
 <p><br>
-  <strong>Lazy Initialization </strong>is a design pattern where you employ a tactic of delaying any expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the .ready() function in jQuery that only executes a function once the DOM has fully loaded.<br>
+  <strong>Lazy Initialization </strong>is a design pattern wish allows us to delay expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.<br>
   <br>
 <pre  class="brush: js">
-   
-  $(document).ready(function(){
-      $('#content').fadeIn();
-  });
 
+$(document).ready(function(){
+    // The ajax request won't attempt to execute until
+    // the DOM is ready
+    $.ajax({
+      url: 'http://jquery.com/sample.json',
+      success: function( data ) {
+        $('.status').html('content loaded');
+        console.log( 'Data output:' + data );
+      }
+    });
+});
 
 </pre>
 </p>
 <p>&nbsp;</p>
 <h2 id="compositepatternjquery"><strong>The Composite Pattern</strong></h2>
 <p><br>
-  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both in a uniform manner. This is demonstrated by the code sample below:<br>
+  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both sets in a uniform manner. This is demonstrated by the code sample below:<br>
   <br>
 <pre  class="brush: js">
-   
- $('#someDiv').addClass('active');  // a single element
-  $('div').addClass('active');      // a collection of elements
-  
+// Single elements
+$('#singleItem').addClass('active'); 
+$('#container').addClass('active'); 
+
+// Collections of elements
+$('div').addClass('active'); 
+$('.item').addClass('active'); 
+$('input').addClass('active'); 
   </pre>
 <br>
 <br>
@@ -3946,48 +3983,78 @@ $(function(){
   <br>
 <pre  class="brush: js">
    
-  $('.container').css({
+$('.container').css({
         opacity: .5 
         // apply opacity in modern browsers 
         // (eg. Chrome, FireFox) but use filter for IE
-    });
+});
 
 </pre>
 <p>&nbsp;</p>
 <h2 id="facadepatternjquery"><strong>The Facade Pattern</strong></h2>
 <p><br>
-  <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's $.ajax():<br>
+  <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's <code>$.ajax()</code>:<br>
   <br>
 <pre  class="brush: js">
-   
-    $.get();
-    $.post();
-    $.getJSON();
-    $.getScript();
-  
-  
+$.get();
+$.post();
+$.getJSON();
+$.getScript();  
   </pre>
 </p>
+<p>These are translated behind the scenes to:</p>
+<pre class="brush: js">
+// $.get()
+$.ajax({
+  url: url,
+  data: data,
+  success: success,
+  dataType: dataType
+});
+
+// $.post
+$.ajax({
+  type: 'POST',
+  url: url,
+  data: data,
+  success: success,
+  dataType: dataType
+});
+
+// $.getJSON()
+$.ajax({
+  url: url,
+  dataType: 'json',
+  data: data,
+  success: callback
+});
+
+// $.getScript()
+$.ajax({
+  url: url,
+  dataType: "script",
+  success: success
+});
+
+</pre>
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
 <p><br>
   <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered the original idea driving Publish/Subscribe systems.<br>
   <br>
 <pre  class="brush: js">
-   
-    // Here jQuery makes use of it's robust event system on top of DOM events 
- 
-    // Equivalent to subscribe(topicName, callback)
-    $(document).on('topicName', function(){
-      //..perform some behaviour
-    });
+// Here jQuery makes use of it's robust event system on top of DOM events 
 
-    // Equivalent to publish(topicName)
-    $(document).trigger('topicName');
+// Equivalent to subscribe(topicName, callback)
+$(document).on('topicName', function(){
+    //..perform some behaviour
+});
 
-    // Equivalent to unsubscribe(topicName)
-    $(document).off('topicName');
+// Equivalent to publish(topicName)
+$(document).trigger('topicName');
 
+// Equivalent to unsubscribe(topicName)
+$(document).off('topicName');
   </pre>
 </p>
 <p>&nbsp;</p>
@@ -3996,22 +4063,28 @@ $(function(){
   <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form. Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's .each() iterator, you are actually able to use the underlying code behind .each() to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. <br>
   <br>
 <pre  class="brush: js">
-   
-   
-    $.each(function(){});
-    $('.items').each(function(){});
+
+ $.each(['john','dave','rick','julian'], function(index, value) { 
+  console.log(index + ': ' + value); 
+});
+
+$('li').each(function(index) {
+  console.log(index + ': ' + $(this).text());
+});
   
   </pre>
-<p>An interesting side-note is that jQuery's 'each' method is backwards from the ECMAScript 5 way of doing this but may change at some point in the future.</p>
 <p>&nbsp;</p>
 <h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
 <p><br>
   <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them. An example of this is where jQuery's toggle() allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
   <br>
 <pre  class="brush: js">
-
-   $('#container').toggle(function(){}, function(){});
-
+$('button').toggle(function(){
+    console.log('path 1');
+}, 
+function(){
+    console.log('path 2');
+});
   </pre>
 </p>
 <p>&nbsp;</p>
@@ -4019,46 +4092,68 @@ $(function(){
 <p><br>
   <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else. The proxy can be an interface to almost anything: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's .proxy() function takes as input a function and returns a new one that will always have a particular context. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
   <br>
-<pre  class="brush: js">
-  
-      $.proxy(function(){}, obj);
-  
+<pre  class="brush: js"> 
+$.proxy(function(){}, obj);  
   </pre>
 </p>
 <p>&nbsp;</p>
 <h2 id="builderpatternjquery"><strong>The Builder Pattern</strong></h2>
 <p><br>
-  <strong>The Builder Pattern</strong>'s main concept is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below is an example of how jQuery utilizes this pattern to allow an element which you may wish to append to the document body to be constructed using a string definition. <br>
+  <strong>The Builder Pattern</strong>'s general idea is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below are examples of how jQuery utilizes this pattern to allow you to dynamically create new elements. <br>
   <br>
 <pre  class="brush: js">
-$('&lt;div class= "foo"&gt; bar &lt;/div&gt;');
+$(&#39;&lt;div class= &quot;foo&quot;&gt;bar&lt;/div&gt;&#39;);
+
+$(&#39;&lt;p id=&quot;test&quot;&gt;foo &lt;em&gt;bar&lt;/em&gt;&lt;/p&gt;&#39;).appendTo(&#39;body&#39;);
+
+var newParagraph = $('&lt;p /&gt;').text("Hello world");
+
+$('&lt;input /&gt;').attr({'type':'text', 'id':'sample'})
+                  .appendTo('#container');
   </pre>
 </p>
 <p>&nbsp;</p>
 <h2 id="prototypepatternjquery"><strong>The Prototype Pattern</strong></h2>
 <p><br>
-  <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample which extends the jQuery.fn object for a minimal plugin, underlying prototypal code makes this possible:<br>
+  <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample we extend the jQuery.fn object for a minimal plugin using this concept:<br>
   <br>
 <pre  class="brush: js">  
-    $.fn.plugin = function(){};
-    $('#container').plugin();
+(function( $ ) {
+  $.fn.myPlugin = function() {
+    // Your plugin logic goes here
+  };
+})( jQuery );
+
+$('#container').myPlugin();
   </pre>
 </p>
 <p><br>
 </p>
 <h2 id="flyweightpatternjquery"><strong>The Flyweight Pattern</strong></h2>
 <p><br>
-  <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed.<br>
+  <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed. In the following example, we use a shared jQuery <code>.data()</code> store rather than opting to store data on a per-element basis. <br>
   <br>
 <pre  class="brush: js">
-    // The userConfig is shared here:
-    $.fn.plugin = function(userConfig){
-         userConfig = $.extend({
-             content: 'Hello user!'
-         }, userConfig);
-         return this.html(useConfig.content);
-     };
-  
+
+// When we call .data() without any additional parameters, 
+// we can safely cache this in a variable and get or set 
+// values directly. This is faster than making individual 
+// calls to .data()
+
+var mydata = $("#container").data();
+
+// Set some initial data using our data store
+mydata.status = 'live';
+mydata.count = 56;
+
+$('#refreshStatus').on('click', function(e){
+    var currentStatus = $('#status');
+    if(mydata.status === 'live'){
+       currentStatus.html('We are live!');
+    }else{
+      currentStatus.html('We are offline');
+   }
+});
   </pre>
 <p>A side-note here is that prototypal inheritance in JavaScript uses differential inheritance to only define objects once in a prototype chain until they are overridden. This makes it easier to save memory.</p>
 <p></p>
