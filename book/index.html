@@ -3947,7 +3947,9 @@ $(function(){
 <pre  class="brush: js">
    
   $('.container').css({
-        opacity: .5 //apply opacity in modern browsers (eg. Chrome, FireFox) but use filter for IE
+        opacity: .5 
+        // apply opacity in modern browsers 
+        // (eg. Chrome, FireFox) but use filter for IE
     });
 
 </pre>
@@ -3969,13 +3971,22 @@ $(function(){
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
 <p><br>
-  <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered a subset of PubSub (publish/subscribe pattern).<br>
+  <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered the original idea driving Publish/Subscribe systems.<br>
   <br>
 <pre  class="brush: js">
    
- //Here jQuery makes use of its event system on top of DOM events 
-    $('.button').click(function(){});
-    $('.button').trigger('click', function(){});
+    // Here jQuery makes use of it's robust event system on top of DOM events 
+ 
+    // Equivalent to subscribe(topicName, callback)
+    $(document).on('topicName', function(){
+      //..perform some behaviour
+    });
+
+    // Equivalent to publish(topicName)
+    $(document).trigger('topicName');
+
+    // Equivalent to unsubscribe(topicName)
+    $(document).off('topicName');
 
   </pre>
 </p>
