@@ -268,8 +268,32 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h2>Summary Table Of Design Pattern Categorization</h2>
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
 and I've modified it where necessary to suit our discussion in this section of the book. 
-<p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book. Also bear in mind that there will be patterns in this table that reference the concept of 'classes' - something which can be simulated, but which don't come with out-of-the box support in JavaScript.</p>
-<p>That said, it's still a great starting point for learning and I recommend reviewing it.
+<p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book. Also keep in mind that there will be patterns in this table that reference the concept of 'classes'. JavaScript is a class-less language, however classes can be simulated using functions.</p>
+
+<p>The most common approach to achieving this is by defining a JavaScript function where we then create an object using the <code>new</code> keyword. <code>this</code> can be used to help define new properties and methods for the object as follows:</p>
+
+<pre class="brush: js">
+// A car 'class'
+function Car ( model ){
+  this.model = model;
+  this.color = 'silver';
+  this.year  = '2012';
+  this.getInfo = function(){
+    return this.model + ' ' + this.year;
+  }
+}
+</pre>
+
+<p>We can then instantiate the object using the Car constructor we defined above like this:</p>
+<pre class="brush: js" >
+var myCar = new Car('ford');
+myCar.year = '2010';
+console.log(myCar.getInfo());
+</pre>
+
+<p>For more ways to define 'classes' using JavaScript, see Stoyan Stefanov's useful <a href="http://www.phpied.com/3-ways-to-define-a-javascript-class/">post</a> on them.</p>
+
+<p>Let us now proceed to review the table.
 <p><br>
 <p>
 <table width="100%" border="0" align="center" cellpadding="1" cellspacing="1" bgcolor="white">
@@ -448,7 +472,9 @@ and I've modified it where necessary to suit our discussion in this section of t
 
 <p><pre  class="brush: js">
 
+//
 // Each of the following will create a new empty object
+//
 
 var newObject = {}; // or 
 
@@ -460,15 +486,14 @@ var newObject = new Object();
 // a specific value, or where no value is passed will create an
 // empty object and return it
 
-// There are then a number of ways in which
-// keys and values can be assigned to the object,
-// including:
+// There are then a number of ways in which keys and values can
+// be assigned to the object including:
 
 newObject.someKey = 'Hello World';
 newObject['someKey'] = 'Hello World';
 
 
-// We can also define new properties on objects as follows
+// We can also define new properties on objects as follows,
 // should you require more granular configuration capabilities
 // (Thanks to Yehuda Katz for the less verbose version of this)
 
@@ -509,7 +534,7 @@ driver.topSpeed // 100mph
 <h3>Basic Constructors</h3>
 
 
-<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. JavaScript doesn't support the concept of classes but it does support special constructor functions.By simply prefixing a call to a constructor function with the keyword 'new', you can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.Inside a constructor, the keyword 'this' references the new object that's being created. A very basic constructor may be:</p>
+<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword 'new', you can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.Inside a constructor, the keyword 'this' references the new object that's being created. Again, a very basic constructor may be:</p>
 
 <p><pre  class="brush: js">
 
@@ -578,7 +603,6 @@ Singletons in JavaScript can take on a number of different forms and researching
 <pre  class="brush: js">
 
 var mySingleton = {
-
 	property1: "something",
 
 	property2: "something else",
@@ -631,7 +655,7 @@ var Singleton = (function(){
 	var instantiated;
 
 	function init (){
-		// singleton code here
+		// singleton here
 		return {
 			publicMethod: function(){
 				console.log( 'hello world' );
@@ -664,10 +688,10 @@ Singleton.getInstance().publicMethod();
 
 var SingletonTester = (function(){
 
-  //args: an object containing arguments for the singleton
+  // args: an object containing arguments for the singleton
   function Singleton( args ) {
 
-   //set args variable to args passed or empty object if none provided.
+   // set args variable to args passed or empty object if none provided.
     var args = args || {};
     //set the name parameter
     this.name = 'SingletonTester';
@@ -678,15 +702,15 @@ var SingletonTester = (function(){
 
   }
   
- //this is our instance holder
+ // this is our instance holder
   var instance;
 
- //this is an emulation of static variables and methods
+ // this is an emulation of static variables and methods
   var _static = {
     name: 'SingletonTester',
-   //This is a method for getting an instance
+   // This is a method for getting an instance
 
-   //It returns a singleton instance of a singleton object
+   // It returns a singleton instance of a singleton object
     getInstance: function ( args ){
       if (instance === undefined) {
         instance = new Singleton( args );
@@ -710,7 +734,9 @@ console.log(singletonTest.pointX); // outputs 5
 <p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
 
 <p>
-In JavaScript, the module pattern is used to <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
+In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
+
+<p>JavaScript as a language doesn't have access modifiers that would allow us to implement true privact, but for the purposes of most use cases, simulated privacy should work fine.</p>
 
 <p>
 Exploring the concept of public and private methods further, the module pattern pattern allows us to have particular methods and variables which are only accessible from within the module, meaning that you have a level of shielding from external entities accessing this 'hidden' information.</p><p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained in the global object. Here, other parts of the code are unable to directly read the value of our incrementCounter() or resetCounter(). The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
@@ -813,16 +839,6 @@ someModule.getData();
 <p>An example of how to use the revealing module pattern can be found below:</p>
 <p>
 <pre  class="brush: js">
-
-
-/*
- The idea here is that you have private methods
- which you want to expose as public methods.
-
- What are are doing below is effectively defining
- a self-executing function and immediately returning
- the object.
- */
  var myRevealingModule = (function(){
 
     var name = 'John Smith';
@@ -858,6 +874,8 @@ myRevealingModule.get();
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id="observerpatternjavascript">The Observer Pattern</h2>
+
+<p>Note that this is another pattern we'll be looking at in greater detail in the next section of the book.</p>
 
 <p>The observer pattern (also known as the publisher/subscriber model) is a design pattern which allows an object (known as an observer) to watch another object (the subject) where the pattern provides a means for the subject and observer to form a publish-subscribe relationship. Observers are able to register so that they can receive events from the subject and when the subject needs to notify observers regarding events, it sends the events to each observer. The pub/sub model is quite popularly used in implementing event handling systems as it is both quite effective and is relatively straight-forward to use.</p>
 
@@ -1220,17 +1238,20 @@ $(function(){
 	
 		  // request information
 		  requestInfo: function( model, id ){
-		    return 'The information for ' + model + ' with ID ' + id + ' is foobar';
+		    return 'The information for ' + model + 
+        ' with ID ' + id + ' is foobar';
 		  },
 		  
 		  // purchase the car
 		  buyVehicle: function( model, id ){
-		  	return 'You have successfully purchased Item ' + id + ', a ' + model;
+		  	return 'You have successfully purchased Item ' 
+        + id + ', a ' + model;
 		  },
 		  
 		  // arrange a viewing
 		  arrangeViewing: function( model, id ){
-		  	return 'You have successfully booked a viewing of ' + model + ' ( ' + id + ' ) ';
+		  	return 'You have successfully booked a viewing of ' 
+        + model + ' ( ' + id + ' ) ';
 		  }
 	  
 	  };
@@ -1567,8 +1588,7 @@ vehicle.driveBackward();
 <p>
 <pre  class="brush: js">
 
-
-//The class we're going to decorate
+// This is the 'class' we're going to decorate
 function Macbook(){
       this.cost = function(){
       return 1000;
@@ -3297,13 +3317,12 @@ creator.call(ns2, 5000);
 </pre>
 <p>As mentioned, this type of pattern is useful for assigning a similar base set of functionality to multiple modules or namespaces, but I&#39;d really only suggest using it where explicitly declaring your functionality within an object/closure for direct access doesn&#39;t make sense.</p>
 
->
 <p>Reviewing the namespace patterns above, the option that I would personally use for most larger applications is nested object namespacing with the object literal pattern.</p>
 <p>IIFEs and single global variables may work fine for applications in the small to medium range, however, larger codebases requiring both namespaces and deep sub-namespaces require a succinct solution that promotes readability and scales. I feel this pattern achieves all of these objectives well.</p>
 <p>I would also recommend trying out some of the suggested advanced utility methods for namespace extension as they really can save you time in the long-run.</p>
 
 <p>&nbsp;</p>
-<h1 id="detailflyweight">Flyweights</h1>
+<h1 id="detailflyweight">Flyweight</h1>
 <p>&nbsp;</p>
 
 
@@ -3890,7 +3909,7 @@ var myLibrary = library(function() {
 <h2 id="modulepatternjquery"><strong>Module Pattern</strong></h2>
 
 <p><br>
-The <strong>Module Pattern</strong> allows us to encapsulate logic for a unit of code such that we can have both private and public methods and variables. This can be applied to writing jQuery plugins, where a private API holds any code we don't wish to expose and a public API contains anything a user will be allowed to interact with. 
+We have already explored the module pattern previously, but in case you've skipped ahead: the <strong>Module Pattern</strong> allows us to encapsulate logic for a unit of code such that we can have both private and public methods and variables. This can be applied to writing jQuery plugins too, where a private API holds any code we don't wish to expose and a public API contains anything a user will be allowed to interact with. See below for an example:
   <br>
 <pre  class="brush: js">
 !function(exports, $, undefined){
@@ -3960,10 +3979,11 @@ $(document).ready(function(){
 
 </pre>
 </p>
+<p>Whilst it isn't directly used in jQuery core, some developers will be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>. LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
 <p>&nbsp;</p>
 <h2 id="compositepatternjquery"><strong>The Composite Pattern</strong></h2>
 <p><br>
-  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object can. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a group of DOM elements, we can treat both sets in a uniform manner. This is demonstrated by the code sample below:<br>
+  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object may be. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a collection of elements, we can treat both sets in a uniform manner. This is demonstrated by the code sample below:<br>
   <br>
 <pre  class="brush: js">
 // Single elements
@@ -3979,21 +3999,28 @@ $('input').addClass('active');
 <br>
 <h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
 <p><br>
-  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a compatible interface. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
-  <br>
+  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
+</p>
+<p>One example of a wrapper you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
+
+
 <pre  class="brush: js">
+
+/*
+  Cross browser opacity:
+  opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+ 
+  filter: alpha(opacity=90);  IE6-IE8 
+*/
    
 $('.container').css({
         opacity: .5 
-        // apply opacity in modern browsers 
-        // (eg. Chrome, FireFox) but use filter for IE
 });
 
 </pre>
 <p>&nbsp;</p>
 <h2 id="facadepatternjquery"><strong>The Facade Pattern</strong></h2>
 <p><br>
-  <strong>The Facade Pattern</strong> is quite commonly used with OOP (Object-oriented programming) where a facade is an object which provides a simpler interface to a larger piece of code (eg. a class library). Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's <code>$.ajax()</code>:<br>
+  As we saw in earlier sections, the <strong>Facade Pattern</strong> is where an object provides a simpler interface to a larger (possibly more complex) body of code. Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's <code>$.ajax()</code>:<br>
   <br>
 <pre  class="brush: js">
 $.get();
@@ -4037,13 +4064,17 @@ $.ajax({
 });
 
 </pre>
+<p>What's even more interesting is that the above facades are actually facades in their own right. You see, <code>$.ajax</code> offers a much simpler interface to a complex body of code that handles cross-browser XHR (XMLHttpRequest) as well as <a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg723713">deferreds</a>. While I could link you to the jQuery source, here's a <a href="https://github.com/ilinsky/xmlhttprequest/blob/master/XMLHttpRequest.js">cross-browser XHR implementation</a> just so you can get an idea of how much easier this pattern makes our lives.</p>
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
 <p><br>
-  <strong>The Observer pattern</strong> is where a subject (the object), keeps a list of its dependants, which are known as observers, and notifies them automatically of any changes in state. This is commonly done by calling one of their methods. The Observer pattern can be considered the original idea driving Publish/Subscribe systems.<br>
-  <br>
+  Another pattern we've look at previously is the <strong>Observer (Publish/Subscribe) pattern</strong> - it's where a subject (the publisher or object), keeps a list of its dependants, which are known as observers (subscribers), and notifies them automatically of any changes in state.
+</p>
+<p>
+jQuery actually comes with built-in support for a publish/subscribe-type system but calls it custom events. In earlier versions this was possible using <code>.bind()</code> (subscribe), <code>.trigger()</code> (publish) and <code>.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>.on()</code>, <code>.trigger()</code> and <code>.off()</code>. See below for an example: 
+</p>
+<p>
 <pre  class="brush: js">
-// Here jQuery makes use of it's robust event system on top of DOM events 
 
 // Equivalent to subscribe(topicName, callback)
 $(document).on('topicName', function(){
@@ -4058,9 +4089,31 @@ $(document).off('topicName');
   </pre>
 </p>
 <p>&nbsp;</p>
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code> and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
+
+<pre  class="brush: js">
+(function($) {
+
+  var o = $({});
+
+  $.subscribe = function() {
+    o.on.apply(o, arguments);
+  };
+
+  $.unsubscribe = function() {
+    o.off.apply(o, arguments);
+  };
+
+  $.publish = function() {
+    o.trigger.apply(o, arguments);
+  };
+
+}(jQuery));
+</pre>
+
 <h2 id="iteratorpatternjquery"><strong>The Iterator Pattern</strong></h2>
 <p><br>
-  <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form. Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's .each() iterator, you are actually able to use the underlying code behind .each() to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. <br>
+  <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p><p>Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's <code>$(el).each()</code> iterator, you are actually able to use the underlying code behind <code>$.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. This is a pattern similar to the facade, except it deals explicitly with iteration.<br>
   <br>
 <pre  class="brush: js">
 
@@ -4076,7 +4129,7 @@ $('li').each(function(index) {
 <p>&nbsp;</p>
 <h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
 <p><br>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them. An example of this is where jQuery's toggle() allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
+  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
   <br>
 <pre  class="brush: js">
 $('button').toggle(function(){
@@ -4090,12 +4143,38 @@ function(){
 <p>&nbsp;</p>
 <h2 id="proxypatternjquery"><strong>The Proxy Pattern</strong></h2>
 <p><br>
-  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else. The proxy can be an interface to almost anything: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's .proxy() function takes as input a function and returns a new one that will always have a particular context. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
-  <br>
-<pre  class="brush: js"> 
-$.proxy(function(){}, obj);  
-  </pre>
+  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
 </p>
+<p>
+One example of where this is useful is when you're making use of a timer inside a <code>click</code> handler. Say we have the following handler:
+<pre class="brush: js">
+$('button').on('click', function(){
+ // Within this function, 'this' refers to the element that was clicked
+  $(this).addClass('active');
+});
+</pre>
+<p>However, say we wished to add in a delay before the <code>active</code> class was added. One thought that comes to mind is using <code>setTimeout</code> to achieve this, but there's a slight problem here: whatever function is passed to <code>setTimeout</code> will have a different value for <code>this</code> inside that function (it will refer to <code>window</code> instead).</p>
+</p>
+<pre class="brush: js">
+$('button').on('click', function(){
+  setTimeout(function(){
+    // 'this' doesn't refer to our element!
+    $(this).addClass('active');
+  });
+});
+</pre>
+<p>To solve this problem, we can use <code>$.proxy()</code>. By calling it with the function and value we would like assisnged to <code>this</code> it will actally return a function that retains the value we desire. Here's how this would look:</p>
+<pre class="brush: js">
+$('button').on('click', function(){
+    setTimeout($.proxy(function() {
+        // 'this' now refers to our element as we wanted
+        $(this).addClass('active');  
+    }, this), 500);
+    // the last 'this' we're passing tells $.proxy() that our DOM element
+    // is the value we want 'this' to refer to.
+});
+</pre>
+
 <p>&nbsp;</p>
 <h2 id="builderpatternjquery"><strong>The Builder Pattern</strong></h2>
 <p><br>
@@ -4528,7 +4607,7 @@ $.fn.myPluginName = function() {
 <p>&nbsp;</p>
 <h3>Custom Events For Pub/Sub (With The Widget factory)</h3>
 
-<p>You may have used the Observer (Pub/Sub) pattern in the past to develop asynchronous JavaScript applications. The basic idea here is that elements will publish event notifications when something interesting occurs in your application. Other elements then subscribe to or listen for these events and respond accordingly. This results in the logic for your application being significantly more decoupled (which is always good).</p>
+<p>You may have used the Observer (Pub/Sub) pattern in the past to develop asynchronous JavaScript web applications. The basic idea here is that elements will publish event notifications when something interesting occurs in your application. Other elements then subscribe to or listen for these events and respond accordingly. This results in the logic for your application being significantly more decoupled (which is always good).</p>
 
 <p>In jQuery, we have this idea that custom events provide a built-in means to implement a publish and subscribe system that’s quite similar to the Observer pattern. So, <code>bind('eventType')</code> is functionally equivalent to performing <code>subscribe('eventType')</code>, and <code>trigger('eventType')</code> is roughly equivalent to <code>publish('eventType')</code>.</p>
 
@@ -5594,18 +5673,18 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
 <p><span id="internal-source-marker_0.14080225546628167">                </span><br>
   That&rsquo;s  it for this introduction to the world of design patterns in JavaScript &amp; jQuery–  I hope you&rsquo;ve found it useful. The contents of this book are in no way  an extensive look at the field of patterns, but should give you enough  information to get started using the patterns covered in your day-to-day  projects. <br>
   <br>
-  Design  patterns make it easier to reuse successful designs and architectures.  It&rsquo;s important for every developer to be aware of design patterns but  it&rsquo;s also essential to know how and when to use them. Implementing the  right patterns intelligently can be worth the effort but the opposite is  also true. A badly implementing pattern can yield little benefit to a  project. <br>
+  Design  patterns make it easier to reuse successful designs and architectures. It&rsquo;s important for every developer to be aware of design patterns but  it&rsquo;s also essential to know how and when to use them. Implementing the  right patterns intelligently can be worth the effort but the opposite is  also true. A badly implemented pattern can yield little benefit to a project. <br>
   <br>
-  Also bear in mind that it&rsquo;s not the number of patterns you implement that&rsquo;s important but how  you choose to implement them. For example, don&rsquo;t choose a pattern just  for the sake of using &lsquo;one&rsquo; but rather try understanding the pros and  cons of what particular patterns have to offer and make a judgement  based on it&rsquo;s fitness for your application.</p>
+  Also keep in mind that it is not the number of patterns you implement that's important but how  you choose to implement them. For example, don&rsquo;t choose a pattern just  for the sake of using &lsquo;one&rsquo; but rather try understanding the pros and  cons of what particular patterns have to offer and make a judgement  based on it&rsquo;s fitness for your application.</p>
 <p>If I&rsquo;ve encouraged your interest in this area further and you would like to learn more about design patterns, there are a number of excellent titles on this area available for generic software development but also those that cover specific languages.</p>
 <p>For JavaScript developers, I recommend checking out two books:</p>
 <ol>
-  <li>&lsquo;<a href="http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X">Pro JavaScript Design Patterns</a>&rsquo; by Ross Harmes and Dustin Diaz.</li>
   <li>'<a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752/ref=sr_1_1?ie=UTF8&s=books&qid=1289759956&sr=1-1">JavaScript Patterns</a>' by Stoyan Stefanov</li>
+  <li>&lsquo;<a href="http://www.amazon.com/JavaScript-Design-Patterns-Recipes-Problem-Solution/dp/159059908X">Pro JavaScript Design Patterns</a>&rsquo; by Ross Harmes and Dustin Diaz.</li>
 </ol>
 <p>&nbsp;</p>
-<p>If you&rsquo;ve managed to absorb most of the information in my mini-book, I think you&rsquo;ll find reading these the next logical step in your learning process (beyond trying out some pattern examples for yourself of course) : ) </p>
-<p>Thanks for reading <em>Essential JavaScript Design Patterns</em>. For more free learning material on JavaScript, please feel free to check out my site over at <a href="http://addyosmani.com">http://addyosmani.com</a>.</p>
+<p>If you&rsquo;ve managed to absorb most of the information in my book, I think you&rsquo;ll find reading these the next logical step in your learning process (beyond trying out some pattern examples for yourself of course) : ) </p>
+<p>Thanks for reading <em>Essential JavaScript Design Patterns</em>. For more free learning material on JavaScript, please feel free to check out my site: <a href="http://addyosmani.com">http://addyosmani.com</a>.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h1 id="references"><span id="internal-source-marker_0.05095413855216446">References</span><br>
