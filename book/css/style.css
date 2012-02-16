@@ -1,6 +1,7 @@
 @charset "UTF-8";
 body {
-	font: 100%/1.4 Georgia;
+	font: 1.2em Georgia;
+	line-height:1.4em;
 	background: #fff;
 	margin: 0;
 	padding: 0;
@@ -21,15 +22,18 @@ h1, h2, h3, h4, h5, h6, p {
 	font-family:Georgia;
 }
 
-h1,h2,h3,h4 {
-	font-family:Helvetica,Arial,sans-serif;
-}
 
 h1{
-	font-size:32px;
+	font-size: 32px;
+	line-height: 43px;
 	text-align: left;
 	border-bottom:3px solid #CCCCCC;
 	padding-bottom:13px;
+}
+
+h2.booktitle{
+	font-size:1.5em;
+	color:#666;
 }
 
 h2 {
@@ -60,7 +64,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 }
 
 /* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
-.header {
+header {
 	background: #fff;
 }
 
@@ -102,11 +106,11 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 }
 
 .booktitle{
-  text-align:center;	
-  line-height:34px;
-  border-bottom:1px solid #fff;
-  padding:0px;
-  font-size:34px;
+	text-align: center;
+	line-height: 41px;
+	border-bottom: 1px solid white;
+	padding: 0px;
+	font-size: 2.2em;
 }
 
 .bookauthor{
