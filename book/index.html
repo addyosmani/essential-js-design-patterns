@@ -13,13 +13,13 @@
   <header>
     <p>
     <h1 class="booktitle">Essential JavaScript Design Patterns For Beginners</h1>
-    <h2 class="booktitle">Volume 1.5 (early edition)</h2>
+    <h2 class="booktitle">Volume 1.5</h2>
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
     <p class="bookauthor">A book by <a href="http://www.twitter.com/addyosmani">Addy Osmani</a></p>
     
     <p>&nbsp;</p>
     <p class="copyright">
-      Copyright 2012 © Addy Osmani. Last edited: February 15th, 2012.
+      Copyright 2012 © Addy Osmani. Last edited: February 17th, 2012.
     </p>
     <p class="copyright">Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Attribution-NonCommercial-ShareAlike 3.0</a> unported license. You are free to remix, tweak, and build upon this work non-commercially, as long as you credit Addy Osmani (the copyright holder) and license your new creations under the identical terms. Any of the above conditions can be waived if you get permission from the copyright holder. For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">link to the license</a>. </p>
     <p class="copyright">&nbsp;</p>
@@ -82,7 +82,6 @@
           <li class="subitem"><a href="#proxypatternjquery">Proxy Pattern</a></li>
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
           <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
-          <li class="subitem"><a href="#flyweightpatternjquery">Flyweight Pattern</a></li>
         </ul>
         <li><a href="#jquerypluginpatterns">Bonus: jQuery Plugin Design Patterns</a></li>
         <li><a href="#conclusions">Conclusions</a></li>
@@ -1140,7 +1139,8 @@ The Mediator centralizes communication between modules where it's explicitly ref
   <p>&nbsp;</p>
 </p>
 <h2 id="prototypepatternjavascript">The Prototype Pattern</h2>
-<p>The prototype pattern is based on the concept of prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates.If the prototype of the constructor function used contains a property called 'name' for example (as per the code sample below), then each object created by that same constructor will also have this same property.</p>
+<p>The GoF refer to the prototype pattern as one which creates objects based on a template of an existing object through cloning.</p>
+<p>In JavaScript terms, we can think of the prototype pattern as being based on prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates.If the prototype of the constructor function used contains a property called 'name' for example (as per the code sample below), then each object created by that same constructor will also have this same property.</p>
 <p>Looking at the definitions for the prototype pattern in existing literature non-specific to JavaScript, you *may* find references to concepts outside the scope of the language such as classes. The reality is that prototypal inheritance avoids using classes altogether. There isn't a 'definition' object nor a core object in theory. We're simply creating copies of existing functional objects.</p>
 <p>One of the core benefits of using the prototype pattern is that we're working with the strengths JavaScript has to offer natively rather than attempting to imitate features of other languages (something a few design pattern implementations do). Not only is this an easy way to implement inheritance, but this also comes with a performance boost as well. When defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
 <p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of Object.create which is a recent newly native method. Object.create creates an object which has a specified prototype and which optionally contains specified properties (i.e Object.create(prototype, optionalDescriptorObjects)). We can also see this being demonstrated in the example below:</p>
@@ -4088,7 +4088,6 @@ $(document).trigger('topicName');
 $(document).off('topicName');
   </pre>
 </p>
-<p>&nbsp;</p>
 <p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code> and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
@@ -4111,6 +4110,52 @@ $(document).off('topicName');
 }(jQuery));
 </pre>
 
+<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution it's possible to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
+<pre  class="brush: js">
+var topics = {};
+
+jQuery.Topic = function( id ) {
+    var callbacks,
+        topic = id && topics[ id ];
+    if ( !topic ) {
+        callbacks = jQuery.Callbacks();
+        topic = {
+            publish: callbacks.fire,
+            subscribe: callbacks.add,
+            unsubscribe: callbacks.remove
+        };
+        if ( id ) {
+            topics[ id ] = topic;
+        }
+    }
+    return topic;
+};
+</pre>
+
+which can then be used as follows:
+<pre  class="brush: js">
+// Subscribers
+$.Topic( 'mailArrived' ).subscribe( fn1 );
+$.Topic( 'mailArrived' ).subscribe( fn2 );
+$.Topic( 'mailSent' ).subscribe( fn1 );
+
+// Publisher
+$.Topic( 'mailArrived' ).publish( 'hello world!' );
+$.Topic( 'mailSent' ).publish( 'woo! mail!' );
+
+//  Here, 'hello world!' gets pushed to fn1 and fn2
+//  when the 'mailArrived' notification is published
+//  with 'woo! mail!' also being pushed to fn1 when
+//  the 'mailSent' notification is published.
+/*
+output:
+hello world!
+fn2 says: hello world!
+woo! mail!
+*/
+</pre>
+
+<p>&nbsp;</p>
 <h2 id="iteratorpatternjquery"><strong>The Iterator Pattern</strong></h2>
 <p><br>
   <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p><p>Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's <code>$(el).each()</code> iterator, you are actually able to use the underlying code behind <code>$.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes that's providing this capability. This is a pattern similar to the facade, except it deals explicitly with iteration.<br>
@@ -4194,48 +4239,67 @@ $('&lt;input /&gt;').attr({'type':'text', 'id':'sample'})
 <p>&nbsp;</p>
 <h2 id="prototypepatternjquery"><strong>The Prototype Pattern</strong></h2>
 <p><br>
-  <strong>The Prototype Pattern</strong> is used when the objects you wish to create are determined by a prototypal instance that is cloned to produce the new objects. Essentially this pattern is used to avoid creating a new object in a standard manner when this process may be expensive or overly complex. In the following code sample we extend the jQuery.fn object for a minimal plugin using this concept:<br>
-  <br>
+  As we've seen, the <strong>Prototype Pattern</strong> is used when objects are created based on a template of an existing object through cloning. Essentially this pattern is used to avoid creating a new object in a more conventional manner where this process may be expensive or overly complex.<br>
+</p>
+<p>
+In terms of the jQuery library, your first thought when cloning is mentioned might be the <code>.clone()</code> method. Unfortunately this only clones DOM elements but if we want to clone JavaScript objects, this can be done using the <code>$.extend()</code> method as follows:
+</p>
+<p>
 <pre  class="brush: js">  
-(function( $ ) {
-  $.fn.myPlugin = function() {
-    // Your plugin logic goes here
-  };
-})( jQuery );
+var myOldObject = {};
 
-$('#container').myPlugin();
-  </pre>
+// Create a shallow copy
+var myNewObject = jQuery.extend({}, myOldObject);
+
+// Create a deep copy
+var myOtherNewObject = jQuery.extend(true, {}, myOldObject);
+</pre>
 </p>
-<p><br>
+<p>
+This pattern has used many times in jQuery core (as well as in jQuery plugins) quite successfully. For those wondering what deep cloning might look like in JavaScript without the use of a library, <a href="https://github.com/rwldrn">Rick Waldron</a> has an implementation you can use below (and tests available <a href="http://jsfiddle.net/rwaldron/4SEGz/">here</a>).
 </p>
-<h2 id="flyweightpatternjquery"><strong>The Flyweight Pattern</strong></h2>
-<p><br>
-  <strong>The Flyweight Pattern</strong> is a design pattern where an object attempts to minimize the amount of memory used by sharing as much information as possible with other objects that are similar in nature. It's a way to utilize objects in large numbers when a simple repeated representation may use an amount of memory deemed unacceptable. There are often aspects of an object state that can be shared and it's commonplace that these be stored in external data-structures that are passed to the flyweight objects temporarily when needed. In the following example, we use a shared jQuery <code>.data()</code> store rather than opting to store data on a per-element basis. <br>
-  <br>
+
 <pre  class="brush: js">
+function clone( obj ) {
+  var val, length, i,
+    temp = [];
 
-// When we call .data() without any additional parameters, 
-// we can safely cache this in a variable and get or set 
-// values directly. This is faster than making individual 
-// calls to .data()
+  if ( Array.isArray(obj) ) {
+    for ( i = 0, length = obj.length; i < length; i++ ) {
+      // Store reference to this array item's value
+      val = obj[ i ];
 
-var mydata = $("#container").data();
+      // If array item is an object (including arrays), derive new value by cloning
+      if ( typeof val === "object" ) {
+        val = clone( val );
+      }
+      temp[ i ] = val;
+    }
+    return temp;
+  }
 
-// Set some initial data using our data store
-mydata.status = 'live';
-mydata.count = 56;
+  // Create a new object whose prototype is a new, empty object,
+  // Using the second properties object argument to copy the source properties
+  return Object.create({}, (function( src ) {
+    // Initialize a cache for non-inherited properties
+    var props = {};
 
-$('#refreshStatus').on('click', function(e){
-    var currentStatus = $('#status');
-    if(mydata.status === 'live'){
-       currentStatus.html('We are live!');
-    }else{
-      currentStatus.html('We are offline');
-   }
-});
-  </pre>
-<p>A side-note here is that prototypal inheritance in JavaScript uses differential inheritance to only define objects once in a prototype chain until they are overridden. This makes it easier to save memory.</p>
-<p></p>
+    Object.getOwnPropertyNames( src ).forEach(function( name ) {
+      // Store short reference to property descriptor
+      var descriptor = Object.getOwnPropertyDescriptor( src, name );
+
+      // Recurse on properties whose value is an object or array
+      if ( typeof src[ name ] === "object" ) {
+        descriptor.value = clone( src[ name ] );
+      }
+      props[ name ] = descriptor;
+    });
+    return props;
+  }( obj )));
+}   
+</pre>
+
+
 
 <p>&nbsp;</p>
 <h1 id="jquerypluginpatterns">Bonus: jQuery Plugin Design Patterns</h1>
@@ -5723,7 +5787,8 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
   <li>t3knomanster's JavaScript Design Patterns <a href="http://t3knomanser.livejournal.com/922171.html">http://t3knomanser.livejournal.com/922171.html</a></li>
   <li>Working with GoF Design Patterns In JavaScript Programming - <a href="http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.7">http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.7</a></li>
   <li>JavaScript Advantages - Object Literals <a href="http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal">http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal</a></li>
-  <li>JavaScript Class Patterns - Liam McLennan<a href="http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx">http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx</a></li>
+  <li>JavaScript Class Patterns - Liam McLennan <a href="http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx">http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx</a></li>
+  <li>Understanding proxies in jQuery <a href="http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery">http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery</a></li>
   <li>Speaking on the Observer pattern - <a href="http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html">http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html</a></li>
   <li>Singleton examples in JavaScript - Hardcode.nl<a href="http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm">http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm</a></li>
   <li>Design Patterns by Gamma, Helm supplement <a href="http://exciton.cs.rice.edu/javaresources/DesignPatterns/">http://exciton.cs.rice.edu/javaresources/DesignPatterns/</a></li>
