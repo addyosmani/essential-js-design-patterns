@@ -19,7 +19,7 @@
     
     <p>&nbsp;</p>
     <p class="copyright">
-      Copyright © Addy Osmani. Last edited: February 17th, 2012.
+      Copyright © Addy Osmani. Last edited: February 19th, 2012.
     </p>
     <p class="copyright">Creative Commons <a href="http://creativecommons.org/licenses/by-sa/3.0/us/">Attribution-NonCommercial-ShareAlike 3.0</a> unported license. You are free to remix, tweak, and build upon this work non-commercially, as long as you credit Addy Osmani (the copyright holder) and license your new creations under the identical terms. Any of the above conditions can be waived if you get permission from the copyright holder. For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">link to the license</a>. </p>
     <p class="copyright">&nbsp;</p>
@@ -34,7 +34,7 @@
     <h1><em>Contents</em></h1>
     <div id="contents-list">
       <ul>
-      	<li><a href="#introduction">Introduction</a></li>
+        <li><a href="#introduction">Introduction</a></li>
         <li><a href="#whatisapattern">What is a Pattern?</a></li>
         <li><a href="#patternity">'Pattern'-ity Testing, Proto-Patterns &amp; The Rule Of Three</a></li>
         <li><a href="#designpatternstructure">The Structure Of A Design Pattern</a></li>
@@ -89,7 +89,7 @@
       </ul>
 </div>
    </p>
-	<h1 id="introduction"><strong>Introduction</strong></h1>
+  <h1 id="introduction"><strong>Introduction</strong></h1>
     <p>At the beginning of this book I will be focusing on a discussion about the importance and history of design patterns in any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter '<a href="#whatisapattern">What is a Pattern?</a>' to continue reading.</p>
     <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.    </p>
     <p>Design patterns can be traced back to the early work of a civil engineer named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
@@ -542,7 +542,7 @@ function Car( model, year, miles ){
    this.year    = year;
    this.miles  = miles;
    this.toString = function(){
-   	return this.model + " has done " + this.miles + " miles";
+    return this.model + " has done " + this.miles + " miles";
    };
 }
  
@@ -577,7 +577,7 @@ function Car( model, year, miles ){
  Object.prototype so as to avoid redefining the prototype object
 */
 Car.prototype.toString = function(){
-		return this.model + " has done " + this.miles + " miles";
+    return this.model + " has done " + this.miles + " miles";
 };
  
 var civic = new Car( "Honda Civic", 2009, 20000);
@@ -602,13 +602,13 @@ Singletons in JavaScript can take on a number of different forms and researching
 <pre  class="brush: js">
 
 var mySingleton = {
-	property1: "something",
+  property1: "something",
 
-	property2: "something else",
+  property2: "something else",
 
-	method1:function(){
-		console.log('hello world');
-	}
+  method1:function(){
+    console.log('hello world');
+  }
 
 };
 
@@ -621,23 +621,23 @@ If you wished to extend this further, you could add your own private members and
 
 var mySingleton = function(){
  
-	// here are our private methods and variables
-	var privateVariable = 'something private';
-	function showPrivate(){
-		console.log( privateVariable );
-	}
+  // here are our private methods and variables
+  var privateVariable = 'something private';
+  function showPrivate(){
+    console.log( privateVariable );
+  }
  
-	// public variables and methods (which can access 
+  // public variables and methods (which can access 
   // private variables and methods )
-	return {
+  return {
 
-		publicMethod:function(){
-			showPrivate();
-		},
+    publicMethod:function(){
+      showPrivate();
+    },
 
-		publicVar:'the public can see this!'
+    publicVar:'the public can see this!'
 
-	};
+  };
 };
  
 var single = mySingleton();
@@ -651,26 +651,26 @@ The above example is great, but let's next consider a situation where you only w
 <pre  class="brush: js">
 
 var Singleton = (function(){
-	var instantiated;
+  var instantiated;
 
-	function init (){
-		// singleton here
-		return {
-			publicMethod: function(){
-				console.log( 'hello world' );
-			},
-			publicProperty: 'test'
-		};
-	}
+  function init (){
+    // singleton here
+    return {
+      publicMethod: function(){
+        console.log( 'hello world' );
+      },
+      publicProperty: 'test'
+    };
+  }
  
-	return {
-		getInstance: function(){
-			if ( !instantiated ){
-				instantiated = init();
-			}
-			return instantiated; 
-		}
-	};
+  return {
+    getInstance: function(){
+      if ( !instantiated ){
+        instantiated = init();
+      }
+      return instantiated; 
+    }
+  };
 })();
  
 // calling public methods is then as easy as:
@@ -735,7 +735,7 @@ console.log(singletonTest.pointX); // outputs 5
 <p>
 In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
 
-<p>JavaScript as a language doesn't have access modifiers that would allow us to implement true privact, but for the purposes of most use cases, simulated privacy should work fine.</p>
+<p>JavaScript as a language doesn't have access modifiers that would allow us to implement true privacy, but for the purposes of most use cases, simulated privacy should work fine.</p>
 
 <p>
 Exploring the concept of public and private methods further, the module pattern pattern allows us to have particular methods and variables which are only accessible from within the module, meaning that you have a level of shielding from external entities accessing this 'hidden' information.</p><p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained in the global object. Here, other parts of the code are unable to directly read the value of our incrementCounter() or resetCounter(). The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
@@ -744,16 +744,16 @@ Exploring the concept of public and private methods further, the module pattern 
 <pre  class="brush: js">
 
 var testModule = (function(){
-	var counter = 0;
-	return {
-		incrementCounter: function() {
-			return counter++;
-		},
-		resetCounter: function() {
-			console.log('counter value prior to reset:' + counter);
-			counter = 0;
-		}
-	};
+  var counter = 0;
+  return {
+    incrementCounter: function() {
+      return counter++;
+    },
+    resetCounter: function() {
+      console.log('counter value prior to reset:' + counter);
+      counter = 0;
+    }
+  };
 })();
 
 // test
@@ -771,21 +771,21 @@ testModule.resetCounter();
 
 var myNamespace = (function(){
 
-	var myPrivateVar = 0;
-		var myPrivateMethod = function( someText ){
-		console.log(someText);
-	};
-	
-	return {
+  var myPrivateVar = 0;
+  var myPrivateMethod = function( someText ){
+    console.log(someText);
+  };
+  
+  return {
 
-		myPublicVar: "foo",	 
+    myPublicVar: "foo",  
 
-		myPublicFunction: function(bar){
-			myPrivateVar++;
-			myPrivateMethod(bar);
-		}
-	};
-	
+    myPublicFunction: function(bar){
+      myPrivateVar++;
+      myPrivateMethod(bar);
+    }
+  };
+  
 })();
 
 </pre>
@@ -883,9 +883,9 @@ myRevealingModule.get();
 <p>
 <strong>Benefits of using the observer pattern include:</strong>
 <ul>
-	<li>Support for simple broadcast communication. Notifications are broadcast automatically to all objects that have subscribed.</li>
-	<li>Dynamic relationships may exist between subjects and observers which can be easily established on page load. This provides a great deal of flexibility.</li>
-	<li>Abstract coupling between subjects and observers where each can be extended and re-used individually.</li>
+  <li>Support for simple broadcast communication. Notifications are broadcast automatically to all objects that have subscribed.</li>
+  <li>Dynamic relationships may exist between subjects and observers which can be easily established on page load. This provides a great deal of flexibility.</li>
+  <li>Abstract coupling between subjects and observers where each can be extended and re-used individually.</li>
 </ul>
 </p>
 <p>A draw-back of the pattern is that observers are ignorant to the existence of each other and are blind to the cost of switching in subject. Due to the dynamic relationship between subjects and observers the update dependency can be difficult to track.</p>
@@ -1081,27 +1081,28 @@ var mediator = (function(){
 <p>Here are two sample uses of the implementation from above. It's effectively centralized Publish/Subscribe where a mediated implementation of the Observer pattern is used:</p>
 
 <pre class="brush: js">
-(function(Mediator){
+(function( m ){
 
     function initialize(){
 
-      // Set a default value for 'name'
-      mediator.name = "tim";
+      // Set a default value for 'person'
+      var person = "tim";
 
       // Subscribe to an event called 'nameChange' with
       // a callback function which will log the original
-      // name and (if everything works) the new name
+      // person's name and (if everything works) the new 
+      // name
 
-      mediator.subscribe('nameChange', function(arg){
-          console.log(this.name);
-          this.name = arg;
-          console.log(this.name);
+      m.subscribe('nameChange', function( arg ){
+          console.log( person ); // tim
+          person = arg;
+          console.log( person ); // david
      });
     }
 
     function updateName(){
       // Publish/Broadcast the 'nameChange' event with the new data
-      mediator.publish('nameChange', 'david'); // tim, david
+      m.publish( 'nameChange', 'david' ); 
     }
 
 })( mediator );
@@ -1166,20 +1167,20 @@ Object.create allows you to easily implement advanced concepts such as different
 <pre  class="brush: js">
 
 var vehicle = {
- 	getModel : function(){
- 		console.log( 'The model of this vehicle is..' + this.model );
+  getModel : function(){
+    console.log( 'The model of this vehicle is..' + this.model );
    }
 };
 
 var car = Object.create( vehicle, {
-	'id' : {
-		value: MY_GLOBAL.nextId(),
-		enumerable: true // writable:false, configurable:false by default
-	},
-	'model':{
-		value: 'Ford',
-		enumerable: true
-	}
+  'id' : {
+    value: MY_GLOBAL.nextId(),
+    enumerable: true // writable:false, configurable:false by default
+  },
+  'model':{
+    value: 'Ford',
+    enumerable: true
+  }
 });
 
 </pre>
@@ -1198,20 +1199,22 @@ var vehiclePrototype = {
         this.model = carModel;
     },
     getModel: function() {
- 		console.log('The model of this vehicle is..' + this.model);
+        console.log( 'The model of this vehicle is..' + this.model );
     }
 };
 
 
-function vehicle(model) {
+function vehicle( model ) {
     function F() {};
     F.prototype = vehiclePrototype;
+
     var f = new F();
-    f.init(model);
+
+    f.init( model );
     return f;
 }
 
-var car = vehicle('Ford Escort');
+var car = vehicle( 'Ford Escort' );
 car.getModel();
 
 
@@ -1233,29 +1236,29 @@ car.getModel();
 <p>To demonstrate the command pattern we're going to create a simple car purchasing service.</p>
 <p><pre  class="brush: js">
 $(function(){
-	
-	var CarManager = {
-	
-		  // request information
-		  requestInfo: function( model, id ){
-		    return 'The information for ' + model + 
+  
+  var CarManager = {
+  
+      // request information
+      requestInfo: function( model, id ){
+        return 'The information for ' + model + 
         ' with ID ' + id + ' is foobar';
-		  },
-		  
-		  // purchase the car
-		  buyVehicle: function( model, id ){
-		  	return 'You have successfully purchased Item ' 
+      },
+      
+      // purchase the car
+      buyVehicle: function( model, id ){
+        return 'You have successfully purchased Item ' 
         + id + ', a ' + model;
-		  },
-		  
-		  // arrange a viewing
-		  arrangeViewing: function( model, id ){
-		  	return 'You have successfully booked a viewing of ' 
+      },
+      
+      // arrange a viewing
+      arrangeViewing: function( model, id ){
+        return 'You have successfully booked a viewing of ' 
         + model + ' ( ' + id + ' ) ';
-		  }
-	  
-	  };
-	  
+      }
+    
+    };
+    
 })();
 </pre></p>
 
@@ -1264,7 +1267,7 @@ $(function(){
 <p>Let's now expand on our CarManager so that our application of the command pattern results in the following: accept any process requests from the CarManager object where the contents of the request include the model and car ID.</p>
 
 <p>Here is what we would like to be able to achieve:</p>
-	  
+    
 <p><pre  class="brush: js">
 CarManager.execute({commandType: "buyVehicle", operand1: 'Ford Escort', operand2: '453543'});
 </pre>
@@ -1281,8 +1284,8 @@ CarManager.execute = function( command ){
 
 <p><pre  class="brush: js">
 CarManager.execute({request: "arrangeViewing", model: 'Ferrari', carID: '145523'});  
-CarManager.execute({request: "requestInfo", model: 'Ford Mondeo', carID: '543434'});	
-CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434'});	
+CarManager.execute({request: "requestInfo", model: 'Ford Mondeo', carID: '543434'});  
+CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434'});  
 CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'});
 </pre></p>
 <p>&nbsp;</p>
@@ -1310,17 +1313,17 @@ $('.someCheckbox').click(function(){ 
       
  if ( this.checked ){ 
                
-		$('#input_carModel').val(activeSettings.carModel);
-		$('#input_carYear').val(activeSettings.carYear);
-		$('#input_carMiles').val(activeSettings.carMiles);
-		$('#input_carTint').val(activeSettings.carTint);
+    $('#input_carModel').val(activeSettings.carModel);
+    $('#input_carYear').val(activeSettings.carYear);
+    $('#input_carMiles').val(activeSettings.carMiles);
+    $('#input_carTint').val(activeSettings.carTint);
 
  } else { 
                
-		$('#input_carModel').val('');     
-		$('#input_carYear').val(''); 
-		$('#input_carMiles').val('');
-		$('#input_carTint').val('');
+    $('#input_carModel').val('');     
+    $('#input_carYear').val(''); 
+    $('#input_carMiles').val('');
+    $('#input_carTint').val('');
  }
 });
 
@@ -1336,7 +1339,7 @@ $('.someCheckbox').click(function(){ 
 
 $('.someCheckbox').click(function(){        
     var checked = this.checked,
-		fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
+    fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
     /*
         What are we repeating?
         1. input_ precedes each field name
@@ -1349,9 +1352,9 @@ $('.someCheckbox').click(function(){        
         3. merge this call using terse coding (ie. if checked, 
             set a value, otherwise don't)
   */  
-	$.each(fields, function(i,key){
-		$('#input_' + key).val(checked ? defaultSettings[key] : '');
-	});
+  $.each(fields, function(i,key){
+    $('#input_' + key).val(checked ? defaultSettings[key] : '');
+  });
 });
 
 
@@ -1501,9 +1504,9 @@ var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
 
 <p>The Factory pattern can be especially useful when applied to the following situations:
 <ul>
-	<li>When your object's setup requires a high level of complexity</li>
-	<li>When you need to generate different instances depending on the environment</li>
-	<li>When you're working with many small objects that share the same properties</li>
+  <li>When your object's setup requires a high level of complexity</li>
+  <li>When you need to generate different instances depending on the environment</li>
+  <li>When you're working with many small objects that share the same properties</li>
 </ul>
 </p>
 <p>&nbsp;</p>
@@ -1527,41 +1530,41 @@ var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
 
 // Car 
 var Car = function( settings ){
-	this.model = settings.model || 'no model provided';
-	this.colour = settings.colour || 'no colour provided';
+  this.model = settings.model || 'no model provided';
+  this.colour = settings.colour || 'no colour provided';
 };
 
 // Mixin
 var Mixin = function(){};
 Mixin.prototype = {
-	driveForward: function(){
-		console.log('drive forward');
-	},
-	driveBackward: function(){
-		console.log('drive backward');
-	}
+  driveForward: function(){
+    console.log('drive forward');
+  },
+  driveBackward: function(){
+    console.log('drive backward');
+  }
 };
 
 
 // Augment existing 'class' with a method from another
 function augment( receivingClass, givingClass ) {
-	// only provide certain methods
-	if ( arguments[2] ) {
-		for (var i=2, len=arguments.length; i&lt;len; i++) {
-			receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
-		}
-	}
-	// provide all methods
-	else {
-		for ( var methodName in givingClass.prototype ) {
-			/* check to make sure the receiving class doesn't 
-			   have a method of the same name as the one currently 
-			   being processed */
-			if ( !receivingClass.prototype[methodName] ) {
-				receivingClass.prototype[methodName] = givingClass.prototype[methodName];
-			}
-		}
-	}
+  // only provide certain methods
+  if ( arguments[2] ) {
+    for (var i=2, len=arguments.length; i&lt;len; i++) {
+      receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
+    }
+  }
+  // provide all methods
+  else {
+    for ( var methodName in givingClass.prototype ) {
+      /* check to make sure the receiving class doesn't 
+         have a method of the same name as the one currently 
+         being processed */
+      if ( !receivingClass.prototype[methodName] ) {
+        receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+      }
+    }
+  }
 }
 
 
@@ -1629,35 +1632,32 @@ Here's another decorator example where when we invoke performTask on the decorat
 <pre  class="brush: js">
 
 function ConcreteClass(){
-	this.performTask = function()
-	{
-		this.preTask();
-		console.log('doing something');
-		this.postTask();
-	};
+  this.performTask = function(){
+    this.preTask();
+    console.log('doing something');
+    this.postTask();
+  };
 }
 
 function AbstractDecorator( decorated ){
-	this.performTask = function()
-	{
-		decorated.performTask();
-	};
+  this.performTask = function()
+  {
+    decorated.performTask();
+  };
 }
 
 function ConcreteDecoratorClass( decorated ){
-	this.base = AbstractDecorator;
-	this.base(decorated);
-	
-	this.preTask = function()
-	{
-		console.log('pre-calling..');
-	};
-	
-	this.postTask = function()
-	{
-		console.log('post-calling..');
-	};
-	
+  this.base = AbstractDecorator;
+  this.base(decorated);
+  
+  this.preTask = function(){
+    console.log('pre-calling..');
+  };
+  
+  this.postTask = function(){
+    console.log('post-calling..');
+  };
+  
 }
 
 var concrete = new ConcreteClass();
@@ -5800,12 +5800,14 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
     <p>Essential JavaScript Design Patterns. &copy; Addy Osmani 2012.</p>
     <!-- end .footer --></div>
   <!-- end .container --></div>
+  <!-- I know.. jQuery 1.5? What am I thinking. I'll be changing syntax highlighters and jQuery
+   versions for 1.5.1 to something more recent-->
 <script src="js/jquery-1.5.min.js"></script>
 <script src="js/shCore.js"></script>
 <script src="js/shBrushJScript.js"></script>
 <script>
 $(function() {
-SyntaxHighlighter.all();
+  SyntaxHighlighter.all();
 });
 </script>
 </body>
