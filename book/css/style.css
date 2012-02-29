@@ -129,3 +129,7 @@ padding:1em 1em 1em 3em;
 .subitem{
  margin-left:25px;	
 }
+
+#references-list {
+	word-wrap: break-word;
+}
