@@ -2090,7 +2090,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
      if(userName.length){
          userList.push({user: userName});
-         $( "#userTemplate" ).tmpl( userList ).appendTo( "#users" );
+         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
     }
 
   });
@@ -2101,7 +2101,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
      if(movieTitle.length){
        movieList.push({ movie: movieTitle, rating: userRating});
-       $( "#ratingsTemplate" ).tmpl( movieList ).appendTo( "#ratings" );
+       $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
      }
 
   });
