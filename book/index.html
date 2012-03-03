@@ -2086,7 +2086,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
   /* subscribers */
 
-  $.subscribe( "/new/user", function( userName ){
+  $.subscribe( "/new/user", function( e, userName ){
 
      if(userName.length){
          userList.push({user: userName});
@@ -2097,7 +2097,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 
 
-  $.subscribe( "/new/rating", function( movieTitle, userRating ){
+  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
 
      if(movieTitle.length){
        movieList.push({ movie: movieTitle, rating: userRating});
