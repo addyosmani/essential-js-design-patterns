@@ -443,7 +443,7 @@ console.log(myCar.getInfo());
 
 <p>We are now going to explore JavaScript implementations of a number of both classical and modern design patterns. This section of the book will cover an introduction to these patterns, whilst the next section will focus on looking at some specific patterns (such as the Observer) in greater detail.</p>
 
-<p>A common question developers regularly ask is what the 'ideal' set of patterns they should be using are. There isn't a singular answer to thi question, but with the aid of what you'll learn in this book, you will hopefully be able to use your best judgement to select the right patterns to best suit your project's needs.</p>
+<p>A common question developers regularly ask is what the 'ideal' set of patterns they should be using are. There isn't a singular answer to this question, but with the aid of what you'll learn in this book, you will hopefully be able to use your best judgement to select the right patterns to best suit your project's needs.</p>
 
 
 <p><strong>The patterns we will be exploring in this section are the:</strong></p>
@@ -906,7 +906,7 @@ var pubsub = {};
     var topics = {},
         subUid = -1;
 
-    // Publish or brodacast events of interest
+    // Publish or broadcast events of interest
     // with a specific topic name and arguments
     // such as the data to pass along
     q.publish = function( topic, args ) {
@@ -2086,22 +2086,22 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
   /* subscribers */
 
-  $.subscribe( "/new/user", function( userName ){
+  $.subscribe( "/new/user", function( e, userName ){
 
      if(userName.length){
          userList.push({user: userName});
-         $( "#userTemplate" ).tmpl( userList ).appendTo( "#users" );
+         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
     }
 
   });
 
 
 
-  $.subscribe( "/new/rating", function( movieTitle, userRating ){
+  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
 
      if(movieTitle.length){
        movieList.push({ movie: movieTitle, rating: userRating});
-       $( "#ratingsTemplate" ).tmpl( movieList ).appendTo( "#ratings" );
+       $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
      }
 
   });
@@ -2119,7 +2119,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     });
 
-});
+})(jQuery);
 </pre>
 
 <h3>Example 5: Decoupling an Ajax-based jQuery application</h3>
