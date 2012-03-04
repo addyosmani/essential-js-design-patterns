@@ -2086,22 +2086,22 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
   /* subscribers */
 
-  $.subscribe( "/new/user", function( userName ){
+  $.subscribe( "/new/user", function( e, userName ){
 
      if(userName.length){
          userList.push({user: userName});
-         $( "#userTemplate" ).tmpl( userList ).appendTo( "#users" );
+         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
     }
 
   });
 
 
 
-  $.subscribe( "/new/rating", function( movieTitle, userRating ){
+  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
 
      if(movieTitle.length){
        movieList.push({ movie: movieTitle, rating: userRating});
-       $( "#ratingsTemplate" ).tmpl( movieList ).appendTo( "#ratings" );
+       $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
      }
 
   });
@@ -2119,7 +2119,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     });
 
-});
+})(jQuery);
 </pre>
 
 <h3>Example 5: Decoupling an Ajax-based jQuery application</h3>
