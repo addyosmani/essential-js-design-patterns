@@ -2421,7 +2421,7 @@ var PhotosController = Spine.Controller.sub({
 </ul>
 <h3>Delving deeper</h3>
 <p>Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we can explore it a little further.</p>
-<p>The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a &quot;set of classes to build a user interface&quot;. In their view, it&#39;s actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. I&#39;ve covered some of these patterns in my other free book, JavaScript Design Patterns if you would like to read into them further.</p>
+<p>The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a &quot;set of classes to build a user interface&quot;. In their view, it&#39;s actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. </p>
 <p>As we&#39;ve discussed, models represent application data whilst views are what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn&#39;t cover in many articles about the MVC pattern). When a model is changed it notifies the rest of the application it has been updated. The controller then updates the view accordingly. The observer nature of this relationship is what facilitates multiple views being attached to the same model.</p>
 <p>For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implement), one of the goal&#39;s of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.</p>
 <h3>Summary</h3>
@@ -2801,7 +2801,7 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 
 <h1 id="detailnamespacing">Namespacing Patterns</h1>
 
-<p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however iF you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
+<p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however if you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
 
 <h2>What is namespacing?</h2>
 <p>In many programming languages, namespacing is a technique employed to avoid <b>collisions</b> with other objects or variables in the global namespace. They&#39;re also extremely useful for helping organize blocks of functionality in your application into easily manageable groups that can be uniquely identified.</p>
