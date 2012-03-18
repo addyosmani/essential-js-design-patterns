@@ -4077,12 +4077,14 @@ myPlugin.method1();
 $(document).ready(function(){
     // The ajax request won't attempt to execute until
     // the DOM is ready
-    $.ajax({
-      url: 'http://jquery.com/sample.json',
-      success: function( data ) {
+
+    var jqxhr = $.ajax({
+      url: 'http://domain.com/api/',
+      data: 'display=latest&order=ascending'
+    })
+    .done(function( data )){
         $('.status').html('content loaded');
         console.log( 'Data output:' + data );
-      }
     });
 });
 
@@ -4121,10 +4123,7 @@ $('input').addClass('active');
   filter: alpha(opacity=90);  IE6-IE8 
 */
    
-$('.container').css({
-        opacity: .5 
-});
-
+$('.container').css({ opacity: .5 });
 </pre>
 <p>&nbsp;</p>
 <h2 id="facadepatternjquery"><strong>The Facade Pattern</strong></h2>
@@ -4132,10 +4131,10 @@ $('.container').css({
   As we saw in earlier sections, the <strong>Facade Pattern</strong> is where an object provides a simpler interface to a larger (possibly more complex) body of code. Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery's <code>$.ajax()</code>:<br>
   <br>
 <pre  class="brush: js">
-$.get();
-$.post();
-$.getJSON();
-$.getScript();  
+$.get( url, data, callback, dataType );
+$.post( url, data, callback, dataType );
+$.getJSON( url, data, callback );
+$.getScript( url, callback );  
   </pre>
 </p>
 <p>These are translated behind the scenes to:</p>
@@ -4144,33 +4143,29 @@ $.getScript();
 $.ajax({
   url: url,
   data: data,
-  success: success,
   dataType: dataType
-});
+}).done( callback );
 
 // $.post
 $.ajax({
   type: 'POST',
   url: url,
   data: data,
-  success: success,
   dataType: dataType
-});
+}).done( callback );
 
 // $.getJSON()
 $.ajax({
   url: url,
   dataType: 'json',
   data: data,
-  success: callback
-});
+}).done( callback );
 
 // $.getScript()
 $.ajax({
   url: url,
   dataType: "script",
-  success: success
-});
+}).done( callback );
 
 </pre>
 <p>What's even more interesting is that the above facades are actually facades in their own right. You see, <code>$.ajax</code> offers a much simpler interface to a complex body of code that handles cross-browser XHR (XMLHttpRequest) as well as <a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg723713">deferreds</a>. While I could link you to the jQuery source, here's a <a href="https://github.com/ilinsky/xmlhttprequest/blob/master/XMLHttpRequest.js">cross-browser XHR implementation</a> just so you can get an idea of how much easier this pattern makes our lives.</p>
