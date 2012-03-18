@@ -110,25 +110,7 @@
     <h1 id="whatisapattern">What is a Pattern?</h1>
     <p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript-powered applications. Another way of looking at patterns are as templates for how you solve problems - ones which can be used in quite a few different situations.</p>
 
-<p>
-To understand how useful patterns can be, let's review a very simple search problem that jQuery usually solves for us. </p>
-
-<p>
-If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to approach finding our elements?. Well, there are a few different ways this problem could be tackled:</p>
-<p>
-1. Select all of the elements in the page and then store them. Next, filter this list and use regular expressions (or another means) to only store those with the class "foo".</p> 
-<p>
-2. Use a modern native browser feature such as <code>querySelectorAll()</code> to select all of the elements with the class "foo".</p>
-<p>
-3. Use a native feature such as <code>getElementsByClassName()</code> to similarly get back the desired list. </p>
-<p>
-So, which of these is the fastest?. You might be interested to know that it's actually number 3 by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
-<p>
-Most modern developers don't have to worry about this problem however, as it's abstraced away for us using libraries such as jQuery. jQuery internally uses a number of different design patterns, the most frequent one being a facade, which provides a simple set of interfaces to a more complex body of code. </p>
-<p>
-We'll be looking at this and more design patterns later on in the book.</p>
-
-    <p>So, why else is it&rsquo;s important to understand patterns and be familiar with them?. Design patterns have three main benefits: </p>
+    <p>So, why is it important to understand patterns and be familiar with them?. Design patterns have three main benefits: </p>
     <ol start="1" type="1">
       <ol>
         <ol>
@@ -149,6 +131,30 @@ We'll be looking at this and more design patterns later on in the book.</p>
   <li><strong>Patterns that are frequently </strong>used can be improved over time by harnessing the collective experiences other developers using those patterns contribute back to the design pattern community. In some cases this leads to the creation of entirely new design patterns whilst in others it can lead to the provision of improved guidelines on how specific patterns can be best used. This can ensure that pattern-based solutions continue to become more robust than ad-hoc solutions may be.</li>
 </ul>
 <p>&nbsp;</p>
+
+<h3>We already use patterns everyday</h3>
+<p>
+To understand how useful patterns can be, let's review a very simple selection problem that the jQuery library solves for us everyday. </p>
+
+<p>
+If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to query for the list we need?. Well, there are a few different ways this problem could be tackled:</p>
+<p>
+  <ol>
+    <li>Select all of the elements in the page and then store them. Next, filter this list and use regular expressions (or another means) to only store those with the class "foo".</li> 
+<li>
+Use a modern native browser feature such as <code>querySelectorAll()</code> to select all of the elements with the class "foo".</li>
+<li>Use a native feature such as <code>getElementsByClassName()</code> to similarly get back the desired list. </li>
+  </ol>
+</p>
+
+<p>
+So, which of these is the fastest?. You might be interested to know that it's actually number 3 by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
+<p>
+Developers using jQuery don't have to worry about this problem, as it's luckily abstraced away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
+
+<p>It internally uses a number of different <strong>design patterns</strong>, the most frequent one being a facade, which provides a simple set of interfaces to a more complex body of code. We're probably all familiar with <code>$(elem)</code> (yes, it's a facade!), which is a lot easier to use than having to manually normalize cross-browser differences.</p>
+<p>
+We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
 <h1 id="patternity">'Pattern'-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
@@ -494,47 +500,50 @@ console.log(myCar.getInfo());
 <p>&nbsp;</p>
 <h2 id="creationalpatternjavascript">The Creational Pattern</h2>
 
-<p>The creational pattern is the basis for a number of the other design patterns we'll be looking at in this section and is probably the easiest to understand. As you may guess, the creational pattern deals with the idea of <em>creating</em> new things, specifically new objects. In JavaScript, the common way of creating new objects (collections of name/value) pairs is as follows:</p>
+<p>The Creational pattern is the basis for a number of the other design patterns we'll be looking at in this section and is probably the easiest to understand. As you may guess, the creational pattern deals with the idea of <em>creating</em> new things, specifically new objects. In JavaScript, the common way of creating new objects (collections of name/value) pairs is as follows:</p>
 
+<p>Each of the following options will create a new empty object:</p>
 
 <p><pre  class="brush: js">
-
-//
-// Each of the following will create a new empty object
-//
 
 var newObject = {}; // or 
 
 var newObject = Object.create(null); // or
 
 var newObject = new Object();
+</pre></p>
 
-// Where the 'Object' constructor creates an object wrapper for
-// a specific value, or where no value is passed will create an
-// empty object and return it
+<p>Where the 'Object' constructor creates an object wrapper for a specific value, or where no value is passed, it will create an empty object and return it.</p>
 
-// There are then a number of ways in which keys and values can
-// be assigned to the object including:
+<p>There are then a number of ways in which keys and values can then be assigned to an object including:</p>
 
+<p><pre  class="brush: js">
 newObject.someKey = 'Hello World';
 newObject['someKey'] = 'Hello World';
 
+// which can be accessed in a similar fashion
+var key = newObject.someKey; //or
+var key = newObject['someKey'];
+</pre></p>
 
-// We can also define new properties on objects as follows,
-// should you require more granular configuration capabilities
-// (Thanks to Yehuda Katz for the less verbose version of this)
+<p>We can also define new properties on objects as follows, should we require more granular configuration capabilities:</p>
 
+<p><pre  class="brush: js">
+
+// First, define a new Object 'man'
 var man = Object.create(null);
 
-// Properties can also be writable, enumerable and configurable
+// Next let's create a configuration object containing properties
+// Properties can be writable, enumerable and configurable
 var config = {
   writable: true,
   enumerable: true,
   configurable: true
 };
 
-// Short-hand to use Object.defineProperty to add new properties
-// with additional configuration 
+// Typically one would use Object.defineProperty() to add new
+// properties. For convenience we will use a short-hand version:
+
 var defineProp = function ( obj, key, value ){
   config.value = value;
   Object.defineProperty(obj, key, config);
@@ -543,20 +552,21 @@ var defineProp = function ( obj, key, value ){
 defineProp( man, 'car',  'Delorean' );
 defineProp( man, 'dob', '1981' );
 defineProp( man, 'beard', false );
-  
-// And as we'll see a little later, this can even be used for inheritance
-// like this..
+</pre></p>
 
+<p>As we will see a little later in the book, this can even be used for inheritance, as follows:</p>
+
+<p><pre  class="brush: js">
 var driver = Object.create( man );
 defineProp (driver, 'topSpeed', '100mph');
 driver.topSpeed // 100mph
-
 </pre></p>
 
+<p>Thanks to Yehuda Katz for the less verbose version presented above.</p>
 
 <p>&nbsp;</p>
 <h2 id="constructorpatternjavascript">The Constructor Pattern</h2>
-<p>The phrase &lsquo;constructor&rsquo; is familiar to most developers, however if you&rsquo;re a beginner it can be useful to review what a constructor is before we get into talking about a pattern dedicated to it.</p>.
+<p>The phrase &lsquo;constructor&rsquo; is familiar to most developers, however if you&rsquo;re a beginner it can be useful to review what a constructor is before we get into talking about a pattern dedicated to it.</p>
 
 <p> Constructors are used to create specific types of objects - they both prepare the object for use and can also accept parameters which the constructor uses to set the values of member variables when the object is first created. The idea that a constructor is a paradigm can be found in the majority of programming languages, including JavaScript.  You&rsquo;re also able to define custom constructors that define properties and methods for your own types of objects. <br></p>
 
