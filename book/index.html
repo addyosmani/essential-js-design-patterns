@@ -5556,6 +5556,14 @@ $.fn.myPluginName = function() {
 })( jQuery, window, document );
 </pre>
 
+<p>Usage:</p>
+<p><pre class="brush: js">
+$('#elem').defaultPluginName({
+  propertyName: 'a custom value'
+});
+</pre></p>
+
+
 <h4>Further Reading</h4>
 
 <ul>
@@ -5680,6 +5688,15 @@ $.fn.myPluginName = function() {
 })( jQuery, window, document );
 </pre>
 
+<p>Usage:</p>
+<p><pre class="brush: js">
+var instance = $('#elem').widgetName({
+  foo: false
+});
+
+instance.widgetName('methodB');
+</pre></p>
+
 <h4>Further Reading</h4>
 
 <ul>
@@ -5760,6 +5777,13 @@ $.fn.myPluginName = function() {
 })( jQuery );
 </pre>
 
+<p>Usage:</p>
+<p><pre class="brush: js">
+$('#elem').mynamespace_myPluginName({
+  myDefaultValue: "foobar"
+});
+</pre></p>
+
 <h4>Further Reading</h4>
 
 <ul>
@@ -5829,18 +5853,23 @@ $.fn.myPluginName = function() {
     });
 })( jQuery, window , document );
 
-//Publishing event notifications
-//usage: 
+// Publishing event notifications
 // $(".my-widget").trigger("myEventStart");
 // $(".my-widget").trigger("myEventEnd");
 </pre>
+
+<p>Usage:</p>
+<p><pre class="brush: js">
+var el = $('#elem');
+el.eventStatus();
+el.eventStatus().trigger('myEventStart');
+</pre></p>
+
 
 <h4>Further Reading</h4>
 
 <ul>
 <li>“<a href="http://www.devpatch.com/2010/03/communication-between-jquery-ui-widgets/">Communication Between jQuery UI Widgets</a>,” Benjamin Sternthal</li>
-
-<li>“<a href="http://msdn.microsoft.com/en-us/scriptjunkie/hh201955.aspx">Understanding the Publish/Subscribe Pattern for Greater JavaScript Scalability</a>,” Addy Osmani</li>
 </ul>
 
 <p>&nbsp;</p>
@@ -5915,16 +5944,18 @@ $.plugin = function( name, object ) {
     });
   };
 };
-
-// Usage:
-// With myObject, we could now essentially do this:
-// $.plugin('myobj', myObject);
-
-// and at this point we could do the following
-// $('#elem').myobj({name: "John"});
-// var inst = $('#elem').data('myobj');
-// inst.myMethod('I am a method');
 </pre>
+
+<p>Usage:</p>
+<p><pre class="brush: js">
+$.plugin('myobj', myObject);
+
+$('#elem').myobj({name: "John"});
+
+var instance = $('#elem').data('myobj');
+instance.myMethod('I am a method');
+</pre></p>
+
 
 <h4>Further Reading</h4>
 
@@ -6035,26 +6066,27 @@ widgetName.prototype = {
     }
 };
 
+</pre>
 
-// usage:
-
+<p>Usage:</p>
+<p><pre class="brush: js">
 // connect the widget obj to jQuery's API under the "foo" namespace
-// $.widget.bridge("foo", widgetName);
+$.widget.bridge("foo", widgetName);
 
 // create an instance of the widget for use
-// var instance = $("#elem").foo({
-//     baz: true
-// });
+var instance = $('#foo').foo({
+   baz: true
+});
 
 // your widget instance exists in the elem's data
-// instance.data("foo").element; // => #elem element
+console.log(instance.data("foo").element); // => #elem element
 
 // bridge allows you to call public methods...
-// instance.foo("publicFunction"); // => "public method"
+instance.foo("publicFunction"); // => "public method"
 
 // bridge prevents calls to internal methods
-// instance.foo("_privateFunction"); // => #elem element
-</pre>
+instance.foo("_privateFunction"); // => #elem element
+</pre></p>
 
 <h4>Further Reading</h4>
 
@@ -6171,16 +6203,20 @@ widgetName.prototype = {
     });
 
 })( jQuery, window, document );
+</pre>
 
-//usage: $("#myelem").foo( options );
+<p>Usage:</p>
+<p><pre class="brush: js">
+var instance = $('#foo').widgetName({
+  foo: false
+});
 
+instance.widgetName('methodB');
+</pre></p>
 
-/* Some additional notes - delete this section before using the boilerplate.
+<p>We can also self-initialize this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's "page" plugin dispatches a "create" event when a jQuery Mobile page (found via data-role=page attr) is first initialized.We can listen for that event (called "pagecreate" ) and run our plugin automatically whenever a new page is created.</p>
 
- We can also self-init this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's "page" plugin dispatches a "create" event when a jQuery Mobile page (found via data-role=page attr) is first initialized.
-
-We can listen for that event (called "pagecreate" ) and run our plugin automatically whenever a new page is created.
-
+<p><pre class="brush: js">
 $(document).bind("pagecreate", function (e) {
     // In here, e.target refers to the page that was created 
     // (it's the target of the pagecreate event)
@@ -6194,11 +6230,9 @@ $(document).bind("pagecreate", function (e) {
     // data-attribute namespace
     $(e.target).find(":jqmData(role='foo')").foo(options);
 });
+</pre></p>
 
-That's it. Now you can simply reference the script containing your widget and pagecreate binding in a page running jQuery Mobile site, and it will automatically run like any other jQM plugin.
- */
-</pre>
-
+<p>That's it. Now you can simply reference the script containing your widget and pagecreate binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h3>RequireJS And The jQuery UI Widget Factory</h3>
@@ -6316,11 +6350,35 @@ define("ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom.
     }); 
 }); 
 
-
-// If you are going to use the RequireJS optimizer to combine files 
-// together, you can leave off the "ao.myWidget" argument to define: 
-// define(["jquery", "text!templates/asset.html", "jquery-ui.custom.min"], …
 </pre>
+
+<p>Usage:</p>
+
+<p>index.html:</p>
+<p><pre class="brush: js">
+&lt;script data-main="scripts/main" src="http://requirejs.org/docs/release/1.0.1/minified/require.js"&gt;&lt;/script&gt;
+</pre></p>
+
+<p>main.js</p>
+<p><pre class="brush: js">
+require({
+
+    paths: {
+        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min',
+        'jqueryui': 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min',
+        'boilerplate': '../patterns/jquery.widget-factory.requirejs.boilerplate'
+    }
+}, ['require', 'jquery', 'jqueryui', 'boilerplate'], 
+function (req, $) {
+    
+    $(function () {
+
+        var instance = $('#elem').myWidget();
+        instance.myWidget('methodB');
+
+    });
+});
+</pre></p>
 
 <h4>Further Reading</h4>
 
@@ -6391,6 +6449,14 @@ define("ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom.
     
 })( jQuery, window, document );
 </pre>
+
+<p>Usage:</p>
+<p><pre class="brush: js">
+$('#elem').pluginName({
+  key: "foobar"
+});
+</pre></p>
+
 
 <h4>Further Reading</h4>
 
@@ -6506,6 +6572,13 @@ $('.items').draggable();
 })( jQuery, window , document );
 </pre>
 
+<p>Usage:</p>
+<p><pre class="brush: js">
+$('#elem').plugin({
+  message: "foobar"
+});
+</pre></p>
+
 <h4>Further Reading</h4>
 
 <ul>
@@ -6516,142 +6589,27 @@ $('.items').draggable();
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>AMD- And CommonJS-Compatible Modules</h3>
+<h3>UMD: AMD And CommonJS-Compatible Modules For Plugins</h3>
 
-<p>While many of the plugin and widget patterns presented above are acceptable for general use, they aren’t without their caveats. Some require jQuery or the jQuery UI Widget Factory to be present in order to function, while only a few could be easily adapted to work well as globally compatible modules both client-side and in other environments.</p> 
+<p>Whilst many of the plugin and widget patterns presented above are acceptable for general use, they aren’t without their caveats. Some require jQuery or the jQuery UI Widget Factory to be present in order to function, while only a few could be easily adapted to work well as globally compatible modules in both the browser and other environments.</p> 
 
-<p>For this reason, a number of developers, including me, <a href="http://cdnjs.com">CDNjs</a> maintainer <a href="https://github.com/thomasdavis">Thomas Davis</a> and <a href="https://github.com/rpflorence">RP Florence</a>, have been looking at both the <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a> (Asynchronous Module Definition) and <a href="http://wiki.commonjs.org/wiki/Modules">CommonJS</a> module specifications in the hopes of extending boilerplate plugin patterns to cleanly work with packages and dependencies. <a href="http://twitter.com/unscriptable">John Hann</a> and <a href="https://gist.github.com/1251221">Kit Cambridge</a> have also explored work in this area.</p>
+<p>We've alredy explored both AMD and CommonJS in the last chapter, but imagine how useful it would be if we could define and load plugin modules compatible with AMD, CommonJS and other standards that are also compatible with different environments (client-side, server-side and beyond).</p>
 
-<h4>AMD</h4>
+<p>To provide a solution for this problem, a number of developers including James Burke, myself, Thomas Davis and Ryan Florence have been working on an effort known as UMD (or Universal Module Definition). The goal of our efforts has been to provide a set of agreed upon patterns for plugins that can work in all environments. At present, a number of such boilerplates have been completed and are available on the UMD group repo <a href="https://github.com/umdjs/umd">https://github.com/umdjs/umd</a>.</p>
 
-<p>The AMD module format (a specification for defining modules where both the module and dependencies can be asynchronously loaded) has a number of distinct advantages, including being both asynchronous and highly flexible by nature, thus removing the tight coupling one commonly finds between code and module identity. It’s considered a reliable stepping stone to the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">module system</a> proposed for ES Harmony.</p>
-
-<p>When working with anonymous modules, the idea of a module’s identity is DRY, making it trivial to avoid duplication of file names and code. Because the code is more portable, it can be easily moved to other locations without needing to alter the code itself. Developers can also run the same code in multiple environments just by using an AMD optimizer that works with a CommonJS environment, such as <a href="https://github.com/jrburke/r.js/">r.js</a>.</p>
-
-<p>With AMD, the two key concepts you need to be aware of are the <code>require</code> method and the <code>define</code> method, which facilitate module definition and dependency loading. The <code>define</code> method is used to define named or unnamed modules based on the specification, using the following signature:</p>
-
-<pre class="brush: js">
-define(module_id /*optional*/, [dependencies], definition function /*function for instantiating the module or object*/);
-</pre>
-
-<p>As you can tell from the inline comments, the module’s ID is an optional argument that is typically required only when non-AMD concatenation tools are being used (it could be useful in other edge cases, too). One of the benefits of opting not to use module IDs is having the flexibility to move your module around the file system without needing to change its ID. The module’s ID is equivalent to folder paths in simple packages and when not used in packages.</p>
-
-<p>The dependencies argument represents an array of dependencies that are required by the module you are defining, and the third argument (factory) is a function that’s executed to instantiate your module. A barebones module could be defined as follows:</p>
-
-<pre class="brush: js">
-// Note: here, a module ID (myModule) is used for demonstration
-// purposes only
-
-define('myModule', ['foo', 'bar'], function ( foo, bar ) {
-    // return a value that defines the module export
-    // (i.e. the functionality we want to expose for consumption)
-    return function () {};
-});
-
-// A more useful example, however, might be:
-define('myModule', ['math', 'graph'], function ( math, graph ) {
-    return {
-            plot: function(x, y){
-                    return graph.drawPie(math.randomGrid(x,y));
-            }
-    };
-});
-</pre>
-
-<p>The <code>require</code> method, on the other hand, is typically used to load code in a top-level JavaScript file or in a module should you wish to dynamically fetch dependencies. Here is an example of its usage:</p>
-
-<pre class="brush: js">
-// Here, the 'exports' from the two modules loaded are passed as
-// function arguments to the callback
-
-require(['foo', 'bar'], function ( foo, bar ) {
-        // rest of your code here
-});
-
-
-// And here's an AMD-example that shows dynamically loaded
-// dependencies
-
-define(function ( require ) {
-    var isReady = false, foobar;
-
-    require(['foo', 'bar'], function (foo, bar) {
-        isReady = true;
-        foobar = foo() + bar();
-    });
-
-    // We can still return a module
-    return {
-        isReady: isReady,
-        foobar: foobar
-    };
-});
-
-</pre>
-
-<p>The above are trivial examples of just how useful AMD modules can be, but they should provide a foundation that helps you understand how they work. Many big visible applications and companies currently use AMD modules as a part of their architecture, including <a href="http://www.ibm.com">IBM</a> and the <a href="http://www.bbc.co.uk/iplayer/">BBC iPlayer</a>. The specification has been discussed for well over a year in both the Dojo and CommonJS communities, so it’s had time to evolve and improve. For more reasons on why many developers are opting to use AMD modules in their applications, you may be interested in James Burke’s article “<a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html">On Inventing JS Module Formats and Script Loaders</a>.”</p>
-
-<p>Shortly, we’ll look at writing globally compatible modules that work with AMD and other module formats and environments, something that offers even more power. Before that, we need to briefly discuss a related module format, one with a specification by CommonJS.</p>
-
-<h4>CommonJS</h4>
-
-<p>In case you’re not familiar with it, <a href="http://www.commonjs.org/">CommonJS</a> is a volunteer working group that designs, prototypes and standardizes JavaScript APIs. To date, it’s attempted to ratify standards for <a href="http://www.commonjs.org/specs/modules/1.0/">modules</a> and <a href="http://wiki.commonjs.org/wiki/Packages/1.0">packages</a>. The CommonJS module proposal specifies a simple API for declaring modules server-side; but, as John Hann correctly states, there are really only two ways to use CommonJS modules in the browser: either wrap them or wrap them.</p>
-
-<p>What this means is that we can either have the browser wrap modules (which can be a slow process) or at build time (which can be fast to execute in the browser but requires a build step).</p>
-
-<p>Some developers, however, feel that CommonJS is better suited to server-side development, which is one reason for the current disagreement over which format should be used as the de facto standard in the pre-Harmony age moving forward. One argument against CommonJS is that many CommonJS APIs address server-oriented features that one would simply not be able to implement at the browser level in JavaScript; for example, <code>io></code>, <code>system</code> and <code>js</code> could be considered unimplementable by the nature of their functionality.</p>
-
-<p>That said, knowing how to structure CommonJS modules is useful so that we can better appreciate how they fit in when defining modules that might be used everywhere. Modules that have applications on both the client and server side include validation, conversion and templating engines. The way some developers choose which format to use is to opt for CommonJS when a module can be used in a server-side environment and to opt for AMD otherwise.</p>
-
-<p>Because AMD modules are capable of using plugins and can define more granular things such as constructors and functions, this makes sense. CommonJS modules are able to define objects that are tedious to work with only if you’re trying to obtain constructors from them.</p>
-
-<p>From a structural perspective, a CommonJS module is a reusable piece of JavaScript that exports specific objects made available to any dependent code; there are typically no function wrappers around such modules. Plenty of great tutorials on implementing CommonJS modules are out there, but at a high level, the modules basically contain two main parts: a variable named <code>exports</code>, which contains the objects that a module makes available to other modules, and a <code>require</code> function, which modules can use to import the exports of other modules.</p>
-
-<pre class="brush: js">
-
-// A very basic module named 'foobar'
-function foobar(){
-        this.foo = function(){
-                console.log('Hello foo');
-        }
-
-        this.bar = function(){
-                console.log('Hello bar');
-        }
-}
-
-exports.foobar = foobar;
-
-// An application using 'foobar'
-
-// Access the module relative to the path
-// where both usage and module files exist
-// in the same directory
-
-var foobar = require('./foobar').foobar,
-    test   = new foobar.foo();
-
-test.bar(); // 'Hello bar'
-</pre>
-
-<p>There are a number of great JavaScript libraries for handling module loading in AMD and CommonJS formats, but my preference is <a href="http://requirejs.org">RequireJS</a> (<a href="https://github.com/unscriptable/curl">curl.js</a> is also quite reliable). Complete tutorials on these tools are beyond the scope of this section, but I recommend John Hann’s post “<a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js: Yet Another AMD Loader</a>,” and James Burke’s post “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/ff943568">
-LABjs and RequireJS: Loading JavaScript Resources the Fun Way</a>.”</p>
-
-<p>With what we’ve covered so far, wouldn’t it be great if we could define and load plugin modules compatible with AMD, CommonJS and other standards that are also compatible with different environments (client-side, server-side and beyond)? Our work on AMD and UMD (Universal Module Definition) plugins and widgets is still at a very early stage, but we’re hoping to develop solutions that can do just that.</p>
-
-<p>One such pattern we’re <a href="https://github.com/addyosmani/jquery-plugin-patterns/issues/1">working on</a> at the moment appears below, which has the following features:</p>
+<p>One such pattern we’ve worked on for <a href="https://github.com/addyosmani/jquery-plugin-patterns/issues/1">jQuery plugins</a> appears below and has the following features:</p>
 
 <ul>
 <li>A core/base plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</li>
 
 <li>The pattern can be quite nice to work with because plugin extensions can access properties and methods defined in the base or, with a little tweaking, override default behavior so that it can be extended to do more.</li>
 
-<li>A loader isn’t necessarily required at all to make this pattern fully function.</li>
+<li>A loader isn’t required at all to make this pattern fully function.</li>
 </ul>
 
 <p><strong>usage.html</strong></p>
 
-<pre class="brush: js">&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-1.6.4.min.js&quot;&gt;&lt;/script&gt;
+<pre class="brush: js">&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;pluginCore.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;pluginExtension.js&quot;&gt;&lt;/script&gt;
 
@@ -6785,11 +6743,7 @@ $(function(){
 
 </pre>
 
-<p>While this is beyond the scope of this chapter, you may have noticed that different types of <code>require</code> methods were mentioned when we discussed AMD and CommonJS.</p>
-
-<p>The concern with a similar naming convention is, of course, confusion, and the community is currently split on the merits of a global <code>require</code> function. John Hann’s suggestion here is that rather than call it <code>require</code>, which would probably fail to inform users of the difference between a global and inner <code>require</code>, renaming the global loader method something else might make more sense (such as the name of the library). For this reason, curl.js uses <code>curl</code>, and RequireJS uses <code>requirejs</code>.</p>
-
-<p>This is probably a bigger discussion for another day, but I hope this brief walkthrough of both module types has increased your awareness of these formats and has encouraged you to further explore and experiment with them in your apps.</p>
+<p>Whilst work on improving these patterns is ongoing, please do feel free to check out the patterns suggested to date as you may find them helpful.</p>
 
 <h4>Further Reading</h4>
 
@@ -6799,8 +6753,6 @@ $(function(){
 <li>“<a href="http://dailyjs.com/2010/10/18/modules/">Demystifying CommonJS Modules</a>,” Alex Young</li>
 
 <li>“<a href="http://unscriptable.com/index.php/2011/09/22/amd-module-patterns-singleton/">AMD Module Patterns: Singleton</a>,” John Hann</li>
-
-<li><a href="https://github.com/addyosmani/jquery-plugin-patterns/issues/1">Current discussion thread about AMD- and UMD-style modules for jQuery plugins</a>, GitHub</li>
 
 <li>“<a href="http://www.sitepen.com/blog/2010/09/30/run-anywhere-javascript-modules-boilerplate-code/">Run-Anywhere JavaScript Modules Boilerplate Code</a>,” Kris Zyp</li>
 
@@ -6814,7 +6766,7 @@ $(function(){
 <p>At the end of the day, patterns are just one aspect of plugin development. And before we wrap up, here are my criteria for selecting third-party plugins, which will hopefully help developers write them.</p>
 
 <p><strong>Quality</strong><br />
-Do your best to adhere to best practices with both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery core style guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+Do your best to adhere to best practices with both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
 
 <p><strong>Compatibility</strong><br />
 Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release. New versions of jQuery offer improvements and opportunities for the jQuery project to improve on what the core library offers. With this comes occasional breakages (mainly in major releases) as we move towards a better way of doing things. I’d like to see plugin authors update their code when necessary or, at a minimum, test their plugins with new versions to make sure everything works as expected.</p>
