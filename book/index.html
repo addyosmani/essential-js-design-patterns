@@ -86,7 +86,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         <li><a href="#antipatterns">Anti-Patterns</a></li>
         <li><a href="#categoriesofdesignpatterns">Categories Of Design Pattern</a></li>
         <li><a href="#summarytabledesignpatterns">Summary Table Of Design Pattern Categorization</a></li>
-        <li><a href="#designpatternsjavascript">An Introduction To Design Patterns
+        <li><a href="#designpatternsjavascript">JavaScript Design Patterns
           </a>
           <ul>
             <li class="subitem"><a href="#creationalpatternjavascript">Creational Pattern</a></li>
@@ -105,14 +105,10 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
           </ul>
         </li>
-        <li><a href="#detailedpatterns">Patterns In Greater Detail</a></li>
         <ul>
-          <li class="subitem"><a href="#detailedobserver">Observer (Publish/Subscribe)</a>
           <li class="subitem"><a href="#detailmvcmvp">MVC &amp; MVP Structural Patterns</a>
-          <li class="subitem"><a href="#detaildecorator">Decorator Pattern</a>
           <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
           <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
-          <li class="subitem"><a href="#detailmodule">Module Pattern</a>
         </ul>
         <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a></li>
         <ul>
@@ -516,7 +512,7 @@ console.log(myCar.getInfo());
 </tbody></table></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h1 id="designpatternsjavascript">An Introduction To Design Patterns</h1>
+<h1 id="designpatternsjavascript">JavaScript Design Patterns</h1>
 <p>&nbsp;</p>
 
 <p>We are now going to explore JavaScript implementations of a number of both classical and modern design patterns. This section of the book will cover an introduction to these patterns, whilst the next section will focus on looking at some select patterns in greater detail.</p>
@@ -816,6 +812,9 @@ console.log(singletonTest.pointX); // outputs 5
 </pre></p>
 <p>&nbsp;</p>
 <h2 id="modulepatternjavascript">The Module Pattern</h2>
+
+<!-- todo:update -->
+
 <p>Let's now look at the popular <em>module</em> pattern. Note that we'll be covering this pattern in greater detail in the next section of the book, but a basic introduction to it will be given in this chapter.</p>
 
 <p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
@@ -924,6 +923,299 @@ someModule.getData();
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+
+<!-- todo: more updates-->
+
+<h1 id="detailmodule">Modules</h1>
+
+<p>In this section we're going to continue our exploration of the Module pattern and the broader concept of a 'module'.</p>
+<p>
+Modules are an integral piece of any robust application's architecture and typically help in keeping the code for a project organized. In JavaScript, there are several options for implementing modules including both the well-known module pattern as well as object literal notation.</p>
+
+<h2>
+  Object Literals
+</h2>
+
+<p>The module pattern is based in part on object literals and so it makes sense to review them first. In object literal notation, an object is described as a set of comma-separated name/value pairs enclosured in curly braces (<code>{}</code>). Names inside the object may be either strings or identifiers that are followed by a colon. There should be no comma used after the final name/value pair in the object as this may result in errors.</p>
+<p>
+<p>
+Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Below you can see an example of a module defined using object literal syntax.</p>
+
+<p>New members may be added to the object using assignment as follows <code>myModule.property = 'someValue';</code></p>
+
+<p>
+<pre  class="brush: js">
+var myModule = {
+    myProperty : 'someValue',
+    // object literals can contain properties and methods.
+    // here, another object is defined for configuration
+    // purposes:
+    myConfig:{
+        useCaching:true,
+        language: 'en'   
+    },
+    // a very basic method
+    myMethod: function(){
+        console.log('I can haz functionality?');
+    },
+    // output a value based on current configuration
+    myMethod2: function(){
+        console.log('Caching is:' + (this.myConfig.useCaching)?'enabled':'disabled');
+    },
+    // override the current configuration
+    myMethod3: function(newConfig){
+        if(typeof newConfig == 'object'){
+           this.myConfig = newConfig;
+           console.log(this.myConfig.language); 
+        }
+    }
+};
+
+myModule.myMethod(); //I can haz functionality
+myModule.myMethod2(); //outputs enabled
+myModule.myMethod3({language:'fr',useCaching:false}); //fr
+</pre>
+</p>
+
+<p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://blog.rebeccamurphey.com/2009/10/15/using-objects-to-organize-your-code">depth</a> should you wish to read into object literals further.</p>
+
+<p>That said, if you're opting for this technique, you may be equally as interested in the module pattern. It still uses object literals but only as the return value from a scoping function. </p>
+
+<h2>
+  The Module Pattern
+</h2>
+<p>
+As we reviewed earlier in the book, the module pattern encapsulates 'privacy', state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
+
+<p>
+This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>) except that an object is returned rather than a function. </p>
+
+<p>
+From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures and re-introduced by Eric Miraglia on the YUI blog. 
+</p>
+
+<p>
+Below you can see an example of a shopping basket implemented using this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of your application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
+
+<pre  class="brush: js">
+
+var basketModule = (function() {
+    var basket = []; //private
+    function doSomethingPrivate(){
+      //...
+    }
+
+    function doSomethingElsePrivate(){
+      //...
+    }
+    return { //exposed to public
+        addItem: function(values) {
+            basket.push(values);
+        },
+        getItemCount: function() {
+            return basket.length;
+        },
+        doSomething: doSomethingPrivate(),
+        getTotal: function(){
+           var q = this.getItemCount(),p=0;
+            while(q--){
+                p+= basket[q].price; 
+            }
+            return p;
+        }
+    }
+}());
+</pre>
+
+<p>
+Inside the module, you'll notice we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that you can interact with it as follows: 
+</p>
+<pre  class="brush: js">
+
+//basketModule is an object with properties which can also be methods
+basketModule.addItem({item:'bread',price:0.5});
+basketModule.addItem({item:'butter',price:0.3});
+
+console.log(basketModule.getItemCount());
+console.log(basketModule.getTotal());
+
+//however, the following will not work:
+console.log(basketModule.basket);// (undefined as not inside the returned object)
+console.log(basket); //(only exists within the scope of the closure)
+</pre>
+<p>
+The methods above are effectively namespaced inside <code>basketModule</code>.</p>
+
+<p>Notice how the scoping function in the above basket module is wrapped around all of our functions, which we then call and immediately store the return value of. This has a number of advantages including:</p>
+
+<ul>
+  <li>The freedom to have private functions which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they're considered truly private.</li>
+  <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attemping to discover what function(s) threw an exception.</li>
+  <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
+</ul>
+<p>&nbsp;</p>
+<p>
+It should be noted that there isn't really an explicitly true sense of 'privacy' inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
+</p>
+
+<p>
+How about the module pattern implemented in specific toolkits or frameworks?
+</p>
+<p>
+<strong>Dojo</strong>
+<p>
+Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as it's first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called 'child' within an object 'parent' defined inside 'myObj'. Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don't already exist.</p>
+
+<p>For example, if we wanted to declare <code>basket.core</code> as an object of the <code>store</code> namespace, this could be achieved as follows using the traditional way:
+<pre class="brush: js">
+var store = window.store || {};
+if(!store["basket"]){ store.basket = {}; }
+if(!store.basket["core"]){ store.basket.core={}; }
+
+store.basket.core = {
+  // ...rest of our logic
+}
+</pre>
+</p>
+<p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
+<pre  class="brush: js">
+require(["dojo/_base/customStore"], function(store){
+
+  // using dojo.setObject()
+  customStore.setObject("basket.core", (function() {
+      var basket = [];
+      function privateMethod() {
+          console.log(basket);
+      }
+      return {
+          publicMethod: function(){
+                  privateMethod();
+          }
+      };
+  }()), store);
+
+});
+</pre>
+
+<p>For more information on <code>dojo.setObject()</code>, see the official <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/setObject.html">documentation</a>.</p>
+
+<p><strong>ExtJS</strong></p>
+<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p> 
+<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the module pattern is implemented in vanilla JavaScript: </p>
+<pre  class="brush: js">
+// create namespace
+Ext.namespace('myNameSpace');
+
+// create application
+myNameSpace.app = function() {
+    // do NOT access DOM from here; elements don't exist yet
+ 
+    // private variables
+    var btn1;
+    var privVar1 = 11;
+ 
+    // private functions
+    var btn1Handler = function(button, event) {
+        alert('privVar1=' + privVar1);
+        alert('this.btn1Text=' + this.btn1Text);
+    };
+ 
+    // public space
+    return {
+        // public properties, e.g. strings to translate
+        btn1Text: 'Button 1',
+ 
+        // public methods
+        init: function() {
+            if (Ext.Ext2) {
+                btn1 = new Ext.Button({
+                    renderTo: 'btn1-ct',
+                    text: this.btn1Text,
+                    handler: btn1Handler
+                });
+            } else {
+                btn1 = new Ext.Button('btn1-ct', {
+                    text: this.btn1Text,
+                    handler: btn1Handler
+                });
+            }
+        }
+    };
+}(); // end of app
+</pre>
+
+<p>&nbsp;</p>
+<p>
+<strong>
+YUI
+</strong>
+</p>
+<p>
+Similarly, we can also implement the module pattern when building applications using YUI. The following example is heavily based on the original YUI module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
+</p>
+<pre  class="brush: js">
+YAHOO.store.basket = function () {
+
+    //"private" variables:
+    var myPrivateVar = "I can be accessed only within YAHOO.store.basket .";
+
+    //"private" method:
+    var myPrivateMethod = function () {
+            YAHOO.log("I can be accessed only from within YAHOO.store.basket");
+        }
+
+    return {
+        myPublicProperty: "I'm a public property.",
+        myPublicMethod: function () {
+            YAHOO.log("I'm a public method.");
+
+            //Within basket, I can access "private" vars and methods:
+            YAHOO.log(myPrivateVar);
+            YAHOO.log(myPrivateMethod());
+
+            //The native scope of myPublicMethod is store so we can
+            //access public members using "this":
+            YAHOO.log(this.myPublicProperty);
+        }
+    };
+
+}();
+</pre>
+<p>
+<strong>
+jQuery
+</strong>
+</p>
+<p>
+There are a number of ways in which jQuery code unspecific to plugins can be wrapped inside the module pattern. Ben Cherry previously suggested an implementation where a function wrapper is used around module definitions in the event of there being a number of commonalities between modules. </p>
+<p>
+In the following example, a <code>library</code> function is defined which declares a new library and automatically binds up the <code>init</code> function to <code>document.ready</code> when new libraries (ie. modules) are created.</p>
+
+<pre  class="brush: js">
+
+function library(module) {
+  $(function() {
+    if (module.init) {
+      module.init();
+    }
+  });
+  return module;
+}
+
+var myLibrary = library(function() {
+   return {
+     init: function() {
+       /*implementation*/
+     }
+   };
+}());
+</pre>
+
+<p>For further reading on the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
+
+
+<!--end-->
+
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
 <p>Now that we're a little more familiar with the Module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
 
@@ -967,6 +1259,9 @@ myRevealingModule.get();
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id="observerpatternjavascript">The Observer Pattern</h2>
+
+<!-- todo:update-->
+
 
 <p>The Observer pattern (also known as the Publish/Subscribe model) is a design pattern which allows an object (known as an observer) to watch another object (the subject) where the pattern provides a means for the subject and observer to form a publish-subscribe relationship. It is regularly used when we wish to decouple the different parts of an application from one another.</p>
 
@@ -1099,7 +1394,547 @@ pubsub.publish( 'example1', 'hello again! (this will fail)' );
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+<!-- todo:rest of this to integrate -->
+<h1 id="detailedobserver">The Observer (Pub/Sub) pattern</h1>
+<p>&nbsp;</p>
 
+<p>
+As we saw earlier in the book, the general idea behind the Observer pattern is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they  instead   subscribes to a specific task or activity of another object and are notified when it occurs. Observers are also called Subscribers and we refer to the object being observed as the Publisher (or the subject). Publishers notify subscribers when events occur.</o>
+<p>
+When objects are no longer interested in being notified by the subject they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
+<p>
+It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
+
+<p>
+'One or more observers are interested in the state of a subject and register their interest with the subject by attaching themselves. When something changes in our subject that the observer may be interested in, a notify message is sent which calls the update method in each observer. When the observer is no longer interested in the subject's state, they can simply detach themselves.'
+</p>
+
+<p>
+Basically, the pattern describes subjects and observers forming a publish-subscribe relationship. Unlimited numbers of objects may observe events in the subject by registering themselves. Once  registered to particular events, the subject will notify all observers when the event has been fired.</p>
+
+<h2>Advantages</h2>
+
+<p>
+Arguably, the largest benefit of using pub/sub is the ability to break down our applications into smaller, more loosely coupled modules, which can also improve general manageability.
+</p>
+<p>
+Pub/sub is also a pattern that encourages us to think hard about the relationships between different parts of your application, identifying what layers need to observe or listen for behaviour and which need to  push notifications regarding behaviour occurring to other parts of our apps.</p>
+<p>
+Whilst it may not always be the best solution to every problem, it remains one of the best tools for designing decoupled systems and should be considered an important tool in any JavaScript developer's utility belt.</p>
+
+<h2>Disadvantages</h2>
+<p>
+Consequently, some of the issues with the pub/sub pattern actually stem from its main benefit. By decoupling publishers from subscribers, it can sometimes become difficult to obtain guarantees that particular parts of our applications are functioning as we may expect.</p>
+
+<p>
+For example, publishers may make an assumption that one or more subscribers are listening to them. Say that we're using such an assumption to log or output errors regarding some application process. If the subscriber performing the logging crashes (or for some reason fails to function), the publisher won't have a way of seeing this due to the decoupled nature of the system.</p>
+
+<h2>Implementations</h2>
+
+<p>
+One of the benefits of design patterns is that once we understand the basics behind how a particular pattern works, being able to interpret an implementation of it becomes significantly more straightforward. Luckily, popular JavaScript libraries such as dojo and YUI already have utilities that can assist in easily implementing your own pub/sub system.</p>
+
+<p>
+For those wishing to use the pub/sub pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation of pub/sub that can be used with any library or toolkit. ScriptJunkie also has a tutorial on how to get started with Amplify's pub/sub that was recently published. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
+
+<p>
+jQuery developers have quite a few options for pub/sub (in addition to Amplify) and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) gist on GitHub. Links to just a few of these can be found below.
+</p>
+
+<ul>
+<li>Ben Alman's Pub/Sub gist <a href="https://gist.github.com/661855">https://gist.github.com/661855</a> (recommended)</li>
+<li>Rick Waldron's jQuery-core style take on the above <a href="https://gist.github.com/705311">https://gist.github.com/705311</a></li>
+<li>Peter Higgins' plugin <a href="http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js">http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js</a>.</li>
+<li>AppendTo's Pub/Sub in AmplifyJS <a href="http://amplifyjs.com">http://amplifyjs.com</a></li>
+<li>Ben Truyman's gist <a href="https://gist.github.com/826794">https://gist.github.com/826794</a></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2>Tutorial</h2>
+
+<p>
+So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a trimmed down version of Morgan Roderick's PubSubJS, which I've put together below. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
+
+<p>
+I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the original observer pattern.</p>
+
+
+<h3>Sample Pub/Sub implementation</h3>
+
+<pre  class="brush: js">
+
+var PubSub = {};
+
+(function(p){
+
+   "use strict";
+   var topics = {},
+         lastUid = -1;
+
+
+   var publish = function( topic , data){
+
+       if ( !topics.hasOwnProperty( topic ) ){
+           return false;
+       }
+
+
+       var notify = function(){
+           var subscribers = topics[topic],
+               throwException = function(e){
+               return function(){
+                   throw e;
+               };
+
+           };
+
+           for ( var i = 0, j = subscribers.length; i < j; i++ ){
+               try {
+                   subscribers[i].func( topic, data );
+               } catch( e ){
+
+                   setTimeout( throwException(e), 0);
+               }
+           }
+       };
+
+       setTimeout( notify , 0 );
+          return true;
+   };
+
+
+
+   /**
+    *  Publishes the topic, passing the data to it's subscribers
+    *  @topic (String): The topic to publish
+    *  @data: The data to pass to subscribers
+   **/
+
+   p.publish = function( topic, data ){
+       return publish( topic, data, false );
+   };
+
+
+   /**
+    *  Subscribes the passed function to the passed topic.
+    *  Every returned token is unique and should be stored if you need to unsubscribe
+    *  @topic (String): The topic to subscribe to
+    *  @func (Function): The function to call when a new topic is published
+   **/
+
+   p.subscribe = function( topic, func ){
+
+       // topic is not registered yet
+       if ( !topics.hasOwnProperty( topic ) ){
+           topics[topic] = [];
+       }
+
+       var token = (++lastUid).toString();
+       topics[topic].push( { token : token, func : func } );
+
+       // return token for unsubscribing
+       return token;
+
+   };
+
+   /**
+    *  Unsubscribes a specific subscriber from a specific topic using the unique token
+    *  @token (String): The token of the function to unsubscribe
+   **/
+
+   p.unsubscribe = function( token ){
+
+       for ( var m in topics ){
+           if ( topics.hasOwnProperty( m ) ){
+               for ( var i = 0, j = topics[m].length; i < j; i++ ){
+                   if ( topics[m][i].token === token ){
+                       topics[m].splice( i, 1 );
+                       return token;
+                   }
+               }
+           }
+       }
+       return false;
+   };
+});
+</pre>
+
+
+
+<h3>Example 1: Basic use of publishers and subscribers</h3>
+
+<p>
+This could then be easily used as follows:
+</p>
+
+<pre class="brush: js">
+// a sample subscriber (or observer)
+
+var testSubscriber = function( topics , data ){
+   console.log( topics + ": " + data );
+
+};
+
+
+
+// add the function to the list of subscribers to a particular topic
+// maintain the token (subscription instance) to enable unsubscription later
+
+var testSubscription = PubSub.subscribe( 'example1', testSubscriber );
+
+
+
+// publish a topic or message asyncronously
+
+PubSub.publish( 'example1', 'hello scriptjunkie!' );
+
+PubSub.publish( 'example1', ['test','a','b','c'] );
+
+PubSub.publish( 'example1', [{'color':'blue'},{'text':'hello'}] );
+
+
+
+// unsubscribe from further topics
+setTimeout(function(){
+   PubSub.unsubscribe( testSubscription );
+}, 0);
+
+
+
+// test that we've fully unsubscribed
+PubSub.publish( 'example1', 'hello again!');
+
+</pre>
+
+<h3>Real-time stock market application</h3>
+
+<p>Next, let's imagine we have a web application responsible for displaying real-time stock information.</p>
+
+<p>
+The application might have a grid for displaying the stock stats and a counter for displaying the last point of update, as well as an underlying data model. When the data model changes, the application will need to update the grid and counter. In this scenario, our subject is the data model and the observers are the grid and counter.</p>
+
+<p>
+When the observers receive notification that the model itself has changed, they can update themselves accordingly.
+</p>
+
+<h3>Example 2: UI notifications using pub/sub</h3>
+
+<p>
+In the following example, we limit our usage of pub/sub to that of a notification system. Our subscriber is listening to the topic 'dataUpdated' to find out when new stock information is available. It then triggers 'gridUpdate' which goes on to call hypothetical methods that pull in the latest cached data object and re-render our UI components.
+</p>
+
+<p>
+Note: the Mediator pattern is occasionally used to provide a level of communication between UI components without requiring that they communicate with each other directly. For example, rather than tightly coupling our applications, we can have widgets/components publish a topic when something interesting happens. A mediator can then subscribe to that topic and call the relevant methods on other components.
+</p>
+
+<pre  class="brush: js">
+var grid = {
+
+   refreshData: function(){
+       console.log('retrieved latest data from data cache');
+       console.log('updated grid component');
+   },
+
+   updateCounter: function(){
+       console.log('data last updated at: ' + getCurrentTime());
+   }
+
+};
+
+
+
+//a very basic mediator
+
+var gridUpdate = function(topics, data){
+     grid.refreshData();
+     grid.updateCounter();
+}
+
+
+var dataSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
+PubSub.publish( 'dataUpdated', 'new stock data available!' );
+PubSub.publish( 'dataUpdated', 'new stock data available!' );
+
+
+function getCurrentTime(){
+
+   var date = new Date(),
+         m = date.getMonth() + 1,
+         d = date.getDate(),
+         y = date.getFullYear(),
+         t = date.toLocaleTimeString().toLowerCase(),
+        return (m + '/' + d + '/' + y + ' ' + t);
+
+}
+
+</pre>
+
+<p>Whilst there's nothing terribly wrong with this, there are more optimal ways that we can utilize pub/sub to our advantage.</p>
+
+<h3>Example 3: Taking notifications further</h3>
+
+<p>
+Rather than just notifying our subscribers that new data is available, why not actually push the new data through to gridUpdate when we publish a new notification from a publisher. In this next example, our publisher will notify subscribers with the actual data that's been updated as well as a timestamp from the data-source of when the new data was added.
+</p>
+<p>
+In addition to avoiding data having to be read from a cached store, this also avoids client-side calculation of the current time whenever a new data entry gets published.</p>
+
+<pre  class="brush: js">
+var grid = {
+
+   addEntry: function(data){
+
+       if (data !== 'undefined') {
+
+          console.log('Entry:'
+
+                      + data.title
+
+                      + ' Changenet / %'
+
+                      + data.changenet
+
+                      + '/' + data.percentage + ' % added');
+
+       }
+
+   },
+
+   updateCounter: function(timestamp){
+       console.log('grid last updated at: ' + timestamp);
+   }
+};
+
+
+
+var gridUpdate = function(topics, data){
+       grid.addEntry(data);
+       grid.updateCounter(data.timestamp);
+}
+
+
+
+var gridSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
+
+PubSub.publish('dataUpdated',   { title: "Microsoft shares", changenet: 4, percentage: 33, timestamp: '17:34:12'  });
+
+PubSub.publish('dataUpdated',   { title: "Dell shares", changenet: 10, percentage: 20, timestamp: '17:35:16'  });
+</pre>
+
+
+<h3>Example 4: Decoupling applications using Ben Alman's pub/sub implementation</h3>
+
+<p>
+In the following movie ratings example, we'll be using Ben Alman's jQuery implementation of pub/sub to demonstrate how we can decouple a user interface. Notice how submitting a rating only has the effect of publishing the fact that new user and rating data is available.
+</p>
+
+<p>
+It's left up to the subscribers to those topics to then delegate what happens with that data. In our case we're pushing that new data into existing arrays and then rendering them using the jQuery.tmpl plugin.</p>
+
+<strong>HTML/Templates</strong>
+
+<pre  class="brush: js">
+
+&lt;script id=&quot;userTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
+   &lt;li&gt;${user}
+&lt;/script&gt;
+
+
+&lt;script id=&quot;ratingsTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
+   &lt;li&gt;&lt;strong&gt;${movie}&lt;/strong&gt; was rated ${rating}/5
+&lt;/script&gt;
+
+
+&lt;div id=&quot;container&quot;&gt;
+
+   &lt;div class=&quot;sampleForm&quot;&gt;
+       &lt;p&gt;
+           &lt;label for=&quot;twitter_handle&quot;&gt;Twitter handle:&lt;/label&gt;
+           &lt;input type=&quot;text&quot; id=&quot;twitter_handle&quot; /&gt;
+       &lt;/p&gt;
+       &lt;p&gt;
+           &lt;label for=&quot;movie_seen&quot;&gt;Name a movie you&#39;ve seen this year:&lt;/label&gt;
+           &lt;input type=&quot;text&quot; id=&quot;movie_seen&quot; /&gt;
+       &lt;/p&gt;
+       &lt;p&gt;
+
+           &lt;label for=&quot;movie_rating&quot;&gt;Rate the movie you saw:&lt;/label&gt;
+           &lt;select id=&quot;movie_rating&quot;&gt;
+                 &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                  &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+                  &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+                  &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+                  &lt;option value=&quot;5&quot;ected&gt;5&lt;/option&gt;
+
+          &lt;/select&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+
+            &lt;button id=&quot;add&quot;&gt;Submit rating&lt;/button&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+
+
+
+    &lt;div class=&quot;summaryTable&quot;&gt;
+        &lt;div id=&quot;users&quot;&gt;&lt;h3&gt;Recent users&lt;/h3&gt;&lt;/div&gt;
+        &lt;div id=&quot;ratings&quot;&gt;&lt;h3&gt;Recent movies rated&lt;/h3&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+ &lt;/div&gt;
+
+</pre>
+
+<strong>JavaScript</strong>
+
+
+<pre  class="brush: js">
+(function($) {
+
+
+  var movieList = [],
+     userList  = [];
+
+
+
+  /* subscribers */
+
+  $.subscribe( "/new/user", function( e, userName ){
+
+     if(userName.length){
+         userList.push({user: userName});
+         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
+    }
+
+  });
+
+
+
+  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
+
+     if(movieTitle.length){
+       movieList.push({ movie: movieTitle, rating: userRating});
+       $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
+     }
+
+  });
+
+
+
+  $('#add').bind('click', function(){
+
+         var strUser    = $("#twitter_handle").val(),
+             strMovie = $("#movie_seen").val(),
+             strRating = $("#movie_rating").val();
+
+         $.publish('/new/user',  strUser  );
+         $.publish('/new/rating',  [ strMovie, strRating] );
+
+    });
+
+})(jQuery);
+</pre>
+
+<h3>Example 5: Decoupling an Ajax-based jQuery application</h3>
+
+<p>
+In our final example, we're going to take a practical look at how decoupling our code using pub/sub early on in the development process can save us some potentially painful refactoring later on. This is something Rebecca Murphey touched on in her pub/sub screencast and is another reason why pub/sub is favoured by so many developers in the community.</p>
+
+<p>
+Quite often in Ajax-heavy applications, once we've received a response to a request we want to achieve more than just one unique action. One could simply add all of their post-request logic into a success callback, but there are drawbacks to this approach.</p>
+
+<p>
+Highly coupled applications sometimes increase the effort required to reuse functionality due to the increased inter-function/code dependency. What this means is that although keeping our post-request logic hardcoded in a callback might be fine if we're just trying to grab a result set once, it's not as appropriate when we want to make further Ajax-calls to the same data source (and different end-behaviour) without rewriting parts of the code multiple times. Rather than having to go back through each layer that calls the same data-source and generalizing them later on, we can use pub/sub from the start and save time.</p>
+
+<p>
+Using pub/sub, we can also easily separate application-wide notifications regarding different events down to whatever level of granularity you're comfortable with, something which can be less elegantly done using other patterns.</p>
+
+<p>
+Notice how in our sample below, one topic notification is made when a user indicates they want to make a search query and another is made when the request returns and actual data is available for consumption. It's left up to the subscribers to then decide how to use knowledge of these events (or the data returned). The benefits of this are that, if we wanted, we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.</p>
+
+
+<strong>HTML/Templates</strong>:
+
+<pre  class="brush: js">
+
+&lt;form id=&quot;flickrSearch&quot;&gt;
+
+   &lt;input type=&quot;text&quot; name=&quot;tag&quot; id=&quot;query&quot;/&gt;
+
+   &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit&quot;/&gt;
+
+&lt;/form&gt;
+
+
+
+&lt;div id=&quot;lastQuery&quot;&gt;&lt;/div&gt;
+
+&lt;div id=&quot;searchResults&quot;&gt;&lt;/div&gt;
+
+
+
+&lt;script id=&quot;resultTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
+    {{each(i, items) items}}
+            &lt;li&gt;&lt;p&gt;&lt;img src=&quot;${items.media.m}&quot;/&gt;&lt;/p&gt;&lt;/li&gt;
+    {{/each}}
+&lt;/script&gt;
+
+</pre>
+
+<strong>JAVASCRIPT</strong>:
+
+<pre  class="brush: js">
+(function($) {
+
+   $('#flickrSearch').submit(function( e ){
+
+       e.preventDefault();
+       var tags = $(this).find('#query').val();
+
+       if(!tags){return;}
+       $.publish('/search/tags', [ $.trim(tags) ]);
+
+   });
+
+
+
+   $.subscribe('/search/tags', function(tags){
+
+       $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
+                  { tags: tags, tagmode: 'any', format: 'json'},
+
+          function(data){
+              if(!data.items.length){ return; }
+              $.publish('/search/resultSet', [ data ]);
+       });
+
+   });
+
+
+
+   $.subscribe('/search/tags', function(tags){
+       $('#searchResults').html('<p>Searched for:<strong>' + tags + '</strong></p>');
+   });
+
+
+   $.subscribe('/search/resultSet', function(results){
+
+       var holder = $('#searchResults');
+       holder.html();
+       $('#resultTemplate').tmpl(results).appendTo(holder);
+
+   });
+
+
+});
+</pre>
+
+<p>
+The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven't been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
+<p>&nbsp;</p>
+
+<!--end tood-->
 <h2 id="mediatorpatternjavascript">The Mediator Pattern</h2>
 
 <p>
@@ -1687,6 +2522,8 @@ vehicle.driveBackward();
 <p>&nbsp;</p>
 
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
+
+<!--todo:update-->
 <p>The Decorator pattern is an alternative to creating subclasses. This pattern can be used to wrap objects within another object of the same interface and allows you to both add behaviour to methods and also pass the method call to the original object (i.e the constructor of the decorator).</p>
 <p>The decorator pattern is often used when you need to keep adding new functionality to overridden methods. This can be achieved by stacking multiple decorators on top of one another. </p>
 <p>What is the main benefit of using a decorator pattern? Well, if we examine our first definition, we mentioned that decorators are an alternative to subclassing. When a script is being run, subclassing adds behaviour that affects all the instances of the original class, whilst decorating does not. It instead can add new behaviour for individual objects, which can be of benefit depending on the application in question. Let&rsquo;s take a look at some code that implements the decorator pattern:</p>
@@ -1773,842 +2610,8 @@ decorator2.performTask();
 
 <p>&nbsp;</p>
 
-
-<p>&nbsp;</p>
-
-<h1 id="detailedpatterns">Patterns In Greater Detail</h1>
-<p>&nbsp;</p>
-<p>As a beginner, you should hopefully now have a basic understanding of many of the commonly used design patterns in JavaScript (as well as some which are less frequently implemented). In this next section, we're going to explore a selection of the patterns we've already reviewed in greater detail.</p>
-<p>&nbsp;</p>
-
-<h1 id="detailedobserver">The Observer (Pub/Sub) pattern</h1>
-<p>&nbsp;</p>
-
-<p>
-As we saw earlier in the book, the general idea behind the Observer pattern is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they  instead   subscribes to a specific task or activity of another object and are notified when it occurs. Observers are also called Subscribers and we refer to the object being observed as the Publisher (or the subject). Publishers notify subscribers when events occur.</o>
-<p>
-When objects are no longer interested in being notified by the subject they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
-<p>
-It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
-
-<p>
-'One or more observers are interested in the state of a subject and register their interest with the subject by attaching themselves. When something changes in our subject that the observer may be interested in, a notify message is sent which calls the update method in each observer. When the observer is no longer interested in the subject's state, they can simply detach themselves.'
-</p>
-
-<p>
-Basically, the pattern describes subjects and observers forming a publish-subscribe relationship. Unlimited numbers of objects may observe events in the subject by registering themselves. Once  registered to particular events, the subject will notify all observers when the event has been fired.</p>
-
-<h2>Advantages</h2>
-
-<p>
-Arguably, the largest benefit of using pub/sub is the ability to break down our applications into smaller, more loosely coupled modules, which can also improve general manageability.
-</p>
-<p>
-Pub/sub is also a pattern that encourages us to think hard about the relationships between different parts of your application, identifying what layers need to observe or listen for behaviour and which need to  push notifications regarding behaviour occurring to other parts of our apps.</p>
-<p>
-Whilst it may not always be the best solution to every problem, it remains one of the best tools for designing decoupled systems and should be considered an important tool in any JavaScript developer's utility belt.</p>
-
-<h2>Disadvantages</h2>
-<p>
-Consequently, some of the issues with the pub/sub pattern actually stem from its main benefit. By decoupling publishers from subscribers, it can sometimes become difficult to obtain guarantees that particular parts of our applications are functioning as we may expect.</p>
-
-<p>
-For example, publishers may make an assumption that one or more subscribers are listening to them. Say that we're using such an assumption to log or output errors regarding some application process. If the subscriber performing the logging crashes (or for some reason fails to function), the publisher won't have a way of seeing this due to the decoupled nature of the system.</p>
-
-<h2>Implementations</h2>
-
-<p>
-One of the benefits of design patterns is that once we understand the basics behind how a particular pattern works, being able to interpret an implementation of it becomes significantly more straightforward. Luckily, popular JavaScript libraries such as dojo and YUI already have utilities that can assist in easily implementing your own pub/sub system.</p>
-
-<p>
-For those wishing to use the pub/sub pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation of pub/sub that can be used with any library or toolkit. ScriptJunkie also has a tutorial on how to get started with Amplify's pub/sub that was recently published. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
-
-<p>
-jQuery developers have quite a few options for pub/sub (in addition to Amplify) and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) gist on GitHub. Links to just a few of these can be found below.
-</p>
-
-<ul>
-<li>Ben Alman's Pub/Sub gist <a href="https://gist.github.com/661855">https://gist.github.com/661855</a> (recommended)</li>
-<li>Rick Waldron's jQuery-core style take on the above <a href="https://gist.github.com/705311">https://gist.github.com/705311</a></li>
-<li>Peter Higgins' plugin <a href="http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js">http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js</a>.</li>
-<li>AppendTo's Pub/Sub in AmplifyJS <a href="http://amplifyjs.com">http://amplifyjs.com</a></li>
-<li>Ben Truyman's gist <a href="https://gist.github.com/826794">https://gist.github.com/826794</a></li>
-</ul>
-
-<p>&nbsp;</p>
-
-<h2>Tutorial</h2>
-
-<p>
-So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a trimmed down version of Morgan Roderick's PubSubJS, which I've put together below. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
-
-<p>
-I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the original observer pattern.</p>
-
-
-<h3>Sample Pub/Sub implementation</h3>
-
-<pre  class="brush: js">
-
-var PubSub = {};
-
-(function(p){
-
-   "use strict";
-   var topics = {},
-         lastUid = -1;
-
-
-   var publish = function( topic , data){
-
-       if ( !topics.hasOwnProperty( topic ) ){
-           return false;
-       }
-
-
-       var notify = function(){
-           var subscribers = topics[topic],
-               throwException = function(e){
-               return function(){
-                   throw e;
-               };
-
-           };
-
-           for ( var i = 0, j = subscribers.length; i < j; i++ ){
-               try {
-                   subscribers[i].func( topic, data );
-               } catch( e ){
-
-                   setTimeout( throwException(e), 0);
-               }
-           }
-       };
-
-       setTimeout( notify , 0 );
-          return true;
-   };
-
-
-
-   /**
-    *  Publishes the topic, passing the data to it's subscribers
-    *  @topic (String): The topic to publish
-    *  @data: The data to pass to subscribers
-   **/
-
-   p.publish = function( topic, data ){
-       return publish( topic, data, false );
-   };
-
-
-   /**
-    *  Subscribes the passed function to the passed topic.
-    *  Every returned token is unique and should be stored if you need to unsubscribe
-    *  @topic (String): The topic to subscribe to
-    *  @func (Function): The function to call when a new topic is published
-   **/
-
-   p.subscribe = function( topic, func ){
-
-       // topic is not registered yet
-       if ( !topics.hasOwnProperty( topic ) ){
-           topics[topic] = [];
-       }
-
-       var token = (++lastUid).toString();
-       topics[topic].push( { token : token, func : func } );
-
-       // return token for unsubscribing
-       return token;
-
-   };
-
-   /**
-    *  Unsubscribes a specific subscriber from a specific topic using the unique token
-    *  @token (String): The token of the function to unsubscribe
-   **/
-
-   p.unsubscribe = function( token ){
-
-       for ( var m in topics ){
-           if ( topics.hasOwnProperty( m ) ){
-               for ( var i = 0, j = topics[m].length; i < j; i++ ){
-                   if ( topics[m][i].token === token ){
-                       topics[m].splice( i, 1 );
-                       return token;
-                   }
-               }
-           }
-       }
-       return false;
-   };
-});
-</pre>
-
-
-
-<h3>Example 1: Basic use of publishers and subscribers</h3>
-
-<p>
-This could then be easily used as follows:
-</p>
-
-<pre class="brush: js">
-// a sample subscriber (or observer)
-
-var testSubscriber = function( topics , data ){
-   console.log( topics + ": " + data );
-
-};
-
-
-
-// add the function to the list of subscribers to a particular topic
-// maintain the token (subscription instance) to enable unsubscription later
-
-var testSubscription = PubSub.subscribe( 'example1', testSubscriber );
-
-
-
-// publish a topic or message asyncronously
-
-PubSub.publish( 'example1', 'hello scriptjunkie!' );
-
-PubSub.publish( 'example1', ['test','a','b','c'] );
-
-PubSub.publish( 'example1', [{'color':'blue'},{'text':'hello'}] );
-
-
-
-// unsubscribe from further topics
-setTimeout(function(){
-   PubSub.unsubscribe( testSubscription );
-}, 0);
-
-
-
-// test that we've fully unsubscribed
-PubSub.publish( 'example1', 'hello again!');
-
-</pre>
-
-<h3>Real-time stock market application</h3>
-
-<p>Next, let's imagine we have a web application responsible for displaying real-time stock information.</p>
-
-<p>
-The application might have a grid for displaying the stock stats and a counter for displaying the last point of update, as well as an underlying data model. When the data model changes, the application will need to update the grid and counter. In this scenario, our subject is the data model and the observers are the grid and counter.</p>
-
-<p>
-When the observers receive notification that the model itself has changed, they can update themselves accordingly.
-</p>
-
-<h3>Example 2: UI notifications using pub/sub</h3>
-
-<p>
-In the following example, we limit our usage of pub/sub to that of a notification system. Our subscriber is listening to the topic 'dataUpdated' to find out when new stock information is available. It then triggers 'gridUpdate' which goes on to call hypothetical methods that pull in the latest cached data object and re-render our UI components.
-</p>
-
-<p>
-Note: the Mediator pattern is occasionally used to provide a level of communication between UI components without requiring that they communicate with each other directly. For example, rather than tightly coupling our applications, we can have widgets/components publish a topic when something interesting happens. A mediator can then subscribe to that topic and call the relevant methods on other components.
-</p>
-
-<pre  class="brush: js">
-var grid = {
-
-   refreshData: function(){
-       console.log('retrieved latest data from data cache');
-       console.log('updated grid component');
-   },
-
-   updateCounter: function(){
-       console.log('data last updated at: ' + getCurrentTime());
-   }
-
-};
-
-
-
-//a very basic mediator
-
-var gridUpdate = function(topics, data){
-     grid.refreshData();
-     grid.updateCounter();
-}
-
-
-var dataSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
-PubSub.publish( 'dataUpdated', 'new stock data available!' );
-PubSub.publish( 'dataUpdated', 'new stock data available!' );
-
-
-function getCurrentTime(){
-
-   var date = new Date(),
-         m = date.getMonth() + 1,
-         d = date.getDate(),
-         y = date.getFullYear(),
-         t = date.toLocaleTimeString().toLowerCase(),
-        return (m + '/' + d + '/' + y + ' ' + t);
-
-}
-
-</pre>
-
-<p>Whilst there's nothing terribly wrong with this, there are more optimal ways that we can utilize pub/sub to our advantage.</p>
-
-<h3>Example 3: Taking notifications further</h3>
-
-<p>
-Rather than just notifying our subscribers that new data is available, why not actually push the new data through to gridUpdate when we publish a new notification from a publisher. In this next example, our publisher will notify subscribers with the actual data that's been updated as well as a timestamp from the data-source of when the new data was added.
-</p>
-<p>
-In addition to avoiding data having to be read from a cached store, this also avoids client-side calculation of the current time whenever a new data entry gets published.</p>
-
-<pre  class="brush: js">
-var grid = {
-
-   addEntry: function(data){
-
-       if (data !== 'undefined') {
-
-          console.log('Entry:'
-
-                      + data.title
-
-                      + ' Changenet / %'
-
-                      + data.changenet
-
-                      + '/' + data.percentage + ' % added');
-
-       }
-
-   },
-
-   updateCounter: function(timestamp){
-       console.log('grid last updated at: ' + timestamp);
-   }
-};
-
-
-
-var gridUpdate = function(topics, data){
-       grid.addEntry(data);
-       grid.updateCounter(data.timestamp);
-}
-
-
-
-var gridSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
-
-PubSub.publish('dataUpdated',   { title: "Microsoft shares", changenet: 4, percentage: 33, timestamp: '17:34:12'  });
-
-PubSub.publish('dataUpdated',   { title: "Dell shares", changenet: 10, percentage: 20, timestamp: '17:35:16'  });
-</pre>
-
-
-<h3>Example 4: Decoupling applications using Ben Alman's pub/sub implementation</h3>
-
-<p>
-In the following movie ratings example, we'll be using Ben Alman's jQuery implementation of pub/sub to demonstrate how we can decouple a user interface. Notice how submitting a rating only has the effect of publishing the fact that new user and rating data is available.
-</p>
-
-<p>
-It's left up to the subscribers to those topics to then delegate what happens with that data. In our case we're pushing that new data into existing arrays and then rendering them using the jQuery.tmpl plugin.</p>
-
-<strong>HTML/Templates</strong>
-
-<pre  class="brush: js">
-
-&lt;script id=&quot;userTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
-   &lt;li&gt;${user}
-&lt;/script&gt;
-
-
-&lt;script id=&quot;ratingsTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
-   &lt;li&gt;&lt;strong&gt;${movie}&lt;/strong&gt; was rated ${rating}/5
-&lt;/script&gt;
-
-
-&lt;div id=&quot;container&quot;&gt;
-
-   &lt;div class=&quot;sampleForm&quot;&gt;
-       &lt;p&gt;
-           &lt;label for=&quot;twitter_handle&quot;&gt;Twitter handle:&lt;/label&gt;
-           &lt;input type=&quot;text&quot; id=&quot;twitter_handle&quot; /&gt;
-       &lt;/p&gt;
-       &lt;p&gt;
-           &lt;label for=&quot;movie_seen&quot;&gt;Name a movie you&#39;ve seen this year:&lt;/label&gt;
-           &lt;input type=&quot;text&quot; id=&quot;movie_seen&quot; /&gt;
-       &lt;/p&gt;
-       &lt;p&gt;
-
-           &lt;label for=&quot;movie_rating&quot;&gt;Rate the movie you saw:&lt;/label&gt;
-           &lt;select id=&quot;movie_rating&quot;&gt;
-                 &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
-                  &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
-                  &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
-                  &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
-                  &lt;option value=&quot;5&quot;ected&gt;5&lt;/option&gt;
-
-          &lt;/select&gt;
-        &lt;/p&gt;
-        &lt;p&gt;
-
-            &lt;button id=&quot;add&quot;&gt;Submit rating&lt;/button&gt;
-        &lt;/p&gt;
-    &lt;/div&gt;
-
-
-
-    &lt;div class=&quot;summaryTable&quot;&gt;
-        &lt;div id=&quot;users&quot;&gt;&lt;h3&gt;Recent users&lt;/h3&gt;&lt;/div&gt;
-        &lt;div id=&quot;ratings&quot;&gt;&lt;h3&gt;Recent movies rated&lt;/h3&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
- &lt;/div&gt;
-
-</pre>
-
-<strong>JavaScript</strong>
-
-
-<pre  class="brush: js">
-(function($) {
-
-
-  var movieList = [],
-     userList  = [];
-
-
-
-  /* subscribers */
-
-  $.subscribe( "/new/user", function( e, userName ){
-
-     if(userName.length){
-         userList.push({user: userName});
-         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
-    }
-
-  });
-
-
-
-  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
-
-     if(movieTitle.length){
-       movieList.push({ movie: movieTitle, rating: userRating});
-       $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
-     }
-
-  });
-
-
-
-  $('#add').bind('click', function(){
-
-         var strUser    = $("#twitter_handle").val(),
-             strMovie = $("#movie_seen").val(),
-             strRating = $("#movie_rating").val();
-
-         $.publish('/new/user',  strUser  );
-         $.publish('/new/rating',  [ strMovie, strRating] );
-
-    });
-
-})(jQuery);
-</pre>
-
-<h3>Example 5: Decoupling an Ajax-based jQuery application</h3>
-
-<p>
-In our final example, we're going to take a practical look at how decoupling our code using pub/sub early on in the development process can save us some potentially painful refactoring later on. This is something Rebecca Murphey touched on in her pub/sub screencast and is another reason why pub/sub is favoured by so many developers in the community.</p>
-
-<p>
-Quite often in Ajax-heavy applications, once we've received a response to a request we want to achieve more than just one unique action. One could simply add all of their post-request logic into a success callback, but there are drawbacks to this approach.</p>
-
-<p>
-Highly coupled applications sometimes increase the effort required to reuse functionality due to the increased inter-function/code dependency. What this means is that although keeping our post-request logic hardcoded in a callback might be fine if we're just trying to grab a result set once, it's not as appropriate when we want to make further Ajax-calls to the same data source (and different end-behaviour) without rewriting parts of the code multiple times. Rather than having to go back through each layer that calls the same data-source and generalizing them later on, we can use pub/sub from the start and save time.</p>
-
-<p>
-Using pub/sub, we can also easily separate application-wide notifications regarding different events down to whatever level of granularity you're comfortable with, something which can be less elegantly done using other patterns.</p>
-
-<p>
-Notice how in our sample below, one topic notification is made when a user indicates they want to make a search query and another is made when the request returns and actual data is available for consumption. It's left up to the subscribers to then decide how to use knowledge of these events (or the data returned). The benefits of this are that, if we wanted, we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.</p>
-
-
-<strong>HTML/Templates</strong>:
-
-<pre  class="brush: js">
-
-&lt;form id=&quot;flickrSearch&quot;&gt;
-
-   &lt;input type=&quot;text&quot; name=&quot;tag&quot; id=&quot;query&quot;/&gt;
-
-   &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit&quot;/&gt;
-
-&lt;/form&gt;
-
-
-
-&lt;div id=&quot;lastQuery&quot;&gt;&lt;/div&gt;
-
-&lt;div id=&quot;searchResults&quot;&gt;&lt;/div&gt;
-
-
-
-&lt;script id=&quot;resultTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
-    {{each(i, items) items}}
-            &lt;li&gt;&lt;p&gt;&lt;img src=&quot;${items.media.m}&quot;/&gt;&lt;/p&gt;&lt;/li&gt;
-    {{/each}}
-&lt;/script&gt;
-
-</pre>
-
-<strong>JAVASCRIPT</strong>:
-
-<pre  class="brush: js">
-(function($) {
-
-   $('#flickrSearch').submit(function( e ){
-
-       e.preventDefault();
-       var tags = $(this).find('#query').val();
-
-       if(!tags){return;}
-       $.publish('/search/tags', [ $.trim(tags) ]);
-
-   });
-
-
-
-   $.subscribe('/search/tags', function(tags){
-
-       $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
-                  { tags: tags, tagmode: 'any', format: 'json'},
-
-          function(data){
-              if(!data.items.length){ return; }
-              $.publish('/search/resultSet', [ data ]);
-       });
-
-   });
-
-
-
-   $.subscribe('/search/tags', function(tags){
-       $('#searchResults').html('<p>Searched for:<strong>' + tags + '</strong></p>');
-   });
-
-
-   $.subscribe('/search/resultSet', function(results){
-
-       var holder = $('#searchResults');
-       holder.html();
-       $('#resultTemplate').tmpl(results).appendTo(holder);
-
-   });
-
-
-});
-</pre>
-
-<p>
-The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven't been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
-<p>&nbsp;</p>
-
-<h1 id="detailmvcmvp">MVC And MVP</h1>
-
-
-<p>In this section, we&#39;re going to review two very important architectural patterns - MVC (Model-View-Controller) and MVP (Model-View-Presenter). In the past both of these patterns have been heavily used for structuring desktop and server-side applications, but it's only been in recent years that come to being applied to JavaScript.</p>
-
-<p>As the majority of JavaScript developers currently using these patterns opt to utilize libraries such as Backbone.js for implementing an MVC/MV*-like structure, we will compare how modern solutions such as it differ in their interpretation of MVC compared to classical takes on these patterns.</p>
-
-<p>Let us first now cover the basics.</p>
-
-<h2>MVC</h2>
-<p>MVC is an architectural design pattern that encourages improved application organization through a separation of concerns. It enforces the isolation of business data (Models) from user interfaces (Views), with a third component (Controllers) (traditionally) managing logic, user-input and coordinating both the models and views. The pattern was originally designed by <a href="http://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a> during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in <a href="http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612">&ldquo;Design Patterns: Elements of Reusable Object-Oriented Software&rdquo;</a> (The &quot;GoF&quot; book) in 1994, which played a role in popularizing its use.</p>
-<h3>Smalltalk-80 MVC</h3>
-<p>It&#39;s important to understand what the original MVC pattern was aiming to solve as it&#39;s mutated quite heavily since the days of it&#39;s origin. Back in the 70&#39;s, graphical user-interfaces were far and few between and a concept known as <a href="http://martinfowler.com/eaaDev/uiArchs.html">Separated Presentation</a> began to be used as a means to make a clear division between domain objects which modelled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user&#39;s screen.</p>
-<p>The Smalltalk-80 implementaion of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80&#39;s MVC architecture:</p>
-<ul>
-  <li>A Domain element was known as a Model and were ignorant of the user-interface (Views and Controllers)</li>
-  <li>Presentation was taken care of by the View and the Controller, but there wasn&#39;t just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them</li>
-  <li>The Controller&#39;s role in this pair was handling user input (such as key-presses and click events), doing something sensible with them.</li>
-  <li>The Observer pattern was relied upon for updating the View whenever the Model changed</li>
-</ul>
-<p>Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as a Publish/Subscribe system) was included as a part of MVC&#39;s architecture many decades ago. In Smalltalk-80&#39;s MVC, the View and Controller both observe the Model. As mentioned in the bullet point above, anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - in order for the application to be useful, any change to the data in our Models should result in the View being refreshed instantly.</p>
-<p>Martin Fowler has done an excellent job of writing about the <a href="http://martinfowler.com/eaaDev/uiArchs.html">origins</a> of MVC over the years and if you are interested in some further historical information about Smalltalk-80&#39;s MVC, I recommend reading his work.</p>
-<h2>MVC For JavaScript Developers</h2>
-<p>We&#39;ve reviewed the 70&#39;s, but let us now return to the here and now. In modern times, the MVC pattern has been applied to a diverse range of programming languages including of most relevance to us: JavaScript. JavaScript now has a number of frameworks boasting support for MVC (or variations on it, which we refer to as the MV* family), allowing developers to easily add structure to their applications without great effort. You&#39;ve likely come across at least one of these such frameworks, but they include the likes of Backbone, Ember.js and JavaScriptMVC. Given the importance of avoiding &quot;spaghetti&quot; code, a term which describes code that is very difficult to read or maintain due to its lack of structure, it&#39;s imperative that the modern JavaScript developer understand what this pattern provides. This allows us to effectively appreciate what these frameworks enable us to do differently.</p>
-<p>We know that MVC is composed of three core components:</p>
-<h3>Models</h3>
-<p>Models manage the data for an application. They are concerned with neither the user-interface nor presentation layers but instead represent unique forms of data that an application may require. When a model changes (e.g when it is updated), it will typically notify its observers (e.g views, a concept we will cover shortly) that a change has occurred so that they may react accordingly.</p>
-<p>To understand models further, let us imagine we have a JavaScript photo gallery application. In a photo gallery, the concept of a photo would merit its own model as it represents a unique kind of domain-specific data. Such a model may contain related attributes such as a caption, image source and additional meta-data. A specific photo would be stored in an instance of a model and a model may also be reusable. Below we can see an example of a very simplistic model implemented using Backbone.</p>
-
-<pre  class="brush: js">var Photo = Backbone.Model.extend({
-
-    // Default attributes for the photo
-    defaults: {
-      src: &quot;placeholder.jpg&quot;,
-      caption: &quot;A default image&quot;,
-    viewed: false
-    },
-
-    // Ensure that each photo created has an `src`.
-    initialize: function() {
-       this.set({&quot;src&quot;: this.defaults.src});
-    }
-
-});
-</pre>
-<p>The built-in capabilities of models vary across frameworks, however it is quite common for them to support validation of attributes, where attributes represent the properties of the model, such as a model identifier. When using models in real-world applications we generally also desire model persistence. Persistence allows us to edit and update models with the knowledge that its most recent state will be saved in either: memory, in a user&#39;s localStorage data-store or synchronized with a database.</p>
-<p>In addition, a model may also have multiple views observing it. If say, our photo model contained meta-data such as its location (longitude and latitude), friends that were present in the a photo (a list of identifiers) and a list of tags, a developer may decide to provide a single view to display each of these three facets.</p>
-<p>It is not uncommon for modern MVC/MV* frameworks to provide a means to group models together (e.g in Backbone, these groups are referred to as &quot;collections&quot;). Managing models in groups allows us to write application logic based on notifications from the group should any model it contains be changed. This avoids the need to manually observe individual model instances.</p>
-<p>A sample grouping of models into a simplified Backbone collection can be seen below.</p>
-<pre  class="brush: js">var PhotoGallery = Backbone.Collection.extend({
-
-    // Reference to this collection&#39;s model.
-    model: Photo,
-
-    // Filter down the list of all photos 
-    // that have been viewed
-    viewed: function() {
-        return this.filter(function( photo ){ 
-           return photo.get(&#39;viewed&#39;); 
-        });
-    },
-
-    // Filter down the list to only photos that 
-    // have not yet been viewed
-    unviewed: function() {
-      return this.without.apply( this, this.viewed() );
-    }
-
-});
-</pre>
-<p>Should you read any of the older texts on MVC, you may come across a description of models as also managing application &#39;state&#39;. In JavaScript applications &quot;state&quot; has a different meaning, typically referring to the current &quot;state&quot; i.e view or sub-view (with specific data) on a users screen at a fixed point. State is a topic which is regularly discussed when looking at Single-page applications, where the concept of state needs to be simulated.</p>
-<p>So to summarize, models are primarily concerned with business data.</p>
-<h3>Views</h3>
-<p>Views are a visual representation of models that present a filtered view of their current state. A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as &#39;dumb&#39; given that their knowledge of models and controllers in an application is limited.</p>
-<p>Users are able to interact with views and this includes the ability to read and edit (i.e get or set the attribute values in) models. As the view is the presentation layer, we generally present the ability to edit and update in a user-friendly fashion. For example, in the former photo gallery application we discussed earlier, model editing could be facilitated through an &quot;edit&quot; view where a user who has selected a specific photo could edit its meta-data.</p>
-<p>The actual task of updating the model falls to controllers (which we&#39;ll be covering shortly).</p>
-<p>Let&#39;s explore views a little further using a vanilla JavaScript sample implementation. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance.</p>
-<p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
-<p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of it&#39;s subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
-<p>You may wonder where user-interaction comes into play here. When users click on any elements within the view, it&#39;s not the view&#39;s responsibility to know what to do next. It relies on a controller to make this decision for it. In our sample implementation, this is achieved by adding an event listener to <code>photoEl</code> which will delegate handling the click behaviour back to the controller, passing the model information along with it in case it&#39;s needed.</p>
-<p>The benefit of this architecture is that each component plays it&#39;s own separate role in making the application function as needed.</p>
-<pre  class="brush: js">var buildPhotoView = function( photoModel, photoController ){
-
-    var base        = document.createElement(&#39;div&#39;),
-        photoEl     = document.createElement(&#39;div&#39;);
-
-     base.appendChild(photoEl);
-
-     var render= function(){
-        // We use a templating library such as Underscore
-        // templating which generates the HTML for our 
-        // photo entry
-        photoEl.innerHTML = _.template(&#39;photoTemplate&#39;, 
-        {src: photoModel.getSrc()});
-     }
-
-     photoModel.addSubscriber( render );
-
-     photoEl.addEventListener(&#39;click&#39;, function(){
-        photoController.handleEvent(&#39;click&#39;, photoModel );
-     });
-
-     var show = function(){
-        photoEl.style.display  = &#39;&#39;;
-     }
-
-     var hide = function(){
-        photoEl.style.display  = &#39;none&#39;;
-     }
-
-
-     return{
-        showView: show,
-        hideView: hide
-     }
-
-}
-</pre>
-<p><strong>Templating</strong></p>
-<p>In the context of JavaScript frameworks that support MVC/MV*, it is worth briefly discussing JavaScript templating and its relationship to views as we briefly touched upon it in the last section.</p>
-<p>It has long been considered (and proven) a performance bad practice to manually create large blocks of HTML markup in-memory through string concatenation. Developers doing so have fallen prey to inperformantly iterating through their data, wrapping it in nested divs and using outdated techniques such as <code>document.write</code> to inject the &#39;template&#39; into the DOM. As this typically means keeping scripted markup inline with your standard markup, it can quickly become both difficult to read and more importantly, maintain such disasters, especially when building non-trivially sized applications.</p>
-<p>JavaScript templating solutions (such as Handlebars.js and Mustache) are often used to define templates for views as markup (either stored externally or within script tags with a custom type - e.g text/template) containing template variables. Variables may be deliminated using a variable syntax (e.g {{name}}) and frameworks are typically smart enough to accept data in a JSON form (of which model instances can be converted to) such that we only need be concerned with maintaining clean models and clean templates. Most of the grunt work to do with population is taken care of by the framework itself. This has a large number of benefits, particularly when opting to store templates externally as this can give way to templates being dynamically loaded on an as-needed basis when it comes to building larger applications.</p>
-<p>Below we can see two examples of HTML templates. One implemented using the popular Handlebars.js framework and another using Underscore&#39;s templates.</p>
-<p><strong>Handlebars.js:</strong></p>
-<pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
-  &lt;h2&gt;{{caption}}&lt;/h2&gt;
-  &lt;img class=&quot;source&quot; src=&quot;{{src}}&quot;/&gt;
-  &lt;div class=&quot;meta-data&quot;&gt; 
-    {{metadata}}
-  &lt;/div&gt;
-&lt;/li&gt;
-</pre>
-<p><strong>Underscore.js Microtemplates:</strong></p>
-<pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
-  &lt;h2&gt;&lt;%= caption %&gt;&lt;/h2&gt;
-  &lt;img class=&quot;source&quot; src=&quot;&lt;%= src %&gt;&quot;/&gt;
-  &lt;div class=&quot;meta-data&quot;&gt; 
-    &lt;%= metadata %&gt;
-  &lt;/div&gt;
-&lt;/li&gt;
-</pre>
-<p>It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In Single-page JavaScript applications however, once data is fetched from a server via Ajax, it can simply be dynamically rendered in a new view within the same page without any such refresh being necessary. The role of navigation thus falls to a &quot;router&quot;, which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are however neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.</p>
-<p>To summarize, views are a visual representation of our application data.</p>
-<h3>Controllers</h3>
-<p>Controllers are an intermediary between models and views which are classically responsible for two tasks: they both update the view when the model changes and update the model when the user manipulates the view.</p>
-<p>In our photo gallery application, a controller would be responsible for handling changes the user made to the edit view for a particular photo, updating a specific photo model when a user has finished editing.</p>
-<p>In terms of where most JavaScript MVC frameworks detract from what is conventionally considered &quot;MVC&quot; however, it is with controllers. The reasons for this vary, but in my honest opinion it is that framework authors initially look at the server-side interpretation of MVC, realize that it doesn&#39;t translate 1:1 on the client-side and re-interpret the C in MVC to mean something they feel makes more sense. The issue with this however is that it is subjective, increases the complexity in both understanding the classical MVC pattern and of course the role of controllers in modern frameworks.</p>
-<p>As an example, let&#39;s briefly review the architecture of the popular architectural framework Backbone.js. Backbone contains models and views (somewhat similar to what we reviewed earlier), however it doesn&#39;t actually have true controllers. Its views and routers act a little similar to a controller, but neither are actually controllers on their own.</p>
-<p>In this respect, contrary to what might be mentioned in the official documentation or in blog posts, Backbone is neither a truly MVC/MVP nor MVVM framework. It&#39;s in fact better to consider it a member of the MV* family which approaches architecture in its own way. There is of course nothing wrong with this, but it is important to distinguish between classical MVC and MV* should you be relying on advice from classical literature on the former to help with the latter.</p>
-
-<h3>Controllers in another library (Spine.js) vs Backbone.js</h3>
-
-<p><strong>Spine.js</strong></p>
-<p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we&#39;ll be discussing in this book (Backbone) doesn&#39;t have it&#39;s <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let&#39;s take a look at a sample controller from Spine.js:</p>
-<p>In this example, we&#39;re going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user editd the photo meta-data) the corresonding model does too.</p>
-<p>Note: We won&#39;t be delving heavily into Spine.js at all, but will just take a ten-foot view of what it&#39;s controllers can do:</p>
-<pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
-
-var PhotosController = Spine.Controller.sub({      
-  init: function(){
-    this.item.bind(&quot;update&quot;, this.proxy(this.render));
-    this.item.bind(&quot;destroy&quot;, this.proxy(this.remove));
-  },
-
-  render: function(){
-    // Handle templating
-    this.replace($(&quot;#photoTemplate&quot;).tmpl(this.item));
-    return this;
-  },
-
-  remove: function(){
-    this.el.remove();
-    this.release();
-  }
-});
-
-</pre>
-<p>In Spine, controllers are considered the glue for an application, adding and responding to DOM events, rendering templates and ensuring that views and models are kept in sync (which makes sense in the context of what we know to be a controller).</p>
-<p>What we&#39;re doing in the above example is setting up listeners in the <code>update</code> and <code>destroy</code> events using <code>render()</code> and <code>remove()</code>. When a photo entry gets updated , we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the <code>tmpl()</code> function in the code snippet: in the <code>render()</code> function, we&#39;re using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller&#39;s current element.</p>
-<p>What this provides us with is a very lightweight, simple way to manage changes between the model and the view.</p>
-<p><strong>Backbone.js</strong></p>
-<p>Later on in this section we&#39;re going to revisit the differences between Backbone and traditional MVC, but for now let&#39;s focus on controllers.</p>
-<p>In Backbone, one shares the responsibility of a controller with both the Backbone.View and Backbone.Router. Some time ago Backbone did once come with it&#39;s own Backbone.Controller, but as the naming for this component didn&#39;t make sense for the context in which it was being used, it was later renamed to Router.</p>
-<p>Routers handle a little more of the controller responsibility as it&#39;s possible to bind the events there for models and have your view respond to DOM events and rendering. As Tim Branyen (another Bocoup-based Backbone contributor) has also previously pointed out, it&#39;s possible to get away with not needing Backbone.Router at all for this, so a way to think about it using the Router paradigm is probably:</p>
-<pre  class="brush: js">var PhotoRouter = Backbone.Router.extend({
-  routes: { &quot;photos/:id&quot;: &quot;route&quot; },
-
-  route: function(id) {
-    var item = photoCollection.get(id);
-    var view = new PhotoView({ model: item });
-
-    something.html( view.render().el );
-  }
-}):
-</pre>
-<p>To summarize, the takeaway from this section is that controllers manage the logic and coordination between models and views in an application.</p>
-<h2>What does MVC give us?</h2>
-<p>This separation of concerns in MVC facilitates simpler modularization of an application&#39;s functionality and enables:</p>
-<ul>
-  <li>Easier overall maintenance. When updates need to be made to the application it is very clear whether the changes are data-centric, meaning changes to models and possibly controllers, or merely visual, meaning changes to views.</li>
-  <li>Decoupling models and views means that it is significantly more straight-forward to write unit tests for business logic</li>
-  <li>Duplication of low-level model and controller code (i.e what you may have been using instead) is eliminated across the application</li>
-  <li>Depending on the size of the application and separation of roles, this modularity allows developers responsible for core logic and developers working on the user-interfaces to work simultaneously</li>
-</ul>
-<h3>Delving deeper</h3>
-<p>Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we can explore it a little further.</p>
-<p>The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a &quot;set of classes to build a user interface&quot;. In their view, it&#39;s actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. </p>
-<p>As we&#39;ve discussed, models represent application data whilst views are what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn&#39;t cover in many articles about the MVC pattern). When a model is changed it notifies the rest of the application it has been updated. The controller then updates the view accordingly. The observer nature of this relationship is what facilitates multiple views being attached to the same model.</p>
-<p>For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implement), one of the goal&#39;s of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.</p>
-<h3>Summary</h3>
-<p>Having reviewed the classical MVC pattern, we should now understand how it allows us to cleanly separate concerns in an application. We should also now appreciate how JavaScript MVC frameworks may differ in their interpretation of the MVC pattern, which although quite open to variation, still shares some of the fundamental concepts the original pattern has to offer.</p>
-<p>When reviewing a new JavaScript MVC/MV* framework, remember - it can be useful to step back and review how it&#39;s opted to approach architecture (specifically, how it supports implementing models, views, controllers or other alternatives) as this can better help you grok how the framework expects to be used.</p>
-<h2>MVP</h2>
-<p>Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named <a href="http://en.wikipedia.org/wiki/Taligent">Taligent</a> in the early 1990s while they were working on a model for a C++ CommonPoint environment. Whilst both MVC and MVP target the separation of concerns across multiple components, there are some fundamental differences between them.</p>
-<p>For the purposes of this summary we will focus on the version of MVP most suitable for web-based architectures.</p>
-<h3>Models, Views &amp; Presenters</h3>
-<p>The P in MVP stands for presenter. It&#39;s a component which contains the user-interface business logic for the view. Unlike MVC, invocations from the view are delegated to the presenter, which are decoupled from the view and instead talk to it through an interface. This allows for all kinds of useful things such as being able to mock views in unit tests.</p>
-<p>The most common implementation of MVP is one which uses a Passive View (a view which is for all intents and purposes &quot;dumb&quot;), containing little to no logic. MVP models are almost identical to MVC models and handle application data. The presenter acts as a mediator which talks to both the view and model, however both of these are isolated from each other. They effectively bind models to views, a responsibility which was previously held by controllers in MVC. Presenters are at the heart of the MVP pattern and as you can guess, incorporate the presentation logic behind views.</p>
-<p>Solicited by a view, presenters perform any work to do with user requests and pass data back to them. In this respect, they retrieve data, manipulate it and determine how the data should be displayed in the view. In some implementations, the presenter also interacts with a service layer to persist data (models). Models may trigger events but it&#39;s the presenters role to subscribe to them so that it can update the view. In this passive architecture, we have no concept of direct data binding. Views expose setters which presenters can use to set data.</p>
-<p>The benefit of this change from MVC is that it increases the testability of your application and provides a more clean separation between the view and the model. This isn&#39;t however without its costs as the lack of data binding support in the pattern can often mean having to take care of this task separately.</p>
-<p>Although a common implementation of a <a href="http://martinfowler.com/eaaDev/PassiveScreen.html">Passive View</a> is for the view to implement an interface, there are variations on it, including the use of events which can decouple the View from the Presenter a little more. As we don&#39;t have the interface construct in JavaScript, we&#39;re using more a protocol than an explicit interface here. It&#39;s technically still an API and it&#39;s probably fair for us to refer to it as an interface from that perspective.</p>
-<p>There is also a <a href="http://martinfowler.com/eaaDev/SupervisingPresenter.html">Supervising Controller</a> variation of MVP, which is closer to the MVC and <a href="http://en.wikipedia.org/wiki/Model_View_ViewModel">MVVM</a> patterns as it provides data-binding from the Model directly from the View. Key-value observing (KVO) plugins (such as Derick Bailey&#39;s Backbone.ModelBinding plugin) tend to bring Backbone out of the Passive View and more into the Supervising Controller or MVVM variations.</p>
-<h2>MVP or MVC?</h2>
-<p>MVP is generally used most often in enterprise-level applications where it&#39;s necessary to reuse as much presentation logic as possible. Applications with very complex views and a great deal of user interaction may find that MVC doesn&#39;t quite fit the bill here as solving this problem may mean heavily relying on multiple controllers. In MVP, all of this complex logic can be encapsulated in a presenter, which can simplify maintenance greatly.</p>
-<p>As MVP views are defined through an interface and the interface is technically the only point of contact between the system and the view (other than a presenter), this pattern also allows developers to write presentation logic without needing to wait for designers to produce layouts and graphics for the application.</p>
-<p>Depending on the implementation, MVP may be more easy to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (there&#39;s quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).</p>
-<p>At the end of the day, the underlying concerns you may have with MVC will likely hold true for MVP given that the differences between them are mainly semantic. As long as you are cleanly separating concerns into models, views and controllers (or presenters) you should be achieving most of the same benefits regardless of the pattern you opt for.</p>
-<h2>MVC, MVP and Backbone.js</h2>
-<p>There are very few, if any architectural JavaScript frameworks that claim to implement the MVC or MVC patterns in their classical form as many JavaScript developers don&#39;t view MVC and MVP as being mutually exclusive (we are actually more likely to see MVP strictly implemented when looking at web frameworks such as ASP.net or GWT). This is because it&#39;s possible to have additional presenter/view logic in your application and yet still consider it a flavor of MVC.</p>
-<p>Backbone contributor <a href="http://ireneros.com/">Irene Ros</a> (of Boston-based Bocoup) subscribes to this way of thinking as when she separates views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a <code>Backbone.Router</code>, covered later in the book) or a callback in response to data being fetched.</p>
-<p>That said, some developers do however feel that Backbone.js better fits the description of MVP than it does MVC . Their view is that:</p>
-<ul>
-  <li>The presenter in MVP better describes the <code>Backbone.View</code> (the layer between View templates and the data bound to it) than a controller does</li>
-  <li>The model fits <code>Backbone.Model</code> (it isn&#39;t greatly different to the models in MVC at all)</li>
-  <li>The views best represent templates (e.g Handlebars/Mustache markup templates)</li>
-</ul>
-<p>A response to this could be that the view can also just be a View (as per MVC) because Backbone is flexible enough to let it be used for multiple purposes. The V in MVC and the P in MVP can both be accomplished by <code>Backbone.View</code> because they&#39;re able to achieve two purposes: both rendering atomic components and assembling those components rendered by other views.</p>
-<p>We&#39;ve also seen that in Backbone the responsibility of a controller is shared with both the Backbone.View and Backbone.Router and in the following example we can actually see that aspects of that are certainly true.</p>
-<p>Our Backbone <code>PhotoView</code> uses the Observer pattern to &#39;subscribe&#39; to changes to a View&#39;s model in the line <code>this.model.bind(&#39;change&#39;,...)</code>. It also handles templating in the <code>render()</code> method, but unlike some other implementations, user interaction is also handled in the View (see <code>events</code>).</p>
-
-<pre  class="brush: js">var PhotoView = Backbone.View.extend({
-
-    //... is a list tag.
-    tagName:  &quot;li&quot;,
-
-    // Pass the contents of the photo template through a templating
-    // function, cache it for a single photo
-    template: _.template($(&#39;#photo-template&#39;).html()),
-
-    // The DOM events specific to an item.
-    events: {
-      &quot;click img&quot; : &quot;toggleViewed&quot;
-    },
-
-    // The PhotoView listens for changes to 
-    // its model, re-rendering. Since there&#39;s
-    // a one-to-one correspondence between a 
-    // **Photo** and a **PhotoView** in this
-    // app, we set a direct reference on the model for convenience.
-
-    initialize: function() {
-      _.bindAll(this, &#39;render&#39;);
-      this.model.bind(&#39;change&#39;, this.render);
-      this.model.bind(&#39;destroy&#39;, this.remove);
-    },
-
-    // Re-render the photo entry
-    render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      return this;
-    },
-
-    // Toggle the `&quot;viewed&quot;` state of the model.
-    toggleViewed: function() {
-      this.model.viewed();
-    }
-
-});
-</pre>
-
-<p>Another (quite different) opinion is that Backbone more closely resembles <a href="http://martinfowler.com/eaaDev/uiArchs.html#ModelViewController">Smalltalk-80 MVC</a>, which we went through earlier.</p>
-
-<p>As regular Backbone user Derick Bailey has <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">previously</a> put it, it&#39;s ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone fits neither MVC nor MVP. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well.</p>
-<p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
-<p>&nbsp;</p>
-
+<!-- todo:greater detail-->
 <h1 id="detaildecorator">Decorator Pattern</h1>
-
-
 
 <p>In this section we're going to continue exploring the <strong>decorator</strong>  - a structural  designpattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
 <p><!--more--></p>
@@ -2903,6 +2906,299 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <p>Sufficient commenting or pattern research should assist with the latter, however as long as you keep a handle on how widespread you use the decorator in your application you should be fine on both counts.</p>
 
 <p>&nbsp;</p>
+<!--end detail-->
+
+
+<!--more-->
+
+
+<h1 id="detailmvcmvp">MVC And MVP</h1>
+
+
+<p>In this section, we&#39;re going to review two very important architectural patterns - MVC (Model-View-Controller) and MVP (Model-View-Presenter). In the past both of these patterns have been heavily used for structuring desktop and server-side applications, but it's only been in recent years that come to being applied to JavaScript.</p>
+
+<p>As the majority of JavaScript developers currently using these patterns opt to utilize libraries such as Backbone.js for implementing an MVC/MV*-like structure, we will compare how modern solutions such as it differ in their interpretation of MVC compared to classical takes on these patterns.</p>
+
+<p>Let us first now cover the basics.</p>
+
+<h2>MVC</h2>
+<p>MVC is an architectural design pattern that encourages improved application organization through a separation of concerns. It enforces the isolation of business data (Models) from user interfaces (Views), with a third component (Controllers) (traditionally) managing logic, user-input and coordinating both the models and views. The pattern was originally designed by <a href="http://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a> during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in <a href="http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612">&ldquo;Design Patterns: Elements of Reusable Object-Oriented Software&rdquo;</a> (The &quot;GoF&quot; book) in 1994, which played a role in popularizing its use.</p>
+<h3>Smalltalk-80 MVC</h3>
+<p>It&#39;s important to understand what the original MVC pattern was aiming to solve as it&#39;s mutated quite heavily since the days of it&#39;s origin. Back in the 70&#39;s, graphical user-interfaces were far and few between and a concept known as <a href="http://martinfowler.com/eaaDev/uiArchs.html">Separated Presentation</a> began to be used as a means to make a clear division between domain objects which modelled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user&#39;s screen.</p>
+<p>The Smalltalk-80 implementaion of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80&#39;s MVC architecture:</p>
+<ul>
+  <li>A Domain element was known as a Model and were ignorant of the user-interface (Views and Controllers)</li>
+  <li>Presentation was taken care of by the View and the Controller, but there wasn&#39;t just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them</li>
+  <li>The Controller&#39;s role in this pair was handling user input (such as key-presses and click events), doing something sensible with them.</li>
+  <li>The Observer pattern was relied upon for updating the View whenever the Model changed</li>
+</ul>
+<p>Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as a Publish/Subscribe system) was included as a part of MVC&#39;s architecture many decades ago. In Smalltalk-80&#39;s MVC, the View and Controller both observe the Model. As mentioned in the bullet point above, anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - in order for the application to be useful, any change to the data in our Models should result in the View being refreshed instantly.</p>
+<p>Martin Fowler has done an excellent job of writing about the <a href="http://martinfowler.com/eaaDev/uiArchs.html">origins</a> of MVC over the years and if you are interested in some further historical information about Smalltalk-80&#39;s MVC, I recommend reading his work.</p>
+<h2>MVC For JavaScript Developers</h2>
+<p>We&#39;ve reviewed the 70&#39;s, but let us now return to the here and now. In modern times, the MVC pattern has been applied to a diverse range of programming languages including of most relevance to us: JavaScript. JavaScript now has a number of frameworks boasting support for MVC (or variations on it, which we refer to as the MV* family), allowing developers to easily add structure to their applications without great effort. You&#39;ve likely come across at least one of these such frameworks, but they include the likes of Backbone, Ember.js and JavaScriptMVC. Given the importance of avoiding &quot;spaghetti&quot; code, a term which describes code that is very difficult to read or maintain due to its lack of structure, it&#39;s imperative that the modern JavaScript developer understand what this pattern provides. This allows us to effectively appreciate what these frameworks enable us to do differently.</p>
+<p>We know that MVC is composed of three core components:</p>
+<h3>Models</h3>
+<p>Models manage the data for an application. They are concerned with neither the user-interface nor presentation layers but instead represent unique forms of data that an application may require. When a model changes (e.g when it is updated), it will typically notify its observers (e.g views, a concept we will cover shortly) that a change has occurred so that they may react accordingly.</p>
+<p>To understand models further, let us imagine we have a JavaScript photo gallery application. In a photo gallery, the concept of a photo would merit its own model as it represents a unique kind of domain-specific data. Such a model may contain related attributes such as a caption, image source and additional meta-data. A specific photo would be stored in an instance of a model and a model may also be reusable. Below we can see an example of a very simplistic model implemented using Backbone.</p>
+
+<pre  class="brush: js">var Photo = Backbone.Model.extend({
+
+    // Default attributes for the photo
+    defaults: {
+      src: &quot;placeholder.jpg&quot;,
+      caption: &quot;A default image&quot;,
+    viewed: false
+    },
+
+    // Ensure that each photo created has an `src`.
+    initialize: function() {
+       this.set({&quot;src&quot;: this.defaults.src});
+    }
+
+});
+</pre>
+<p>The built-in capabilities of models vary across frameworks, however it is quite common for them to support validation of attributes, where attributes represent the properties of the model, such as a model identifier. When using models in real-world applications we generally also desire model persistence. Persistence allows us to edit and update models with the knowledge that its most recent state will be saved in either: memory, in a user&#39;s localStorage data-store or synchronized with a database.</p>
+<p>In addition, a model may also have multiple views observing it. If say, our photo model contained meta-data such as its location (longitude and latitude), friends that were present in the a photo (a list of identifiers) and a list of tags, a developer may decide to provide a single view to display each of these three facets.</p>
+<p>It is not uncommon for modern MVC/MV* frameworks to provide a means to group models together (e.g in Backbone, these groups are referred to as &quot;collections&quot;). Managing models in groups allows us to write application logic based on notifications from the group should any model it contains be changed. This avoids the need to manually observe individual model instances.</p>
+<p>A sample grouping of models into a simplified Backbone collection can be seen below.</p>
+<pre  class="brush: js">var PhotoGallery = Backbone.Collection.extend({
+
+    // Reference to this collection&#39;s model.
+    model: Photo,
+
+    // Filter down the list of all photos 
+    // that have been viewed
+    viewed: function() {
+        return this.filter(function( photo ){ 
+           return photo.get(&#39;viewed&#39;); 
+        });
+    },
+
+    // Filter down the list to only photos that 
+    // have not yet been viewed
+    unviewed: function() {
+      return this.without.apply( this, this.viewed() );
+    }
+
+});
+</pre>
+<p>Should you read any of the older texts on MVC, you may come across a description of models as also managing application &#39;state&#39;. In JavaScript applications &quot;state&quot; has a different meaning, typically referring to the current &quot;state&quot; i.e view or sub-view (with specific data) on a users screen at a fixed point. State is a topic which is regularly discussed when looking at Single-page applications, where the concept of state needs to be simulated.</p>
+<p>So to summarize, models are primarily concerned with business data.</p>
+<h3>Views</h3>
+<p>Views are a visual representation of models that present a filtered view of their current state. A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as &#39;dumb&#39; given that their knowledge of models and controllers in an application is limited.</p>
+<p>Users are able to interact with views and this includes the ability to read and edit (i.e get or set the attribute values in) models. As the view is the presentation layer, we generally present the ability to edit and update in a user-friendly fashion. For example, in the former photo gallery application we discussed earlier, model editing could be facilitated through an &quot;edit&quot; view where a user who has selected a specific photo could edit its meta-data.</p>
+<p>The actual task of updating the model falls to controllers (which we&#39;ll be covering shortly).</p>
+<p>Let&#39;s explore views a little further using a vanilla JavaScript sample implementation. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance.</p>
+<p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
+<p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of it&#39;s subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
+<p>You may wonder where user-interaction comes into play here. When users click on any elements within the view, it&#39;s not the view&#39;s responsibility to know what to do next. It relies on a controller to make this decision for it. In our sample implementation, this is achieved by adding an event listener to <code>photoEl</code> which will delegate handling the click behaviour back to the controller, passing the model information along with it in case it&#39;s needed.</p>
+<p>The benefit of this architecture is that each component plays it&#39;s own separate role in making the application function as needed.</p>
+<pre  class="brush: js">var buildPhotoView = function( photoModel, photoController ){
+
+    var base        = document.createElement(&#39;div&#39;),
+        photoEl     = document.createElement(&#39;div&#39;);
+
+     base.appendChild(photoEl);
+
+     var render= function(){
+        // We use a templating library such as Underscore
+        // templating which generates the HTML for our 
+        // photo entry
+        photoEl.innerHTML = _.template(&#39;photoTemplate&#39;, 
+        {src: photoModel.getSrc()});
+     }
+
+     photoModel.addSubscriber( render );
+
+     photoEl.addEventListener(&#39;click&#39;, function(){
+        photoController.handleEvent(&#39;click&#39;, photoModel );
+     });
+
+     var show = function(){
+        photoEl.style.display  = &#39;&#39;;
+     }
+
+     var hide = function(){
+        photoEl.style.display  = &#39;none&#39;;
+     }
+
+
+     return{
+        showView: show,
+        hideView: hide
+     }
+
+}
+</pre>
+<p><strong>Templating</strong></p>
+<p>In the context of JavaScript frameworks that support MVC/MV*, it is worth briefly discussing JavaScript templating and its relationship to views as we briefly touched upon it in the last section.</p>
+<p>It has long been considered (and proven) a performance bad practice to manually create large blocks of HTML markup in-memory through string concatenation. Developers doing so have fallen prey to inperformantly iterating through their data, wrapping it in nested divs and using outdated techniques such as <code>document.write</code> to inject the &#39;template&#39; into the DOM. As this typically means keeping scripted markup inline with your standard markup, it can quickly become both difficult to read and more importantly, maintain such disasters, especially when building non-trivially sized applications.</p>
+<p>JavaScript templating solutions (such as Handlebars.js and Mustache) are often used to define templates for views as markup (either stored externally or within script tags with a custom type - e.g text/template) containing template variables. Variables may be deliminated using a variable syntax (e.g {{name}}) and frameworks are typically smart enough to accept data in a JSON form (of which model instances can be converted to) such that we only need be concerned with maintaining clean models and clean templates. Most of the grunt work to do with population is taken care of by the framework itself. This has a large number of benefits, particularly when opting to store templates externally as this can give way to templates being dynamically loaded on an as-needed basis when it comes to building larger applications.</p>
+<p>Below we can see two examples of HTML templates. One implemented using the popular Handlebars.js framework and another using Underscore&#39;s templates.</p>
+<p><strong>Handlebars.js:</strong></p>
+<pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
+  &lt;h2&gt;{{caption}}&lt;/h2&gt;
+  &lt;img class=&quot;source&quot; src=&quot;{{src}}&quot;/&gt;
+  &lt;div class=&quot;meta-data&quot;&gt; 
+    {{metadata}}
+  &lt;/div&gt;
+&lt;/li&gt;
+</pre>
+<p><strong>Underscore.js Microtemplates:</strong></p>
+<pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
+  &lt;h2&gt;&lt;%= caption %&gt;&lt;/h2&gt;
+  &lt;img class=&quot;source&quot; src=&quot;&lt;%= src %&gt;&quot;/&gt;
+  &lt;div class=&quot;meta-data&quot;&gt; 
+    &lt;%= metadata %&gt;
+  &lt;/div&gt;
+&lt;/li&gt;
+</pre>
+<p>It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In Single-page JavaScript applications however, once data is fetched from a server via Ajax, it can simply be dynamically rendered in a new view within the same page without any such refresh being necessary. The role of navigation thus falls to a &quot;router&quot;, which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are however neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.</p>
+<p>To summarize, views are a visual representation of our application data.</p>
+<h3>Controllers</h3>
+<p>Controllers are an intermediary between models and views which are classically responsible for two tasks: they both update the view when the model changes and update the model when the user manipulates the view.</p>
+<p>In our photo gallery application, a controller would be responsible for handling changes the user made to the edit view for a particular photo, updating a specific photo model when a user has finished editing.</p>
+<p>In terms of where most JavaScript MVC frameworks detract from what is conventionally considered &quot;MVC&quot; however, it is with controllers. The reasons for this vary, but in my honest opinion it is that framework authors initially look at the server-side interpretation of MVC, realize that it doesn&#39;t translate 1:1 on the client-side and re-interpret the C in MVC to mean something they feel makes more sense. The issue with this however is that it is subjective, increases the complexity in both understanding the classical MVC pattern and of course the role of controllers in modern frameworks.</p>
+<p>As an example, let&#39;s briefly review the architecture of the popular architectural framework Backbone.js. Backbone contains models and views (somewhat similar to what we reviewed earlier), however it doesn&#39;t actually have true controllers. Its views and routers act a little similar to a controller, but neither are actually controllers on their own.</p>
+<p>In this respect, contrary to what might be mentioned in the official documentation or in blog posts, Backbone is neither a truly MVC/MVP nor MVVM framework. It&#39;s in fact better to consider it a member of the MV* family which approaches architecture in its own way. There is of course nothing wrong with this, but it is important to distinguish between classical MVC and MV* should you be relying on advice from classical literature on the former to help with the latter.</p>
+
+<h3>Controllers in another library (Spine.js) vs Backbone.js</h3>
+
+<p><strong>Spine.js</strong></p>
+<p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we&#39;ll be discussing in this book (Backbone) doesn&#39;t have it&#39;s <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let&#39;s take a look at a sample controller from Spine.js:</p>
+<p>In this example, we&#39;re going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user editd the photo meta-data) the corresonding model does too.</p>
+<p>Note: We won&#39;t be delving heavily into Spine.js at all, but will just take a ten-foot view of what it&#39;s controllers can do:</p>
+<pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
+
+var PhotosController = Spine.Controller.sub({      
+  init: function(){
+    this.item.bind(&quot;update&quot;, this.proxy(this.render));
+    this.item.bind(&quot;destroy&quot;, this.proxy(this.remove));
+  },
+
+  render: function(){
+    // Handle templating
+    this.replace($(&quot;#photoTemplate&quot;).tmpl(this.item));
+    return this;
+  },
+
+  remove: function(){
+    this.el.remove();
+    this.release();
+  }
+});
+
+</pre>
+<p>In Spine, controllers are considered the glue for an application, adding and responding to DOM events, rendering templates and ensuring that views and models are kept in sync (which makes sense in the context of what we know to be a controller).</p>
+<p>What we&#39;re doing in the above example is setting up listeners in the <code>update</code> and <code>destroy</code> events using <code>render()</code> and <code>remove()</code>. When a photo entry gets updated , we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the <code>tmpl()</code> function in the code snippet: in the <code>render()</code> function, we&#39;re using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller&#39;s current element.</p>
+<p>What this provides us with is a very lightweight, simple way to manage changes between the model and the view.</p>
+<p><strong>Backbone.js</strong></p>
+<p>Later on in this section we&#39;re going to revisit the differences between Backbone and traditional MVC, but for now let&#39;s focus on controllers.</p>
+<p>In Backbone, one shares the responsibility of a controller with both the Backbone.View and Backbone.Router. Some time ago Backbone did once come with it&#39;s own Backbone.Controller, but as the naming for this component didn&#39;t make sense for the context in which it was being used, it was later renamed to Router.</p>
+<p>Routers handle a little more of the controller responsibility as it&#39;s possible to bind the events there for models and have your view respond to DOM events and rendering. As Tim Branyen (another Bocoup-based Backbone contributor) has also previously pointed out, it&#39;s possible to get away with not needing Backbone.Router at all for this, so a way to think about it using the Router paradigm is probably:</p>
+<pre  class="brush: js">var PhotoRouter = Backbone.Router.extend({
+  routes: { &quot;photos/:id&quot;: &quot;route&quot; },
+
+  route: function(id) {
+    var item = photoCollection.get(id);
+    var view = new PhotoView({ model: item });
+
+    something.html( view.render().el );
+  }
+}):
+</pre>
+<p>To summarize, the takeaway from this section is that controllers manage the logic and coordination between models and views in an application.</p>
+<h2>What does MVC give us?</h2>
+<p>This separation of concerns in MVC facilitates simpler modularization of an application&#39;s functionality and enables:</p>
+<ul>
+  <li>Easier overall maintenance. When updates need to be made to the application it is very clear whether the changes are data-centric, meaning changes to models and possibly controllers, or merely visual, meaning changes to views.</li>
+  <li>Decoupling models and views means that it is significantly more straight-forward to write unit tests for business logic</li>
+  <li>Duplication of low-level model and controller code (i.e what you may have been using instead) is eliminated across the application</li>
+  <li>Depending on the size of the application and separation of roles, this modularity allows developers responsible for core logic and developers working on the user-interfaces to work simultaneously</li>
+</ul>
+<h3>Delving deeper</h3>
+<p>Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we can explore it a little further.</p>
+<p>The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a &quot;set of classes to build a user interface&quot;. In their view, it&#39;s actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. </p>
+<p>As we&#39;ve discussed, models represent application data whilst views are what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn&#39;t cover in many articles about the MVC pattern). When a model is changed it notifies the rest of the application it has been updated. The controller then updates the view accordingly. The observer nature of this relationship is what facilitates multiple views being attached to the same model.</p>
+<p>For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implement), one of the goal&#39;s of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.</p>
+<h3>Summary</h3>
+<p>Having reviewed the classical MVC pattern, we should now understand how it allows us to cleanly separate concerns in an application. We should also now appreciate how JavaScript MVC frameworks may differ in their interpretation of the MVC pattern, which although quite open to variation, still shares some of the fundamental concepts the original pattern has to offer.</p>
+<p>When reviewing a new JavaScript MVC/MV* framework, remember - it can be useful to step back and review how it&#39;s opted to approach architecture (specifically, how it supports implementing models, views, controllers or other alternatives) as this can better help you grok how the framework expects to be used.</p>
+<h2>MVP</h2>
+<p>Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named <a href="http://en.wikipedia.org/wiki/Taligent">Taligent</a> in the early 1990s while they were working on a model for a C++ CommonPoint environment. Whilst both MVC and MVP target the separation of concerns across multiple components, there are some fundamental differences between them.</p>
+<p>For the purposes of this summary we will focus on the version of MVP most suitable for web-based architectures.</p>
+<h3>Models, Views &amp; Presenters</h3>
+<p>The P in MVP stands for presenter. It&#39;s a component which contains the user-interface business logic for the view. Unlike MVC, invocations from the view are delegated to the presenter, which are decoupled from the view and instead talk to it through an interface. This allows for all kinds of useful things such as being able to mock views in unit tests.</p>
+<p>The most common implementation of MVP is one which uses a Passive View (a view which is for all intents and purposes &quot;dumb&quot;), containing little to no logic. MVP models are almost identical to MVC models and handle application data. The presenter acts as a mediator which talks to both the view and model, however both of these are isolated from each other. They effectively bind models to views, a responsibility which was previously held by controllers in MVC. Presenters are at the heart of the MVP pattern and as you can guess, incorporate the presentation logic behind views.</p>
+<p>Solicited by a view, presenters perform any work to do with user requests and pass data back to them. In this respect, they retrieve data, manipulate it and determine how the data should be displayed in the view. In some implementations, the presenter also interacts with a service layer to persist data (models). Models may trigger events but it&#39;s the presenters role to subscribe to them so that it can update the view. In this passive architecture, we have no concept of direct data binding. Views expose setters which presenters can use to set data.</p>
+<p>The benefit of this change from MVC is that it increases the testability of your application and provides a more clean separation between the view and the model. This isn&#39;t however without its costs as the lack of data binding support in the pattern can often mean having to take care of this task separately.</p>
+<p>Although a common implementation of a <a href="http://martinfowler.com/eaaDev/PassiveScreen.html">Passive View</a> is for the view to implement an interface, there are variations on it, including the use of events which can decouple the View from the Presenter a little more. As we don&#39;t have the interface construct in JavaScript, we&#39;re using more a protocol than an explicit interface here. It&#39;s technically still an API and it&#39;s probably fair for us to refer to it as an interface from that perspective.</p>
+<p>There is also a <a href="http://martinfowler.com/eaaDev/SupervisingPresenter.html">Supervising Controller</a> variation of MVP, which is closer to the MVC and <a href="http://en.wikipedia.org/wiki/Model_View_ViewModel">MVVM</a> patterns as it provides data-binding from the Model directly from the View. Key-value observing (KVO) plugins (such as Derick Bailey&#39;s Backbone.ModelBinding plugin) tend to bring Backbone out of the Passive View and more into the Supervising Controller or MVVM variations.</p>
+<h2>MVP or MVC?</h2>
+<p>MVP is generally used most often in enterprise-level applications where it&#39;s necessary to reuse as much presentation logic as possible. Applications with very complex views and a great deal of user interaction may find that MVC doesn&#39;t quite fit the bill here as solving this problem may mean heavily relying on multiple controllers. In MVP, all of this complex logic can be encapsulated in a presenter, which can simplify maintenance greatly.</p>
+<p>As MVP views are defined through an interface and the interface is technically the only point of contact between the system and the view (other than a presenter), this pattern also allows developers to write presentation logic without needing to wait for designers to produce layouts and graphics for the application.</p>
+<p>Depending on the implementation, MVP may be more easy to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (there&#39;s quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).</p>
+<p>At the end of the day, the underlying concerns you may have with MVC will likely hold true for MVP given that the differences between them are mainly semantic. As long as you are cleanly separating concerns into models, views and controllers (or presenters) you should be achieving most of the same benefits regardless of the pattern you opt for.</p>
+<h2>MVC, MVP and Backbone.js</h2>
+<p>There are very few, if any architectural JavaScript frameworks that claim to implement the MVC or MVC patterns in their classical form as many JavaScript developers don&#39;t view MVC and MVP as being mutually exclusive (we are actually more likely to see MVP strictly implemented when looking at web frameworks such as ASP.net or GWT). This is because it&#39;s possible to have additional presenter/view logic in your application and yet still consider it a flavor of MVC.</p>
+<p>Backbone contributor <a href="http://ireneros.com/">Irene Ros</a> (of Boston-based Bocoup) subscribes to this way of thinking as when she separates views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a <code>Backbone.Router</code>, covered later in the book) or a callback in response to data being fetched.</p>
+<p>That said, some developers do however feel that Backbone.js better fits the description of MVP than it does MVC . Their view is that:</p>
+<ul>
+  <li>The presenter in MVP better describes the <code>Backbone.View</code> (the layer between View templates and the data bound to it) than a controller does</li>
+  <li>The model fits <code>Backbone.Model</code> (it isn&#39;t greatly different to the models in MVC at all)</li>
+  <li>The views best represent templates (e.g Handlebars/Mustache markup templates)</li>
+</ul>
+<p>A response to this could be that the view can also just be a View (as per MVC) because Backbone is flexible enough to let it be used for multiple purposes. The V in MVC and the P in MVP can both be accomplished by <code>Backbone.View</code> because they&#39;re able to achieve two purposes: both rendering atomic components and assembling those components rendered by other views.</p>
+<p>We&#39;ve also seen that in Backbone the responsibility of a controller is shared with both the Backbone.View and Backbone.Router and in the following example we can actually see that aspects of that are certainly true.</p>
+<p>Our Backbone <code>PhotoView</code> uses the Observer pattern to &#39;subscribe&#39; to changes to a View&#39;s model in the line <code>this.model.bind(&#39;change&#39;,...)</code>. It also handles templating in the <code>render()</code> method, but unlike some other implementations, user interaction is also handled in the View (see <code>events</code>).</p>
+
+<pre  class="brush: js">var PhotoView = Backbone.View.extend({
+
+    //... is a list tag.
+    tagName:  &quot;li&quot;,
+
+    // Pass the contents of the photo template through a templating
+    // function, cache it for a single photo
+    template: _.template($(&#39;#photo-template&#39;).html()),
+
+    // The DOM events specific to an item.
+    events: {
+      &quot;click img&quot; : &quot;toggleViewed&quot;
+    },
+
+    // The PhotoView listens for changes to 
+    // its model, re-rendering. Since there&#39;s
+    // a one-to-one correspondence between a 
+    // **Photo** and a **PhotoView** in this
+    // app, we set a direct reference on the model for convenience.
+
+    initialize: function() {
+      _.bindAll(this, &#39;render&#39;);
+      this.model.bind(&#39;change&#39;, this.render);
+      this.model.bind(&#39;destroy&#39;, this.remove);
+    },
+
+    // Re-render the photo entry
+    render: function() {
+      $(this.el).html(this.template(this.model.toJSON()));
+      return this;
+    },
+
+    // Toggle the `&quot;viewed&quot;` state of the model.
+    toggleViewed: function() {
+      this.model.viewed();
+    }
+
+});
+</pre>
+
+<p>Another (quite different) opinion is that Backbone more closely resembles <a href="http://martinfowler.com/eaaDev/uiArchs.html#ModelViewController">Smalltalk-80 MVC</a>, which we went through earlier.</p>
+
+<p>As regular Backbone user Derick Bailey has <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">previously</a> put it, it&#39;s ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone fits neither MVC nor MVP. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well.</p>
+<p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
+<p>&nbsp;</p>
+
+
 
 
 <h1 id="detailnamespacing">Namespacing Patterns</h1>
@@ -3771,292 +4067,16 @@ Note that although we may believe that simply caching our jQuery code may offer 
 <p>&nbsp;</p>
 
 
-<h1 id="detailmodule">Modules</h1>
 
-<p>In this section we're going to continue our exploration of the Module pattern and the broader concept of a 'module'.</p>
-<p>
-Modules are an integral piece of any robust application's architecture and typically help in keeping the code for a project organized. In JavaScript, there are several options for implementing modules including both the well-known module pattern as well as object literal notation.</p>
-
-<h2>
-  Object Literals
-</h2>
-
-<p>The module pattern is based in part on object literals and so it makes sense to review them first. In object literal notation, an object is described as a set of comma-separated name/value pairs enclosured in curly braces (<code>{}</code>). Names inside the object may be either strings or identifiers that are followed by a colon. There should be no comma used after the final name/value pair in the object as this may result in errors.</p>
-<p>
-<p>
-Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Below you can see an example of a module defined using object literal syntax.</p>
-
-<p>New members may be added to the object using assignment as follows <code>myModule.property = 'someValue';</code></p>
-
-<p>
-<pre  class="brush: js">
-var myModule = {
-    myProperty : 'someValue',
-    // object literals can contain properties and methods.
-    // here, another object is defined for configuration
-    // purposes:
-    myConfig:{
-        useCaching:true,
-        language: 'en'   
-    },
-    // a very basic method
-    myMethod: function(){
-        console.log('I can haz functionality?');
-    },
-    // output a value based on current configuration
-    myMethod2: function(){
-        console.log('Caching is:' + (this.myConfig.useCaching)?'enabled':'disabled');
-    },
-    // override the current configuration
-    myMethod3: function(newConfig){
-        if(typeof newConfig == 'object'){
-           this.myConfig = newConfig;
-           console.log(this.myConfig.language); 
-        }
-    }
-};
-
-myModule.myMethod(); //I can haz functionality
-myModule.myMethod2(); //outputs enabled
-myModule.myMethod3({language:'fr',useCaching:false}); //fr
-</pre>
-</p>
-
-<p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://blog.rebeccamurphey.com/2009/10/15/using-objects-to-organize-your-code">depth</a> should you wish to read into object literals further.</p>
-
-<p>That said, if you're opting for this technique, you may be equally as interested in the module pattern. It still uses object literals but only as the return value from a scoping function. </p>
-
-<h2>
-  The Module Pattern
-</h2>
-<p>
-As we reviewed earlier in the book, the module pattern encapsulates 'privacy', state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
-
-<p>
-This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>) except that an object is returned rather than a function. </p>
-
-<p>
-From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures and re-introduced by Eric Miraglia on the YUI blog. 
-</p>
-
-<p>
-Below you can see an example of a shopping basket implemented using this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of your application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
-
-<pre  class="brush: js">
-
-var basketModule = (function() {
-    var basket = []; //private
-    function doSomethingPrivate(){
-      //...
-    }
-
-    function doSomethingElsePrivate(){
-      //...
-    }
-    return { //exposed to public
-        addItem: function(values) {
-            basket.push(values);
-        },
-        getItemCount: function() {
-            return basket.length;
-        },
-        doSomething: doSomethingPrivate(),
-        getTotal: function(){
-           var q = this.getItemCount(),p=0;
-            while(q--){
-                p+= basket[q].price; 
-            }
-            return p;
-        }
-    }
-}());
-</pre>
-
-<p>
-Inside the module, you'll notice we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that you can interact with it as follows: 
-</p>
-<pre  class="brush: js">
-
-//basketModule is an object with properties which can also be methods
-basketModule.addItem({item:'bread',price:0.5});
-basketModule.addItem({item:'butter',price:0.3});
-
-console.log(basketModule.getItemCount());
-console.log(basketModule.getTotal());
-
-//however, the following will not work:
-console.log(basketModule.basket);// (undefined as not inside the returned object)
-console.log(basket); //(only exists within the scope of the closure)
-</pre>
-<p>
-The methods above are effectively namespaced inside <code>basketModule</code>.</p>
-
-<p>Notice how the scoping function in the above basket module is wrapped around all of our functions, which we then call and immediately store the return value of. This has a number of advantages including:</p>
-
-<ul>
-  <li>The freedom to have private functions which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they're considered truly private.</li>
-  <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attemping to discover what function(s) threw an exception.</li>
-  <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
-</ul>
-<p>&nbsp;</p>
-<p>
-It should be noted that there isn't really an explicitly true sense of 'privacy' inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
-</p>
-
-<p>
-How about the module pattern implemented in specific toolkits or frameworks?
-</p>
-<p>
-<strong>Dojo</strong>
-<p>
-Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as it's first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called 'child' within an object 'parent' defined inside 'myObj'. Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don't already exist.</p>
-
-<p>For example, if we wanted to declare <code>basket.core</code> as an object of the <code>store</code> namespace, this could be achieved as follows using the traditional way:
-<pre class="brush: js">
-var store = window.store || {};
-if(!store["basket"]){ store.basket = {}; }
-if(!store.basket["core"]){ store.basket.core={}; }
-
-store.basket.core = {
-  // ...rest of our logic
-}
-</pre>
-</p>
-<p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
-<pre  class="brush: js">
-require(["dojo/_base/customStore"], function(store){
-
-  // using dojo.setObject()
-  customStore.setObject("basket.core", (function() {
-      var basket = [];
-      function privateMethod() {
-          console.log(basket);
-      }
-      return {
-          publicMethod: function(){
-                  privateMethod();
-          }
-      };
-  }()), store);
-
-});
-</pre>
-
-<p>For more information on <code>dojo.setObject()</code>, see the official <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/setObject.html">documentation</a>.</p>
-
-<p><strong>ExtJS</strong></p>
-<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p> 
-<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the module pattern is implemented in vanilla JavaScript: </p>
-<pre  class="brush: js">
-// create namespace
-Ext.namespace('myNameSpace');
-
-// create application
-myNameSpace.app = function() {
-    // do NOT access DOM from here; elements don't exist yet
- 
-    // private variables
-    var btn1;
-    var privVar1 = 11;
- 
-    // private functions
-    var btn1Handler = function(button, event) {
-        alert('privVar1=' + privVar1);
-        alert('this.btn1Text=' + this.btn1Text);
-    };
- 
-    // public space
-    return {
-        // public properties, e.g. strings to translate
-        btn1Text: 'Button 1',
- 
-        // public methods
-        init: function() {
-            if (Ext.Ext2) {
-                btn1 = new Ext.Button({
-                    renderTo: 'btn1-ct',
-                    text: this.btn1Text,
-                    handler: btn1Handler
-                });
-            } else {
-                btn1 = new Ext.Button('btn1-ct', {
-                    text: this.btn1Text,
-                    handler: btn1Handler
-                });
-            }
-        }
-    };
-}(); // end of app
-</pre>
 
 <p>&nbsp;</p>
-<p>
-<strong>
-YUI
-</strong>
-</p>
-<p>
-Similarly, we can also implement the module pattern when building applications using YUI. The following example is heavily based on the original YUI module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
-</p>
-<pre  class="brush: js">
-YAHOO.store.basket = function () {
 
-    //"private" variables:
-    var myPrivateVar = "I can be accessed only within YAHOO.store.basket .";
+<h1 id="detailedpatterns">Patterns In Greater Detail</h1>
+<p>&nbsp;</p>
+<p>As a beginner, you should hopefully now have a basic understanding of many of the commonly used design patterns in JavaScript (as well as some which are less frequently implemented). In this next section, we're going to explore a selection of the patterns we've already reviewed in greater detail.</p>
+<p>&nbsp;</p>
 
-    //"private" method:
-    var myPrivateMethod = function () {
-            YAHOO.log("I can be accessed only from within YAHOO.store.basket");
-        }
 
-    return {
-        myPublicProperty: "I'm a public property.",
-        myPublicMethod: function () {
-            YAHOO.log("I'm a public method.");
-
-            //Within basket, I can access "private" vars and methods:
-            YAHOO.log(myPrivateVar);
-            YAHOO.log(myPrivateMethod());
-
-            //The native scope of myPublicMethod is store so we can
-            //access public members using "this":
-            YAHOO.log(this.myPublicProperty);
-        }
-    };
-
-}();
-</pre>
-<p>
-<strong>
-jQuery
-</strong>
-</p>
-<p>
-There are a number of ways in which jQuery code unspecific to plugins can be wrapped inside the module pattern. Ben Cherry previously suggested an implementation where a function wrapper is used around module definitions in the event of there being a number of commonalities between modules. </p>
-<p>
-In the following example, a <code>library</code> function is defined which declares a new library and automatically binds up the <code>init</code> function to <code>document.ready</code> when new libraries (ie. modules) are created.</p>
-
-<pre  class="brush: js">
-
-function library(module) {
-  $(function() {
-    if (module.init) {
-      module.init();
-    }
-  });
-  return module;
-}
-
-var myLibrary = library(function() {
-   return {
-     init: function() {
-       /*implementation*/
-     }
-   };
-}());
-</pre>
-
-<p>For further reading on the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
 
 
 <p>&nbsp;</p>
