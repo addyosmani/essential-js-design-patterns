@@ -104,12 +104,13 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
             <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
             <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
-          </ul>
-        </li>
-        <ul>
-          <li class="subitem"><a href="#detailmvcmvp">MVC &amp; MVP Structural Patterns</a>
           <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
           <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
+        </ul>
+  
+         <li class="subitem"><a href="#detailmvcmvp">MV* Patterns</a>
+        <ul>
+        <li class="subitem"><a href="#detailmvcmvp">MVC &amp; MVP Structural Patterns</a>
         </ul>
         <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a></li>
         <ul>
@@ -2377,99 +2378,12 @@ vehicle.driveBackward();
 
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
 
-<!--todo:update-->
-<p>The Decorator pattern is an alternative to creating subclasses. This pattern can be used to wrap objects within another object of the same interface and allows you to both add behaviour to methods and also pass the method call to the original object (i.e the constructor of the decorator).</p>
-<p>The decorator pattern is often used when you need to keep adding new functionality to overridden methods. This can be achieved by stacking multiple decorators on top of one another. </p>
-<p>What is the main benefit of using a decorator pattern? Well, if we examine our first definition, we mentioned that decorators are an alternative to subclassing. When a script is being run, subclassing adds behaviour that affects all the instances of the original class, whilst decorating does not. It instead can add new behaviour for individual objects, which can be of benefit depending on the application in question. Let&rsquo;s take a look at some code that implements the decorator pattern:</p>
 
-<p>
-<pre  class="brush: js">
+<p>In this section we're going to explore the <strong>decorator</strong>  - a structural design pattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
 
-// This is the 'class' we're going to decorate
-function Macbook(){
-      this.cost = function(){
-      return 1000;
-     };
-}
-
-function Memory( macbook ){
-    this.cost = function(){
-     return macbook.cost() + 75;
-  };
-}
-
-function BlurayDrive( macbook ){
-   this.cost = function(){
-     return macbook.cost() + 300;
-  };
-}
-
-
-function Insurance( macbook ){
-   this.cost = function(){
-     return macbook.cost() + 250;
-  };
-}
-
- 
-// Sample usage
-var myMacbook = new Insurance(new BlurayDrive(new Memory(new Macbook())));
-console.log( myMacbook.cost() );
-
-
-</pre></p>
-<p>&nbsp;</p>
-<p>
-Here's another decorator example where when we invoke performTask on the decorator object, it both performs some behaviour and invokes performTask on the underlying object.</p>
-    <p>&nbsp;</p>
-
-<pre  class="brush: js">
-
-function ConcreteClass(){
-  this.performTask = function(){
-    this.preTask();
-    console.log('doing something');
-    this.postTask();
-  };
-}
-
-function AbstractDecorator( decorated ){
-  this.performTask = function()
-  {
-    decorated.performTask();
-  };
-}
-
-function ConcreteDecoratorClass( decorated ){
-  this.base = AbstractDecorator;
-  this.base(decorated);
-  
-  this.preTask = function(){
-    console.log('pre-calling..');
-  };
-  
-  this.postTask = function(){
-    console.log('post-calling..');
-  };
-  
-}
-
-var concrete = new ConcreteClass();
-var decorator1 = new ConcreteDecoratorClass(concrete);
-var decorator2 = new ConcreteDecoratorClass(decorator1);
-decorator2.performTask();
-
-</pre>
-</p>
-
-<p>&nbsp;</p>
-
-<!-- todo:greater detail-->
-<h1 id="detaildecorator">Decorator Pattern</h1>
-
-<p>In this section we're going to continue exploring the <strong>decorator</strong>  - a structural  designpattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
-<p><!--more--></p>
 <p>Traditionally, the decorator is defined as a design pattern that allows behaviour to be added to an existing object dynamically. The idea is that the decoration itself isn&#39;t essential to the base functionality of an object otherwise it would be baked into the &#39;superclass&#39; object itself.</p>
+
+
 <h2>Subclassing</h2>
 <p>For developers unfamiliar with subclassing, here is a beginner&#39;s primer on them before we dive further into decorators: subclassing is a term that refers to inheriting properties for a new object from a base or &#39;superclass&#39; object.</p>
 <p>In traditional OOP, a class B is able to extend another class A. Here we consider A a superclass and B a subclass of A. As such, all instances of B inherit the methods from A. B is however still able to define it&#39;s own methods, including those that override methods originally defined by A.</p>
@@ -2508,7 +2422,7 @@ console.log(superman); /* includes superhero props as well as gender*/
 <p>The Superhero definition creates an object which descends from Person. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the Person object, Superhero is capable of overriding any inherited values with values specific to it&#39;s object.</p>
 <p>So where do decorators come in?</p>
 <h2>Decorators</h2>
-<p>As we've previously covered, Decorators are used when it&#39;s necessary to delegate responsibilities to an object where it doesn&#39;t make sense to subclass it. A common reason for this is that the number of features required demand for a very large quantity of subclasses. Can you imagine having to define hundreds or thousands of subclasses for a project? It would likely become unmanagable fairly quickly.</p>
+<p>Decorators are used when it&#39;s necessary to delegate responsibilities to an object where it doesn&#39;t make sense to subclass it. A common reason for this is that the number of features required demand for a very large quantity of subclasses. Can you imagine having to define hundreds or thousands of subclasses for a project? It would likely become unmanagable fairly quickly.</p>
 <p>To give you a visual example of where this is an issue, imagine needing to define new kinds of Superhero: SuperheroThatCanFly, SuperheroThatCanRunQuickly and SuperheroWithXRayVision.</p>
 <p>Now, what if s superhero had more than one of these properties?. We&#39;d need to define a subclass called SuperheroThatCanFlyAndRunQuickly , SuperheroThatCanFlyRunQuicklyAndHasXRayVision etc - effectively, one for each possible combination. As you can see, this isn&#39;t very manageable when you factor in different abilities.</p>
 <p>The decorator pattern isn&#39;t heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just using inheritance, where we&#39;re used to extending objects linearly, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than subclassing, we add (decorate) properties or methods to a base object so its a little more streamlined.</p>
