@@ -13,7 +13,7 @@
   <header>
     <p>
     <h1 class="booktitle">Essential JavaScript Design Patterns</h1>
-    <h2 class="booktitle">Volume 1.5.1</h2>
+    <h2 class="booktitle">Volume 1.5.2</h2>
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
     <p class="bookauthor">A book by <a href="http://www.twitter.com/addyosmani">Addy Osmani</a></p>
     
@@ -48,7 +48,8 @@
 <p>
 <ul>
 <li>Alex Sexton (<a href="http://alexsexton.com">http://alexsexton.com</a>, <a href="http://twitter.com/slexaxton">@slexaxton</a>)</li>
-<li>Andrée Hansson (<a href="http://andreehansson.se/">http://andreehansson.se/</a>, <a href="http://twitter.com/peolanha">@peolanha</a>)</li>
+<li>Nicholas Zakas (<a href="http://nczonline.net/">http://nczonline.net</a>, <a href="http://twitter.com/slicknet">@slicknet</a>)</li>
+<li>Andrée Hansson (<a href="http://andreehansson.se/">http://andreehansson.se</a>, <a href="http://twitter.com/peolanha">@peolanha</a>)</li>
 </ul>
 </p>
 <p>I would also like to thank Rebecca Murphey (<a href="http://rebeccamurphey.com">http://rebeccamurphey.com</a>, <a href="http://twitter.com/rmurphey">@rmurphey</a>) for providing the inspiration to write this book and more importantly, continue to make it both available on GitHub and via O'Reilly.</p>
@@ -163,7 +164,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
     <p>&nbsp;</p>
     <p>Patterns are <strong>not</strong> an exact solution. It&rsquo;s important that we remember the role of a pattern is merely to provide us with a solution scheme. Patterns don&rsquo;t solve all design problems nor do they replace good software designers, however, they <strong>do</strong> support them. Next we&rsquo;ll take a look at some of the other advantages patterns have to offer. </p>
     <ul>
-      <li><strong>Reusing patterns assists in preventing minor issues that can cause major problems in the application development process. </strong>What this means is when code is built on proven patterns, we can afford to spend less time worrying about the structure of our code and more time focusing on the quality of our overall solution. This is because patterns can encourage us to code in a more structured and organized fashion so the need to refactor it for cleanliness purposes in the future.</li>
+      <li><strong>Reusing patterns assists in preventing minor issues that can cause major problems in the application development process. </strong>What this means is when code is built on proven patterns, we can afford to spend less time worrying about the structure of our code and more time focusing on the quality of our overall solution. This is because patterns can encourage us to code in a more structured and organized fashion avoiding the need to refactor it for cleanliness purposes in the future.</li>
 </ul>
 <ul>
   <li><strong>Patterns can provide generalized solutions which are documented in a fashion that doesn't require them to be tied to a specific problem.</strong> This generalized approach means that regardless of the application (and in many cases the programming language) you are working with, design patterns can be applied to improve the structure of your code.</li>
@@ -536,6 +537,9 @@ console.log(myCar.getInfo());
     <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
     <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
     <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
+    <li class="subitem"><a href="#">Flyweight Pattern</a></li>
+    <li class="subitem"><a href="#">MVC &amp; MVP Patterns</a></li>
+    <li class="subitem"><a href="#">Namespacing Patterns</a></li>
 </ul>
 <p>&nbsp;</p>
 <h2 id="creationalpatternjavascript">The Creational Pattern</h2>
@@ -813,135 +817,35 @@ console.log(singletonTest.pointX); // outputs 5
 <p>&nbsp;</p>
 <h2 id="modulepatternjavascript">The Module Pattern</h2>
 
-<!-- todo:update -->
-
-<p>Let's now look at the popular <em>module</em> pattern. Note that we'll be covering this pattern in greater detail in the next section of the book, but a basic introduction to it will be given in this chapter.</p>
-
-<p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
-
-<p>
-In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
-
-<p>JavaScript as a language doesn't have access modifiers that would allow us to implement true privacy, but for the purposes of most use cases, simulated privacy should work fine.</p>
-
-<p>
-Exploring the concept of public and private methods further, the module pattern pattern allows us to have particular methods and variables which are only accessible from within the module, meaning that you have a level of shielding from external entities accessing this 'hidden' information.</p>
-
-<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained. Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
-</p> 
-
-<p>
-<pre  class="brush: js">
-
-var testModule = (function(){
-  var counter = 0;
-  return {
-    incrementCounter: function() {
-      return counter++;
-    },
-    resetCounter: function() {
-      console.log('counter value prior to reset:' + counter);
-      counter = 0;
-    }
-  };
-})();
-
-// test
-testModule.incrementCounter();
-testModule.resetCounter();
-
-
-</pre>
-</p>
-
-<p>When working with the module pattern, you may find it useful to define a simple template that you use for getting started with it. Here's one that covers namespacing, public and private variables:
-</p>
-<p>
-<pre  class="brush: js">
-
-var myNamespace = (function(){
-
-  var myPrivateVar = 0;
-  var myPrivateMethod = function( someText ){
-    console.log(someText);
-  };
-  
-  return {
-
-    myPublicVar: "foo",  
-
-    myPublicFunction: function(bar){
-      myPrivateVar++;
-      myPrivateMethod(bar);
-    }
-  };
-  
-})();
-
-</pre>
-</p>
-
-
-<p>A piece of trivia is that the module pattern was originally defined by Douglas Crockford (famous for his book 'JavaScript: The Good Parts, and more), although it is likely that variations of this pattern were used long before this. Another piece of trivia is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the module pattern was a strong influence for YUI when creating their components.</p>
-
-<p><strong>Advantages:</strong> We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective. Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
-
-<p><strong>Disadvantages:</strong> The disadvantages of the module pattern are that as you access both public and private members differently, when you wish to change visibility, you actually have to make changes to each place the member was used. You also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of your application. Here's a final module pattern example:</p>
-<p>
-<pre  class="brush: js">
-
-var someModule = (function(){
-
-  // private attributes
-  var privateVar = 5;
-
-  // private methods
-  var privateMethod = function(){
-     return 'Private Test';
-  };
-
-  return {
-    // public attributes
-    publicVar: 10,
-    // public methods
-    publicMethod: function(){
-      return ' Followed By Public Test ';
-    },
-
-    // let's access the private members
-    getData: function(){
-      return privateMethod() + this.publicMethod() + privateVar;
-    }
-  }
-})(); //the parens here cause the anonymous function to execute and return
-        
-someModule.getData();
-
-
-</pre></p>
-<p>To continue reading more about the module pattern, I strongly recommend <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">Ben Cherry's JavaScript Module Pattern In-Depth</a> article.</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-
-<!-- todo: more updates-->
 
 <h1 id="detailmodule">Modules</h1>
 
-<p>In this section we're going to continue our exploration of the Module pattern and the broader concept of a 'module'.</p>
 <p>
 Modules are an integral piece of any robust application's architecture and typically help in keeping the code for a project organized. In JavaScript, there are several options for implementing modules including both the well-known module pattern as well as object literal notation.</p>
+
+<p>The module pattern is based in part on object literals and so it makes sense to review them first.</p>
 
 <h2>
   Object Literals
 </h2>
 
-<p>The module pattern is based in part on object literals and so it makes sense to review them first. In object literal notation, an object is described as a set of comma-separated name/value pairs enclosured in curly braces (<code>{}</code>). Names inside the object may be either strings or identifiers that are followed by a colon. There should be no comma used after the final name/value pair in the object as this may result in errors.</p>
+<p>In object literal notation, an object is described as a set of comma-separated name/value pairs enclosured in curly braces (<code>{}</code>). Names inside the object may be either strings or identifiers that are followed by a colon. There should be no comma used after the final name/value pair in the object as this may result in errors.</p>
 <p>
-<p>
-Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Below you can see an example of a module defined using object literal syntax.</p>
 
-<p>New members may be added to the object using assignment as follows <code>myModule.property = 'someValue';</code></p>
+<pre  class="brush: js">
+var myObjectLiteral = {
+    variableKey: variableValue,
+    functionKey: function(){
+      // ...
+    }
+};
+</pre>
+
+<p>
+Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Outside of an object, new members may be added to it using assignment as follows <code>myModule.property = 'someValue';</code>
+</p>
+
+<p>Below we can see a more complete example of a module defined using object literal syntax:</p>
 
 <p>
 <pre  class="brush: js">
@@ -984,18 +888,87 @@ myModule.myMethod3({language:'fr',useCaching:false}); //fr
 <h2>
   The Module Pattern
 </h2>
+
+<p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
+
 <p>
-As we reviewed earlier in the book, the module pattern encapsulates 'privacy', state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
+In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
+
+
+<h3>Privacy</h3>
+<p>
+The module pattern encapsulates 'privacy', state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
 
 <p>
 This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>) except that an object is returned rather than a function. </p>
 
 <p>
-From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures and re-introduced by Eric Miraglia on the YUI blog. 
+It should be noted that there isn't really an explicitly true sense of 'privacy' inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
+</p>
+
+<h3>History</h3>
+
+<p>
+From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures. Another piece of trivia is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the module pattern was a strong influence for YUI when creating their components.
+</p>
+
+<h3>Examples</h3>
+
+<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained.</p>
+<p>
+<pre  class="brush: js">
+
+var testModule = (function(){
+  var counter = 0;
+  return {
+    incrementCounter: function() {
+      return counter++;
+    },
+    resetCounter: function() {
+      console.log('counter value prior to reset:' + counter);
+      counter = 0;
+    }
+  };
+})();
+
+// test
+testModule.incrementCounter();
+testModule.resetCounter();
+</pre>
+</p>
+
+<p>Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
+</p> 
+
+<p>When working with the module pattern, you may find it useful to define a simple template that you use for getting started with it. Here's one that covers namespacing, public and private variables:
+</p>
+<p>
+<pre  class="brush: js">
+
+var myNamespace = (function(){
+
+  var myPrivateVar = 0;
+  var myPrivateMethod = function( someText ){
+    console.log(someText);
+  };
+  
+  return {
+
+    myPublicVar: "foo",  
+
+    myPublicFunction: function(bar){
+      myPrivateVar++;
+      myPrivateMethod(bar);
+    }
+  };
+  
+})();
+
+</pre>
 </p>
 
 <p>
-Below you can see an example of a shopping basket implemented using this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of your application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
+Looking at another example, below we can see a shopping basket implemented using the this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of your application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
 
 <pre  class="brush: js">
 
@@ -1054,9 +1027,52 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
   <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
 </ul>
 <p>&nbsp;</p>
+
+
+<h3>Advantages</h3>
+
+<p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
+
+<h3>Disadvantages</h3>
+
+<p>The disadvantages of the module pattern are that as you access both public and private members differently, when you wish to change visibility, you actually have to make changes to each place the member was used.</p>
+<p>You also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of your application.</p>
+
+<p>Before we dive into how the module pattern may be implemented using different JavaScript frameworks, here's a simple template for using the pattern:</p>
+
 <p>
-It should be noted that there isn't really an explicitly true sense of 'privacy' inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
-</p>
+<pre  class="brush: js">
+
+var someModule = (function(){
+
+  // private attributes
+  var privateVar = 5;
+
+  // private methods
+  var privateMethod = function(){
+     return 'Private Test';
+  };
+
+  return {
+    // public attributes
+    publicVar: 10,
+    // public methods
+    publicMethod: function(){
+      return ' Followed By Public Test ';
+    },
+
+    // let's access the private members
+    getData: function(){
+      return privateMethod() + this.publicMethod() + privateVar;
+    }
+  }
+})(); //the parens here cause the anonymous function to execute and return
+        
+someModule.getData();
+
+
+</pre></p>
 
 <p>
 How about the module pattern implemented in specific toolkits or frameworks?
@@ -1215,6 +1231,9 @@ var myLibrary = library(function() {
 
 
 <!--end-->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
 <p>Now that we're a little more familiar with the Module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
