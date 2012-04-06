@@ -128,7 +128,13 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
           <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
         </ul>
-        <li><a href="#modularjavascript">Modern Modular JavaScript Design Patterns</a></li>
+        <li><a href="#modularjavascript">Modern Modular JavaScript Design Patterns</a>
+        <ul>
+          <li class="subitem"><a href="#detailamd">AMD</a>
+          <li class="subitem"><a href="#detailcommonjs">CommonJS</a>
+            <li class="subitem"><a href="#detailharmony">Harmony</a>
+        </ul>
+        </li>
         <li><a href="#jquerypluginpatterns">Bonus: jQuery Plugin Design Patterns</a></li>
         <li><a href="#conclusions">Conclusions</a></li>
         <li><a href="#references">References</a></li>
@@ -4275,9 +4281,10 @@ There are a number of great loaders for handling module loading in the AMD and C
 
 
 <div>
-    <h2>AMD <small>A Format For Writing Modular JavaScript In The Browser </small></h2>
+    <h2 id="detailamd">AMD</h2>
   </div>
 
+<h3>A Format For Writing Modular JavaScript In The Browser</h3>
 <p>The overall goal for the AMD (Asynchronous Module Definition) format is to provide a solution for modular JavaScript that developers can use today. It was born out of Dojo's real world experience using XHR+eval and proponents of this format wanted to avoid any future solutions suffering from the weaknesses of those in the past.</p>
 
 <p>The AMD module format itself is a proposal for defining modules where both the module and dependencies can be <a href="http://dictionary.reference.com/browse/asynchronous">asynchronously</a> loaded. It has a number of distinct advantages including being both asynchronous and highly flexible by nature which removes the tight coupling one might commonly find between code and module identity. Many developers enjoy using it and one could consider it a reliable stepping stone towards the <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">module system</a> proposed for ES Harmony.</p>
@@ -4667,11 +4674,15 @@ define(['jquery'] , function ($) {
 <p>For more reasons why many developers are opting to use AMD modules in their applications, you may be interested in <a href="http://tagneto.blogspot.com/2011/04/on-inventing-js-module-formats-and.html">this</a> post by James Burke.</p>
 
 
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 <div class="hr"></div>
 <div>
-    <h2>CommonJS <small>A Module Format Optimized For The Server </small></h2>
-  </div>
+    <h2 id="detailcommonjs">CommonJS</h2>
+</div>
+
+<h3>A Module Format Optimized For The Server</h3>
 
 <p><a href="http://www.commonjs.org/">CommonJS</a> are a volunteer working group which aim to design, prototype and standardize JavaScript APIs. To date they've attempted to ratify standards for both <a href="http://www.commonjs.org/specs/modules/1.0/">modules</a> and <a href="http://wiki.commonjs.org/wiki/Packages/1.0">packages</a>. The CommonJS module proposal specifies a simple API for declaring modules server-side and unlike AMD attempts to cover a broader set of concerns such as io, filesystem, promises and more.
 
@@ -5018,8 +5029,10 @@ $(function(){
 <div class="hr"></div>
 <p>&nbsp;</p>
 <div>
-    <h2>ES Harmony <small>Modules Of The Future </small></h2>
+    <h2 id="detailharmony">ES Harmony</h2>
   </div>
+
+<h3>Modules Of The Future</h3>
 
 <p><a href="http://www.ecma-international.org/memento/TC39.htm">TC39</a>, the standards body charged with defining the syntax and semantics of ECMAScript and its future iterations is composed of a number of very intelligent developers. Some of these developers (such as <a href="http://twitter.com/slightlylate">Alex Russell</a>) have been keeping a close eye on the evolution of JavaScript usage for large-scale development over the past few years and are acutely aware of the need for better language features for writing more modular JS.</p>
 
