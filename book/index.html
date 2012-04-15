@@ -2072,11 +2072,12 @@ CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'
 
 
 // Let's store some defaults about a car for reference
-var defaultSettings = {};
-defaultSettings['carModel']   = 'Mercedes';
-defaultSettings['carYear']    = 2010;
-defaultSettings['carMiles']   = 5000;
-defaultSettings['carTint']    = 'Metallic Blue';
+var defaultSettings = {
+    carModel: 'Mercedes',
+    carYear:  '2010',
+    carMiles: '5000',
+    carTint:  'Metallic Blue';
+};
 
 // Let's do something with this data if a checkbox is clicked
 $('.someCheckbox').click(function(){  
@@ -2376,7 +2377,7 @@ subclassExample = {
     } 
 }
 </pre>
-<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing Person object. Let&#39;s imagine we want to add distinct properties to distinguish a Person from a Superhero whilst inheriting the properties of the Person &#39;superclass&#39;. As superheroes share many common traits with normal people (eg. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
+<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing <code>Person</code> object. Let&#39;s imagine we want to add distinct properties to distinguish a <code>Person</code> from a <code>Superhero</code> whilst inheriting the properties of the <code>Person</code> &#39;superclass&#39;. As superheroes share many common traits with normal people (eg. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
 <pre  class="brush: js">    
 //a new instance of Person can then easily be created as follows:
 var clark = new subclassExample.Person( &quot;Clark&quot; , &quot;Kent&quot; );
@@ -2396,11 +2397,11 @@ subclassExample.Superhero.prototype = new subclassExample.Person;
 var superman = new subclassExample.Superhero( &quot;Clark&quot; ,&quot;Kent&quot; , [&#39;flight&#39;,&#39;heat-vision&#39;] );
 console.log(superman); /* includes superhero props as well as gender*/
 </pre>
-<p>The Superhero definition creates an object which descends from Person. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the Person object, Superhero is capable of overriding any inherited values with values specific to it&#39;s object.</p>
+<p>The <code>Superhero</code> definition creates an object which descends from <code>Person</code>. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it&#39;s object.</p>
 <p>So where do decorators come in?</p>
 <h2>Decorators</h2>
 <p>Decorators are used when it&#39;s necessary to delegate responsibilities to an object where it doesn&#39;t make sense to subclass it. A common reason for this is that the number of features required demand for a very large quantity of subclasses. Can you imagine having to define hundreds or thousands of subclasses for a project? It would likely become unmanagable fairly quickly.</p>
-<p>To give you a visual example of where this is an issue, imagine needing to define new kinds of Superhero: SuperheroThatCanFly, SuperheroThatCanRunQuickly and SuperheroWithXRayVision.</p>
+<p>To give you a visual example of where this is an issue, imagine needing to define new kinds of <code>Superhero</code>: SuperheroThatCanFly, SuperheroThatCanRunQuickly and SuperheroWithXRayVision.</p>
 <p>Now, what if superhero had more than one of these properties?. We&#39;d need to define a subclass called SuperheroThatCanFlyAndRunQuickly , SuperheroThatCanFlyRunQuicklyAndHasXRayVision etc - effectively, one for each possible combination. As you can see, this isn&#39;t very manageable when you factor in different abilities.</p>
 <p>The decorator pattern isn&#39;t heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just using inheritance, where we&#39;re used to extending objects linearly, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than subclassing, we add (decorate) properties or methods to a base object so its a little more streamlined.</p>
 <p>The extension of objects is something already built into JavaScript and as we know, objects can be extended rather easily with properties being included at any point. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
@@ -2473,7 +2474,7 @@ Insurance(mb);
 console.log(mb.cost()); //1522
 console.log(mb.screenSize()); //13.3
 </pre>
-<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (eg. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and intact.</p>
+<p>Here, the decorators are overrriding the superclass <code>.cost()</code> method to return the current price of the <code>Macbook</code> plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original <code>Macbook</code> object&#39;s constructor methods which are not overridden (eg. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
 <p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and duck typing is used to shift the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 <h2>Pseudo-classical decorators</h2>
 <p>We&#39;re now going to examine the variation of the decorator presented in &#39;Pro JavaScript Design Patterns&#39; (PJDP) by Dustin Diaz and Ross Harmes.</p>
@@ -2573,29 +2574,35 @@ MacbookDecorator.prototype = {
         }        
 };
 </pre>
-<p>What&#39;s happening in the above sample is that the Macbook decorator is taking an object to use as the component. It&#39;s using the Macbook interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes just by using the Macbook decorator - simply call the superclass constructor and any methods can be overriden as per necessary.</p>
+<p>What&#39;s happening in the above sample is that the Macbook decorator is taking an object to use as the component. It&#39;s using the Macbook interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes just by using the Macbook decorator - simply call the superclass constructor and any methods can be overridden as per necessary.</p>
 <pre  class="brush: js">var CaseDecorator = function( macbook ){
     /*call the superclass&#39;s constructor next*/
     this.superclass.constructor(macbook);    
 }
+
 /*Let&#39;s now extend the superclass*/
 extend( CaseDecorator, MacbookDecorator ); 
+
 CaseDecorator.prototype.addCase = function(){
     return this.macbook.addCase() + &quot; Adding case to macbook &quot;;   
 };
+
 CaseDecorator.prototype.getPrice = function(){
     return this.macbook.getPrice() + 45.00;  
 };
 </pre>
 <p>As you can see, most of this is relatively easy to implement. What we&#39;re doing is overriding the addCase() and getPrice() methods that need to be decorated and we&#39;re achieving this by first executing the component&#39;s method and then adding to it.</p>
 <p>As there&#39;s been quite a lot of information presented in this section so far, let&#39;s try to bring it all together in a single example that will hopefully highlight what we&#39;ve learned.</p>
-<pre  class="brush: js">//Instantiation of the macbook
+<pre  class="brush: js">// Instantiation of the macbook
 var myMacbookPro = new MacbookPro();  
-//This will return 900.00
+
+// This will return 900.00
 console.log(myMacbookPro.getPrice());
-//Decorate the macbook
+
+// Decorate the macbook
 myMacbookPro = new CaseDecorator( myMacbookPro ); /*note*/
-//This will return 945.00
+
+// This will return 945.00
 console.log(myMacbookPro.getPrice());
 </pre>
 <p>An important note from PJDP is that in the line denoted <strong>note</strong>, Harmes and Diaz claim that it&#39;s important not to create a separate variable to store the instance of your decorators, opting for the same variable instead. The downside to this is that we&#39;re unable to access the original macbook object in our example, however we technically shouldn&#39;t need to further.</p>
@@ -2839,8 +2846,8 @@ var PhotosController = Spine.Controller.sub({
 <p>What this provides us with is a very lightweight, simple way to manage changes between the model and the view.</p>
 <p><strong>Backbone.js</strong></p>
 <p>Later on in this section we&#39;re going to revisit the differences between Backbone and traditional MVC, but for now let&#39;s focus on controllers.</p>
-<p>In Backbone, one shares the responsibility of a controller with both the Backbone.View and Backbone.Router. Some time ago Backbone did once come with it&#39;s own Backbone.Controller, but as the naming for this component didn&#39;t make sense for the context in which it was being used, it was later renamed to Router.</p>
-<p>Routers handle a little more of the controller responsibility as it&#39;s possible to bind the events there for models and have your view respond to DOM events and rendering. As Tim Branyen (another Bocoup-based Backbone contributor) has also previously pointed out, it&#39;s possible to get away with not needing Backbone.Router at all for this, so a way to think about it using the Router paradigm is probably:</p>
+<p>In Backbone, one shares the responsibility of a controller with both the <code>Backbone.View</code> and <code>Backbone.Router</code>. Some time ago Backbone did once come with it&#39;s own <code>Backbone.Controller</code>, but as the naming for this component didn&#39;t make sense for the context in which it was being used, it was later renamed to Router.</p>
+<p>Routers handle a little more of the controller responsibility as it&#39;s possible to bind the events there for models and have your view respond to DOM events and rendering. As Tim Branyen (another Bocoup-based Backbone contributor) has also previously pointed out, it&#39;s possible to get away with not needing <code>Backbone.Router</code> at all for this, so a way to think about it using the Router paradigm is probably:</p>
 <pre  class="brush: js">var PhotoRouter = Backbone.Router.extend({
   routes: { &quot;photos/:id&quot;: &quot;route&quot; },
 
@@ -4097,7 +4104,7 @@ console.log(namespace.foobar2);
 <p>That&#39;s it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben&#39;s <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor&#39;s post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
 <h3>5. Namespace injection</h3>
 <p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (eg. getters and setters).</p>
-<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (eg. deep object extension / merging) which I cover earlier in the article..</p>
+<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (eg. deep object extension / merging) which I cover earlier in the section.</p>
 <p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
 <pre  class="brush: js">var myApp = myApp || {};
 myApp.utils =  {};
