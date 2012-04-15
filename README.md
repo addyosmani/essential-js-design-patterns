@@ -4,7 +4,7 @@
 This is the repo for an in-progress creative-commons book I've written called 'Essential JavaScript Design Patterns'. Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. You can read the latest version [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/ "Read Online") at
 any time. 
 
-Version 1.5.2 of the book is currently over 170 A4 pages in length and 1.0 was downloaded approximately 260,000 times (rounded) during 2011. Additional formats of the book are available in the 'formats' directory.
+Version 1.5.2 of the book is currently over 130 A4 pages in length and 1.0 was downloaded approximately 260,000 times (rounded) during 2011. Additional formats of the book are available in the 'formats' directory.
 
 #### Why is this book needed?
 
