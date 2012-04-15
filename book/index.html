@@ -153,9 +153,9 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
     <p>In  collaboration with Sarah Ishikawra and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language', which was later released as a complete hardcover <a href="http://www.amazon.co.uk/Pattern-Language-Buildings-Construction-Environmental/dp/0195019199/ref=sr_1_1?s=books&ie=UTF8&qid=1329440685&sr=1-1">book</a>. </p>
     <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
 
-    <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>'Design Patterns: Elements Of Reusable Object-Oriented Software</em>'. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
+    <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
     <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section &lsquo;Categories of Design Patterns&rsquo;.</p>
-    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript, but also to abstracted libraries such as jQuery or Dojo as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
+    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as jQuery or Dojo as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <h1 id="whatisapattern">What is a Pattern?</h1>
@@ -166,7 +166,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
       <ol>
         <ol>
           <li><strong>Patterns are proven      solutions:</strong> They provide solid approaches to solving issues      in software development using proven solutions that reflect the experience      and insights the developers that helped define and improve them bring to      the pattern.</li>
-          <li><strong>Patterns can be easily      re-used: </strong>A pattern usually reflects an out of the box      solution that can be adapted to suit your own needs. This feature makes      them quite robust.</li>
+          <li><strong>Patterns can be easily      reused: </strong>A pattern usually reflects an out of the box      solution that can be adapted to suit your own needs. This feature makes      them quite robust.</li>
           <li><strong>Patterns can be      expressive: </strong>When you look at a pattern there&rsquo;s generally a      set structure and &lsquo;vocabulary&rsquo; to the solution presented that can help      express rather large solutions quite elegantly.</li>
         </ol>
       </ol>
@@ -200,7 +200,7 @@ Use a modern native browser feature such as <code>querySelectorAll()</code> to s
 <p>
 So, which of these is the fastest?. You might be interested to know that it's actually number 3 by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
 <p>
-Developers using jQuery don't have to worry about this problem, as it's luckily abstraced away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
+Developers using jQuery don't have to worry about this problem, as it's luckily abstracted away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
 
 <p>It internally uses a number of different <strong>design patterns</strong>, the most frequent one being a facade, which provides a simple set of interfaces to a more complex body of code. We're probably all familiar with <code>$(elem)</code> (yes, it's a facade!), which is a lot easier to use than having to manually normalize cross-browser differences.</p>
 <p>
@@ -208,20 +208,20 @@ We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
 <h1 id="patternity">'Pattern'-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
-Remember that not every algorithm, best practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally weary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which *appears* to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
+Remember that not every algorithm, best-practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally weary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
 <p>
 Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a &lsquo;thing&rsquo;. This definition is obtuse on purpose as he follows by saying that it is the process should create the &lsquo;thing&rsquo;. This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
 <p>
-In studying design patterns, you may come across the term &lsquo;proto-pattern&rsquo; quite frequently. What is this? Well, a pattern that has not yet been known to pass the &lsquo;pattern&rsquo;-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to it’s very young age.</p>
+In studying design patterns, you may come across the term &lsquo;proto-pattern&rsquo; quite frequently. What is this? Well, a pattern that has not yet been known to pass the &lsquo;pattern&rsquo;-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to its very young age.</p>
 <p>
 Alternatively, the individual(s) sharing the pattern may not have the time or interest of going through the &lsquo;pattern&rsquo;-ity process and might release a short description of their proto-pattern instead. Brief descriptions of this type of pattern are known as patlets.</p>
 <p>
 The work involved in fully documenting a qualified pattern can be quite daunting. Looking back at some of the earliest work in the field of design patterns, a pattern may be considered &lsquo;good&rsquo; if it does the following: </p>
 <ul type="disc">
   <li><strong>Solves a particular problem</strong>: Patterns are not supposed      to just capture principles or strategies. They need to capture solutions.      This is one of the most essential ingredients for a good pattern.</li>
-  <li><strong>The solution to this problem cannot be obvious </strong>: You      can often find that problem-solving techniques attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
+  <li><strong>The solution to this problem cannot be obvious</strong>: You      can often find that problem-solving techniques attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
   <li><strong>The      concept described must have been proven</strong>: Design patterns require proof that they function as described and without      this proof the design cannot be seriously considered. If a pattern is      highly speculative in nature, only the brave may attempt to use it.</li>
-  <li><strong>It      must describe a relationship </strong>: In some cases it may      appear that a pattern describes a type of module. Although an      implementation may appear this way, the official description of the      pattern must describe much deeper system structures and mechanisms that      explain it&rsquo;s relationship to code.</li>
+  <li><strong>It      must describe a relationship </strong>: In some cases it may      appear that a pattern describes a type of module. Although an      implementation may appear this way, the official description of the      pattern must describe much deeper system structures and mechanisms that      explain its relationship to code.</li>
 </ul>
 <p>
   You wouldn&rsquo;t be blamed for thinking that a proto-pattern which doesn&rsquo;t meet the guidelines is worth learning from at all, but this is far from the truth. Many proto-patterns are actually quite good. I&rsquo;m not saying that all proto-patterns are worth looking at, but there are quite a few useful ones in the wild that could assist you with future projects. Use best judgment with the above list in mind and you&rsquo;ll be fine in your selection process. </p>
@@ -236,8 +236,8 @@ The work involved in fully documenting a qualified pattern can be quite daunting
 <p>&nbsp;</p>
 <h1 id="designpatternstructure">The Structure Of A Design Pattern</h1>
 <p>When studying design patterns, you may wonder what teams that create them have to put in their design pattern descriptions.&nbsp; Every pattern has to initially be formulated in a form of a <strong>rule</strong> that establishes a relationship between a <strong>context</strong>, a system of <strong>forces</strong> that arises in that context and a <strong>configuration</strong> that allows these forces to resolve themselves in context.&nbsp; </p>
-<p>I find that a lot of the information available out there about the structure of a good pattern can be condensed down to something more easily digestible.With this in mind, lets now take a look at a summary of the component elements for a design pattern.</p>
-<p><strong>A design pattern must have a:</strong></p>
+<p>I find that a lot of the information available out there about the structure of a good pattern can be condensed down to something more easily digestible.With this in mind, lets now take a look at a summary of the component elements for a design pattern.A design pattern must have a:</p>
+
 <ul>
   <li><strong>Pattern Name</strong> and a <strong>description </strong></li>
   <li><strong>Context Outline</strong> – the contexts in which the pattern is effective in responding to the users needs. </li>
@@ -262,14 +262,14 @@ Writing good patterns is a challenging task. Patterns not only need to provide a
 <p>
 When looking at a body of code that you think may be using a pattern, you might write down some of the aspects of the code that you believe falls under a particular existing pattern, but it may not be a one at all. In many cases of pattern-analysis you&rsquo;ll find that you&rsquo;re just looking at code that follows good principles and design practices that could happen to overlap with the rules for a pattern by accident. Remember - solutions in which neither interactions nor defined rules appear are not patterns. </p>
 <p>
-If you&rsquo;re interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and books and take in what&rsquo;s meaningful to you - this will help you accomplish the goals you&rsquo;ve got of designing the pattern you want to achieve. You&rsquo;ll probably also want to examine the structure and semantics of existing patterns - this can be begun by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
+If you&rsquo;re interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and books and take in what&rsquo;s meaningful to you - this will help you accomplish the goals you have laid out for your pattern. You&rsquo;ll probably also want to examine the structure and semantics of existing patterns - this can be begun by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
 <p>
 Once you&rsquo;ve exposed yourself to a wealth of information on pattern literature, you may wish to begin your pattern using an <em>existing</em> format and see if you can brainstorm new ideas for improving it or integrating your ideas in there. &nbsp;An example of someone that did this is in recent years is Mozilla developer evangalist Christian Heilmann, who took an existing pattern called the <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
 <p>
 If you would like to try your hand at writing a design pattern (even if just for the learning experience of going through the process), the tips I have for doing so would be as follows:</p>
 <ul type="disc">
   <li><strong>Bear in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
-  <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best practices. </li>
+  <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best-practices. </li>
   
   <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behaviour  in the user-experience that would not be incurred without the use of a pattern.</li>
   <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns.If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
@@ -280,7 +280,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   Pattern writing is a careful balance between creating a design that is general, specific and above all, useful. Try to ensure that if writing a pattern you cover the widest possible areas of application and you should be fine. &nbsp;I hope that this brief introduction to writing patterns has given you some insights that will assist your learning process for the next sections of this book. </p>
 <p>&nbsp;</p>
 <h1 id="antipatterns">Anti-Patterns</h1>
-<p>If we consider that a pattern represents a best practice, an anti-pattern represents a lesson that has been learned. The term anti-patterns was coined in 1995 by Andrew Koenig in the November C++ Report that year, inspired by the GoF's book <em>Design Patterns</em>. In Koenig&rsquo;s report, there are two notions of anti-patterns that are presented. Anti-Patterns: </p>
+<p>If we consider that a pattern represents a best-practice, an anti-pattern represents a lesson that has been learned. The term anti-patterns was coined in 1995 by Andrew Koenig in the November C++ Report that year, inspired by the GoF's book <em>Design Patterns</em>. In Koenig&rsquo;s report, there are two notions of anti-patterns that are presented. Anti-Patterns: </p>
 <ul type="disc">
   <li>Describe a<em> bad</em> solution to a particular problem which resulted in a bad situation      occurring </li>
   <li>Describe <em>how</em> to get out of said situation and how to go from there to a good solution </li>
@@ -772,7 +772,7 @@ var SingletonTester = (function(){
   function Singleton( args ) {
 
    // set args variable to args passed or empty object if none provided.
-    var args = args || {};
+    args = args || {};
     //set the name parameter
     this.name = 'SingletonTester';
     //set the value of pointX
@@ -1068,7 +1068,7 @@ How about the module pattern implemented in specific toolkits or frameworks?
 <p>
 <strong>Dojo</strong>
 <p>
-Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as it's first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called 'child' within an object 'parent' defined inside 'myObj'. Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don't already exist.</p>
+Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as its first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called 'child' within an object 'parent' defined inside 'myObj'. Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don't already exist.</p>
 
 <p>For example, if we wanted to declare <code>basket.core</code> as an object of the <code>store</code> namespace, this could be achieved as follows using the traditional way:
 <pre class="brush: js">
@@ -1264,9 +1264,9 @@ myRevealingModule.get();
 
 <p>The Observer pattern is more popularly known these days as the Publish/Subscribe pattern. It is a design pattern which allows an object (known as a subscriber) to watch another object (the publisher), where we provide a means for the subscriber and publisher form a listen and broadcast relationship. </p>
 
-<p>Subscribers are able to register (subscribe) to receive notifications from the publisher when something interesting happens. When the publisher needs to notify observers about interesting events, it broadcasts (publishes) a notification of these events to each observer (which can include specific data related to the event).</p>
+<p>Subscribers are able to register (subscribe) to receive topic notifications from the publisher when something interesting happens. When the publisher needs to notify observers about interesting topics, it broadcasts (publishes) a notification of these to each observer (which can include specific data related to the topic).</p>
 
-<p>When subscribers are no longer interested in being notified by the publisher they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
+<p>When subscribers are no longer interested in being notified of topics by the publisher they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
 
 <p>
  The general idea here is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they instead subscribe to a specific task or activity of another object and are notified when it occurs.</p>
@@ -1279,7 +1279,7 @@ It's often useful to refer back to published definitions of design patterns that
 </p>
 
 <p>
-Unlimited numbers of objects may observe events in the subject by registering themselves. Once registered to particular events, the subject will notify all observers when the event has been fired.</p>
+Unlimited numbers of objects may observe topics in the subject by registering themselves. Once registered to particular events, the subject will notify all observers when the topic has been fired.</p>
 
 <p>Further motivation behind using the observer pattern is where you need to maintain consistency between related objects without making classes tightly coupled. For example, when an object needs to be able to notify other objects without making assumptions regarding those objects. Another use case is where abstractions have more than one aspect, where one depends on the other. The encapsulation of these aspects in separate objects allows the variation and re-use of the objects independently. </p>
 
@@ -1357,14 +1357,13 @@ var pubsub = {};
             return false;
         }
 
-        setTimeout(function() {
-            var subscribers = topics[topic],
-                len = subscribers ? subscribers.length : 0;
+        var subscribers = topics[topic],
+            len = subscribers ? subscribers.length : 0;
 
-            while (len--) {
-                subscribers[len].func(topic, args);
-            }
-        }, 0);
+        while (len--) {
+            subscribers[len].func(topic, args);
+        }
+       
 
         return true;
 
@@ -1419,22 +1418,22 @@ var testSubscriber = function( topics , data ){
     console.log( topics + ": " + data );
 };
 
+// Subscribers basically "subscribe" (or listen)
+// And once they've been "notified" their callback functions are invoked
+var testSubscription = pubsub.subscribe( 'example1', testSubscriber );
+
+
 // Publishers are in charge of "publishing" notifications about events
 
 pubsub.publish( 'example1', 'hello world!' );
 pubsub.publish( 'example1', ['test','a','b','c'] );
 pubsub.publish( 'example1', [{'color':'blue'},{'text':'hello'}] );
 
-// Subscribers basically "subscribe" (or listen)
-// And once they've been "notified" their callback functions are invoked
-var testSubscription = pubsub.subscribe( 'example1', testSubscriber );
-
 // Unsubscribe if you no longer wish to be notified
 
-setTimeout(function(){
-    pubsub.unsubscribe( testSubscription );
-}, 0);
+pubsub.unsubscribe( testSubscription );
 
+// This will fail
 pubsub.publish( 'example1', 'hello again! (this will fail)' );
 
 </pre>
@@ -1774,7 +1773,7 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 <h2 id="mediatorpatternjavascript">The Mediator Pattern</h2>
 
 <p>
-The dictionary refers to a Mediator as 'a neutral party who assists in negotiations and conflict resolution'.
+The dictionary refers to a Mediator as <i>a neutral party who assists in negotiations and conflict resolution</i>.
 </p>
 <p>
 In software engineering, a Mediator is a behavioural design pattern that allows us to expose a unified interface through which the different parts of a system may communicate. If it appears a system may have too many direct relationships between modules (colleagues), it may be time to have a central point of control that modules communicate through instead. The Mediator promotes loose coupling by ensuring that instead of modules referring to each other explicitly, their interaction is handled through this central point.
@@ -1783,7 +1782,7 @@ In software engineering, a Mediator is a behavioural design pattern that allows 
 If you would prefer an analogy, consider a typical airport traffic control system. A tower (Mediator) handles what planes (modules) can take off and land because all communications are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a mediator plays in software design.
 </p>
 <p>
-In real-world terms, a mediator encapsulates how disparate modules interact with each other by acting as an intermediary. At it's most basic, a mediator could be implemented as a central base for accessing functionality as follows:</p>
+In real-world terms, a mediator encapsulates how disparate modules interact with each other by acting as an intermediary. At its most basic, a mediator could be implemented as a central base for accessing functionality as follows:</p>
 
 <pre class="brush: js">
 // Our app namespace can act as a mediator
@@ -1911,7 +1910,7 @@ The Mediator centralizes communication between modules where it's explicitly ref
 
 <p>We can think of the prototype pattern as being based on prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates. If the prototype of the constructor function used contains a property called 'name' for example (as per the code sample lower down), then each object created by that same constructor will also have this same property.</p>
 
-<p>Looking at the definitions for the prototype pattern in existing literature non-specific to JavaScript, you *may* find references to concepts outside the scope of the language such as classes. The reality is that prototypal inheritance avoids using classes altogether. There isn't a 'definition' object nor a core object in theory. We're simply creating copies of existing functional objects.</p>
+<p>Looking at the definitions for the prototype pattern in existing literature non-specific to JavaScript, you <strong>may</strong> find references to concepts outside the scope of the language such as classes. The reality is that prototypal inheritance avoids using classes altogether. There isn't a 'definition' object nor a core object in theory. We're simply creating copies of existing functional objects.</p>
 
 <p>One of the benefits of using the prototype pattern is that we're working with the strengths JavaScript has to offer natively rather than attempting to imitate features of other languages. With other design patterns, this isn't always the case. Not only is the pattern an easy way to implement inheritance, but it can also come with a performance boost as well: when defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
 
@@ -1987,12 +1986,11 @@ function vehicle( model ) {
 var car = vehicle( 'Ford Escort' );
 car.getModel();
 
-
 </pre>
 </p>
 
+<p><strong>Note:</strong> This alternative does not allow the user to define read-only oroperties in the same manner (as the vehiclePrototype may be altered if not careful).</p>
 
-<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id="commandpatternjavascript">The Command Pattern</h2>
 <p>The command pattern aims to encapsulate method invocation, requests or operations into a single object and gives you the ability to both parameterize and pass method calls around that can be executed at your discretion. In addition, it enables you to decouple objects invoking the action from the objects which implement them, giving you a greater degree of overall flexibility in swapping out concrete 'classes'.</p>
@@ -2239,7 +2237,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 <h2 id="factorypatternjavascript">The Factory Pattern</h2>
 <p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
 <p>Specifically, the Factory Pattern suggests defining an interface for creating an object where you allow the subclasses to decide which class to instantiate. This pattern handles the problem by defining a completely separate method for the creation of objects and which sub-classes are able to override so they can specify the &lsquo;type&rsquo; of factory product that will be created.</p>
-<p>This can come in quite useful, in particular if the creation process involved is quite complex. eg. if it strongly depends on the settings in configuration files.</p>
+<p>This is quite useful, in particular if the creation process involved is quite complex. eg. if it strongly depends on the settings in configuration files.</p>
 <p>You can often find factory methods in frameworks where the code for a library may need to create objects of particular types which may be subclassed by scripts using the frameworks.</p>
 <p>In our example, let&rsquo;s take the code used in the original Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
 <p>&nbsp;</p>
@@ -2365,7 +2363,7 @@ vehicle.driveBackward();
 
 <h2>Subclassing</h2>
 <p>For developers unfamiliar with subclassing, here is a beginner&#39;s primer on them before we dive further into decorators: subclassing is a term that refers to inheriting properties for a new object from a base or &#39;superclass&#39; object.</p>
-<p>In traditional OOP, a class B is able to extend another class A. Here we consider A a superclass and B a subclass of A. As such, all instances of B inherit the methods from A. B is however still able to define it&#39;s own methods, including those that override methods originally defined by A.</p>
+<p>In traditional OOP, a class B is able to extend another class A. Here we consider A a superclass and B a subclass of A. As such, all instances of B inherit the methods from A. B is however still able to define its own methods, including those that override methods originally defined by A.</p>
 
 <p>Should B need to invoke a method in A that has been overriden, we refer to this as method chaining. Should B need to invoke the constructor A() (the superclass), we call this constructor chaining.</p>
 <p>In order to demonstrate subclassing, we first need a base object that can have new instances of itself created. Let&#39;s model this around the concept of a person.</p>
@@ -2403,7 +2401,7 @@ console.log(superman); /* includes superhero props as well as gender*/
 <h2>Decorators</h2>
 <p>Decorators are used when it&#39;s necessary to delegate responsibilities to an object where it doesn&#39;t make sense to subclass it. A common reason for this is that the number of features required demand for a very large quantity of subclasses. Can you imagine having to define hundreds or thousands of subclasses for a project? It would likely become unmanagable fairly quickly.</p>
 <p>To give you a visual example of where this is an issue, imagine needing to define new kinds of Superhero: SuperheroThatCanFly, SuperheroThatCanRunQuickly and SuperheroWithXRayVision.</p>
-<p>Now, what if s superhero had more than one of these properties?. We&#39;d need to define a subclass called SuperheroThatCanFlyAndRunQuickly , SuperheroThatCanFlyRunQuicklyAndHasXRayVision etc - effectively, one for each possible combination. As you can see, this isn&#39;t very manageable when you factor in different abilities.</p>
+<p>Now, what if superhero had more than one of these properties?. We&#39;d need to define a subclass called SuperheroThatCanFlyAndRunQuickly , SuperheroThatCanFlyRunQuicklyAndHasXRayVision etc - effectively, one for each possible combination. As you can see, this isn&#39;t very manageable when you factor in different abilities.</p>
 <p>The decorator pattern isn&#39;t heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just using inheritance, where we&#39;re used to extending objects linearly, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than subclassing, we add (decorate) properties or methods to a base object so its a little more streamlined.</p>
 <p>The extension of objects is something already built into JavaScript and as we know, objects can be extended rather easily with properties being included at any point. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
 <h3>Example 1: Basic decoration of existing object constructors with new functionality</h3>
@@ -2475,14 +2473,14 @@ Insurance(mb);
 console.log(mb.cost()); //1522
 console.log(mb.screenSize()); //13.3
 </pre>
-<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (eg. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and in tact.</p>
+<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (eg. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and intact.</p>
 <p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and duck typing is used to shift the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 <h2>Pseudo-classical decorators</h2>
 <p>We&#39;re now going to examine the variation of the decorator presented in &#39;Pro JavaScript Design Patterns&#39; (PJDP) by Dustin Diaz and Ross Harmes.</p>
 <p>Unlike some of the examples from earlier, Diaz and Harmes stick more closely to how decorators are implemented in other programming languages (such as Java or C++) using the concept of an &#39;interface&#39;, which we&#39;ll define in more detail shortly.</p>
 <p><strong>Note:</strong> This particular variation of the decorator pattern is provided for reference purposes. If you find it overly complex for your application&#39;s needs, I recommend sticking to one the simplier implementations covered earlier, but I would still read the section. If you haven&#39;t yet grasped how decorators are different from subclassing, it may help!.</p>
 <h3>Interfaces</h3>
-<p>PJDP describes the decorator as a pattern that is used to transparently wrap objects inside other objects of the same interface. An interface is a way of defining the methods an object *should* have, however, it doesn&#39;t actually directly specify how those methods should be implemented.</p>
+<p>PJDP describes the decorator as a pattern that is used to transparently wrap objects inside other objects of the same interface. An interface is a way of defining the methods an object <strong>should</strong> have, however, it doesn&#39;t actually directly specify how those methods should be implemented.</p>
 <p>They can also indicate what parameters the methods take, but this is considered optional.</p>
 <p>So, why would you use an interface in JavaScript? The idea is that they&#39;re self-documenting and promote reusability. In theory, interfaces also make code more stable by ensuring changes to them must also be made to the classes implementing them.</p>
 <p>Below is an example of an implementation of Interfaces in JavaScript using duck-typing - an approach that helps determine whether an object is an instance of constructor/object based on the methods it implements.</p>
@@ -2600,7 +2598,7 @@ myMacbookPro = new CaseDecorator( myMacbookPro ); /*note*/
 //This will return 945.00
 console.log(myMacbookPro.getPrice());
 </pre>
-<p>An important note from PJDP is that in the line denoted *note*, Harmes and Diaz claim that it&#39;s important not to create a separate variable to store the instance of your decorators, opting for the same variable instead. The downside to this is that we&#39;re unable to access the original macbook object in our example, however we technically shouldn&#39;t need to further.</p>
+<p>An important note from PJDP is that in the line denoted <strong>note</strong>, Harmes and Diaz claim that it&#39;s important not to create a separate variable to store the instance of your decorators, opting for the same variable instead. The downside to this is that we&#39;re unable to access the original macbook object in our example, however we technically shouldn&#39;t need to further.</p>
 <p>As decorators are able to modify objects dynamically, they&#39;re a perfect pattern for changing existing systems. Occasionally, it&#39;s just simpler to create decorators around an object versus the trouble of maintaining individual subclasses. This makes maintaining applications of this type significantly more straight-forward.</p>
 <h2>Implementing decorators with jQuery</h2>
 <p>As with other patterns I&#39;&#39;ve covered, there are also examples of the decorator pattern that can be implemented with jQuery. jQuery.extend() allows you to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
@@ -2671,8 +2669,8 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <h2 id="detailmvc">MVC</h2>
 <p>MVC is an architectural design pattern that encourages improved application organization through a separation of concerns. It enforces the isolation of business data (Models) from user interfaces (Views), with a third component (Controllers) (traditionally) managing logic, user-input and coordinating both the models and views. The pattern was originally designed by <a href="http://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a> during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in <a href="http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612">&ldquo;Design Patterns: Elements of Reusable Object-Oriented Software&rdquo;</a> (The &quot;GoF&quot; book) in 1994, which played a role in popularizing its use.</p>
 <h3>Smalltalk-80 MVC</h3>
-<p>It&#39;s important to understand what the original MVC pattern was aiming to solve as it&#39;s mutated quite heavily since the days of it&#39;s origin. Back in the 70&#39;s, graphical user-interfaces were far and few between and a concept known as <a href="http://martinfowler.com/eaaDev/uiArchs.html">Separated Presentation</a> began to be used as a means to make a clear division between domain objects which modelled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user&#39;s screen.</p>
-<p>The Smalltalk-80 implementaion of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80&#39;s MVC architecture:</p>
+<p>It&#39;s important to understand what the original MVC pattern was aiming to solve as it&#39;s mutated quite heavily since the days of its origin. Back in the 70&#39;s, graphical user-interfaces were far and few between and a concept known as <a href="http://martinfowler.com/eaaDev/uiArchs.html">Separated Presentation</a> began to be used as a means to make a clear division between domain objects which modelled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user&#39;s screen.</p>
+<p>The Smalltalk-80 implementation of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80&#39;s MVC architecture:</p>
 <ul>
   <li>A Domain element was known as a Model and were ignorant of the user-interface (Views and Controllers)</li>
   <li>Presentation was taken care of by the View and the Controller, but there wasn&#39;t just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them</li>
@@ -2739,7 +2737,7 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
 <p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of it&#39;s subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
 <p>You may wonder where user-interaction comes into play here. When users click on any elements within the view, it&#39;s not the view&#39;s responsibility to know what to do next. It relies on a controller to make this decision for it. In our sample implementation, this is achieved by adding an event listener to <code>photoEl</code> which will delegate handling the click behaviour back to the controller, passing the model information along with it in case it&#39;s needed.</p>
-<p>The benefit of this architecture is that each component plays it&#39;s own separate role in making the application function as needed.</p>
+<p>The benefit of this architecture is that each component plays its own separate role in making the application function as needed.</p>
 <pre  class="brush: js">var buildPhotoView = function( photoModel, photoController ){
 
     var base        = document.createElement(&#39;div&#39;),
@@ -2814,7 +2812,7 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <p><strong>Spine.js</strong></p>
 <p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we&#39;ll be discussing in this book (Backbone) doesn&#39;t have it&#39;s <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let&#39;s take a look at a sample controller from Spine.js:</p>
 <p>In this example, we&#39;re going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user editd the photo meta-data) the corresonding model does too.</p>
-<p>Note: We won&#39;t be delving heavily into Spine.js at all, but will just take a ten-foot view of what it&#39;s controllers can do:</p>
+<p>Note: We won&#39;t be delving heavily into Spine.js at all, but will just take a ten-foot view of what its controllers can do:</p>
 <pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
 
 var PhotosController = Spine.Controller.sub({      
@@ -2866,8 +2864,8 @@ var PhotosController = Spine.Controller.sub({
 <h3>Delving deeper</h3>
 <p>Right now, you likely have a basic understanding of what the MVC pattern provides, but for the curious, we can explore it a little further.</p>
 <p>The GoF (Gang of Four) do not refer to MVC as a design pattern, but rather consider it a &quot;set of classes to build a user interface&quot;. In their view, it&#39;s actually a variation of three other classical design patterns: the Observer (Pub/Sub), Strategy and Composite patterns. Depending on how MVC has been implemented in a framework, it may also use the Factory and Decorator patterns. </p>
-<p>As we&#39;ve discussed, models represent application data whilst views are what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn&#39;t cover in many articles about the MVC pattern). When a model is changed it notifies the rest of the application it has been updated. The controller then updates the view accordingly. The observer nature of this relationship is what facilitates multiple views being attached to the same model.</p>
-<p>For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implement), one of the goal&#39;s of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.</p>
+<p>As we&#39;ve discussed, models represent application data whilst views are what the user is presented on screen. As such, MVC relies on Pub/Sub for some of its core communication (something that surprisingly isn&#39;t covered in many articles about the MVC pattern). When a model is changed it notifies the rest of the application it has been updated. The controller then updates the view accordingly. The observer nature of this relationship is what facilitates multiple views being attached to the same model.</p>
+<p>For developers interested in knowing more about the decoupled nature of MVC (once again, depending on the implementation), one of the goals of the pattern is to help define one-to-many relationships between a topic and its observers. When a topic changes, its observers are updated. Views and controllers have a slightly different relationship. Controllers facilitate views to respond to different user input and are an example of the Strategy pattern.</p>
 <h3>Summary</h3>
 <p>Having reviewed the classical MVC pattern, we should now understand how it allows us to cleanly separate concerns in an application. We should also now appreciate how JavaScript MVC frameworks may differ in their interpretation of the MVC pattern, which although quite open to variation, still shares some of the fundamental concepts the original pattern has to offer.</p>
 <p>When reviewing a new JavaScript MVC/MV* framework, remember - it can be useful to step back and review how it&#39;s opted to approach architecture (specifically, how it supports implementing models, views, controllers or other alternatives) as this can better help you grok how the framework expects to be used.</p>
@@ -3663,7 +3661,7 @@ Note that although we may believe that simply caching our jQuery code may offer 
 <p>In JavaScript, namespacing at an enterprise level is critical as it&#39;s important to safeguard your code from breaking in the event of another script on the page using the <b>same</b> variable or method names as you are. With the number of <b>third-party</b> tags regularly injected into pages these days, this can be a common problem we all need to tackle at some point in our careers. As a well-behaved &#39;citizen&#39; of the global namespace, it&#39;s also imperative that you do your best to similarly not prevent other developer&#39;s scripts executing due to the same issues.</p>
 <p>Whilst JavaScript doesn&#39;t really have built-in support for namespaces like other languages, it does have objects and closures which can be used to achieve a similar effect.</p>
 <h2>Advanced namespacing patterns</h2>
-<p>In this section, I&#39;ll be exploring some advanced patterns and utility techniques that have helped me when working on larger projects requiring a re-think of how application namespacing is approached. I should state that I&#39;m not advocating any of these as *the* way to do things, but rather just ways that I&#39;ve found work in practice.</p>
+<p>In this section, I&#39;ll be exploring some advanced patterns and utility techniques that have helped me when working on larger projects requiring a re-think of how application namespacing is approached. I should state that I&#39;m not advocating any of these as <strong>the</strong> way to do things, but rather just ways that I&#39;ve found work in practice.</p>
 <h3>Automating nested namespacing</h3>
 <p>As you&#39;re probably aware, a nested namespace provides an organized hierarchy of structures in an application and an example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. In JavaScript the equivalent of this definition using the object literal pattern would be:</p>
 <pre  class="brush: js">var application = {
@@ -3751,7 +3749,7 @@ drawing.plot(98, 50,60);
 // namespaces vs. a local reference to the namespace
 </pre>
 <p>Working with a local variable here is almost always faster than working with a top-level global (eg.myApp). It&#39;s also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
-<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of your function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One if the benefits this offers is a decrease in locating dependencies and resolving them, should you have an extendable architecture that dynamically loads modules into your namespace when required.</p>
+<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of your function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One of the benefits this offers is a decrease in locating dependencies and resolving them, should you have an extendable architecture that dynamically loads modules into your namespace when required.</p>
 <p>In my opinion this pattern works best when working at a modular level, localizing a namespace to be used by a group of methods. Localizing namespaces on a per-function level, especially where there is significant overlap between namespace dependencies would be something I would recommend avoiding where possible. Instead, define it further up and just have them all access the same reference.</p>
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
@@ -3970,7 +3968,7 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 })();
 </pre>
 <p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we&#39;re able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending your code.</p>
-<p>A possible downside however is that object literals have the potential to grow into long syntactic constructs. Opting to take advantage of the nested namespace pattern (which also uses the same pattern as it&#39;s base)</p>
+<p>A possible downside however is that object literals have the potential to grow into long syntactic constructs. Opting to take advantage of the nested namespace pattern (which also uses the same pattern as its base)</p>
 <p>This pattern has a number of other useful applications too. In addition to namespacing, it&#39;s often of benefit to decouple the default configuration for your application into a single area that can be easily modified without the need to search through your entire codebase just to alter them - object literals work great for this purpose. Here&#39;s an example of a hypothetical object literal for configuration:</p>
 <pre  class="brush: js">var myConfig = {
     language: &#39;english&#39;,
@@ -4241,7 +4239,7 @@ myPlugin.method1();
 <p>
   <strong>Lazy Initialization </strong>is a design pattern wish allows us to delay expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.</p>
   
-<preclass="brush: js">
+<pre class="brush: js">
 
 $(document).ready(function(){
     // The ajax request won't attempt to execute until
@@ -4527,7 +4525,7 @@ var myOtherNewObject = jQuery.extend(true, {}, myOldObject);
 </pre>
 </p>
 <p>
-This pattern has used many times in jQuery core (as well as in jQuery plugins) quite successfully. For those wondering what deep cloning might look like in JavaScript without the use of a library, <a href="https://github.com/rwldrn">Rick Waldron</a> has an implementation you can use below (and tests available <a href="http://jsfiddle.net/rwaldron/4SEGz/">here</a>).
+This pattern has been used many times in jQuery core (as well as in jQuery plugins) quite successfully. For those wondering what deep cloning might look like in JavaScript without the use of a library, <a href="https://github.com/rwldrn">Rick Waldron</a> has an implementation you can use below (and tests available <a href="http://jsfiddle.net/rwaldron/4SEGz/">here</a>).
 </p>
 
 <pre  class="brush: js">
@@ -4577,7 +4575,7 @@ function clone( obj ) {
 <h2>The Importance Of Decoupling Your Application </small></h2>
 </div>
 
-<p>In the world of modern JavaScript, when we say an application is <strong>modular</strong>, we often mean it's composed of a set of highly decoupled, distinct pieces of functionality stored in modules. As you probably know, <a href="http://arguments.callee.info/2009/05/18/javascript-design-patterns--mediator/">loose coupling</a> facilitates easier maintainability of apps by removing <i>dependencies</i> where possible. When this is implemented efficiently, its quite easy to see how changes to one part of a system may affect another.</p>
+<p>In the world of modern JavaScript, when we say an application is <strong>modular</strong>, we often mean it's composed of a set of highly decoupled, distinct pieces of functionality stored in modules. As you probably know, <a href="http://arguments.callee.info/2009/05/18/javascript-design-patterns--mediator/">loose coupling</a> facilitates easier maintainability of apps by removing <i>dependencies</i> where possible. When this is implemented efficiently, it's quite easy to see how changes to one part of a system may affect another.</p>
 
 <p>Unlike some more traditional programming languages however, the current iteration of JavaScript (<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a>) doesn't provide developers with the means to import such modules of code in a clean, organized manner. It's one of the concerns with specifications that haven't required great thought until more recent years where the need for more organized JavaScript applications became apparent.</p>
 
@@ -4596,7 +4594,7 @@ function clone( obj ) {
 <p>It's difficult to discuss AMD and CommonJS modules without talking about the elephant in the room - <a href="http://msdn.microsoft.com/en-us/scriptjunkie/hh227261">script loaders</a>. At the time of writing, script loading is a means to a goal, that goal being modular JavaScript that can be used in applications today - for this, use of a compatible script loader is unfortunately necessary. In order to get the most out of this section, I recommend gaining a <strong>basic understanding</strong> of how popular script loading tools work so the explanations of module formats make sense in context.</p>
 
 <p>
-There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this article, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p> 
+There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this book, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p> 
 
 <p>From a production perspective, the use of optimization tools (like the RequireJS optimizer) to concatenate scripts is recommended for deployment when working with such modules. Interestingly, with the <a href="https://github.com/jrburke/almond">Almond</a> AMD shim, RequireJS doesn't need to be rolled in the deployed site and what you might consider a script loader can be easily shifted outside of development.</p>
 <p>That said, James Burke would probably say that being able to dynamically load scripts after page load still has its use cases and RequireJS can assist with this too. With these notes in mind, let's get started.</p>
@@ -5577,7 +5575,7 @@ $.fn.myPluginName = function() {
 })( jQuery );
 </pre>
 
-<p>We could do a lot more to improve on all of this; and the first complete pattern we’ll be looking at today, the lightweight pattern, covers some best practices that we can use for basic everyday plugin development and that takes into account common gotchas to look out for.</p>
+<p>We could do a lot more to improve on all of this; and the first complete pattern we’ll be looking at today, the lightweight pattern, covers some best-practices that we can use for basic everyday plugin development and that takes into account common gotchas to look out for.</p>
 
 <h4>Note</h4>
 
@@ -5589,10 +5587,10 @@ $.fn.myPluginName = function() {
 <p>&nbsp;</p>
 <h3>A Lightweight Start</h3>
 
-<p>Let’s begin our look at patterns with something basic that follows best practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). This lightweight start uses the following:</p>
+<p>Let’s begin our look at patterns with something basic that follows best-practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). This lightweight start uses the following:</p>
 
 <ul>
-<li>Common best practices, such as a semi-colon before the function’s invocation; <code>window, document, undefined</code> passed in as arguments; and adherence to the jQuery core style guidelines.</li>
+<li>Common best-practices, such as a semi-colon before the function’s invocation; <code>window, document, undefined</code> passed in as arguments; and adherence to the jQuery core style guidelines.</li>
 
 <li>A basic defaults object.</li>
 
@@ -5808,11 +5806,11 @@ $('#elem').defaultPluginName({
 
 <p>Usage:</p>
 <p><pre class="brush: js">
-var instance = $('#elem').widgetName({
+var collection = $('#elem').widgetName({
   foo: false
 });
 
-instance.widgetName('methodB');
+collection.widgetName('methodB');
 </pre></p>
 
 <h4>Further Reading</h4>
@@ -6070,8 +6068,8 @@ $.plugin('myobj', myObject);
 
 $('#elem').myobj({name: "John"});
 
-var instance = $('#elem').data('myobj');
-instance.myMethod('I am a method');
+var collection = $('#elem').data('myobj');
+collection.myMethod('I am a method');
 </pre></p>
 
 
@@ -6533,7 +6531,7 @@ function (req, $) {
 
     $.fn.pluginName = function ( options ) {
 
-        // Here's a best practice for overriding 'defaults'
+        // Here's a best-practice for overriding 'defaults'
         // with specified options. Note how, rather than a 
         // regular defaults object being passed as the second
         // parameter, we instead refer to $.fn.pluginName.options 
@@ -6711,7 +6709,7 @@ $('#elem').plugin({
 
 <p>Whilst many of the plugin and widget patterns presented above are acceptable for general use, they aren’t without their caveats. Some require jQuery or the jQuery UI Widget Factory to be present in order to function, while only a few could be easily adapted to work well as globally compatible modules in both the browser and other environments.</p> 
 
-<p>We've alredy explored both AMD and CommonJS in the last chapter, but imagine how useful it would be if we could define and load plugin modules compatible with AMD, CommonJS and other standards that are also compatible with different environments (client-side, server-side and beyond).</p>
+<p>We've already explored both AMD and CommonJS in the last chapter, but imagine how useful it would be if we could define and load plugin modules compatible with AMD, CommonJS and other standards that are also compatible with different environments (client-side, server-side and beyond).</p>
 
 <p>To provide a solution for this problem, a number of developers including James Burke, myself, Thomas Davis and Ryan Florence have been working on an effort known as UMD (or Universal Module Definition). The goal of our efforts has been to provide a set of agreed upon patterns for plugins that can work in all environments. At present, a number of such boilerplates have been completed and are available on the UMD group repo <a href="https://github.com/umdjs/umd">https://github.com/umdjs/umd</a>.</p>
 
@@ -6884,7 +6882,7 @@ $(function(){
 <p>At the end of the day, patterns are just one aspect of plugin development. And before we wrap up, here are my criteria for selecting third-party plugins, which will hopefully help developers write them.</p>
 
 <p><strong>Quality</strong><br />
-Do your best to adhere to best practices with both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+Do your best to adhere to best-practices with both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
 
 <p><strong>Compatibility</strong><br />
 Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release. New versions of jQuery offer improvements and opportunities for the jQuery project to improve on what the core library offers. With this comes occasional breakages (mainly in major releases) as we move towards a better way of doing things. I’d like to see plugin authors update their code when necessary or, at a minimum, test their plugins with new versions to make sure everything works as expected.</p>
@@ -6893,7 +6891,7 @@ Which versions of jQuery is your plugin compatible with? Have you tested it with
 Your plugin should come with its own set of unit tests. Not only do these prove your plugin actually works, but they can also improve the design without breaking it for end users. I consider unit tests essential for any serious jQuery plugin that is meant for a production environment, and they’re not that hard to write. For an excellent guide to automated JavaScript testing with QUnit, you may be interested in “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg749824">Automating JavaScript Testing With QUnit</a>,” by <a href="http://bassistance.de/">Jorn Zaefferer</a>.</p>
 
 <p><strong>Performance</strong><br />
-If the plugin needs to perform tasks that require a lot of computing power or that heavily manipulates the DOM, then you should follow best practices that minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of your code so that you’re aware of how well it performs in different browsers before releasing the plugin.</p>
+If the plugin needs to perform tasks that require a lot of computing power or that heavily manipulates the DOM, then you should follow best-practices that minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of your code so that you’re aware of how well it performs in different browsers before releasing the plugin.</p>
 
 <p><strong>Documentation</strong><br />
 If you intend for other developers to use your plugin, ensure that it’s well documented. Document your API. What methods and options does the plugin support? Does it have any gotchas that users need to be aware of? If users cannot figure out how to use your plugin, they’ll likely look for an alternative. Also, do your best to comment the code. This is by far the best gift you could give to other developers. If someone feels they can navigate your code base well enough to fork it or improve it, then you’ve done a good job.</p>
@@ -6901,7 +6899,7 @@ If you intend for other developers to use your plugin, ensure that it’s well d
 <p><strong>Likelihood of maintenance</strong><br />
 When releasing a plugin, estimate how much time you’ll have to devote to maintenance and support. We all love to share our plugins with the community, but you need to set expectations for your ability to answer questions, address issues and make improvements. This can be done simply by stating your intentions for maintenance in the <em>README</em> file, and let users decide whether to make fixes themselves.</p>
 
-<p>In this section, we’ve explored several time-saving design patterns and best practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope that the code comments that discuss the ins and outs of these variations on popular plugins and widgets were useful.</p>
+<p>In this section, we’ve explored several time-saving design patterns and best-practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope that the code comments that discuss the ins and outs of these variations on popular plugins and widgets were useful.</p>
 
 <p>Remember, when selecting a pattern, be practical. Don’t use a plugin pattern just for the sake of it; rather, spend some time understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. Choose the pattern that best suits your needs.</p>
 
