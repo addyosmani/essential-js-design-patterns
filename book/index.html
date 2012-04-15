@@ -110,8 +110,9 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
       </li>
          <li><a href="#detailmvcmvp">MV* Patterns</a>
         <ul>
-        <li class="subitem"><a href="#detailmvcm">MVC Pattern</a>
+          <li class="subitem"><a href="#detailmvcm">MVC Pattern</a>
           <li class="subitem"><a href="#detailmvcp">MVP Pattern</a>
+          <li class="subitem"><a href="#detailmvvm">MVVM Pattern</a>
         </ul>
       </li>
         <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a></li>
@@ -2974,6 +2975,371 @@ var PhotosController = Spine.Controller.sub({
 <p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
 <p>&nbsp;</p>
 
+
+<h2 id="detailmvvm">MVVM</h2>
+
+<p>MVVM (Model View ViewModel) is an architectural pattern based on MVC and MVP, which attempts to more clearly separate the development of user-interfaces (UI) from that of the business logic and behaviour in an application. To this end, many implementations of this pattern make use of declarative data bindings to allow a separation of work on Views from other layers.</p>
+<p>This facilitates UI and development work occurring almost simultaneously within the same codebase. UI developers write bindings to the ViewModel within their document markup (HTML), where the Model and ViewModel are maintained by developers working on the logic for the application.</p>
+<h2>History</h2>
+<p>MVVM was originally defined by Microsoft for use with Windows Presentation Foundation (<a href="http://en.wikipedia.org/wiki/Windows_Presentation_Foundation">WPF</a>) and <a href="http://www.microsoft.com/silverlight/">Silverlight</a>, having been officially announced in 2005 by <a href="http://blogs.msdn.com/b/johngossman/">John Grossman</a> in a blog post about Avalon (the codename for WPF). It also found some popularity in the Adobe Flex community as an alternative to simply using MVC.</p>
+<p>In recent years, MVVM has been implemented in JavaScript in the form of structural frameworks such as <a href="http://knockoutjs.com/">KnockoutJS</a>, <a href="http://www.kendoui.com/web/roadmap.aspx">Kendo MVVM</a> and <a href="https://github.com/kmalakoff/knockback">Knockback.js</a>, with an overall positive response from the community.</p>
+<p>Let&rsquo;s now review the three components that compose MVVM.</p>
+<h2>Model</h2>
+<p>As with other members of the MV* family, the Model in MVVM represents domain-specific data or information that our application will be working with. A typical example of domain-specific data might be a user account (e.g name, avatar, e-mail) or a music track (e.g title, year, album).</p>
+<p>Models hold information, but typically don&rsquo;t handle behaviour. They don&rsquo;t format information or influence how data appears in the browser as this isn&rsquo;t their responsibility. Instead, formatting of data is handled by the View, whilst behaviour is considered business logic that should be encapsulated in another layer that interacts with the Model - the ViewModel.</p>
+<p>The only exception to this rule tends to be validation and it&rsquo;s considered acceptable for Models to validate data being used to define or update existing models (e.g does an e-mail address being input meet the requirements of a particular Regular expression?).</p>
+<p>In KnockoutJS, Models fall under the above definition, but often make Ajax calls to a server-side service to both read and write Model data.</p>
+<p>If we were constructing a simple Todo application, a KnockoutJS Model representing a single Todo item could look as follows:</p>
+<pre   class="brush: js">var Todo = function (content, done) {
+    this.content = ko.observable(content);
+    this.done = ko.observable(done);
+    this.editing = ko.observable(false);
+};
+</pre>
+<p>Note: You may notice in the above snippet that we are calling a method <code>observables()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to syncronize Models and ViewModels when the value of a Model attribute is modified.</p>
+<h2>View</h2>
+<p>As with MVC, the View is the only part of the application of users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, MVVM View is considered active rather than passive, but what does this mean?.</p>
+<p>A passive View has no real knowledge of the models in our application and is manipulated by a controller. MVVM&rsquo;s active View contains the data-bindings, events and behaviours which require an understanding of the Model and ViewModel. Although these behaviours can be mapped to properties, the View is still responsible for handling events to the ViewModel.</p>
+<p>It&rsquo;s important to remember the View isn&rsquo;t responsible here for handling state - it keeps this in sync with the ViewModel.</p>
+<p>A KnockoutJS View is simply a HTML document with declarative bindings to link it to the ViewModel. KnockoutJS Views display information from the ViewModel, pass commands to it (e.g a user clicking on an element) and update as the state of the ViewModel changes. Templates generating markup using data from the ViewModel can however also be used for this purpose.</p>
+<p>To give a brief initial example, we can look to the JavaScript MVVM framework KnockoutJS for how it allows the definition of a ViewModel and it&rsquo;s related bindings in markup:</p>
+<p>ViewModel:</p>
+<pre   class="brush: js">var aViewModel = {
+    contactName: ko.observable(&#39;John&#39;);
+};
+</pre>
+<p>View:</p>
+<pre   class="brush: js">&lt;input id=&quot;source&quot; data-bind=&quot;value: contactName, valueUpdate: &#39;keyup&#39;&quot; /&gt;&lt;/p&gt;
+
+&lt;div data-bind=&quot;visible: contactName().length &gt; 10&quot;&gt;
+    You have a really long name!
+&lt;/div&gt;
+</pre>
+<p>Our input text-box (source) obtains it&#39;s initial value from <code>contactName</code>, automatically updating this value whenever contactName changes. As the data binding is two-way, typing into the text-box will update <code>contactName</code> accordingly so the values are always in sync.</p>
+<p>Although implementation specific to KnockoutJS, the <code>&lt;div&gt;</code> containing the &#39;You have a really long name! text also contains simple validation (once again in the form of data bindings). If the input exceeds 10 characters, it will display, otherwise it will remain hidden.</p>
+<p>Moving on to a more advanced example, we can return to our Todo application. A trimmed down KnockoutJS View for this, including all the necessary data-bindings may look as follows.</p>
+<pre   class="brush: js">&lt;div id=&quot;todoapp&quot;&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Todos&lt;/h1&gt;
+        &lt;input id=&quot;new-todo&quot; type=&quot;text&quot; data-bind=&quot;value: current, valueUpdate: &#39;afterkeydown&#39;, enterKey: add&quot;
+               placeholder=&quot;What needs to be done?&quot;/&gt;
+    &lt;/header&gt;
+    &lt;section id=&quot;main&quot; data-bind=&quot;block: todos().length&quot;&gt;
+    
+        &lt;input id=&quot;toggle-all&quot; type=&quot;checkbox&quot; data-bind=&quot;checked: allCompleted&quot;&gt;
+        &lt;label for=&quot;toggle-all&quot;&gt;Mark all as complete&lt;/label&gt;
+        
+        &lt;ul id=&quot;todo-list&quot; data-bind=&quot;foreach: todos&quot;&gt;
+        
+           &lt;!-- item --&gt;
+            &lt;li data-bind=&quot;css: { done: done, editing: editing }&quot;&gt;
+                &lt;div class=&quot;view&quot; data-bind=&quot;event: { dblclick: $root.editItem }&quot;&gt;
+                    &lt;input class=&quot;toggle&quot; type=&quot;checkbox&quot; data-bind=&quot;checked: done&quot;&gt;
+                    &lt;label data-bind=&quot;text: content&quot;&gt;&lt;/label&gt;
+                    &lt;a class=&quot;destroy&quot; href=&quot;#&quot; data-bind=&quot;click: $root.remove&quot;&gt;&lt;/a&gt;
+                &lt;/div&gt;
+                &lt;input class=&quot;edit&quot; type=&quot;text&quot;
+                       data-bind=&quot;value: content, valueUpdate: &#39;afterkeydown&#39;, enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }&quot;/&gt;
+            &lt;/li&gt;
+            
+        &lt;/ul&gt;
+        
+    &lt;/section&gt;
+&lt;/div&gt;
+
+</pre>
+<p>Note that the basic layout of the mark-up is relatively straight-forward, containing an input textbox (<code>new-todo</code>) for adding new items, togglers for marking items as complete and a list (<code>todo-list</code>) with a template for a Todo item in the form of an <code>li</code>.</p>
+<p>The data bindings in the above markup can be broken down as follows:</p>
+<p>&nbsp;</p>
+<ul>
+  <li>The input textbox <code>new-todo</code> has a data-binding for the <code>current</code> property, which is where the value of the current item being added is stored. Our ViewModel (shown shortly) observes the <code>current</code> property and also has a binding against the <code>add</code> event. When the enter key is pressed, the <code>add</code> event is triggered and our ViewModel can then trim the value of <code>current</code> and add it to the Todo list as needed</li>
+  <li>The input checkbox <code>toggle-all</code> can mark all of the current items as completed if clicked. If checked, it triggers the <code>allCompleted</code> event, which can be seen in our ViewModel</li>
+  <li>The item <code>li</code> has the class <code>done</code>. When a task is marked as done, the CSS class <code>editing</code> is marked accordingly. If double-clicking on the item, the <code>$root.editItem</code> callback will be executed</li>
+  <li>The checkbox with the class <code>toggle</code> shows the state of the <code>done</code> property</li>
+  <li>A label contains the text value of the Todo item (<code>content</code>)</li>
+  <li>There is also a remove button that will call the <code>$root.remove</code> callback when clicked.</li>
+  <li>An input textbox used for editing mode also holds the value of the Todo item <code>content</code>. The <code>enterKey</code> event will set the <code>editing</code> property to true or false</li>
+</ul>
+<p>&nbsp;</p>
+<h2>ViewModel</h2>
+<p>The ViewModel can be considered a specialized Controller that acts as a data converter. It changes Model information into View information, passing commands from the View to the Model.</p>
+<p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user&#39;s view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the address to it&#39;s display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
+<p>In this sense, the ViewModel might be looked upon as more of a Model than a View but it does handle most of the View&#39;s display logic.The ViewModel may also expose methods for helping to maintain the View&#39;s state, update the model based on the action&#39;s on a View and trigger events on the View.</p>
+<p>In summary, the ViewModel sits behind our UI layer. It exposes data needed by a View (from a Model) and can be viewed as the source our Views go to for both data and actions.</p>
+<p>KnockoutJS interprets the ViewModel as the represtation of data and operations that can be performed on a UI. This isn&#39;t the UI itself nor the data model that persists, but rather a layer that can also hold the yet to be saved data a user is working with. Knockout&#39;s ViewModels are implemented JavaScript objects with no knowledge of HTML markup. This abstract approach to their implementation allows them to stay simple, meaning more complex behaviour can be more easily managed on-top as needed.</p>
+<p>A partial KnockoutJS ViewModel for our Todo application could thus look as follows:</p>
+<pre   class="brush: js">// our main ViewModel
+    var ViewModel = function (todos) {
+        var self = this;
+
+    // map array of passed in todos to an observableArray of Todo objects
+    self.todos = ko.observableArray(ko.utils.arrayMap(todos, function (todo) {
+        return new Todo(todo.content, todo.done);
+    }));
+
+    // store the new todo value being entered
+    self.current = ko.observable();
+
+    // add a new todo, when enter key is pressed
+    self.add = function (data, event) {
+        var newTodo, current = self.current().trim();
+        if (current) {
+            newTodo = new Todo(current);
+            self.todos.push(newTodo);
+            self.current(&quot;&quot;);
+        }
+    };
+
+    // remove a single todo
+    self.remove = function (todo) {
+        self.todos.remove(todo);
+    };
+
+    // remove all completed todos
+    self.removeCompleted = function () {
+        self.todos.remove(function (todo) {
+            return todo.done();
+        });
+    };
+
+    // writeable computed observable to handle marking all complete/incomplete
+    self.allCompleted = ko.computed({
+        //always return true/false based on the done flag of all todos
+        read:function () {
+            return !self.remainingCount();
+        },
+        //set all todos to the written value (true/false)
+        write:function (newValue) {
+            ko.utils.arrayForEach(self.todos(), function (todo) {
+                //set even if value is the same, as subscribers are not notified in that case
+                todo.done(newValue);
+            });
+        }
+    });
+
+    // edit an item
+    self.editItem = function(item) {
+        item.editing(true);
+    };
+ ..
+</pre>
+<p>Above we are basically providing the methods needed to add, edit or remove items as well as the logic to mark all remaining items as having been completed Note: The only real difference worth noting from previous examples in our ViewModel are observable arrays. In KnockoutJS, if we wish to detect and respond to changes on a single object, we would use <code>observables</code>. If however we wish to detect and respond to changes of a collection of things, we can use an <code>observableArray</code> instead. A simpler example of how to use observables arrays may look as follows:</p>
+<pre   class="brush: js">// Define an initially an empty array
+var myObservableArray = ko.observableArray();
+
+// Add a value to the array and notify our observers 
+
+myObservableArray.push(&lsquo;A new todo item&rsquo;);
+</pre>
+<p>Note: The complete Knockout.js Todo application we reviewed above can be grabbed from <a href="http://todomvc.com">TodoMVC</a> if interested.</p>
+<h3>Recap: The View and the ViewModel</h3>
+<p>Views and ViewModels communicate using data-bindings and events. As we saw in our initial ViewModel example, the ViewModel doesn&rsquo;t just expose Model attributes but also access to other methods and features such as validation.</p>
+<p>Our Views handle their own user-interface events, mapping them to the ViewModel as necessary. Models and attributes on the ViewModel are syncronized and updated via two-way data-binding.</p>
+<p>Triggers (data-triggers) also allow us to further react to changes in the state of our Model attributes.</p>
+<h3>Recap: The ViewModel and the Model</h3>
+<p>Whilst it may appear the ViewModel is completely responsible for the Model in MVVM, there are some subtleties with this relationship worth noting. The ViewModel can expose a Model or Model attributes for the purposes of data-binding and can also contain interfaces for fetching and manipulating properties exposed in the view.</p>
+<h2>Pros and Cons</h2>
+<p>You now hopefully have a better appreciation for what MVVM is and how it works. Let&rsquo;s now review the advantages and disadvantages of employing the pattern:</p>
+<h3>Advantages</h3>
+<ul>
+  <li>MVVM Facilitates easier parallel development of a UI and the building blocks that power it</li>
+  <li>Abstracts the View and thus reduces the quantity of business logic (or glue) required in the code behind it</li>
+  <li>The ViewModel can be easier to unit test than event-driven code</li>
+  <li>The ViewModel (being more Model than View) can be tested without concerns of UI automation and interaction</li>
+</ul>
+<h3>Disadvantages</h3>
+<ul>
+  <li>For simpler UIs, MVVM can be overkill</li>
+  <li>Whilst data-bindings can be declarative and nice to work with, they can be harder to debug than imperative code where we simply set breakpoints</li>
+  <li>Data-bindings in non-trivial applications can create a lot of book-keeping. You also don&rsquo;t want to end up in a situation where bindings are heavier than the objects being bound to</li>
+  <li>In larger applications, it can be more difficult to design the ViewModel up front to get the necessary amount of generalization</li>
+</ul>
+<p>&nsbp;</p>
+<h2>MVVM With Looser Data-Bindings</h2>
+<p>It&rsquo;s not uncommon for JavaScript developers from an MVC or MVP background to review MVVM and complain about it&rsquo;s true separation of concerns. Namely, the quantity of inline data-bindings maintained in the HTML markup of a View.</p>
+<p>I must admit that when I first reviewed implementations of MVVM (e.g KnockoutJS, Knockback), I was surprised that any developer would want to return to the days of old where we mixed logic (JavaScript) with our markup and found it quickly unmaintainable. The reality however is that MVVM does this for a number of good reasons (which we&rsquo;ve covered), including faciltiating designers to more easily bind to logic from their markup.</p>
+<p>For the purists among us, you&rsquo;ll be happy to know that we can now also greatly reduce how reliant we are on data-bindings thanks to a feature known as custom binding providers, introduced in KnockoutJS 1.3 and available in all versions since.</p>
+<p>KnockoutJS by default has a data-binding provider which searches for any elements with <code>data-bind</code> attributes on them such as in the below example.</p>
+<pre class="brush: js">&lt;input id=&quot;new-todo&quot; type=&quot;text&quot; data-bind=&quot;value: current, valueUpdate: &#39;afterkeydown&#39;, enterKey: add&quot; placeholder=&quot;What needs to be done?&quot;/&gt;
+</pre>
+<p>When the provider locates an element with this attribute, it parses it and turns it into a binding object using the current data context. This is the way KnockoutJS has always worked, allowing you to declaratively add bindings to elements which KnockoutJS binds to the data at that layer.</p>
+<p>Once you start building Views that are no longer trivial, you may end up with a large number of elements and attributes whose bindings in markup can become difficult to manage. With custom binding providers however, this is no longer a problem.</p>
+<p>A binding provider is primarily interested in two things:</p>
+<ul>
+  <li>When given a DOM node, does it contain any data-bindings?</li>
+  <li>If the node passed this first question, what does the binding object look like in the current data context?.</li>
+</ul>
+<p>Binding providers implement two functions:</p>
+<ul>
+  <li><code>nodeHasBindings</code>: this takes in a DOM node which doesn&rsquo;t necessarily have to be an element</li>
+  <li><code>getBindings</code>: returns an object representing the bindings as applied to the current data context</li>
+</ul>
+<p>A skeleton binding provider might thus look as follows:</p>
+<pre   class="brush: js">var ourBindingProvider = {
+    nodeHasBindings: function(node) {
+        // returns true/false
+    },
+
+    getBindings: function(node, bindingContext) {
+        // returns a binding object
+    }
+};
+</pre>
+<p>Before we get to fleshing out this provider, let&rsquo;s briefly discuss logic in data-bind attributes.</p>
+<p>If when using Knockout&rsquo;s MVVM you find yourself dissatisfied with the idea of application logic being overly tied into your View, you can change this. We could implement something a little like CSS classes to assign bindings by name to elements. Ryan Niemeyer (of knockmeout.net) has previously suggested using <code>data-class</code> for this to avoid confusing presentation classes with data classes, so let&rsquo;s get our <code>nodeHasBindings</code> function supporting this:</p>
+<pre   class="brush: js">// does an element have any bindings?
+function nodeHasBindings(node) {
+    return node.getAttribute ? node.getAttribute(&quot;data-class&quot;) : false;
+};
+</pre>
+<p>Next, we need a sensible <code>getBindings()</code> function. As we&rsquo;re sticking with the idea of CSS classes, why not also consider supporting space-separated classes to allow us to share binding specs between different elements?.</p>
+<p>Let&rsquo;s first review what our bindings will look like. We create an object to hold them where our property names need to match the keys we wish to use in our data-classes.</p>
+<p>Note: There isn&rsquo;t a great deal of work required to convert a KnockoutJS application from using traditional data-bindings over to unobstrusive bindings with custom binding providers. We simply pull our all of our data-bind attributes, replace them with data-class attributes and place our bindings in a binding object as per below:</p>
+<pre   class="brush: js">var viewModel = new ViewModel(todos || []);
+var bindings = {
+
+        newTodo:  { 
+            value: viewModel.current, 
+            valueUpdate: &#39;afterkeydown&#39;, 
+            enterKey: viewModel.add 
+        },
+        taskTooltip :  { visible: viewModel.showTooltip },
+        checkAllContainer :  {visible: viewModel.todos().length },
+        checkAll: {checked: viewModel.allCompleted },
+
+        todos: {foreach: viewModel.todos },
+        todoListItem: function() { return { css: { editing: this.editing } }; },
+        todoListItemWrapper: function() { return { css: { done: this.done } }; },
+        todoCheckBox: function() {return { checked: this.done }; },
+        todoContent: function() { return { text: this.content, event: { dblclick: this.edit } };},
+        todoDestroy: function() {return { click: viewModel.remove };},        
+
+        todoEdit: function() { return {
+            value: this.content, 
+            valueUpdate: &#39;afterkeydown&#39;, 
+            enterKey: this.stopEditing, 
+            event: { blur: this.stopEditing } }; },
+
+        todoCount: {visible: viewModel.remainingCount},
+        remainingCount: { text: viewModel.remainingCount },
+        remainingCountWord: function() { return { text: viewModel.getLabel(viewModel.remainingCount) };},
+
+        todoClear: {visible: viewModel.completedCount},
+        todoClearAll: {click: viewModel.removeCompleted},
+        completedCount: { text: viewModel.completedCount },
+        completedCountWord: function() { return { text: viewModel.getLabel(viewModel.completedCount) }; },
+
+        todoInstructions: {visible: viewModel.todos().length}
+    };
+
+    ....
+</pre>
+<p>There are however two lines missing from the above snippet - we still need our <code>getBindings</code> function, which will loop through each of the keys in our data-class attributes and build up the resulting object from each of them. If we detect that the binding object is a function, we call it with our current data using the context <code>this</code>. Our complete custom binding provider would look as follows:</p>
+<pre   class="brush: js">    // We can now create a bindingProvider that uses 
+    // something different than data-bind attributes
+    ko.customBindingProvider = function(bindingObject) {
+        this.bindingObject = bindingObject;
+
+        //determine if an element has any bindings
+        this.nodeHasBindings = function(node) {
+            return node.getAttribute ? node.getAttribute(&quot;data-class&quot;) : false;
+        };
+      };
+
+    // return the bindings given a node and the bindingContext
+    this.getBindings = function(node, bindingContext) {
+        var result = {};
+        var classes = node.getAttribute(&quot;data-class&quot;);
+        if (classes) {
+            classes = classes.split(&#39; &#39;);  
+            //evaluate each class, build a single object to return
+            for (var i = 0, j = classes.length; i &lt; j; i++) {
+               var bindingAccessor = this.bindingObject[classes[i]];
+               if (bindingAccessor) {
+                   var binding = typeof bindingAccessor == &quot;function&quot; ? bindingAccessor.call(bindingContext.$data) : bindingAccessor;
+                   ko.utils.extend(result, binding);               
+               }            
+            }
+        }
+
+        return result;
+    }; 
+};
+</pre>
+<p>Thus, the final few lines of our <code>bindings</code> object can be defined as follows:</p>
+<pre   class="brush: js">    // set ko&#39;s current bindingProvider equal to our new binding provider
+    ko.bindingProvider.instance = new ko.customBindingProvider(bindings);   
+
+    // bind a new instance of our ViewModel to the page
+    ko.applyBindings(viewModel);
+})();
+</pre>
+<p>What we&rsquo;re doing here is effectively defining constructor for our binding handler which accepts an object (bindings) which we use to lookup our bindings. We could then re-write the markup for our application View using data-classes as follows:</p>
+<pre   class="brush: js">&lt;div id=&quot;create-todo&quot;&gt;
+                &lt;input id=&quot;new-todo&quot; data-class=&quot;newTodo&quot; placeholder=&quot;What needs to be done?&quot; /&gt;
+                &lt;span class=&quot;ui-tooltip-top&quot; data-class=&quot;taskTooltip&quot; style=&quot;display: none;&quot;&gt;Press Enter to save this task&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;todos&quot;&gt;
+                &lt;div data-class=&quot;checkAllContainer&quot; &gt;
+                    &lt;input id=&quot;check-all&quot; class=&quot;check&quot; type=&quot;checkbox&quot; data-class=&quot;checkAll&quot; /&gt;
+                    &lt;label for=&quot;check-all&quot;&gt;Mark all as complete&lt;/label&gt;
+                &lt;/div&gt;
+                &lt;ul id=&quot;todo-list&quot; data-class=&quot;todos&quot; &gt;
+                    &lt;li data-class=&quot;todoListItem&quot; &gt;
+                        &lt;div class=&quot;todo&quot; data-class=&quot;todoListItemWrapper&quot; &gt;
+                            &lt;div class=&quot;display&quot;&gt;
+                                &lt;input class=&quot;check&quot; type=&quot;checkbox&quot; data-class=&quot;todoCheckBox&quot; /&gt;
+                                &lt;div class=&quot;todo-content&quot; data-class=&quot;todoContent&quot; style=&quot;cursor: pointer;&quot;&gt;&lt;/div&gt;
+                                &lt;span class=&quot;todo-destroy&quot; data-class=&quot;todoDestroy&quot;&gt;&lt;/span&gt;
+                            &lt;/div&gt;
+                            &lt;div class=&quot;edit&quot;&gt;
+                                &lt;input class=&quot;todo-input&quot; data-class=&quot;todoEdit&quot;/&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+</pre>
+<p>Neil Kerkin has put together a complete TodoMVC demo app using the above, which can be accessed and played around with <a href="http://jsfiddle.net/nkerkin/hmq7D/light/">here</a>.</p>
+<p>Whilst it may look like quite a lot of work in the explanation above, now that you have a generic <code>getBindings</code> method written, it&rsquo;s a lot more trivial to simply re-use it and use data-classes rather than strict data-bindings for writing your KnockoutJS applications instead. The net result is hopefully cleaner markup with your data bindings being shifted from the View to a bindings object instead.</p>
+<h2>MVC Vs. MVP Vs. MVVM</h2>
+<p>Both MVP and MVVM are derivatives of MVC. The key difference between it and it&rsquo;s derivates are the dependency each layer has on other layers as well as how tightly bound they are to each other.</p>
+<p>In MVC, the View sits on top of our architecture with the controller laying below this. Models sit below the controller and so our Views know about our controllers and controllers know about Models. Here, our Views have direct access to Models. Exposing the complete Model to the View however may have security and performance costs, depending on the complexity of our application. MVVM attempts to avoid these issues.</p>
+<p>In MVP, the role of the controller is replaced with a Presenter. Presenters sit at the same level as views, listening to events from both the View and model and mediating the actions between them. Unlike MVVM, there isn&rsquo;t a mechanism for binding Views to ViewModels, so we instead rely on each View implementing an interface allowing the Presenter to interact with the View.</p>
+<p>MVVM consequently allows us to create View-specific subsets of a Model which can contain state and logic information, avoiding the need to expose the entire Model to a View. Unlike MVP&rsquo;s Presenter, a ViewModel is not required to reference a View. The View can bind to properties on the ViewModel which in turn expose data contained in Models to the View. As we&rsquo;ve mentioned, the abstraction of the View means there is less logic required in the code behind it.</p>
+<p>One of the downsides to this however is that a level of interpetation is needed between the ViewModel and the View and this can have performance costs. The complexity of this interpretation can also vary - it can be as simple as copying data or as complex as manipulating them to a form we would like the View to see. MVC doesn&rsquo;t have this problem as the whole Model is readily available and such manipulation can be avoided.</p>
+<h2>Backbone.js Vs. KnockoutJS</h2>
+<p>Understanding the subtle differences between MVC, MVP and MVVM are important but developers ultimately will ask whether they should consider using KnockoutJS over Backbone based in what we&rsquo;ve learned. The following notes may be of help here:</p>
+<ul>
+  <li>
+    <p>Both libraries are designed with different goals in mind and its often not as simple as just choosing MVC or MVVM</p>
+  </li>
+  <li>
+    <p>If data-binding and two-way communication are are your main concerns, KnockoutJS is definitely the way to go.Practically any attribute or value stored in DOM nodes can be mapped to JavaScript objects with this approach.</p>
+  </li>
+  <li>
+    <p>Backbone excels with its ease of integration with RESTful services, whilst KnockoutJS Models are simply JavaScript objects and code needed for updating the Model must be written by the developer.</p>
+  </li>
+  <li>
+    <p>KnockoutJS has a focus on automating UI bindings, which requires significantly more verbose custom code if attempting to do this with Backbone. This isnt a problem with Backbone itself par se as it puposefully attempts to stay out of the UI. Knockback does however attempt to assist with this problem.</p>
+  </li>
+  <li>
+    <p>With KnockoutJS, we can bind our own functions to ViewModel observables, which are executed anytime the observable changes. This allows us the same level of flexibility as can be found in Backbone</p>
+  </li>
+  <li>
+    <p>Backbone has a solid routing solution built-in, whilst KnockoutJS offers no routing options out of the box. One can however easily fill this behaviour in if needed using Ben Alman&rsquo;s <a href="http://benalman.com/projects/jquery-bbq-plugin/">BBQ plugin</a> or a standalone routing system like Miller Medeiros&rsquo;s excellent&nbsp;<a href="http://millermedeiros.github.com/crossroads.js/">Crossroads</a>.</p>
+  </li>
+</ul>
+<p>To conclude, I personally find KnockoutJS more suitable for smaller applications whilst Backbone&rsquo;s feature set really shines when building anything non-trivial. That said, many developers have used both frameworks to write applications of varying complexity and I recommend trying out both at a smaller scale before making a decision on which might work best for your project.</p>
+<strong>If you wish to read more about MVVM or Knockout, further recommended reading can be found below:</strong>
+<ul>
+  <li><a href="http://www.silverlightshow.net/news/The-Advantages-of-MVVM.aspx">The Advantages Of MVVM</a></li>
+  <li><a href="http://stackoverflow.com/questions/883895/what-are-the-problems-of-the-mvvm-pattern">SO: What are the problems with MVVM?</a></li>
+  <li><a href="http://www.codeproject.com/Articles/100175/Model-View-ViewModel-MVVM-Explained">MVVM Explained</a></li>
+  <li><a href="http://www.quora.com/Pros-and-cons-of-MVVM-framework-and-how-I-can-campare-it-with-MVC">How does MVVM compare to MVC?</a></li>
+  <li><a href="http://www.knockmeout.net/2011/09/ko-13-preview-part-2-custom-binding.html">Custom bindings in KnockoutJS</a></li>
+  <li><a href="http://gratdevel.blogspot.co.uk/2012/02/exploring-todomvc-and-knockoutjs-with.html">Exploring Knockout with TodoMVC</a></li>
+</ul>
 
 
 
