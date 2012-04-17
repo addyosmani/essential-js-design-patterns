@@ -16,7 +16,7 @@
     <h2 class="booktitle">Volume 1.5.1</h2>
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
     <p class="bookauthor">A book by <a href="http://www.twitter.com/addyosmani">Addy Osmani</a></p>
-    
+
     <p>&nbsp;</p>
     <p class="copyright">
       Copyright &copy; Addy Osmani 2012.
@@ -35,7 +35,7 @@
 
 <p>In this book we will explore applying both classical and modern design patterns to the JavaScript programming language.</p>
 <p>&nbsp;</p>
-    
+
 <h2>Target Audience</h2>
 <p>This book is targeted at professional developers wishing to improve their knowledge of design patterns and how they can be applied to the JavaScript programming language.</p>
 <p>Some of the concepts covered (closures, prototypal inheritance) will assume a level of basic prior knowledge and understanding. If you find yourself needing to read further about these topics, a list of suggested titles is provided for convenience.</p>
@@ -73,7 +73,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 <li><em>JavaScript: The Good Parts</em> by Douglas Crockford</li>
 </ul>
 
-    
+
     <p>&nbsp;</p>
     <h1><em>Table Of Contents</em></h1>
     <div id="contents-list">
@@ -184,7 +184,7 @@ To understand how useful patterns can be, let's review a very simple selection p
 If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to query for the list we need?. Well, there are a few different ways this problem could be tackled:</p>
 <p>
   <ol>
-    <li>Select all of the elements in the page and then store them. Next, filter this list and use regular expressions (or another means) to only store those with the class "foo".</li> 
+    <li>Select all of the elements in the page and then store them. Next, filter this list and use regular expressions (or another means) to only store those with the class "foo".</li>
 <li>
 Use a modern native browser feature such as <code>querySelectorAll()</code> to select all of the elements with the class "foo".</li>
 <li>Use a native feature such as <code>getElementsByClassName()</code> to similarly get back the desired list. </li>
@@ -244,7 +244,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Solution</strong> – a description of how the user&rsquo;s problem is being solved in an understandable list of steps and perceptions. </li>
   <li><strong>Design</strong> – a description of the pattern&rsquo;s design and in particular, the user&rsquo;s behavior in interacting with it </li>
   <li><strong>Implementation </strong>– a guide to how the pattern would be implemented </li>
-  <li><strong>Illustrations</strong> – a visual representation of classes in the pattern (eg. a diagram)) </li>
+  <li><strong>Illustrations</strong> – a visual representation of classes in the pattern (e.g. a diagram)) </li>
   <li><strong>Examples</strong> – an implementation of the pattern in a minimal form </li>
   <li><strong>Co-requisites</strong> – what other patterns may be needed to support use of the pattern being described? </li>
   <li><strong>Relations</strong> – what patterns does this pattern resemble? does it closely mimic any others? </li>
@@ -271,7 +271,7 @@ If you would like to try your hand at writing a design pattern (even if just for
 <ul type="disc">
   <li><strong>Bear in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
   <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best practices. </li>
-  
+
   <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behaviour  in the user-experience that would not be incurred without the use of a pattern.</li>
   <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns.If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
   <li><strong>Know the differences between      patterns and design</strong>: A design pattern generally draws from proven best      practice and serves as a model for a designer to create a solution<em>. The      role of the pattern is to give designers guidance to make the best design      choices so they can cater to the needs of their users.</em></li>
@@ -317,7 +317,7 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h3>Each design pattern focuses on a particular object-oriented design problem or issue. It describes when it applies, whether or not it can be applied in view of other design constraints, and the consequences and trade-offs of its use. Since we must eventually implement our designs, a design pattern also provides sample ... code to illustrate an implementation. </h3>
 <h3>Although design patterns describe object-oriented designs, they are based on practical solutions that have been implemented in mainstream object-oriented programming languages ....&rdquo;</h3>
 <p>&nbsp;</p>
-<p>Design patterns can be broken down into a number of different categories. In this section we&rsquo;ll review three of these categories and briefly mention a few examples of the patterns that fall into these categories before exploring specific ones in more detail. 
+<p>Design patterns can be broken down into a number of different categories. In this section we&rsquo;ll review three of these categories and briefly mention a few examples of the patterns that fall into these categories before exploring specific ones in more detail.
 </p>
 <h2><br>
   Creational Design Patterns</h2>
@@ -341,8 +341,8 @@ If you would like to try your hand at writing a design pattern (even if just for
 <p>&nbsp;</p>
 <h1 id="summarytabledesignpatterns">Summary Table Of Design Pattern Categorization</h1>
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
-and I've modified it where necessary to suit our discussion in this section of the book. 
-<p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p> 
+and I've modified it where necessary to suit our discussion in this section of the book.
+<p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p>
 
 <h3>A brief note on classes</h3>
 <p>Keep in mind that there will be patterns in this table that reference the concept of 'classes'. JavaScript is a class-less language, however classes can be simulated using functions.</p>
@@ -550,7 +550,7 @@ console.log(myCar.getInfo());
 
 <p><pre  class="brush: js">
 
-var newObject = {}; // or 
+var newObject = {}; // or
 
 var newObject = Object.create(null); // or
 
@@ -629,7 +629,7 @@ function Car( model, year, miles ){
     return this.model + " has done " + this.miles + " miles";
    };
 }
- 
+
 var civic = new Car( "Honda Civic" , 2009, 20000 );
 var mondeo = new Car( "Ford Mondeo", 2010 , 5000 );
 
@@ -657,13 +657,13 @@ function Car( model, year, miles ){
 }
 
 /*
- Note here that we are using Object.prototype.newMethod rather than 
+ Note here that we are using Object.prototype.newMethod rather than
  Object.prototype so as to avoid redefining the prototype object
 */
 Car.prototype.toString = function(){
     return this.model + " has done " + this.miles + " miles";
 };
- 
+
 var civic = new Car( "Honda Civic", 2009, 20000);
 var mondeo = new Car( "Ford Mondeo", 2010, 5000);
 
@@ -708,14 +708,14 @@ If you wished to extend this further, you could add your own private members and
 <pre  class="brush: js">
 
 var mySingleton = function(){
- 
+
   // here are our private methods and variables
   var privateVariable = 'something private';
   function showPrivate(){
     console.log( privateVariable );
   }
- 
-  // public variables and methods (which can access 
+
+  // public variables and methods (which can access
   // private variables and methods )
   return {
 
@@ -727,7 +727,7 @@ var mySingleton = function(){
 
   };
 };
- 
+
 var single = mySingleton();
 single.publicMethod();  // logs 'something private'
 console.log( single.publicVar ); // logs 'the public can see this!'
@@ -750,17 +750,17 @@ var Singleton = (function(){
       publicProperty: 'test'
     };
   }
- 
+
   return {
     getInstance: function(){
       if ( !instantiated ){
         instantiated = init();
       }
-      return instantiated; 
+      return instantiated;
     }
   };
 })();
- 
+
 // calling public methods is then as easy as:
 Singleton.getInstance().publicMethod();
 
@@ -788,7 +788,7 @@ var SingletonTester = (function(){
     this.pointY = args.pointY || 10;  
 
   }
-  
+ 
  // this is our instance holder
   var instance;
 
@@ -809,7 +809,7 @@ var SingletonTester = (function(){
 })();
 
 var singletonTest = SingletonTester.getInstance({pointX: 5});
-console.log(singletonTest.pointX); // outputs 5 
+console.log(singletonTest.pointX); // outputs 5
 
 
 
@@ -828,8 +828,8 @@ In JavaScript, the module pattern is used to further <em>emulate</em> the concep
 <p>
 Exploring the concept of public and private methods further, the module pattern pattern allows us to have particular methods and variables which are only accessible from within the module, meaning that you have a level of shielding from external entities accessing this 'hidden' information.</p>
 
-<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained. Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
-</p> 
+<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained. Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. 'testModule').
+</p>
 
 <p>
 <pre  class="brush: js">
@@ -866,17 +866,17 @@ var myNamespace = (function(){
   var myPrivateMethod = function( someText ){
     console.log(someText);
   };
-  
+
   return {
 
-    myPublicVar: "foo",  
+    myPublicVar: "foo",
 
     myPublicFunction: function(bar){
       myPrivateVar++;
       myPrivateMethod(bar);
     }
   };
-  
+
 })();
 
 </pre>
@@ -1141,7 +1141,7 @@ app.resetView = function( view ){
 
 <pre class="brush: js">
 var mediator = (function(){
-    // Subscribe to an event, supply a callback to be executed 
+    // Subscribe to an event, supply a callback to be executed
     // when that event is broadcast
     var subscribe = function(channel, fn){
         if (!mediator.channels[channel]) mediator.channels[channel] = [];
@@ -1185,7 +1185,7 @@ var mediator = (function(){
 
       // Subscribe to an event called 'nameChange' with
       // a callback function which will log the original
-      // person's name and (if everything works) the new 
+      // person's name and (if everything works) the new
       // name
 
       m.subscribe('nameChange', function( arg ){
@@ -1197,7 +1197,7 @@ var mediator = (function(){
 
     function updateName(){
       // Publish/Broadcast the 'nameChange' event with the new data
-      m.publish( 'nameChange', 'david' ); 
+      m.publish( 'nameChange', 'david' );
     }
 
 })( mediator );
@@ -1252,7 +1252,7 @@ The Mediator centralizes communication between modules where it's explicitly ref
 // No need for capitalization as it's not a constructor
 var someCar = {
   drive: function() {},
-  name: 'Mazda 3'    
+  name: 'Mazda 3'
 };
 
 // Use Object.create to generate a new car
@@ -1337,29 +1337,29 @@ car.getModel();
 <p>To demonstrate the command pattern we're going to create a simple car purchasing service.</p>
 <p><pre  class="brush: js">
 $(function(){
-  
+
   var CarManager = {
-  
+
       // request information
       requestInfo: function( model, id ){
-        return 'The information for ' + model + 
+        return 'The information for ' + model +
         ' with ID ' + id + ' is foobar';
       },
-      
+
       // purchase the car
       buyVehicle: function( model, id ){
-        return 'You have successfully purchased Item ' 
+        return 'You have successfully purchased Item '
         + id + ', a ' + model;
       },
-      
+
       // arrange a viewing
       arrangeViewing: function( model, id ){
-        return 'You have successfully booked a viewing of ' 
+        return 'You have successfully booked a viewing of '
         + model + ' ( ' + id + ' ) ';
       }
-    
+
     };
-    
+
 })();
 </pre></p>
 
@@ -1370,7 +1370,7 @@ $(function(){
 <p>Let's now expand on our CarManager so that our application of the command pattern results in the following: accept any process requests from the CarManager object where the contents of the request include the model and car ID.</p>
 
 <p>Here is what we would like to be able to achieve:</p>
-    
+
 <p><pre  class="brush: js">
 CarManager.execute({commandType: "buyVehicle", operand1: 'Ford Escort', operand2: '453543'});
 </pre>
@@ -1378,7 +1378,7 @@ CarManager.execute({commandType: "buyVehicle", operand1: 'Ford Escort', operand2
 <p>
 As per this structure we should now add a definition for the "CarManager.execute" method as follows:
 </p>
-<p><pre  class="brush: js">  
+<p><pre  class="brush: js">
 CarManager.execute = function( command ){
   return CarManager[command.request](command.model,command.carID);
 };
@@ -1386,9 +1386,9 @@ CarManager.execute = function( command ){
 <p>Our final sample calls would thus look as follows:</p>
 
 <p><pre  class="brush: js">
-CarManager.execute({request: "arrangeViewing", model: 'Ferrari', carID: '145523'});  
-CarManager.execute({request: "requestInfo", model: 'Ford Mondeo', carID: '543434'});  
-CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434'});  
+CarManager.execute({request: "arrangeViewing", model: 'Ferrari', carID: '145523'});
+CarManager.execute({request: "requestInfo", model: 'Ford Mondeo', carID: '543434'});
+CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434'});
 CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'});
 </pre></p>
 <p>&nbsp;</p>
@@ -1412,7 +1412,7 @@ defaultSettings['carMiles']   = 5000;
 defaultSettings['carTint']    = 'Metallic Blue';
 
 // Let's do something with this data if a checkbox is clicked
-$('.someCheckbox').click(function(){  
+$('.someCheckbox').click(function(){ 
       
  if ( this.checked ){ 
                
@@ -1553,8 +1553,8 @@ var module = (function() {
         }
     }
 }());
- 
- 
+
+
 module.facade({run: true, val:10});
 //outputs current value: 10, running
 
@@ -1570,7 +1570,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 <h2 id="factorypatternjavascript">The Factory Pattern</h2>
 <p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
 <p>Specifically, the Factory Pattern suggests defining an interface for creating an object where you allow the subclasses to decide which class to instantiate. This pattern handles the problem by defining a completely separate method for the creation of objects and which sub-classes are able to override so they can specify the &lsquo;type&rsquo; of factory product that will be created.</p>
-<p>This can come in quite useful, in particular if the creation process involved is quite complex. eg. if it strongly depends on the settings in configuration files.</p>
+<p>This can come in quite useful, in particular if the creation process involved is quite complex. e.g. if it strongly depends on the settings in configuration files.</p>
 <p>You can often find factory methods in frameworks where the code for a library may need to create objects of particular types which may be subclassed by scripts using the frameworks.</p>
 <p>In our example, let&rsquo;s take the code used in the original Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
 <p>&nbsp;</p>
@@ -1631,7 +1631,7 @@ var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
 <p>
 <pre  class="brush: js">
 
-// Car 
+// Car
 var Car = function( settings ){
   this.model = settings.model || 'no model provided';
   this.colour = settings.colour || 'no colour provided';
@@ -1660,8 +1660,8 @@ function augment( receivingClass, givingClass ) {
   // provide all methods
   else {
     for ( var methodName in givingClass.prototype ) {
-      /* check to make sure the receiving class doesn't 
-         have a method of the same name as the one currently 
+      /* check to make sure the receiving class doesn't
+         have a method of the same name as the one currently
          being processed */
       if ( !receivingClass.prototype[methodName] ) {
         receivingClass.prototype[methodName] = givingClass.prototype[methodName];
@@ -1752,15 +1752,15 @@ function AbstractDecorator( decorated ){
 function ConcreteDecoratorClass( decorated ){
   this.base = AbstractDecorator;
   this.base(decorated);
-  
+
   this.preTask = function(){
     console.log('pre-calling..');
   };
-  
+
   this.postTask = function(){
     console.log('post-calling..');
   };
-  
+
 }
 
 var concrete = new ConcreteClass();
@@ -2374,15 +2374,15 @@ The Observer pattern is useful for decoupling a number of different scenarios in
     // Reference to this collection&#39;s model.
     model: Photo,
 
-    // Filter down the list of all photos 
+    // Filter down the list of all photos
     // that have been viewed
     viewed: function() {
-        return this.filter(function( photo ){ 
-           return photo.get(&#39;viewed&#39;); 
+        return this.filter(function( photo ){
+           return photo.get(&#39;viewed&#39;);
         });
     },
 
-    // Filter down the list to only photos that 
+    // Filter down the list to only photos that
     // have not yet been viewed
     unviewed: function() {
       return this.without.apply( this, this.viewed() );
@@ -2410,9 +2410,9 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 
      var render= function(){
         // We use a templating library such as Underscore
-        // templating which generates the HTML for our 
+        // templating which generates the HTML for our
         // photo entry
-        photoEl.innerHTML = _.template(&#39;photoTemplate&#39;, 
+        photoEl.innerHTML = _.template(&#39;photoTemplate&#39;,
         {src: photoModel.getSrc()});
      }
 
@@ -2447,7 +2447,7 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 <pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
   &lt;h2&gt;{{caption}}&lt;/h2&gt;
   &lt;img class=&quot;source&quot; src=&quot;{{src}}&quot;/&gt;
-  &lt;div class=&quot;meta-data&quot;&gt; 
+  &lt;div class=&quot;meta-data&quot;&gt;
     {{metadata}}
   &lt;/div&gt;
 &lt;/li&gt;
@@ -2456,7 +2456,7 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 <pre  class="brush: js">&lt;li class=&quot;photo&quot;&gt;
   &lt;h2&gt;&lt;%= caption %&gt;&lt;/h2&gt;
   &lt;img class=&quot;source&quot; src=&quot;&lt;%= src %&gt;&quot;/&gt;
-  &lt;div class=&quot;meta-data&quot;&gt; 
+  &lt;div class=&quot;meta-data&quot;&gt;
     &lt;%= metadata %&gt;
   &lt;/div&gt;
 &lt;/li&gt;
@@ -2478,7 +2478,7 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 <p>Note: We won&#39;t be delving heavily into Spine.js at all, but will just take a ten-foot view of what it&#39;s controllers can do:</p>
 <pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
 
-var PhotosController = Spine.Controller.sub({      
+var PhotosController = Spine.Controller.sub({
   init: function(){
     this.item.bind(&quot;update&quot;, this.proxy(this.render));
     this.item.bind(&quot;destroy&quot;, this.proxy(this.remove));
@@ -2574,9 +2574,9 @@ var PhotosController = Spine.Controller.sub({
       &quot;click img&quot; : &quot;toggleViewed&quot;
     },
 
-    // The PhotoView listens for changes to 
+    // The PhotoView listens for changes to
     // its model, re-rendering. Since there&#39;s
-    // a one-to-one correspondence between a 
+    // a one-to-one correspondence between a
     // **Photo** and a **PhotoView** in this
     // app, we set a direct reference on the model for convenience.
 
@@ -2625,14 +2625,14 @@ subclassExample = {
         this.firstName = firstName;
         this.lastName =  lastName;
         this.gender = &#39;male&#39;
-    } 
+    }
 }
 </pre>
-<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing Person object. Let&#39;s imagine we want to add distinct properties to distinguish a Person from a Superhero whilst inheriting the properties of the Person &#39;superclass&#39;. As superheroes share many common traits with normal people (eg. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
-<pre  class="brush: js">    
+<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing Person object. Let&#39;s imagine we want to add distinct properties to distinguish a Person from a Superhero whilst inheriting the properties of the Person &#39;superclass&#39;. As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
+<pre  class="brush: js">
 //a new instance of Person can then easily be created as follows:
 var clark = new subclassExample.Person( &quot;Clark&quot; , &quot;Kent&quot; );
-       
+
 //Define a subclass constructor for for &#39;Superhero&#39;:
 subclassExample.Superhero = function( firstName, lastName , powers ){
     /*
@@ -2676,7 +2676,7 @@ truck.setModel = function( modelName ){
 truck.setColor = function( color ){
     this.color = color;
 }
-    
+
 /*Test the value setters and value assignment works correctly*/
 truck.setModel(&#39;CAT&#39;);
 truck.setColor(&#39;blue&#39;);
@@ -2691,41 +2691,41 @@ console.log(secondInstance);
 <p>We&#39;re then going to look at psuedo-classical decorators.</p>
 <h3>Example 2: Simply decorate objects with multiple decorators</h3>
 <pre  class="brush: js">//What we&#39;re going to decorate
-function MacBook() { 
-    this.cost = function () { return 997; }; 
-    this.screenSize = function () { return 13.3; }; 
-} 
+function MacBook() {
+    this.cost = function () { return 997; };
+    this.screenSize = function () { return 13.3; };
+}
 
 /*Decorator 1*/
-function Memory( macbook ) { 
-    var v = macbook.cost(); 
-    macbook.cost = function() { 
-        return v + 75; 
-    } 
-} 
+function Memory( macbook ) {
+    var v = macbook.cost();
+    macbook.cost = function() {
+        return v + 75;
+    }
+}
  /*Decorator 2*/
 function Engraving( macbook ){
-   var v = macbook.cost(); 
+   var v = macbook.cost();
    macbook.cost = function(){
      return  v + 200;
   };
 }
- 
+
 /*Decorator 3*/
 function Insurance( macbook ){
-   var v = macbook.cost(); 
+   var v = macbook.cost();
    macbook.cost = function(){
      return  v + 250;
   };
 }
-var mb = new MacBook(); 
-Memory(mb); 
+var mb = new MacBook();
+Memory(mb);
 Engraving(mb);
 Insurance(mb);
 console.log(mb.cost()); //1522
 console.log(mb.screenSize()); //13.3
 </pre>
-<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (eg. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and in tact.</p>
+<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (e.g. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and in tact.</p>
 <p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and duck typing is used to shift the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 <h2>Pseudo-classical decorators</h2>
 <p>We&#39;re now going to examine the variation of the decorator presented in &#39;Pro JavaScript Design Patterns&#39; (PJDP) by Dustin Diaz and Ross Harmes.</p>
@@ -2739,7 +2739,7 @@ console.log(mb.screenSize()); //13.3
 <pre  class="brush: js">var TodoList = new Interface(&#39;Composite&#39;, [&#39;add&#39;, &#39;remove&#39;]);
 var TodoItem = new Interface(&#39;TodoItem&#39;, [&#39;save&#39;]);
 // TodoList class
-var myTodoList = function(id, method, action) { 
+var myTodoList = function(id, method, action) {
         // implements TodoList, TodoItem
 ...
 };
@@ -2792,7 +2792,7 @@ MacbookPro.prototype = {
         addCase: function(){
         },
         getPrice: function(){
-                return 900.00; //base price.        
+                return 900.00; //base price.
         }
 };
 </pre>
@@ -2802,7 +2802,7 @@ MacbookPro.prototype = {
 <pre  class="brush: js">//Macbook decorator abstract decorator class
 var MacbookDecorator = function( macbook ){
     Interface.ensureImplements(macbook, Macbook);
-    this.macbook = macbook;    
+    this.macbook = macbook;
 }
 MacbookDecorator.prototype = {
         addEngraving: function(){
@@ -2821,28 +2821,28 @@ MacbookDecorator.prototype = {
             return this.macbook.addCase();
         },
         getPrice: function(){
-            return this.macbook.getPrice(); 
-        }        
+            return this.macbook.getPrice();
+        }
 };
 </pre>
 <p>What&#39;s happening in the above sample is that the Macbook decorator is taking an object to use as the component. It&#39;s using the Macbook interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes just by using the Macbook decorator - simply call the superclass constructor and any methods can be overriden as per necessary.</p>
 <pre  class="brush: js">var CaseDecorator = function( macbook ){
     /*call the superclass&#39;s constructor next*/
-    this.superclass.constructor(macbook);    
+    this.superclass.constructor(macbook);
 }
 /*Let&#39;s now extend the superclass*/
-extend( CaseDecorator, MacbookDecorator ); 
+extend( CaseDecorator, MacbookDecorator );
 CaseDecorator.prototype.addCase = function(){
-    return this.macbook.addCase() + &quot; Adding case to macbook &quot;;   
+    return this.macbook.addCase() + &quot; Adding case to macbook &quot;;
 };
 CaseDecorator.prototype.getPrice = function(){
-    return this.macbook.getPrice() + 45.00;  
+    return this.macbook.getPrice() + 45.00;
 };
 </pre>
 <p>As you can see, most of this is relatively easy to implement. What we&#39;re doing is overriding the addCase() and getPrice() methods that need to be decorated and we&#39;re achieving this by first executing the component&#39;s method and then adding to it.</p>
 <p>As there&#39;s been quite a lot of information presented in this section so far, let&#39;s try to bring it all together in a single example that will hopefully highlight what we&#39;ve learned.</p>
 <pre  class="brush: js">//Instantiation of the macbook
-var myMacbookPro = new MacbookPro();  
+var myMacbookPro = new MacbookPro();
 //This will return 900.00
 console.log(myMacbookPro.getPrice());
 //Decorate the macbook
@@ -2861,17 +2861,17 @@ console.log(myMacbookPro.getPrice());
 /* define the objects we&#39;re going to use*/
 decoratorApp = {
     defaults:{
-              validate: false, 
-              limit: 5, 
+              validate: false,
+              limit: 5,
               name: &quot;foo&quot;,
               welcome: function(){
                   //console.log(&#39;welcome!&#39;);
               }
              },
     options:{
-             validate: true, 
-             name: &quot;bar&quot;, 
-             helloWorld: function(){ 
+             validate: true,
+             name: &quot;bar&quot;,
+             helloWorld: function(){
                  //console.log(&#39;hello&#39;);
              }
             },
@@ -2885,7 +2885,7 @@ decoratorApp = {
       });
       return &quot;{ &quot; +  arr.join(&quot;, &quot;) + &quot; }&quot;;
     }
-    
+
 }
 /* merge defaults and options, without modifying defaults */
 decoratorApp.settings = $.extend({}, decoratorApp.defaults,decoratorApp.options);
@@ -2927,7 +2927,7 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
                                     }
                             }
                     }
-            }        
+            }
 };
 </pre>
 <p>Wow, that&#39;s ugly.</p>
@@ -2937,7 +2937,7 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <pre  class="brush: js">// top-level namespace being assigned an object literal
 var myApp = myApp || {};
 
-// a convenience function for parsing string namespaces and 
+// a convenience function for parsing string namespaces and
 // automatically generating nested namespaces
 function extend( ns, ns_string ) {
     var parts = ns_string.split(&#39;.&#39;),
@@ -2968,7 +2968,7 @@ var mod = extend(myApp, &#39;myApp.modules.module2&#39;);
 console.log(mod);
 // minor test to check the instance of mod can also
 // be used outside of the myApp namesapce as a clone
-// that includes the extensions 
+// that includes the extensions
 console.log(mod == myApp.modules.module2); //true
 // further demonstration of easier nested namespace
 // assignment using extend
@@ -2998,16 +2998,16 @@ maths.fibonacci(25);
 maths.sin(56);
 drawing.plot(98, 50,60);
 
-// note that the above is particularly performant when 
-// compared to hundreds or thousands of calls to nested 
+// note that the above is particularly performant when
+// compared to hundreds or thousands of calls to nested
 // namespaces vs. a local reference to the namespace
 </pre>
-<p>Working with a local variable here is almost always faster than working with a top-level global (eg.myApp). It&#39;s also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
+<p>Working with a local variable here is almost always faster than working with a top-level global (e.g. myApp). It&#39;s also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
 <p>Stoyan recommends declaring localized namespaces required by a function or module at the top of your function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One if the benefits this offers is a decrease in locating dependencies and resolving them, should you have an extendable architecture that dynamically loads modules into your namespace when required.</p>
 <p>In my opinion this pattern works best when working at a modular level, localizing a namespace to be used by a group of methods. Localizing namespaces on a per-function level, especially where there is significant overlap between namespace dependencies would be something I would recommend avoiding where possible. Instead, define it further up and just have them all access the same reference.</p>
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
-<p>This is something that&#39;s been made fairly easy to accomplish with modern JavaScript frameworks (eg. see jQuery&#39;s <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you&#39;re looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
+<p>This is something that&#39;s been made fairly easy to accomplish with modern JavaScript frameworks (e.g. see jQuery&#39;s <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you&#39;re looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
 <pre  class="brush: js">// extend.js
 // written by andrew dupont, optimized by addy osmani
 function extend(destination, source) {
@@ -3031,7 +3031,7 @@ console.group(&quot;objExtend namespacing tests&quot;);
 var myNS = myNS || {};
 
 // 1. extend namespace with a &#39;utils&#39; object
-extend(myNS, { 
+extend(myNS, {
         utils:{
         }
 });
@@ -3057,8 +3057,8 @@ myNS.hello.test1 = &#39;this is a test&#39;;
 myNS.hello.world.test2 = &#39;this is another test&#39;;
 console.log(&#39;test 2&#39;, myNS);
 
-// 3. what if myNS already contains the namespace being added 
-// (eg. &#39;library&#39;)? we want to ensure no namespaces are being 
+// 3. what if myNS already contains the namespace being added
+// (e.g. &#39;library&#39;)? we want to ensure no namespaces are being
 // overwritten during extension
 
 myNS.library = {
@@ -3066,16 +3066,16 @@ myNS.library = {
 };
 
 extend(myNS, {
-        library:{ 
+        library:{
                 bar:function(){
-                    /*...*/  
+                    /*...*/
                 }
         }
 });
 
 // confirmed that extend is operating safely (as expected)
 // myNS now also contains library.foo, library.bar
-console.log(&#39;test 3&#39;, myNS); 
+console.log(&#39;test 3&#39;, myNS);
 
 
 // 4. what if we wanted easier access to a specific namespace without having
@@ -3103,14 +3103,14 @@ myApp.library = {
 // with the same name but with a different function
 // signature: $.extend(deep, target, object1, object2)
 $.extend(true, myApp, {
-    library:{ 
+    library:{
         bar:function(){
             /*..*/
         }
     }
 });
 
-console.log(&#39;test&#39;, myApp); 
+console.log(&#39;test&#39;, myApp);
 // myApp now contains both library.foo() and library.bar() methods
 // nothing has been overwritten which is what we&#39;re hoping for.
 </pre>
@@ -3127,7 +3127,7 @@ console.log(&#39;test&#39;, myApp);
 </ol>
 <h3>1.Single global variables</h3>
 <p>One popular pattern for namespacing in JavaScript is opting for a single global variable as your primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
-<pre  class="brush: js">var myApplication =  (function(){ 
+<pre  class="brush: js">var myApplication =  (function(){
         function(){
             /*...*/
         },
@@ -3150,8 +3150,8 @@ funcion myApplication_myMethod(){ /*..*/ }
 <pre  class="brush: js">var myApplication = {
     getInfo:function(){ /**/ },
 
-    // we can also populate our object literal to support 
-    // further object literal namespaces containing anything 
+    // we can also populate our object literal to support
+    // further object literal namespaces containing anything
     // really:
     models : {},
     views : {
@@ -3179,10 +3179,10 @@ myApplication.utils = {
 // the global namespace. Bad practice as you can easily
 // clobber an existing variable/namespace with the same name
 var myApplication = {};
- 
+
 /*
-The following options *do* check for variable/namespace existence. 
-If already defined, we use that instance, otherwise we assign a new 
+The following options *do* check for variable/namespace existence.
+If already defined, we use that instance, otherwise we assign a new
 object literal to myApplication.
 
 Option 1: var myApplication = myApplication || {};
@@ -3202,9 +3202,9 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
     var privateProperty1 = &#39;foobar&#39;;
 
     return {
-        // the object literal returned here can have as many 
-        // nested depths as you wish, however as mentioned, 
-        // this way of doing things works best for smaller, 
+        // the object literal returned here can have as many
+        // nested depths as you wish, however as mentioned,
+        // this way of doing things works best for smaller,
         // limited-scope applications in my personal opinion
         publicMethod1: privateMethod1,
 
@@ -3235,7 +3235,7 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
         skin: &#39;a&#39;,
         toolbars: {
             index: &#39;ui-navigation-toolbar&#39;,
-            pages: &#39;ui-custom-toolbar&#39;    
+            pages: &#39;ui-custom-toolbar&#39;
         }
     }
 }
@@ -3251,8 +3251,8 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 <p>&nbsp;</p>
 <p>Yahoo&#39;s YUI framework uses the nested object namespacing pattern regularly and at AOL we also use this pattern in many of our main applications. A sample implementation of nested namespacing may look like this:</p>
 <pre  class="brush: js">var myApp =  myApp || {};
- 
-// perform a similar existence check when defining nested 
+
+// perform a similar existence check when defining nested
 // children
 myApp.routers = myApp.routers || {};
 myApp.model = myApp.model || {};
@@ -3266,9 +3266,9 @@ myApp.model.special = myApp.model.special || {};
 
 </pre>
 <p>You can also opt to declare new nested namespaces/properties as indexed properties as follows:</p>
-<pre  class="brush: js">myApp[&quot;routers&quot;] = myApp[&quot;routers&quot;] || {}; 
-myApp[&quot;models&quot;] = myApp[&quot;models&quot;] || {}; 
-myApp[&quot;controllers&quot;] = myApp[&quot;controllers&quot;] || {}; 
+<pre  class="brush: js">myApp[&quot;routers&quot;] = myApp[&quot;routers&quot;] || {};
+myApp[&quot;models&quot;] = myApp[&quot;models&quot;] || {};
+myApp[&quot;controllers&quot;] = myApp[&quot;controllers&quot;] || {};
 </pre>
 <p>Both options are readable, organized and offer a relatively safe way of namespacing your application in a similar fashion to what you may be used to in other languages. The only real caveat however is that it requires your browser&#39;s JavaScript engine first locating the myApp object and then digging down until it gets to the function you actually wish to use.</p>
 <p>This can mean an increased amount of work to perform lookups, however developers such as <a href="http://twitter.com/kangax">Juriy Zaytsev</a> have previously tested and found the performance differences between single object namespacing vs the &#39;nested&#39; approach to be quite negligible.</p>
@@ -3286,29 +3286,29 @@ function foobar(){ foobar(); }
 <p>whilst a slightly more expanded version of the first example might look like:</p>
 <pre  class="brush: js">var namespace = namespace || {};
 
-// here a namespace object is passed as a function 
-// parameter, where we assign public methods and 
+// here a namespace object is passed as a function
+// parameter, where we assign public methods and
 // properties to it
-(function( o ){    
+(function( o ){
     o.foo = &quot;foo&quot;;
     o.bar = function(){
-        return &quot;bar&quot;;    
+        return &quot;bar&quot;;
     };
 })(namespace);
 
 console.log(namespace);
 </pre>
 <p>Whilst readable, this example could be significantly expanded on to address common development concerns such as defined levels of privacy (public/private functions and variables) as well as convenient namespace extension. Let&#39;s go through some more code:</p>
-<pre  class="brush: js">// namespace (our namespace name) and undefined are passed here 
-// to ensure 1. namespace can be modified locally and isn&#39;t 
+<pre  class="brush: js">// namespace (our namespace name) and undefined are passed here
+// to ensure 1. namespace can be modified locally and isn&#39;t
 // overwritten outside of our function context
-// 2. the value of undefined is guaranteed as being truly 
-// undefined. This is to avoid issues with undefined being 
+// 2. the value of undefined is guaranteed as being truly
+// undefined. This is to avoid issues with undefined being
 // mutable pre-ES5.
 
 ;(function ( namespace, undefined ) {
     // private properties
-    var foo = &quot;foo&quot;, 
+    var foo = &quot;foo&quot;,
         bar = &quot;bar&quot;;
 
     // public methods and properties
@@ -3322,8 +3322,8 @@ console.log(namespace);
         console.log(&quot;You said: &quot; + msg);
     };
 
-    // check to evaluate whether &#39;namespace&#39; exists in the 
-    // global namespace - if not, assign window.namespace an 
+    // check to evaluate whether &#39;namespace&#39; exists in the
+    // global namespace - if not, assign window.namespace an
     // object literal
 }(window.namespace = window.namespace || {});
 
@@ -3346,14 +3346,14 @@ console.log(namespace.foobar2);
         console.log(namespace.foo);
         console.log(namespace.bar);
         speak(&#39;goodbye&#39;);
-    }    
+    }
 }( window.namespace = window.namespace || {});
 </pre>
 <p>namespace.sayGoodbye(); //goodbye</p>
 <p>That&#39;s it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben&#39;s <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor&#39;s post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
 <h3>5. Namespace injection</h3>
-<p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (eg. getters and setters).</p>
-<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (eg. deep object extension / merging) which I cover earlier in the article..</p>
+<p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
+<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the article..</p>
 <p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
 <pre  class="brush: js">var myApp = myApp || {};
 myApp.utils =  {};
@@ -3361,31 +3361,31 @@ myApp.utils =  {};
 
 (function() {
     var val = 5;
-   
+
     this.getValue = function() {
         return val;
     };
-     
+
     this.setValue = function(newVal) {
         val = newVal;
     }
-        
+
     // also introduce a new sub-namespace
     this.tools = {};
-    
-}).apply(myApp.utils);  
+
+}).apply(myApp.utils);
 
 // inject new behaviour into the tools namespace
 // which we defined via the utilities module
 
 (function(){
     this.diagnose = function(){
-        return &#39;diagnosis&#39;;   
+        return &#39;diagnosis&#39;;
     }
 }).apply(myApp.utils.tools);
 
 // note, this same approach to extension could be applied
-// to a regular IIFE, by just passing in the context as 
+// to a regular IIFE, by just passing in the context as
 // an argument and modifying the context rather than just
 // &#39;this&#39;
 
@@ -3414,7 +3414,7 @@ var creator = function(val){
     }
 }
 
-creator.call(ns); 
+creator.call(ns);
 // ns.next, ns.reset now exist
 creator.call(ns2, 5000);
 // ns2 contains the same methods
@@ -3797,7 +3797,7 @@ var myModule = {
     // purposes:
     myConfig:{
         useCaching:true,
-        language: 'en'   
+        language: 'en'
     },
     // a very basic method
     myMethod: function(){
@@ -3811,7 +3811,7 @@ var myModule = {
     myMethod3: function(newConfig){
         if(typeof newConfig == 'object'){
            this.myConfig = newConfig;
-           console.log(this.myConfig.language); 
+           console.log(this.myConfig.language);
         }
     }
 };
@@ -3836,7 +3836,7 @@ As we reviewed earlier in the book, the module pattern encapsulates 'privacy', s
 This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>) except that an object is returned rather than a function. </p>
 
 <p>
-From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures and re-introduced by Eric Miraglia on the YUI blog. 
+From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures and re-introduced by Eric Miraglia on the YUI blog.
 </p>
 
 <p>
@@ -3864,7 +3864,7 @@ var basketModule = (function() {
         getTotal: function(){
            var q = this.getItemCount(),p=0;
             while(q--){
-                p+= basket[q].price; 
+                p+= basket[q].price;
             }
             return p;
         }
@@ -3873,7 +3873,7 @@ var basketModule = (function() {
 </pre>
 
 <p>
-Inside the module, you'll notice we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that you can interact with it as follows: 
+Inside the module, you'll notice we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that you can interact with it as follows:
 </p>
 <pre  class="brush: js">
 
@@ -3945,7 +3945,7 @@ require(["dojo/_base/customStore"], function(store){
 <p>For more information on <code>dojo.setObject()</code>, see the official <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/setObject.html">documentation</a>.</p>
 
 <p><strong>ExtJS</strong></p>
-<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p> 
+<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p>
 <p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
@@ -3954,22 +3954,22 @@ Ext.namespace('myNameSpace');
 // create application
 myNameSpace.app = function() {
     // do NOT access DOM from here; elements don't exist yet
- 
+
     // private variables
     var btn1;
     var privVar1 = 11;
- 
+
     // private functions
     var btn1Handler = function(button, event) {
         alert('privVar1=' + privVar1);
         alert('this.btn1Text=' + this.btn1Text);
     };
- 
+
     // public space
     return {
         // public properties, e.g. strings to translate
         btn1Text: 'Button 1',
- 
+
         // public methods
         init: function() {
             if (Ext.Ext2) {
@@ -4124,7 +4124,7 @@ myPlugin.method1();
 <p>&nbsp;</p>
 <h2 id="lazyinitialisationjquery"><strong>Lazy Initialization</strong></h2>
 <p><br>
-  <strong>Lazy Initialization </strong>is a design pattern wish allows us to delay expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.<br>
+  <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes (e.g. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.<br>
   <br>
 <pre  class="brush: js">
 
@@ -4152,19 +4152,19 @@ $(document).ready(function(){
   <br>
 <pre  class="brush: js">
 // Single elements
-$('#singleItem').addClass('active'); 
-$('#container').addClass('active'); 
+$('#singleItem').addClass('active');
+$('#container').addClass('active');
 
 // Collections of elements
-$('div').addClass('active'); 
-$('.item').addClass('active'); 
-$('input').addClass('active'); 
+$('div').addClass('active');
+$('.item').addClass('active');
+$('input').addClass('active');
   </pre>
 <br>
 <br>
 <h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
 <p><br>
-  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
+  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
 </p>
 <p>One example of a wrapper you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
 
@@ -4173,10 +4173,10 @@ $('input').addClass('active');
 
 /*
   Cross browser opacity:
-  opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+ 
-  filter: alpha(opacity=90);  IE6-IE8 
+  opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+
+  filter: alpha(opacity=90);  IE6-IE8
 */
-   
+
 $('.container').css({ opacity: .5 });
 </pre>
 <p>&nbsp;</p>
@@ -4188,7 +4188,7 @@ $('.container').css({ opacity: .5 });
 $.get( url, data, callback, dataType );
 $.post( url, data, callback, dataType );
 $.getJSON( url, data, callback );
-$.getScript( url, callback );  
+$.getScript( url, callback );
   </pre>
 </p>
 <p>These are translated behind the scenes to:</p>
@@ -4226,7 +4226,7 @@ $.ajax({
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
 <p><br>
-  Another pattern we've look at previously is the Observer (Publish/Subscribe) pattern, where a subject (the publisher), keeps a list of its dependants (subscribers), and notifies them automatically anytime something interesting happens.
+  Another pattern we've look at previously is the Observer (Publish/Subscribe) pattern, where a subject (the publisher), keeps a list of its dependents (subscribers), and notifies them automatically anytime something interesting happens.
 </p>
 <p>
 jQuery actually comes with built-in support for a publish/subscribe-like system, which it calls custom events. In earlier versions of the library, access to these custom events was possible using <code>.bind()</code> (subscribe), <code>.trigger()</code> (publish) and <code>.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>.on()</code>, <code>.trigger()</code> and <code>.off()</code>.</p>
@@ -4248,7 +4248,7 @@ $(document).trigger('topicName');
 $(document).off('topicName');
   </pre>
 </p>
-<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code> and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code>, and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
 (function($) {
@@ -4270,7 +4270,7 @@ $(document).off('topicName');
 }(jQuery));
 </pre>
 
-<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution it's possible to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
+<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution to write made possible using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
 <pre  class="brush: js">
 var topics = {};
 
@@ -4322,24 +4322,24 @@ woo! mail!
   <br>
 <pre  class="brush: js">
 
- $.each(['john','dave','rick','julian'], function(index, value) { 
-  console.log(index + ': ' + value); 
+ $.each(['john','dave','rick','julian'], function(index, value) {
+  console.log(index + ': ' + value);
 });
 
 $('li').each(function(index) {
   console.log(index + ': ' + $(this).text());
 });
-  
+
   </pre>
 <p>&nbsp;</p>
 <h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
 <p><br>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
+  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
   <br>
 <pre  class="brush: js">
 $('button').toggle(function(){
     console.log('path 1');
-}, 
+},
 function(){
     console.log('path 2');
 });
@@ -4348,7 +4348,7 @@ function(){
 <p>&nbsp;</p>
 <h2 id="proxypatternjquery"><strong>The Proxy Pattern</strong></h2>
 <p><br>
-  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
+  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate, etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
 </p>
 <p>
 One example of where this is useful is when you're making use of a timer inside a <code>click</code> handler. Say we have the following handler:
@@ -4368,12 +4368,12 @@ $('button').on('click', function(){
   });
 });
 </pre>
-<p>To solve this problem, we can use <code>$.proxy()</code>. By calling it with the function and value we would like assisnged to <code>this</code> it will actally return a function that retains the value we desire. Here's how this would look:</p>
+<p>To solve this problem, we can use <code>$.proxy()</code>. By calling it with the function and value we would like assigned to <code>this</code> it will actually return a function that retains the value we desire. Here's how this would look:</p>
 <pre class="brush: js">
 $('button').on('click', function(){
     setTimeout($.proxy(function() {
         // 'this' now refers to our element as we wanted
-        $(this).addClass('active');  
+        $(this).addClass('active');
     }, this), 500);
     // the last 'this' we're passing tells $.proxy() that our DOM element
     // is the value we want 'this' to refer to.
@@ -4405,7 +4405,7 @@ $('&lt;input /&gt;').attr({'type':'text', 'id':'sample'})
 In terms of the jQuery library, your first thought when cloning is mentioned might be the <code>.clone()</code> method. Unfortunately this only clones DOM elements but if we want to clone JavaScript objects, this can be done using the <code>$.extend()</code> method as follows:
 </p>
 <p>
-<pre  class="brush: js">  
+<pre  class="brush: js">
 var myOldObject = {};
 
 // Create a shallow copy
@@ -4456,7 +4456,7 @@ function clone( obj ) {
     });
     return props;
   }( obj )));
-}   
+}
 </pre>
 
 <p>&nbsp;</p>
@@ -4485,7 +4485,7 @@ function clone( obj ) {
 <p>It's difficult to discuss AMD and CommonJS modules without talking about the elephant in the room - <a href="http://msdn.microsoft.com/en-us/scriptjunkie/hh227261">script loaders</a>. At the time of writing, script loading is a means to a goal, that goal being modular JavaScript that can be used in applications today - for this, use of a compatible script loader is unfortunately necessary. In order to get the most out of this section, I recommend gaining a <strong>basic understanding</strong> of how popular script loading tools work so the explanations of module formats make sense in context.</p>
 
 <p>
-There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this article, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p> 
+There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this article, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p>
 
 <p>From a production perspective, the use of optimization tools (like the RequireJS optimizer) to concatenate scripts is recommended for deployment when working with such modules. Interestingly, with the <a href="https://github.com/jrburke/almond">Almond</a> AMD shim, RequireJS doesn't need to be rolled in the deployed site and what you might consider a script loader can be easily shifted outside of development.</p>
 <p>That said, James Burke would probably say that being able to dynamically load scripts after page load still has its use cases and RequireJS can assist with this too. With these notes in mind, let's get started.</p>
@@ -4506,7 +4506,7 @@ There are a number of great loaders for handling module loading in the AMD and C
 
 
 <p><div class="alert-message"><strong>Note:</strong> There was a time when the proposal was referred to as Modules Transport/C, however as the spec wasn't geared for transporting existing CommonJS modules, but rather, for defining modules it made more sense to opt for the AMD naming convention.</div></p>
- 
+
 
 <div class="hr"></div>
 <h3>Getting Started With Modules</h3>
@@ -4514,8 +4514,8 @@ There are a number of great loaders for handling module loading in the AMD and C
 
 <pre class="brush: js">
 define(
-    module_id /*optional*/, 
-    [dependencies] /*optional*/, 
+    module_id /*optional*/,
+    [dependencies] /*optional*/,
     definition function /*function for instantiating the module or object*/
 );
 </pre>
@@ -4531,14 +4531,14 @@ define(
 
 // A module_id (myModule) is used here for demonstration purposes only
 
-define('myModule', 
-    ['foo', 'bar'], 
+define('myModule',
+    ['foo', 'bar'],
     // module definition function
     // dependencies (foo and bar) are mapped to function parameters
     function ( foo, bar ) {
         // return a value that defines the module export
         // (i.e the functionality we want to expose for consumption)
-    
+
         // create your module here
         var myModule = {
             doStuff:function(){
@@ -4550,8 +4550,8 @@ define('myModule',
 });
 
 // An alternative example could be..
-define('myModule', 
-    ['math', 'graph'], 
+define('myModule',
+    ['math', 'graph'],
     function ( math, graph ) {
 
         // Note that this is a slightly different pattern
@@ -4623,7 +4623,7 @@ define(['./templates', 'text!./template.md','css!./template.css'],
 
 <h4>Loading AMD Modules Using RequireJS</h4>
 <pre class="brush: js">
-require(['app/myModule'], 
+require(['app/myModule'],
     function( myModule ){
         // start the main module which in-turn
         // loads other modules
@@ -4636,7 +4636,7 @@ require(['app/myModule'],
 
 <h4>Loading AMD Modules Using curl.js</h4>
 <pre class="brush: js">
-curl(['app/myModule.js'], 
+curl(['app/myModule.js'],
     function( myModule ){
         // start the main module which in-turn
         // loads other modules
@@ -4651,7 +4651,7 @@ curl(['app/myModule.js'],
 // futures.js (slightly different syntax) or any one of a number
 // of other implementations
 define(['lib/Deferred'], function( Deferred ){
-    var defer = new Deferred(); 
+    var defer = new Deferred();
     require(['lib/templates/?index.html','lib/data/?stats'],
         function( template, data ){
             defer.resolve({ template: template, data:data });
@@ -4671,7 +4671,7 @@ define(['lib/Deferred'], function( Deferred ){
 
     <li>Module definitions are encapsulated, helping us to avoid pollution of the global namespace.</li>
 
-    <li>Works better than some alternative solutions (eg. CommonJS, which we'll be looking at shortly). Doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
+    <li>Works better than some alternative solutions (e.g. CommonJS, which we'll be looking at shortly). Doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
 
     <li>Provides a 'transport' approach for including multiple modules in a single file. Other approaches like CommonJS have yet to agree on a transport format.</li>
 
@@ -4712,8 +4712,8 @@ define(["dijit/Tooltip"], function( Tooltip ){
 
 <pre class="brush: js">
 define(["dojo/cookie", "dijit/Tooltip"], function( cookie, Tooltip ){
-    var cookieValue = cookie("cookieName"); 
-    new Tree(...); 
+    var cookieValue = cookie("cookieName");
+    new Tree(...);
 });
 </pre>
 
@@ -4820,7 +4820,7 @@ define(['js/jquery.js','js/jquery.color.js','js/underscore.js'],
         // Animate the background-color of any elements with the class
         // 'item' on the page using the shuffled color
         $('.item').animate({'backgroundColor': shuffleColor });
-        
+
         return {};
         // What we return can be used by other modules
     });
@@ -4840,11 +4840,11 @@ by the loader specifying <code>define.amd.jQuery</code>. RequireJS and curl are 
 
 <p>The named AMD provides a safety blanket of being both robust and safe for most use-cases.</p>
 
-<pre class="brush: js">// Account for the existence of more than one global 
-// instances of jQuery in the document, cater for testing 
+<pre class="brush: js">// Account for the existence of more than one global
+// instances of jQuery in the document, cater for testing
 // .noConflict()
 
-var jQuery = this.jQuery || &quot;jQuery&quot;, 
+var jQuery = this.jQuery || &quot;jQuery&quot;,
 $ = this.$ || &quot;$&quot;,
 originaljQuery = jQuery,
 original$ = $;
@@ -4955,7 +4955,7 @@ define(function(require){
     // some behaviour for our module
     function foo(){
         lib.log('hello world!');
-    } 
+    }
 
     // export (expose) foo for other modules
     return {
@@ -5061,7 +5061,7 @@ exports.helloWorld = function(){
 
 <pre class="brush: js">
 define( function (require, exports, module){
-    
+
     var shuffler = require('lib/shuffle');
 
     exports.randomize = function( input ){
@@ -5113,10 +5113,10 @@ define( function (require, exports, module){
 <pre class="brush: js">
 // Module/Plugin core
 // Note: the wrapper code you see around the module is what enables
-// us to support multiple module formats and specifications by 
+// us to support multiple module formats and specifications by
 // mapping the arguments defined to what a specific format expects
-// to be present. Our actual module functionality is defined lower 
-// down, where a named module and exports are demonstrated. 
+// to be present. Our actual module functionality is defined lower
+// down, where a named module and exports are demonstrated.
 
 ;(function ( name, definition ){
   var theModule = definition(),
@@ -5210,11 +5210,11 @@ define( function (require, exports, module){
 <pre class="brush: js">
 $(function(){
 
-    // the plugin 'core' is exposed under a core namespace in 
+    // the plugin 'core' is exposed under a core namespace in
     // this example which we first cache
     var core = $.core;
 
-    // use then use some of the built-in core functionality to 
+    // use then use some of the built-in core functionality to
     // highlight all divs in the page yellow
     core.highlightAll();
 
@@ -5226,7 +5226,7 @@ $(function(){
     // Here we&#39;re making use of the core&#39;s &#39;highlight&#39; method
     // under the hood from a plugin loaded in after it
 
-    // Set the last div to the 'errorColor' property defined in 
+    // Set the last div to the 'errorColor' property defined in
     // our core module/plugin. If you review the code further down
     // you'll see how easy it is to consume properties and methods
     // between the core and other plugins
@@ -5260,7 +5260,7 @@ module staff{
         bake: function( item ){
             console.log('Woo! I just baked ' + item);
         }
-    }   
+    }
 }
 
 module skills{
@@ -5315,7 +5315,7 @@ export function close(hnd) { ... };
 <pre class="brush: js">
 // compiler/LexicalHandler.js
 module file from 'io/File';
- 
+
 import { open, close } from file;
 export function scan(in) {
     try {
@@ -5328,7 +5328,7 @@ export function scan(in) {
 <pre class="brush: js">
 module lexer from 'compiler/LexicalHandler';
 module stdlib from '@std';
- 
+
 //... scan(cmdline[0]) ...
 </pre>
 
@@ -5372,7 +5372,7 @@ class Cake{
     // the 'set' keyword before an identifier
     set cakeSize( cSize ){
         if( cSize < 0 ){
-            throw new Error('Cake must be a valid size - 
+            throw new Error('Cake must be a valid size -
             either small, medium or large');
         }
         public(this).cakeSize = cSize;
@@ -5494,22 +5494,22 @@ $.fn.myPluginName = function() {
  */
 
 
-// the semi-colon before the function invocation is a safety 
-// net against concatenated scripts and/or other plugins 
+// the semi-colon before the function invocation is a safety
+// net against concatenated scripts and/or other plugins
 // that are not closed properly.
 ;(function ( $, window, document, undefined ) {
-    
-    // undefined is used here as the undefined global 
-    // variable in ECMAScript 3 and is mutable (i.e. it can 
-    // be changed by someone else). undefined isn't really 
-    // being passed in so we can ensure that its value is 
-    // truly undefined. In ES5, undefined can no longer be 
+
+    // undefined is used here as the undefined global
+    // variable in ECMAScript 3 and is mutable (i.e. it can
+    // be changed by someone else). undefined isn't really
+    // being passed in so we can ensure that its value is
+    // truly undefined. In ES5, undefined can no longer be
     // modified.
-    
-    // window and document are passed through as local 
-    // variables rather than as globals, because this (slightly) 
-    // quickens the resolution process and can be more 
-    // efficiently minified (especially when both are 
+
+    // window and document are passed through as local
+    // variables rather than as globals, because this (slightly)
+    // quickens the resolution process and can be more
+    // efficiently minified (especially when both are
     // regularly referenced in your plugin).
 
     // Create the defaults once
@@ -5522,32 +5522,32 @@ $.fn.myPluginName = function() {
     function Plugin( element, options ) {
         this.element = element;
 
-        // jQuery has an extend method that merges the 
-        // contents of two or more objects, storing the 
-        // result in the first object. The first object 
-        // is generally empty because we don't want to alter 
+        // jQuery has an extend method that merges the
+        // contents of two or more objects, storing the
+        // result in the first object. The first object
+        // is generally empty because we don't want to alter
         // the default options for future instances of the plugin
         this.options = $.extend( {}, defaults, options) ;
-        
+
         this._defaults = defaults;
         this._name = pluginName;
-        
+
         this.init();
     }
 
     Plugin.prototype.init = function () {
         // Place initialization logic here
         // You already have access to the DOM element and
-        // the options via the instance, e.g. this.element 
+        // the options via the instance, e.g. this.element
         // and this.options
     };
 
-    // A really lightweight plugin wrapper around the constructor, 
+    // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function ( options ) {
         return this.each(function () {
             if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName, 
+                $.data(this, 'plugin_' + pluginName,
                 new Plugin( this, options ));
             }
         });
@@ -5610,10 +5610,10 @@ $('#elem').defaultPluginName({
 ;(function ( $, window, document, undefined ) {
 
     // define your widget under a namespace of your choice
-    //  with additional parameters e.g. 
-    // $.widget( "namespace.widgetname", (optional) - an 
-    // existing widget prototype to inherit from, an object 
-    // literal to become the widget's prototype ); 
+    //  with additional parameters e.g.
+    // $.widget( "namespace.widgetname", (optional) - an
+    // existing widget prototype to inherit from, an object
+    // literal to become the widget's prototype );
 
     $.widget( "namespace.widgetname" , {
 
@@ -5622,37 +5622,37 @@ $('#elem').defaultPluginName({
             someValue: null
         },
 
-        //Setup widget (eg. element creation, apply theming
+        //Setup widget (e.g. element creation, apply theming
         // , bind events etc.)
         _create: function () {
 
-            // _create will automatically run the first time 
-            // this widget is called. Put the initial widget 
-            // setup code here, then you can access the element 
-            // on which the widget was called via this.element. 
-            // The options defined above can be accessed 
+            // _create will automatically run the first time
+            // this widget is called. Put the initial widget
+            // setup code here, then you can access the element
+            // on which the widget was called via this.element.
+            // The options defined above can be accessed
             // via this.options this.element.addStuff();
         },
 
-        // Destroy an instantiated plugin and clean up 
+        // Destroy an instantiated plugin and clean up
         // modifications the widget has made to the DOM
         destroy: function () {
 
             // this.element.removeStuff();
-            // For UI 1.8, destroy must be invoked from the 
+            // For UI 1.8, destroy must be invoked from the
             // base widget
             $.Widget.prototype.destroy.call(this);
-            // For UI 1.9, define _destroy instead and don't 
-            // worry about 
+            // For UI 1.9, define _destroy instead and don't
+            // worry about
             // calling the base widget
         },
 
         methodB: function ( event ) {
-            //_trigger dispatches callbacks the plugin user 
+            //_trigger dispatches callbacks the plugin user
             // can subscribe to
-            // signature: _trigger( "callbackName" , [eventObject], 
+            // signature: _trigger( "callbackName" , [eventObject],
             // [uiObject] )
-            // eg. this._trigger( "hover", e /*where e.type == 
+            // e.g. this._trigger( "hover", e /*where e.type ==
             // "mouseenter"*/, { hovered: $(e.target)});
             this._trigger('methodA', event, {
                 key: value
@@ -5665,7 +5665,7 @@ $('#elem').defaultPluginName({
             });
         },
 
-        // Respond to any changes the user makes to the 
+        // Respond to any changes the user makes to the
         // option method
         _setOption: function ( key, value ) {
             switch (key) {
@@ -5677,7 +5677,7 @@ $('#elem').defaultPluginName({
                 break;
             }
 
-            // For UI 1.8, _setOption must be manually invoked 
+            // For UI 1.8, _setOption must be manually invoked
             // from the base widget
             $.Widget.prototype._setOption.apply( this, arguments );
             // For UI 1.9 the _super method can be used instead
@@ -5748,7 +5748,7 @@ instance.widgetName('methodB');
         base.init = function () {
             base.myFunctionParam = myFunctionParam;
 
-            base.options = $.extend({}, 
+            base.options = $.extend({},
             $.myNamespace.myPluginName.defaultOptions, options);
 
             // Put your initialization code here
@@ -5756,7 +5756,7 @@ instance.widgetName('methodB');
 
         // Sample Function, Uncomment to use
         // base.functionName = function( paramaters ){
-        // 
+        //
         // };
         // Run initializer
         base.init();
@@ -5766,10 +5766,10 @@ instance.widgetName('methodB');
         myDefaultValue: ""
     };
 
-    $.fn.mynamespace_myPluginName = function 
+    $.fn.mynamespace_myPluginName = function
         ( myFunctionParam, options ) {
         return this.each(function () {
-            (new $.myNamespace.myPluginName(this, 
+            (new $.myNamespace.myPluginName(this,
             myFunctionParam, options));
         });
     };
@@ -5814,10 +5814,10 @@ $('#elem').mynamespace_myPluginName({
  * Licensed under the MIT license
  */
 
-// In this pattern, we use jQuery's custom events to add 
-// pub/sub (publish/subscribe) capabilities to widgets. 
-// Each widget would publish certain events and subscribe 
-// to others. This approach effectively helps to decouple 
+// In this pattern, we use jQuery's custom events to add
+// pub/sub (publish/subscribe) capabilities to widgets.
+// Each widget would publish certain events and subscribe
+// to others. This approach effectively helps to decouple
 // the widgets and enables them to function independently.
 
 ;(function ( $, window, document, undefined ) {
@@ -5825,7 +5825,7 @@ $('#elem').mynamespace_myPluginName({
         options: {
 
         },
-        
+
         _create : function() {
             var self = this;
 
@@ -5843,7 +5843,7 @@ $('#elem').mynamespace_myPluginName({
 
             //unsubscribe to 'myEventStart'
             //self.element.unbind( "myEventStart", function(e){
-                ///console.log("unsubscribed to this event"); 
+                ///console.log("unsubscribed to this event");
             //});
         },
 
@@ -5891,7 +5891,7 @@ el.eventStatus().trigger('myEventStart');
  */
 
 
-// myObject - an object representing a concept that you want 
+// myObject - an object representing a concept that you want
 // to model (e.g. a car)
 var myObject = {
   init: function( options, elem ) {
@@ -5938,7 +5938,7 @@ $.plugin = function( name, object ) {
   $.fn[name] = function( options ) {
     return this.each(function() {
       if ( ! $.data( this, name ) ) {
-        $.data( this, name, Object.create(object).init( 
+        $.data( this, name, Object.create(object).init(
         options, this ) );
       }
     });
@@ -6013,55 +6013,55 @@ var widgetName = function( options, element ){
 
 // the "widgetName" prototype
 widgetName.prototype = {
-    
-    // _create will automatically run the first time this 
+
+    // _create will automatically run the first time this
     // widget is called
     _create: function(){
         // creation code
     },
 
     // required: initialization logic for the plugin goes into _init
-    // This fires when your instance is first created and when 
+    // This fires when your instance is first created and when
     // attempting to initialize the widget again (by the bridge)
     // after it has already been initialized.
     _init: function(){
         // init code
     },
 
-    // required: objects to be used with the bridge must contain an 
+    // required: objects to be used with the bridge must contain an
     // 'option'. Post-initialization, the logic for changing options
-    // goes here. 
+    // goes here.
     option: function( key, value ){
-        
+
         // optional: get/change options post initialization
         // ignore if you don't require them.
-        
+
         // signature: $('#foo').bar({ cool:false });
         if( $.isPlainObject( key ) ){
             this.options = $.extend( true, this.options, key );
-        
+
         // signature: $('#foo').option('cool'); - getter
         } else if ( key && typeof value === "undefined" ){
             return this.options[ key ];
-            
+
         // signature: $('#foo').bar('option', 'baz', false);
         } else {
             this.options[ key ] = value;
         }
-        
-        // required: option must return the current instance. 
-        // When re-initializing an instance on elements, option 
+
+        // required: option must return the current instance.
+        // When re-initializing an instance on elements, option
         // is called first and is then chained to the _init method.
-        return this;  
+        return this;
     },
 
     // notice no underscore is used for public methods
-    publicFunction: function(){ 
+    publicFunction: function(){
         console.log('public function');
     },
 
     // underscores are used for private methods
-    _privateFunction: function(){ 
+    _privateFunction: function(){
         console.log('private function');
     }
 };
@@ -6133,11 +6133,11 @@ instance.foo("_privateFunction"); // => #elem element
         },
 
         _create: function() {
-            // _create will automatically run the first time this 
-            // widget is called. Put the initial widget set-up code 
-            // here, then you can access the element on which 
+            // _create will automatically run the first time this
+            // widget is called. Put the initial widget set-up code
+            // here, then you can access the element on which
             // the widget was called via this.element
-            // The options defined above can be accessed via 
+            // The options defined above can be accessed via
             // this.options
 
             //var m = this.element,
@@ -6148,29 +6148,29 @@ instance.foo("_privateFunction"); // => #elem element
         // Private methods/props start with underscores
         _dosomething: function(){ ... },
 
-        // Public methods like these below can can be called 
-                // externally: 
+        // Public methods like these below can can be called
+                // externally:
         // $("#myelem").foo( "enable", arguments );
 
         enable: function() { ... },
 
-        // Destroy an instantiated plugin and clean up modifications 
+        // Destroy an instantiated plugin and clean up modifications
         // the widget has made to the DOM
         destroy: function () {
             //this.element.removeStuff();
-            // For UI 1.8, destroy must be invoked from the 
+            // For UI 1.8, destroy must be invoked from the
             // base widget
             $.Widget.prototype.destroy.call(this);
-            // For UI 1.9, define _destroy instead and don't 
+            // For UI 1.9, define _destroy instead and don't
             // worry about calling the base widget
         },
 
         methodB: function ( event ) {
-            //_trigger dispatches callbacks the plugin user can 
+            //_trigger dispatches callbacks the plugin user can
             // subscribe to
             //signature: _trigger( "callbackName" , [eventObject],
             //  [uiObject] )
-            // eg. this._trigger( "hover", e /*where e.type == 
+            // e.g. this._trigger( "hover", e /*where e.type ==
             // "mouseenter"*/, { hovered: $(e.target)});
             this._trigger('methodA', event, {
                 key: value
@@ -6194,7 +6194,7 @@ instance.foo("_privateFunction"); // => #elem element
                 break;
             }
 
-            // For UI 1.8, _setOption must be manually invoked from 
+            // For UI 1.8, _setOption must be manually invoked from
             // the base widget
             $.Widget.prototype._setOption.apply(this, arguments);
             // For UI 1.9 the _super method can be used instead
@@ -6218,15 +6218,15 @@ instance.widgetName('methodB');
 
 <p><pre class="brush: js">
 $(document).bind("pagecreate", function (e) {
-    // In here, e.target refers to the page that was created 
+    // In here, e.target refers to the page that was created
     // (it's the target of the pagecreate event)
-    // So, we can simply find elements on this page that match a 
+    // So, we can simply find elements on this page that match a
     // selector of our choosing, and call our plugin on them.
-    // Here's how we'd call our "foo" plugin on any element with a 
+    // Here's how we'd call our "foo" plugin on any element with a
     // data-role attribute of "foo":
     $(e.target).find("[data-role='foo']").foo(options);
 
-    // Or, better yet, let's write the selector accounting for the configurable 
+    // Or, better yet, let's write the selector accounting for the configurable
     // data-attribute namespace
     $(e.target).find(":jqmData(role='foo')").foo(options);
 });
@@ -6258,63 +6258,63 @@ $(document).bind("pagecreate", function (e) {
  * Licensed under the MIT license
  */
 
- 
+
 // Note from James:
-// 
-// This assumes you are using the RequireJS+jQuery file, and 
-// that the following files are all in the same directory: 
 //
-// - require-jquery.js 
-// - jquery-ui.custom.min.js (custom jQuery UI build with widget factory) 
-// - templates/ 
-//    - asset.html 
-// - ao.myWidget.js 
+// This assumes you are using the RequireJS+jQuery file, and
+// that the following files are all in the same directory:
+//
+// - require-jquery.js
+// - jquery-ui.custom.min.js (custom jQuery UI build with widget factory)
+// - templates/
+//    - asset.html
+// - ao.myWidget.js
 
-// Then you can construct the widget like so: 
+// Then you can construct the widget like so:
 
 
 
-//ao.myWidget.js file: 
+//ao.myWidget.js file:
 define("ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom.min","jquery.tmpl"], function ($, assetHtml) {
 
     // define your widget under a namespace of your choice
-    // 'ao' is used here as a demonstration 
-    $.widget( "ao.myWidget", { 
+    // 'ao' is used here as a demonstration
+    $.widget( "ao.myWidget", {
 
         // Options to be used as defaults
-        options: {}, 
+        options: {},
 
-        // Set up widget (e.g. create element, apply theming, 
+        // Set up widget (e.g. create element, apply theming,
         // bind events, etc.)
         _create: function () {
 
-            // _create will automatically run the first time 
-            // this widget is called. Put the initial widget 
-            // set-up code here, then you can access the element 
+            // _create will automatically run the first time
+            // this widget is called. Put the initial widget
+            // set-up code here, then you can access the element
             // on which the widget was called via this.element.
-            // The options defined above can be accessed via 
+            // The options defined above can be accessed via
             // this.options
 
             //this.element.addStuff();
             //this.element.addStuff();
-            //this.element.tmpl(assetHtml).appendTo(this.content); 
+            //this.element.tmpl(assetHtml).appendTo(this.content);
         },
 
-        // Destroy an instantiated plugin and clean up modifications 
+        // Destroy an instantiated plugin and clean up modifications
         // that the widget has made to the DOM
         destroy: function () {
             //t his.element.removeStuff();
-            // For UI 1.8, destroy must be invoked from the base 
+            // For UI 1.8, destroy must be invoked from the base
             // widget
             $.Widget.prototype.destroy.call( this );
-            // For UI 1.9, define _destroy instead and don't worry 
+            // For UI 1.9, define _destroy instead and don't worry
             // about calling the base widget
         },
 
         methodB: function ( event ) {
-            // _trigger dispatches callbacks the plugin user can 
+            // _trigger dispatches callbacks the plugin user can
             // subscribe to
-            //signature: _trigger( "callbackName" , [eventObject], 
+            //signature: _trigger( "callbackName" , [eventObject],
             // [uiObject] )
             this._trigger('methodA', event, {
                 key: value
@@ -6338,17 +6338,17 @@ define("ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom.
                 break;
             }
 
-            // For UI 1.8, _setOption must be manually invoked from 
+            // For UI 1.8, _setOption must be manually invoked from
             // the base widget
             $.Widget.prototype._setOption.apply( this, arguments );
             // For UI 1.9 the _super method can be used instead
             //this._super( "_setOption", key, value );
         }
 
-        //somewhere assetHtml would be used for templating, depending 
+        //somewhere assetHtml would be used for templating, depending
         // on your choice.
-    }); 
-}); 
+    });
+});
 
 </pre>
 
@@ -6368,9 +6368,9 @@ require({
         'jqueryui': 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min',
         'boilerplate': '../patterns/jquery.widget-factory.requirejs.boilerplate'
     }
-}, ['require', 'jquery', 'jqueryui', 'boilerplate'], 
+}, ['require', 'jquery', 'jqueryui', 'boilerplate'],
 function (req, $) {
-    
+
     $(function () {
 
         var instance = $('#elem').myWidget();
@@ -6416,12 +6416,12 @@ function (req, $) {
     $.fn.pluginName = function ( options ) {
 
         // Here's a best practice for overriding 'defaults'
-        // with specified options. Note how, rather than a 
+        // with specified options. Note how, rather than a
         // regular defaults object being passed as the second
-        // parameter, we instead refer to $.fn.pluginName.options 
-        // explicitly, merging it with the options passed directly 
-        // to the plugin. This allows us to override options both 
-        // globally and on a per-call level. 
+        // parameter, we instead refer to $.fn.pluginName.options
+        // explicitly, merging it with the options passed directly
+        // to the plugin. This allows us to override options both
+        // globally and on a per-call level.
 
         options = $.extend( {}, $.fn.pluginName.options, options );
 
@@ -6433,20 +6433,20 @@ function (req, $) {
     };
 
     // Globally overriding options
-    // Here are our publicly accessible default plugin options 
-    // that are available in case the user doesn't pass in all 
+    // Here are our publicly accessible default plugin options
+    // that are available in case the user doesn't pass in all
     // of the values expected. The user is given a default
     // experience but can also override the values as necessary.
-    // eg. $fn.pluginName.key ='otherval';
+    // e.g. $fn.pluginName.key ='otherval';
 
     $.fn.pluginName.options = {
 
         key: "value",
         myMethod: function ( elem, param ) {
-            
+
         }
     };
-    
+
 })( jQuery, window, document );
 </pre>
 
@@ -6535,16 +6535,16 @@ $('.items').draggable();
     },
 
     init: function() {
-      // Introduce defaults that can be extended either 
-      // globally or using an object literal. 
-      this.config = $.extend({}, this.defaults, this.options, 
+      // Introduce defaults that can be extended either
+      // globally or using an object literal.
+      this.config = $.extend({}, this.defaults, this.options,
       this.metadata);
 
       // Sample usage:
       // Set the message per instance:
       // $('#elem').plugin({ message: 'Goodbye World!'});
       // or
-      // var p = new Plugin(document.getElementById('elem'), 
+      // var p = new Plugin(document.getElementById('elem'),
       // { message: 'Goodbye World!'}).init()
       // or, set the global default message:
       // Plugin.defaults.message = 'Goodbye World!'
@@ -6554,7 +6554,7 @@ $('.items').draggable();
     },
 
     sampleMethod: function() {
-      // eg. show the currently configured message
+      // e.g. show the currently configured message
       // console.log(this.config.message);
     }
   }
@@ -6591,7 +6591,7 @@ $('#elem').plugin({
 <p>&nbsp;</p>
 <h3>UMD: AMD And CommonJS-Compatible Modules For Plugins</h3>
 
-<p>Whilst many of the plugin and widget patterns presented above are acceptable for general use, they aren’t without their caveats. Some require jQuery or the jQuery UI Widget Factory to be present in order to function, while only a few could be easily adapted to work well as globally compatible modules in both the browser and other environments.</p> 
+<p>Whilst many of the plugin and widget patterns presented above are acceptable for general use, they aren’t without their caveats. Some require jQuery or the jQuery UI Widget Factory to be present in order to function, while only a few could be easily adapted to work well as globally compatible modules in both the browser and other environments.</p>
 
 <p>We've alredy explored both AMD and CommonJS in the last chapter, but imagine how useful it would be if we could define and load plugin modules compatible with AMD, CommonJS and other standards that are also compatible with different environments (client-side, server-side and beyond).</p>
 
@@ -6617,11 +6617,11 @@ $('#elem').plugin({
 
 $(function(){
 
-    // Our plugin 'core' is exposed under a core namespace in 
+    // Our plugin 'core' is exposed under a core namespace in
     // this example, which we first cache
     var core = $.core;
 
-    // Then use use some of the built-in core functionality to 
+    // Then use use some of the built-in core functionality to
     // highlight all divs in the page yellow
     core.highlightAll();
 
@@ -6633,13 +6633,13 @@ $(function(){
     // Here we're making use of the core's 'highlight' method
     // under the hood from a plugin loaded in after it
 
-    // Set the last div to the 'errorColor' property defined in 
+    // Set the last div to the 'errorColor' property defined in
     // our core module/plugin. If you review the code further down,
     // you'll see how easy it is to consume properties and methods
     // between the core and other plugins
     core.plugin.setRed(&#39;div:last&#39;);
 });
-    
+
 &lt;/script&gt;</pre>
 
 <p><strong>pluginCore.js</strong></p>
@@ -6647,11 +6647,11 @@ $(function(){
 <pre class="brush: js">
 // Module/Plugin core
 // Note: the wrapper code you see around the module is what enables
-// us to support multiple module formats and specifications by 
+// us to support multiple module formats and specifications by
 // mapping the arguments defined to what a specific format expects
-// to be present. Our actual module functionality is defined lower 
-// down, where a named module and exports are demonstrated. 
-// 
+// to be present. Our actual module functionality is defined lower
+// down, where a named module and exports are demonstrated.
+//
 // Note that dependencies can just as easily be declared if required
 // and should work as demonstrated earlier with the AMD module examples.
 
