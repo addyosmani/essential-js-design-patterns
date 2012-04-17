@@ -244,7 +244,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Solution</strong> – a description of how the user&rsquo;s problem is being solved in an understandable list of steps and perceptions. </li>
   <li><strong>Design</strong> – a description of the pattern&rsquo;s design and in particular, the user&rsquo;s behavior in interacting with it </li>
   <li><strong>Implementation </strong>– a guide to how the pattern would be implemented </li>
-  <li><strong>Illustrations</strong> – a visual representation of classes in the pattern (eg. a diagram)) </li>
+  <li><strong>Illustrations</strong> – a visual representation of classes in the pattern (e.g. a diagram)) </li>
   <li><strong>Examples</strong> – an implementation of the pattern in a minimal form </li>
   <li><strong>Co-requisites</strong> – what other patterns may be needed to support use of the pattern being described? </li>
   <li><strong>Relations</strong> – what patterns does this pattern resemble? does it closely mimic any others? </li>
@@ -828,7 +828,7 @@ In JavaScript, the module pattern is used to further <em>emulate</em> the concep
 <p>
 Exploring the concept of public and private methods further, the module pattern pattern allows us to have particular methods and variables which are only accessible from within the module, meaning that you have a level of shielding from external entities accessing this 'hidden' information.</p>
 
-<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained. Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (eg. 'testModule').
+<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained. Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. 'testModule').
 </p> 
 
 <p>
@@ -1570,7 +1570,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 <h2 id="factorypatternjavascript">The Factory Pattern</h2>
 <p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
 <p>Specifically, the Factory Pattern suggests defining an interface for creating an object where you allow the subclasses to decide which class to instantiate. This pattern handles the problem by defining a completely separate method for the creation of objects and which sub-classes are able to override so they can specify the &lsquo;type&rsquo; of factory product that will be created.</p>
-<p>This can come in quite useful, in particular if the creation process involved is quite complex. eg. if it strongly depends on the settings in configuration files.</p>
+<p>This can come in quite useful, in particular if the creation process involved is quite complex. e.g. if it strongly depends on the settings in configuration files.</p>
 <p>You can often find factory methods in frameworks where the code for a library may need to create objects of particular types which may be subclassed by scripts using the frameworks.</p>
 <p>In our example, let&rsquo;s take the code used in the original Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
 <p>&nbsp;</p>
@@ -2628,7 +2628,7 @@ subclassExample = {
     } 
 }
 </pre>
-<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing Person object. Let&#39;s imagine we want to add distinct properties to distinguish a Person from a Superhero whilst inheriting the properties of the Person &#39;superclass&#39;. As superheroes share many common traits with normal people (eg. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
+<p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing Person object. Let&#39;s imagine we want to add distinct properties to distinguish a Person from a Superhero whilst inheriting the properties of the Person &#39;superclass&#39;. As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
 <pre  class="brush: js">    
 //a new instance of Person can then easily be created as follows:
 var clark = new subclassExample.Person( &quot;Clark&quot; , &quot;Kent&quot; );
@@ -2725,7 +2725,7 @@ Insurance(mb);
 console.log(mb.cost()); //1522
 console.log(mb.screenSize()); //13.3
 </pre>
-<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (eg. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and in tact.</p>
+<p>Here, the decorators are overrriding the superclass .cost() method to return the current price of the Macbook plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original Macbook object&#39;s constructor methods which are not overridden (e.g. screenSize()) as well as any other properties which we may define as a part of the Macbook remain unchanged and in tact.</p>
 <p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and duck typing is used to shift the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 <h2>Pseudo-classical decorators</h2>
 <p>We&#39;re now going to examine the variation of the decorator presented in &#39;Pro JavaScript Design Patterns&#39; (PJDP) by Dustin Diaz and Ross Harmes.</p>
@@ -3002,12 +3002,12 @@ drawing.plot(98, 50,60);
 // compared to hundreds or thousands of calls to nested 
 // namespaces vs. a local reference to the namespace
 </pre>
-<p>Working with a local variable here is almost always faster than working with a top-level global (eg.myApp). It&#39;s also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
+<p>Working with a local variable here is almost always faster than working with a top-level global (e.g. myApp). It&#39;s also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
 <p>Stoyan recommends declaring localized namespaces required by a function or module at the top of your function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One if the benefits this offers is a decrease in locating dependencies and resolving them, should you have an extendable architecture that dynamically loads modules into your namespace when required.</p>
 <p>In my opinion this pattern works best when working at a modular level, localizing a namespace to be used by a group of methods. Localizing namespaces on a per-function level, especially where there is significant overlap between namespace dependencies would be something I would recommend avoiding where possible. Instead, define it further up and just have them all access the same reference.</p>
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
-<p>This is something that&#39;s been made fairly easy to accomplish with modern JavaScript frameworks (eg. see jQuery&#39;s <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you&#39;re looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
+<p>This is something that&#39;s been made fairly easy to accomplish with modern JavaScript frameworks (e.g. see jQuery&#39;s <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you&#39;re looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
 <pre  class="brush: js">// extend.js
 // written by andrew dupont, optimized by addy osmani
 function extend(destination, source) {
@@ -3058,7 +3058,7 @@ myNS.hello.world.test2 = &#39;this is another test&#39;;
 console.log(&#39;test 2&#39;, myNS);
 
 // 3. what if myNS already contains the namespace being added 
-// (eg. &#39;library&#39;)? we want to ensure no namespaces are being 
+// (e.g. &#39;library&#39;)? we want to ensure no namespaces are being 
 // overwritten during extension
 
 myNS.library = {
@@ -3352,8 +3352,8 @@ console.log(namespace.foobar2);
 <p>namespace.sayGoodbye(); //goodbye</p>
 <p>That&#39;s it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben&#39;s <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor&#39;s post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
 <h3>5. Namespace injection</h3>
-<p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (eg. getters and setters).</p>
-<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (eg. deep object extension / merging) which I cover earlier in the article..</p>
+<p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
+<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the article..</p>
 <p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
 <pre  class="brush: js">var myApp = myApp || {};
 myApp.utils =  {};
@@ -4124,7 +4124,7 @@ myPlugin.method1();
 <p>&nbsp;</p>
 <h2 id="lazyinitialisationjquery"><strong>Lazy Initialization</strong></h2>
 <p><br>
-  <strong>Lazy Initialization </strong>is a design pattern wish allows us to delay expensive processes (eg. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.<br>
+  <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes (e.g. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.<br>
   <br>
 <pre  class="brush: js">
 
@@ -4144,7 +4144,7 @@ $(document).ready(function(){
 
 </pre>
 </p>
-<p>Whilst it isn't directly used in jQuery core, some developers will be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>. LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
+<p>Whilst it isn't directly used in jQuery core, some developers will be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>. LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g. when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
 <p>&nbsp;</p>
 <h2 id="compositepatternjquery"><strong>The Composite Pattern</strong></h2>
 <p><br>
@@ -4164,7 +4164,7 @@ $('input').addClass('active');
 <br>
 <h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
 <p><br>
-  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into a an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
+  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.<br>
 </p>
 <p>One example of a wrapper you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
 
@@ -4226,7 +4226,7 @@ $.ajax({
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery"><strong>The Observer Pattern</strong> </h2>
 <p><br>
-  Another pattern we've look at previously is the Observer (Publish/Subscribe) pattern, where a subject (the publisher), keeps a list of its dependants (subscribers), and notifies them automatically anytime something interesting happens.
+  Another pattern we've look at previously is the Observer (Publish/Subscribe) pattern, where a subject (the publisher), keeps a list of its dependents (subscribers), and notifies them automatically anytime something interesting happens.
 </p>
 <p>
 jQuery actually comes with built-in support for a publish/subscribe-like system, which it calls custom events. In earlier versions of the library, access to these custom events was possible using <code>.bind()</code> (subscribe), <code>.trigger()</code> (publish) and <code>.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>.on()</code>, <code>.trigger()</code> and <code>.off()</code>.</p>
@@ -4248,7 +4248,7 @@ $(document).trigger('topicName');
 $(document).off('topicName');
   </pre>
 </p>
-<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code> and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code>, and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
 (function($) {
@@ -4270,7 +4270,7 @@ $(document).off('topicName');
 }(jQuery));
 </pre>
 
-<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution it's possible to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
+<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
 <pre  class="brush: js">
 var topics = {};
 
@@ -4334,7 +4334,7 @@ $('li').each(function(index) {
 <p>&nbsp;</p>
 <h2 id="strategypatternjquery"><strong>The Strategy Pattern</strong></h2>
 <p><br>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks.The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
+  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.<br>
   <br>
 <pre  class="brush: js">
 $('button').toggle(function(){
@@ -4348,7 +4348,7 @@ function(){
 <p>&nbsp;</p>
 <h2 id="proxypatternjquery"><strong>The Proxy Pattern</strong></h2>
 <p><br>
-  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
+  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate, etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.<br>
 </p>
 <p>
 One example of where this is useful is when you're making use of a timer inside a <code>click</code> handler. Say we have the following handler:
@@ -4671,7 +4671,7 @@ define(['lib/Deferred'], function( Deferred ){
 
     <li>Module definitions are encapsulated, helping us to avoid pollution of the global namespace.</li>
 
-    <li>Works better than some alternative solutions (eg. CommonJS, which we'll be looking at shortly). Doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
+    <li>Works better than some alternative solutions (e.g. CommonJS, which we'll be looking at shortly). Doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
 
     <li>Provides a 'transport' approach for including multiple modules in a single file. Other approaches like CommonJS have yet to agree on a transport format.</li>
 
@@ -5622,7 +5622,7 @@ $('#elem').defaultPluginName({
             someValue: null
         },
 
-        //Setup widget (eg. element creation, apply theming
+        //Setup widget (e.g. element creation, apply theming
         // , bind events etc.)
         _create: function () {
 
@@ -5652,7 +5652,7 @@ $('#elem').defaultPluginName({
             // can subscribe to
             // signature: _trigger( "callbackName" , [eventObject], 
             // [uiObject] )
-            // eg. this._trigger( "hover", e /*where e.type == 
+            // e.g. this._trigger( "hover", e /*where e.type == 
             // "mouseenter"*/, { hovered: $(e.target)});
             this._trigger('methodA', event, {
                 key: value
@@ -6170,7 +6170,7 @@ instance.foo("_privateFunction"); // => #elem element
             // subscribe to
             //signature: _trigger( "callbackName" , [eventObject],
             //  [uiObject] )
-            // eg. this._trigger( "hover", e /*where e.type == 
+            // e.g. this._trigger( "hover", e /*where e.type == 
             // "mouseenter"*/, { hovered: $(e.target)});
             this._trigger('methodA', event, {
                 key: value
@@ -6437,7 +6437,7 @@ function (req, $) {
     // that are available in case the user doesn't pass in all 
     // of the values expected. The user is given a default
     // experience but can also override the values as necessary.
-    // eg. $fn.pluginName.key ='otherval';
+    // e.g. $fn.pluginName.key ='otherval';
 
     $.fn.pluginName.options = {
 
@@ -6554,7 +6554,7 @@ $('.items').draggable();
     },
 
     sampleMethod: function() {
-      // eg. show the currently configured message
+      // e.g. show the currently configured message
       // console.log(this.config.message);
     }
   }
