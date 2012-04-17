@@ -98,13 +98,13 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
              <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
             <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
             <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
-            <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
             <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
             <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
             <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
-          <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
-             <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
+            <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
+            <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
+            <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
         </ul>
       </li>
          <li><a href="#detailmvcmvp">MV* Patterns</a>
@@ -2059,79 +2059,7 @@ CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434
 CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'});
 </pre></p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<h2 id="drypatternjavascript">The DRY Pattern </h2>
-<p><strong>Disclaimer: </strong>DRY is essentially a way of thinking and many patterns aim to achieve a level of DRY-ness with their design. In this section we'll be covering what it means for code to be DRY but also covering the DRY design pattern based on these same concepts.</p>
-<p>A challenge that developers writing large applications frequently have is writing similar code multiple times. Sometimes this occurs because your script or application may have multiple similar ways of performing something. Repetitive code writing generally reduces productivity and leaves you open to having to re-write code you&rsquo;ve already written similar times before, thus leaving you with less time to add in new functionality.</p>
-<p>DRY (don&rsquo;t repeat yourself) was created to simplify this - it&rsquo;s based on the idea that each part of your code should ideally only have one representation of each piece of knowledge in it that applies to your system. The key concept to take away here is that if you have code that performs a specific task, you shouldn&rsquo;t write that code multiple times through your applications or scripts.</p>
-<p>When DRY is applied successfully, the modification of any element in the system doesn&rsquo;t change other logically-unrelated elements. Elements in your code that are logically related change uniformly and are thus kept in sync. </p>
-<p>As other patterns covered display aspects of DRY-ness with JavaScript, let's take a look at how to write DRY code using jQuery. Note that where jQuery is used, you can easily substitute selections using vanilla JavaScript because jQuery is just JavaScript at an abstracted level.</p>
-<p><strong>Non-DRY</strong></p>
-<p>
-<pre  class="brush: js">
 
-
-// Let's store some defaults about a car for reference
-var defaultSettings = {
-    carModel: 'Mercedes',
-    carYear:  '2010',
-    carMiles: '5000',
-    carTint:  'Metallic Blue';
-};
-
-// Let's do something with this data if a checkbox is clicked
-$('.someCheckbox').click(function(){  
-      
- if ( this.checked ){ 
-               
-    $('#input_carModel').val(activeSettings.carModel);
-    $('#input_carYear').val(activeSettings.carYear);
-    $('#input_carMiles').val(activeSettings.carMiles);
-    $('#input_carTint').val(activeSettings.carTint);
-
- } else { 
-               
-    $('#input_carModel').val('');     
-    $('#input_carYear').val(''); 
-    $('#input_carMiles').val('');
-    $('#input_carTint').val('');
- }
-});
-
-
-</pre>
-
-</p>
-<p><strong>&nbsp;</strong></p>
-<p><strong>DRY</strong></p>
-<p>
-<pre  class="brush: js">
-
-
-$('.someCheckbox').click(function(){        
-    var checked = this.checked,
-    fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
-    /*
-        What are we repeating?
-        1. input_ precedes each field name
-        2. accessing the same array for settings
-        3. repeating value resets
- 
-        What can we do?
-        1. programmatically generate the field names
-        2. access array by key 
-        3. merge this call using terse coding (ie. if checked, 
-            set a value, otherwise don't)
-  */  
-  $.each(fields, function(i,key){
-    $('#input_' + key).val(checked ? defaultSettings[key] : '');
-  });
-});
-
-
-
-</pre>
-</p>
 <p>&nbsp;</p>
 <h2 id="facadepatternjavascript">The Facade Pattern</h2>
 
@@ -3657,9 +3585,82 @@ Note that although we may believe that simply caching our jQuery code may offer 
 
 <p>&nbsp;</p>
 
+<p>&nbsp;</p>
+<h2 id="drypatternjavascript">The DRY Pattern </h2>
+<p><strong>Disclaimer: </strong>DRY is essentially a way of thinking and many patterns aim to achieve a level of DRY-ness with their design. In this section we'll be covering what it means for code to be DRY but also covering the DRY design pattern based on these same concepts.</p>
+<p>A challenge that developers writing large applications frequently have is writing similar code multiple times. Sometimes this occurs because your script or application may have multiple similar ways of performing something. Repetitive code writing generally reduces productivity and leaves you open to having to re-write code you&rsquo;ve already written similar times before, thus leaving you with less time to add in new functionality.</p>
+<p>DRY (don&rsquo;t repeat yourself) was created to simplify this - it&rsquo;s based on the idea that each part of your code should ideally only have one representation of each piece of knowledge in it that applies to your system. The key concept to take away here is that if you have code that performs a specific task, you shouldn&rsquo;t write that code multiple times through your applications or scripts.</p>
+<p>When DRY is applied successfully, the modification of any element in the system doesn&rsquo;t change other logically-unrelated elements. Elements in your code that are logically related change uniformly and are thus kept in sync. </p>
+<p>As other patterns covered display aspects of DRY-ness with JavaScript, let's take a look at how to write DRY code using jQuery. Note that where jQuery is used, you can easily substitute selections using vanilla JavaScript because jQuery is just JavaScript at an abstracted level.</p>
+<p><strong>Non-DRY</strong></p>
+<p>
+<pre  class="brush: js">
 
 
-<h1 id="detailnamespacing">Namespacing Patterns</h1>
+// Let's store some defaults about a car for reference
+var defaultSettings = {
+    carModel: 'Mercedes',
+    carYear:  '2010',
+    carMiles: '5000',
+    carTint:  'Metallic Blue';
+};
+
+// Let's do something with this data if a checkbox is clicked
+$('.someCheckbox').click(function(){  
+      
+ if ( this.checked ){ 
+               
+    $('#input_carModel').val(activeSettings.carModel);
+    $('#input_carYear').val(activeSettings.carYear);
+    $('#input_carMiles').val(activeSettings.carMiles);
+    $('#input_carTint').val(activeSettings.carTint);
+
+ } else { 
+               
+    $('#input_carModel').val('');     
+    $('#input_carYear').val(''); 
+    $('#input_carMiles').val('');
+    $('#input_carTint').val('');
+ }
+});
+
+
+</pre>
+
+</p>
+<p><strong>DRY</strong></p>
+<p>
+<pre  class="brush: js">
+
+
+$('.someCheckbox').click(function(){        
+    var checked = this.checked,
+    fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
+    /*
+        What are we repeating?
+        1. input_ precedes each field name
+        2. accessing the same array for settings
+        3. repeating value resets
+ 
+        What can we do?
+        1. programmatically generate the field names
+        2. access array by key 
+        3. merge this call using terse coding (ie. if checked, 
+            set a value, otherwise don't)
+  */  
+  $.each(fields, function(i,key){
+    $('#input_' + key).val(checked ? defaultSettings[key] : '');
+  });
+});
+
+
+
+</pre>
+</p>
+
+<p><strong>&nbsp;</strong></p>
+
+<h2 id="detailnamespacing">Namespacing Patterns</h2>
 
 <p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however if you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
 
