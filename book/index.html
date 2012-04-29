@@ -608,7 +608,7 @@ Object.defineProperties(newObject, {
     writable: false  
   }  
 });
- 
+
 </pre></p>
 
 <p>As we will see a little later in the book, these methods can even be used for inheritance, as follows:</p>
@@ -626,7 +626,6 @@ driver.topSpeed // 100mph
 <p> Constructors are used to create specific types of objects - they both prepare the object for use and can also accept parameters which the constructor uses to set the values of member variables when the object is first created. The idea that a constructor is a paradigm can be found in the majority of programming languages, including JavaScript.  You&rsquo;re also able to define custom constructors that define properties and methods for your own types of objects. <br></p>
 
 <h3>Basic Constructors</h3>
-
 
 <p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword 'new', you can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.Inside a constructor, the keyword 'this' references the new object that's being created. Again, a very basic constructor may be:</p>
 
@@ -1245,6 +1244,7 @@ var myLibrary = library(function() {
 
 <p>The result of his efforts were an updated pattern where you would simply define all of your functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions you wished to reveal as public.</p>
 
+<p><strong>Advantages</strong></p>
 <p>Once again, you&rsquo;re probably wondering what the benefits of this approach are. The Revealing Module Pattern allows the syntax of your script to be fairly consistent - it also makes it very clear at the end which of your functions and variables may be accessed publicly, something that is quite useful. In addition, you are also able to reveal private functions with more specific names if you wish.</p>
 <p>An example of how to use the revealing module pattern can be found below:</p>
 <p>
@@ -1274,6 +1274,9 @@ myRevealingModule.get();
 
 
 </pre></p>
+<p><strong>Disadvantages</strong></p>
+<p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
+<p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
 <p>&nbsp;</p>
 
 
