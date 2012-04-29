@@ -1472,13 +1472,13 @@ var pubsub = {};
 <p>
 <pre  class="brush: js">
 
-var testSubscriber = function( topics , data ){
+var testHandler= function( topics , data ){
     console.log( topics + ": " + data );
 };
 
 // Subscribers basically "subscribe" (or listen)
 // And once they've been "notified" their callback functions are invoked
-var testSubscription = pubsub.subscribe( 'example1', testSubscriber );
+var testSubscription = pubsub.subscribe( 'example1', testHandler );
 
 
 // Publishers are in charge of "publishing" notifications about events
@@ -3710,10 +3710,6 @@ function extend( ns, ns_string ) {
     var parts = ns_string.split(&#39;.&#39;),
         parent = ns,
         pl, i;
-
-    if (parts[0] == &quot;myApp&quot;) {
-        parts = parts.slice(1);
-    }
 
     pl = parts.length;
     for (i = 0; i &lt; pl; i++) {
