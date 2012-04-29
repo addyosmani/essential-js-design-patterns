@@ -3699,19 +3699,20 @@ Note that although we may believe that simply caching our jQuery code may offer 
 <p>In this section, I&#39;ll be exploring some advanced patterns and utility techniques that have helped me when working on larger projects requiring a re-think of how application namespacing is approached. I should state that I&#39;m not advocating any of these as <strong>the</strong> way to do things, but rather just ways that I&#39;ve found work in practice.</p>
 <h3>Automating nested namespacing</h3>
 <p>As you&#39;re probably aware, a nested namespace provides an organized hierarchy of structures in an application and an example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. In JavaScript the equivalent of this definition using the object literal pattern would be:</p>
-<pre  class="brush: js">var application = {
-            utilities:{
-                    drawing:{
-                            canvas:{
-                                    2d:{
-                                            /*...*/
-                                    }
-                            }
-                    }
-            }        
+<pre  class="brush: js">
+var application = {
+      utilities:{
+          drawing:{
+              canvas:{
+                  2d:{
+                          /*...*/
+                  }
+              }
+          }
+    }        
 };
 </pre>
-<p>Wow, that&#39;s ugly.</p>
+<p>Wow, that could be done better.</p>
 <p>One of the obvious challenges with this pattern is that each additional depth you wish to create requires yet another object to be defined as a child of some parent in your top-level namespace. This can become particularly laborious when multiple depths are required as your application increases in complexity.</p>
 <p>How can this problem be better solved? In <a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752">JavaScript Patterns</a>, <a href="http://jspatterns.com">Stoyan Stefanov</a> presents a very-clever approach for automatically defining nested namespaces under an existing global variable using a convenience method that takes a single string argument for a nest, parses this and automatically populates your base namespace with the objects required.</p>
 <p>The method he suggests using is the following, which I&#39;ve updated it to be a generic function for easier re-use with multiple namespaces:</p>
