@@ -1171,35 +1171,35 @@ YUI
 </strong>
 </p>
 <p>
-Similarly, we can also implement the module pattern when building applications using YUI. The following example is heavily based on the original YUI module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
+Similarly, we can also implement the module pattern when building applications using YUI3. The following example is heavily based on the original YUI module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
 </p>
 <pre  class="brush: js">
-YAHOO.store.basket = function () {
+Y.namespace('store.basket') = (function () {
 
     //"private" variables:
-    var myPrivateVar = "I can be accessed only within YAHOO.store.basket .";
+    var myPrivateVar = "I can be accessed only within Y.store.basket .";
 
     //"private" method:
     var myPrivateMethod = function () {
-            YAHOO.log("I can be accessed only from within YAHOO.store.basket");
-        }
+        Y.log("I can be accessed only from within YAHOO.store.basket");
+    }
 
     return {
         myPublicProperty: "I'm a public property.",
         myPublicMethod: function () {
-            YAHOO.log("I'm a public method.");
+            Y.log("I'm a public method.");
 
             //Within basket, I can access "private" vars and methods:
-            YAHOO.log(myPrivateVar);
-            YAHOO.log(myPrivateMethod());
+            Y.log(myPrivateVar);
+            Y.log(myPrivateMethod());
 
             //The native scope of myPublicMethod is store so we can
             //access public members using "this":
-            YAHOO.log(this.myPublicProperty);
+            Y.log(this.myPublicProperty);
         }
     };
 
-}();
+})();
 </pre>
 <p>
 <strong>
