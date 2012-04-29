@@ -3790,6 +3790,7 @@ drawing.plot(98, 50,60);
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
 <p>This is something that&#39;s been made fairly easy to accomplish with modern JavaScript frameworks (e.g. see jQuery&#39;s <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you&#39;re looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
+
 <pre  class="brush: js">// extend.js
 // written by andrew dupont, optimized by addy osmani
 function extend(destination, source) {
@@ -3871,7 +3872,7 @@ console.log(&#39;test 4&#39;, myNS);
 console.groupEnd();
 
 </pre>
-<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only.</p>
+<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. You may find the Underscore.js <code>extend</code> method a simpler, more cross-browser implementation to start with http://documentcloud.github.com/underscore/docs/underscore.html#section-67. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: https://gist.github.com/1123784.</p>
 
 <p>If you do however happen to be using jQuery in your application, you can achieve the exact same object namespace extensibility with $.extend as follows:</p>
 <pre  class="brush: js">// top-level namespace
