@@ -3915,14 +3915,17 @@ console.log(&#39;test&#39;, myApp);
 
 </pre>
 <p>Although this works for certain situations, the biggest challenge with the single global variable pattern is ensuring that no one else has used the same global variable name as you have in the page.</p>
-<p>One solution to this problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It&#39;s a simple concept at heart, but the idea is you select a unique prefix namespace you wish to use (in this example, &quot;myApplication_&quot;) and then define any methods, variables or other objects after the prefix as follows:</p>
+
+<h3>2. Prefix namespacing </h3>
+
+<p>One solution to the above problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It&#39;s a simple concept at heart, but the idea is you select a unique prefix namespace you wish to use (in this example, &quot;myApplication_&quot;) and then define any methods, variables or other objects after the prefix as follows:</p>
 <pre  class="brush: js">var myApplication_propertyA = {};
 var myApplication_propertyB = {};
-funcion myApplication_myMethod(){ /*..*/ }
+function myApplication_myMethod(){ /*..*/ }
 </pre>
 <p>This is effective from the perspective of trying to lower the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect. This aside, the biggest issue with the pattern is that it can result in a large number of global objects once your application starts to grow. There is also quite a heavy reliance on your prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
 <p>For more on Peter&#39;s views about the single global variable pattern, read his excellent post on them <a href="http://michaux.ca/articles/javascript-namespacing">here</a>.</p>
-<h3>2. Object literal notation</h3>
+<h3>3. Object literal notation</h3>
 <p>Object literal notation can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values. It&#39;s syntax requires a comma to be used after each key:value pair with the exception of the last item in your object, similar to a normal array.</p>
 <pre  class="brush: js">var myApplication = {
     getInfo:function(){ /**/ },
@@ -4019,7 +4022,7 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 
 </pre>
 <p>Note that there are really only minor syntactical differences between the object literal pattern and a standard JSON data set. If for any reason you wish to use JSON for storing your configurations instead (e.g. for simpler storage when sending to the back-end), feel free to. For more on the object literal pattern, I recommend reading Rebecca Murphey&#39;s excellent <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">article</a> on the topic.</p>
-<h3>3. Nested namespacing</h3>
+<h3>4. Nested namespacing</h3>
 <p>An extension of the object literal pattern is nested namespacing. It&#39;s another common pattern used that offers a lower risk of collision due to the fact that even if a namespace already exists, it&#39;s unlikely the same nested children do.</p>
 <p>Does this look familiar?</p>
 <pre  class="brush: js">YAHOO.util.Dom.getElementsByClassName(&#39;test&#39;);
@@ -4048,7 +4051,7 @@ myApp[&quot;controllers&quot;] = myApp[&quot;controllers&quot;] || {};
 </pre>
 <p>Both options are readable, organized and offer a relatively safe way of namespacing your application in a similar fashion to what you may be used to in other languages. The only real caveat however is that it requires your browser&#39;s JavaScript engine first locating the myApp object and then digging down until it gets to the function you actually wish to use.</p>
 <p>This can mean an increased amount of work to perform lookups, however developers such as <a href="http://twitter.com/kangax">Juriy Zaytsev</a> have previously tested and found the performance differences between single object namespacing vs the &#39;nested&#39; approach to be quite negligible.</p>
-<h3>4. Immediately-invoked Function Expressions (IIFE)s</h3>
+<h3>5. Immediately-invoked Function Expressions (IIFE)s</h3>
 <p>An <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> is effectively an unnamed function which is immediately invoked after it&#39;s been defined. In JavaScript, because both variables and functions explicitly defined within such a context may only be accessed inside of it, function invocation provides an easy means to achieving privacy.</p>
 <p>This is one of the many reasons why IIFEs are a popular approach to encapsulating application logic to protect it from the global namespace. You&#39;ve probably come across this pattern before under the name of a self-executing (or self-invoked) anonymous function, however I personally prefer Ben Alman&#39;s naming convention for this particular pattern as I believe it to be both more descriptive and more accurate.</p>
 <p>The simplest version of an IIFE could be the following:</p>
@@ -4127,7 +4130,7 @@ console.log(namespace.foobar2);
 </pre>
 <p>namespace.sayGoodbye(); //goodbye</p>
 <p>That&#39;s it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben&#39;s <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor&#39;s post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
-<h3>5. Namespace injection</h3>
+<h3>6. Namespace injection</h3>
 <p>Namespace injection is another variation on the IIFE where we &#39;inject&#39; the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
 <p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the section.</p>
 <p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
