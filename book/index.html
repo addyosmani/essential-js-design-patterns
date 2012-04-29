@@ -2358,6 +2358,8 @@ vehicle.driveBackward();
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+<p>It's worth noting that handling mixins that have constructor code is possible, but can be more complicated. Although the mixed in class prototype members are mirrored on the receiving class prototype, instances of the receiving class do not pass instanceof for the mixin class; JS does not support multiple inheritance.</p>
+
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
 
 
