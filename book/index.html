@@ -2255,11 +2255,10 @@ var Car = (function() {
 var civic = Car( "Honda Civic", 2009, 20000 );
 var mondeo = Car("Ford Mondeo", 2010, 5000 );
 
-/*
-These are also valid:
-var civic = new Car( "Honda Civic", 2009, 20000 );
-var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
-*/
+// These are also valid:
+// var civic = new Car( "Honda Civic", 2009, 20000 );
+// var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
+
 
 </pre>
     <p>&nbsp;</p>
@@ -2271,6 +2270,7 @@ var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
   <li>When your object's setup requires a high level of complexity</li>
   <li>When you need to generate different instances depending on the environment</li>
   <li>When you're working with many small objects that share the same properties</li>
+  <li>When composing classes with instances of other classes that need only satisfy an API contract (aka, duck typing) to work.  This is useful for decoupling.</li>
 </ul>
 </p>
 <p>&nbsp;</p>
