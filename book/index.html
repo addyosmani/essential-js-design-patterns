@@ -1996,8 +1996,7 @@ var someCar = {
 
 // Use Object.create to generate a new car
 var anotherCar = Object.create( someCar );
-anotherCar.name = 'Toyota Camry';
-
+console.log(anotherCar.name); // Now you'll hopefully see that one is a prototype of the other
 </pre></p>
 <p>
 <code>Object.create</code> allows you to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. With <code>Object.create</code> you're also able to initialise object properties using the second supplied argument. For example:
