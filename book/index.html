@@ -1889,10 +1889,10 @@ var mediator = (function(){
         if (!mediator.channels[channel]) mediator.channels[channel] = [];
         mediator.channels[channel].push({ context: this, callback: fn });
         return this;
-    },
+    };
 
     // Publish/broadcast an event to the rest of the application
-    publish = function(channel){
+    var publish = function(channel){
         if (!mediator.channels[channel]) return false;
         var args = Array.prototype.slice.call(arguments, 1);
         for (var i = 0, l = mediator.channels[channel].length; i < l; i++) {
