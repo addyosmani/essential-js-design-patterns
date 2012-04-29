@@ -2265,9 +2265,8 @@ var bigfoot = truckFactory.getVehicle({ monster: true, cylinders: 12 });
 console.log(bigfoot instanceof Truck); // => true
 
 </pre>
-    <p>&nbsp;</p>
 
-<h3>When To Use This Pattern</h3>
+<h3>When To Use The Factory Pattern</h3>
 
 <p>The Factory pattern can be especially useful when applied to the following situations:
 <ul>
@@ -2278,10 +2277,51 @@ console.log(bigfoot instanceof Truck); // => true
 </ul>
 </p>
 <p>&nbsp;</p>
-<h3>When Not To Use This Pattern</h3>
+<h3>When Not To Use The Factory Pattern</h3>
 
 <p>It's generally a good practice to not use the factory pattern in every situation as it can easily add an unnecessarily additional aspect of complexity to your code. It can also make some tests more difficult to run.
 </p>
+
+<p>&nbsp;</p>
+<p>It is also useful to be aware of the <strong>Abstract Factory</strong> pattern, which aims to encapsulate a group of individual factories with a common goal. It separates the details of implementation of a set of objects from their general usage.</p>
+
+<p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The abstract factory will allow the definition of types of vehicle like 'car' or 'truck' and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
+
+<pre class="brush: js">
+  var AbstractVehicleFactory = (function () {
+    var types = {};
+
+    return {
+        getVehicle: function (type, customizations) {
+            var Vehicle = types[type];
+
+            return (Vehicle) ? return new Vehicle(customizations) : null;
+        },
+
+        registerVehicle: function (type, Vehicle) {
+            var proto = Vehicle.prototype;
+
+            // only register classes that fulfill the vehicle contract
+            if (proto.drive && proto.breakDown) {
+                types[type] = Vehicle;
+            }
+
+            return AbstractVehicleFactory;
+        }
+    };
+})();
+
+
+//Usage 
+
+AbstractVehicleFactory.registerVehicle("car", Car);
+AbstractVehicleFactory.registerVehicle("truck", Truck);
+
+var car = AbstractVehicleFactory.getVehicle("car", { color: "yellow", turbo: true });
+var truck = AbstractVehicleFactory.getVehicle("truck", { monster: true, cylinders: 12 });
+</pre>
+
+
 <br />
 <br />
 <br />
