@@ -2051,7 +2051,22 @@ car.getModel();
 </pre>
 </p>
 
-<p><strong>Note:</strong> This alternative does not allow the user to define read-only oroperties in the same manner (as the vehiclePrototype may be altered if not careful).</p>
+<p><strong>Note:</strong> This alternative does not allow the user to define read-only properties in the same manner (as the vehiclePrototype may be altered if not careful).</p>
+
+<p>A final alternative implementation of the Prototype pattern is the following:</p>
+
+<pre  class="brush: js">
+var beget = (function () {
+    function F() {}
+
+    return function (proto) {
+        F.prototype = proto;
+        return new F();
+    };
+})();
+</pre>
+
+<p>One could reference this method from the <code>vehicle</code> function. Note, however that <code>vehicle</code> here is emulating a constructor, since the prototype pattern does not include any notion of initialization beyond linking an object to a prototype.</p>
 
 <p>&nbsp;</p>
 <h2 id="commandpatternjavascript">The Command Pattern</h2>
