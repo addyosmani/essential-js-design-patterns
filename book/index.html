@@ -1845,41 +1845,19 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 <h2 id="mediatorpatternjavascript">The Mediator Pattern</h2>
 
 <p>
-The dictionary refers to a Mediator as <i>a neutral party who assists in negotiations and conflict resolution</i>.
+The dictionary refers to a mediator as <i>a neutral party who assists in negotiations and conflict resolution</i>.
 </p>
 <p>
-In software engineering, a Mediator is a behavioral design pattern that allows us to expose a unified interface through which the different parts of a system may communicate. If it appears a system may have too many direct relationships between modules (colleagues), it may be time to have a central point of control that modules communicate through instead. The Mediator promotes loose coupling by ensuring that instead of modules referring to each other explicitly, their interaction is handled through this central point.
+In software engineering, a mediator is a behavioral design pattern that allows us to expose a unified interface through which the different parts of a system may communicate. If it appears a system may have too many direct relationships between modules (colleagues), it may be time to have a central point of control that modules communicate through instead. The Mediator promotes loose coupling by ensuring that instead of modules referring to each other explicitly, their interaction is handled through this central point.
 </p>
 <p>
-If you would prefer an analogy, consider a typical airport traffic control system. A tower (Mediator) handles what planes (modules) can take off and land because all communications are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a mediator plays in software design.
-</p>
-<p>
-In real-world terms, a mediator encapsulates how disparate modules interact with each other by acting as an intermediary. At its most basic, a mediator could be implemented as a central base for accessing functionality as follows:</p>
+If you would prefer a real-world analogy, consider a typical airport traffic control system. A tower (mediator) handles what planes can take off and land because all communications (notifications being listened out for or broadcast) are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a mediator plays in software design.</p>
 
-<pre class="brush: js">
-// Our app namespace can act as a mediator
-var app = app || {};
+<p>In implementation terms, the mediator pattern is essentially a shared subject in the observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact. It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
 
-// Communicate through the mediator for Ajax requests
-app.sendRequest = function ( options ) {
-    return $.ajax($.extend({}, options);
-}
+<p>Another analogy would be DOM event bubbling and event delegation. If all subscriptions in a system are made against the document rather than individual nodes, the document effectively serves as a mediator. Instead of binding to the events of the individual nodes, a higher level object is given the responsibility of notifying subscribers about interaction events.</p>
 
-// When a request for a URL resolves, do something with the view
-app.populateView = function( url, view ){
-  $.when(app.sendRequest({url: url, method: 'GET'})
-     .then(function(){
-         //populate the view
-     });
-}
-
-// Empty a view of any content it may contain
-app.resetView = function( view ){
-   view.html('');
-}
-</pre>
-
-<p>That said, in the JavaScript world it's become quite common for the Mediator to act as a messaging bus on top of the Observer-pattern. Rather than modules calling a Publish/Subscribe implementation, they'll use a Mediator with these capabilities built in instead. A possible implementation of this (based on work by Ryan Florence) could look as follows:</p>
+<p>A possible implementation of the mediator pattern can be found below:</p>
 
 <pre class="brush: js">
 var mediator = (function(){
@@ -1921,22 +1899,22 @@ var mediator = (function(){
 (function( m ){
 
       // Set a default value for 'person'
-      var person = "tim";
+      var person = "Luke";
 
-      // Subscribe to an event called 'nameChange' with
+      // Subscribe to a topic/event called 'nameChange' with
       // a callback function which will log the original
-      // person's name and (if everything works) the new 
+      // person's name and (if everything works) the incoming 
       // name
 
       m.subscribe('nameChange', function( arg ){
-          console.log( person ); // tim
+          console.log( person ); // Luke
           person = arg;
-          console.log( person ); // david
+          console.log( person ); // David
      });
 
     
-      // Publish/Broadcast the 'nameChange' event with the new data
-      m.publish( 'nameChange', 'david' ); 
+      // Publish the 'nameChange' topic/event with the new data
+      m.publish( 'nameChange', 'David' ); 
     
 
 })( mediator );
@@ -1945,7 +1923,7 @@ var mediator = (function(){
 
 <h3>Advantages &amp; Disadvantages</h3>
 
-<p>The benefits of the Mediator pattern are that it simplifies object interaction and can aid with decoupling those using it as a communication hub. In the above example, rather than using the Observer pattern to explicitly set many-to-many listeners and events, a Mediator allows you to broadcast events globally between subscribers and publishers. Broadcasted events can be handled by any number of modules at once and a mediator can used for a number of other purposes such as permissions management, given that it can control what messages can be subscribed to and which can be broadcast.</p>
+<p>The benefits of the Mediator pattern include that broadcasted events can be handled by any number of modules at once. It also can be used for a number of other purposes such as permissions management, given a Mediator can control what messages in a system can be subscribed to and which can be broadcast.</p>
 
 <p>
 Perhaps the biggest downside of using the Mediator pattern is that it can introduce a single point of failure. Placing a Mediator between modules can also cause a performance hit as they are always communicating indirectly.Because of the nature of loose coupling, it's difficult to establish how a system might react by only looking at the broadcasts. That said, it's useful to remind ourselves that decoupled systems have a number of other benefits - if our modules communicated with each other directly, changes to modules (e.g another module throwing an exception) could easily have a domino effect on the rest of your application. This problem is less of a concern with decoupled systems.</p>
