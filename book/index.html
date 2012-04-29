@@ -1861,27 +1861,30 @@ If you would prefer a real-world analogy, consider a typical airport traffic con
 
 <pre class="brush: js">
 var mediator = (function(){
+    
+    // Storage for our topics/events
+    var channels = {};
+    
     // Subscribe to an event, supply a callback to be executed 
     // when that event is broadcast
     var subscribe = function(channel, fn){
-        if (!mediator.channels[channel]) mediator.channels[channel] = [];
-        mediator.channels[channel].push({ context: this, callback: fn });
+        if (!channels[channel]) channels[channel] = [];
+        channels[channel].push({ context: this, callback: fn });
         return this;
     };
 
     // Publish/broadcast an event to the rest of the application
     var publish = function(channel){
-        if (!mediator.channels[channel]) return false;
+        if (!channels[channel]) return false;
         var args = Array.prototype.slice.call(arguments, 1);
-        for (var i = 0, l = mediator.channels[channel].length; i < l; i++) {
-            var subscription = mediator.channels[channel][i];
+        for (var i = 0, l = channels[channel].length; i < l; i++) {
+            var subscription = channels[channel][i];
             subscription.callback.apply(subscription.context, args);
         }
         return this;
     };
 
     return {
-        channels: {},
         publish: publish,
         subscribe: subscribe,
         installTo: function(obj){
