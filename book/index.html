@@ -331,16 +331,16 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h2>
   Creational Design Patterns</h2>
 <p>
-  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation you are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst creational patterns aim to solve this problem by <em>controlling</em>the creation of such objects.</p>
-  <p>Some of the patterns that fall under this category are: Factory, Abstract, Prototype, Singleton and Builder.</p>
+  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation you are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em>the creation process.</p>
+  <p>Some of the patterns that fall under this category are: Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
 
 <h2>Structural Design Patterns</h2>
-<p>Structural patterns focus on the composition of classes and objects. Structural &lsquo;class&rsquo; creation patterns use inheritance to compose interfaces whilst &lsquo;object&rsquo; patterns define methods to create objects to obtain new functionality.</p>
-  <p>Patterns that fall under this category include: Decorator, Facade, Composite, Adapter and Bridge</p>
+<p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn't need to do the same. They also assist in recasting parts of the system which don't fit a particular purpose into those that do. </p>
+  <p>Patterns that fall under this category include: Decorator, Facade, Flyweight, Adapter and Proxy.</p>
 
 <h2>Behavioral Design Patterns
 </h2>
-<p>The main focus behind this category of patterns is the communication between a class&rsquo;s objects. By specifically targeting this problem, these patterns are able to increase the flexibility in carrying out this communication.</p>
+<p>Behavioral patterns focus on improving or streamlining the communication between disparate objects in a system.</p>
 <p>Some behavioral patterns include: Iterator, Mediator, Observer and Visitor.</p>
 <p>&nbsp;</p>
 <h1 id="summarytabledesignpatterns">Design Pattern Categorization</h1>
@@ -3949,13 +3949,12 @@ function myApplication_myMethod(){ /*..*/ }
 <p>This is effective from the perspective of trying to lower the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect. This aside, the biggest issue with the pattern is that it can result in a large number of global objects once your application starts to grow. There is also quite a heavy reliance on your prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
 <p>For more on Peter&#39;s views about the single global variable pattern, read his excellent post on them <a href="http://michaux.ca/articles/javascript-namespacing">here</a>.</p>
 <h3>3. Object literal notation</h3>
-<p>Object literal notation can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values. It&#39;s syntax requires a comma to be used after each key:value pair with the exception of the last item in your object, similar to a normal array.</p>
+<p>Object literal notation (which we also cover in the module pattern section of the book) can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values where keys can also represent new namespaces.</p>
 <pre  class="brush: js">var myApplication = {
     getInfo:function(){ /**/ },
 
-    // we can also populate our object literal to support 
-    // further object literal namespaces containing anything 
-    // really:
+    // we can also populate object literal to support 
+    // further object namespaces containing anything really:
     models : {},
     views : {
         pages : {}
