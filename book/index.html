@@ -199,7 +199,7 @@ Use a modern native browser feature such as <code>querySelectorAll()</code> to s
 </p>
 
 <p>
-So, which of these is the fastest?. You might be interested to know that it's actually number 3 by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
+So, which of these is the fastest?. You might be interested to know that it's actually number 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
 <p>
 Developers using jQuery don't have to worry about this problem, as it's luckily abstracted away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
 
@@ -2095,7 +2095,7 @@ $(function(){
 
 <p>Now taking a look at the above code, we could easily execute our manager commands by directly invoking the methods, however in some situations we don't expect to invoke the inner methods inside the object directly.</p>
 
-<p>The reason for this is that we don't want to increase the dependencies amongst objects i.e if the core login behind the CarManager changes, all our methods that carry out the processing with the manager have to be modified in the mean time. This would effectively go against the OOP methodology of loosely coupling objects as much as possible which we want to avoid.</p>
+<p>The reason for this is that we don't want to increase the dependencies amongst objects i.e if the core logic behind the CarManager changes, all our methods that carry out the processing with the manager have to be modified in the mean time. This would effectively go against the OOP methodology of loosely coupling objects as much as possible which we want to avoid.</p>
 
 <p>Let's now expand on our CarManager so that our application of the command pattern results in the following: accept any process requests from the CarManager object where the contents of the request include the model and car ID.</p>
 
@@ -3734,9 +3734,9 @@ $('.someCheckbox').click(function(){        
 
 <p><strong>&nbsp;</strong></p>
 
-<h2 id="detailnamespacing">Namespacing Patterns</h2>
+<h2 id="detailnamespacing">Namespacing Patterns/Conventions</h2>
 
-<p>In this section, I&#39;ll be discussing both intermediate and advanced patterns for namespacing in JavaScript. We&#39;re going to begin with the latter, however if you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
+<p>In this section, I&#39;ll be discussing both intermediate and advanced conventions for namespacing in JavaScript. We&#39;re going to begin with the latter, however if you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
 
 <h2>What is namespacing?</h2>
 <p>In many programming languages, namespacing is a technique employed to avoid <b>collisions</b> with other objects or variables in the global namespace. They&#39;re also extremely useful for helping organize blocks of functionality in your application into easily manageable groups that can be uniquely identified.</p>
@@ -4355,11 +4355,11 @@ $('.item').addClass('active');
 $('input').addClass('active'); 
   </pre>
 <p>&nbsp;</p>
-<h2 id="wrapperpatternjquery"><strong>The Wrapper Pattern</strong></h2>
+<h2 id="wrapperpatternjquery"><strong>The Adapter Pattern</strong></h2>
 <p>
-  <strong>The Wrapper Pattern</strong> is a pattern which translates an <em>interface </em>for a class into an interface compatible with a specific system. Wrappers basically allow classes to function together which normally couldn't due to their incompatible interfaces. The wrapper translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
+  <strong>The Adapter Pattern</strong> is a pattern which translates an <em>interface </em>for a class into an interface compatible with a specific system. Adapters basically allow classes to function together which normally couldn't due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
 </p>
-<p>One example of a wrapper you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
+<p>One example of a adapter you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
 
 
 <pre  class="brush: js">
