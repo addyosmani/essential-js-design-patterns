@@ -103,7 +103,6 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
             <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
             <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
-            <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
             <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
         </ul>
       </li>
@@ -526,7 +525,6 @@ console.log(myCar.getInfo());
      <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
     <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
     <li class="subitem"><a href="#commandpatternjavascript">Command Pattern</a></li>
-    <li class="subitem"><a href="#drypatternjavascript">DRY Pattern</a></li>
     <li class="subitem"><a href="#facadepatternjavascript">Facade Pattern</a></li>
     <li class="subitem"><a href="#factorypatternjavascript">Factory Pattern</a></li>
     <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
@@ -1977,7 +1975,7 @@ The Mediator centralizes communication between modules where it's explicitly ref
 
 <p>One of the benefits of using the prototype pattern is that we're working with the strengths JavaScript has to offer natively rather than attempting to imitate features of other languages. With other design patterns, this isn't always the case. Not only is the pattern an easy way to implement inheritance, but it can also come with a performance boost as well: when defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
 
-<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> which has only become broadly native at the time of writing. <code>Object.create</code> creates an object which has a specified prototype and which optionally contains specified properties (i.e <code>Object.create(prototype, optionalDescriptorObjects)</code>). We can also see this being demonstrated in the example below:</p>
+<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> (which we've previously looked at briefly). <code>Object.create</code> creates an object which has a specified prototype and which optionally contains specified properties (i.e <code>Object.create(prototype, optionalDescriptorObjects)</code>). We can also see this being demonstrated in the example below:</p>
 
 <pre  class="brush: js">
 
@@ -1993,7 +1991,7 @@ anotherCar.name = 'Toyota Camry';
 
 </pre></p>
 <p>
-Object.create allows you to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. With Object.create you're also able to initialise object properties using the second supplied argument. For example:
+<code>Object.create</code> allows you to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. With <code>Object.create</code> you're also able to initialise object properties using the second supplied argument. For example:
 </p>
 <p>
 <pre  class="brush: js">
@@ -2018,9 +2016,10 @@ var car = Object.create( vehicle, {
 </pre>
 </p>
 <p>
-Here the properties can be initialized on the second argument of Object.create using an object literal using the syntax similar to that used by the Object.defineProperties and Object.defineProperty methods. It allows you to set the property attributes such as enumerable, writable or configurable.</p>
+Here the properties can be initialized on the second argument of Object.create using an object literal using the syntax similar to that used by the <code>Object.defineProperties</code> and <code>Object.defineProperty</code> methods. It allows you to set the property attributes such as enumerable, writable or configurable.</p>
+<p>It is worth noting that prototypal relationships can cause trouble when enumerating properties of objects and (as Crockford recommends) wrapping the contents of the loop in a <code>hasOwnProperty()</code> check.</p>
 
-<p>If you wish to implement the prototype pattern without directly using Object.create, you can simulate the pattern as per the above example as follows:</p>
+<p>If you wish to implement the prototype pattern without directly using <code>Object.create</code>, you can simulate the pattern as per the above example as follows:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -2093,7 +2092,7 @@ $(function(){
 })();
 </pre></p>
 
-<p>Now taking a look at the above code, we could easily execute our manager commands by directly invoking the methods, however in some situations we don't expect to invoke the inner methods inside the object directly.</p>
+<p>Now taking a look at the above code, we could easily execute our manager commands by directly invoking the methods, however in some situations we don't expect to invoke the methods from the manager object directly.</p>
 
 <p>The reason for this is that we don't want to increase the dependencies amongst objects i.e if the core logic behind the CarManager changes, all our methods that carry out the processing with the manager have to be modified in the mean time. This would effectively go against the OOP methodology of loosely coupling objects as much as possible which we want to avoid.</p>
 
@@ -3659,78 +3658,6 @@ Note that although we may believe that simply caching our jQuery code may offer 
 
 <p>&nbsp;</p>
 
-<p>&nbsp;</p>
-<h2 id="drypatternjavascript">The DRY Pattern </h2>
-<p><strong>Disclaimer: </strong>DRY is essentially a way of thinking and many patterns aim to achieve a level of DRY-ness with their design. In this section we'll be covering what it means for code to be DRY but also covering the DRY design pattern based on these same concepts.</p>
-<p>A challenge that developers writing large applications frequently have is writing similar code multiple times. Sometimes this occurs because your script or application may have multiple similar ways of performing something. Repetitive code writing generally reduces productivity and leaves you open to having to re-write code you&rsquo;ve already written similar times before, thus leaving you with less time to add in new functionality.</p>
-<p>DRY (don&rsquo;t repeat yourself) was created to simplify this - it&rsquo;s based on the idea that each part of your code should ideally only have one representation of each piece of knowledge in it that applies to your system. The key concept to take away here is that if you have code that performs a specific task, you shouldn&rsquo;t write that code multiple times through your applications or scripts.</p>
-<p>When DRY is applied successfully, the modification of any element in the system doesn&rsquo;t change other logically-unrelated elements. Elements in your code that are logically related change uniformly and are thus kept in sync. </p>
-<p>As other patterns covered display aspects of DRY-ness with JavaScript, let's take a look at how to write DRY code using jQuery. Note that where jQuery is used, you can easily substitute selections using vanilla JavaScript because jQuery is just JavaScript at an abstracted level.</p>
-<p><strong>Non-DRY</strong></p>
-<p>
-<pre  class="brush: js">
-
-
-// Let's store some defaults about a car for reference
-var defaultSettings = {
-    carModel: 'Mercedes',
-    carYear:  '2010',
-    carMiles: '5000',
-    carTint:  'Metallic Blue';
-};
-
-// Let's do something with this data if a checkbox is clicked
-$('.someCheckbox').click(function(){  
-      
- if ( this.checked ){ 
-               
-    $('#input_carModel').val(activeSettings.carModel);
-    $('#input_carYear').val(activeSettings.carYear);
-    $('#input_carMiles').val(activeSettings.carMiles);
-    $('#input_carTint').val(activeSettings.carTint);
-
- } else { 
-               
-    $('#input_carModel').val('');     
-    $('#input_carYear').val(''); 
-    $('#input_carMiles').val('');
-    $('#input_carTint').val('');
- }
-});
-
-
-</pre>
-
-</p>
-<p><strong>DRY</strong></p>
-<p>
-<pre  class="brush: js">
-
-
-$('.someCheckbox').click(function(){        
-    var checked = this.checked,
-    fields = ['carModel', 'carYear', 'carMiles', 'carTint'];
-    /*
-        What are we repeating?
-        1. input_ precedes each field name
-        2. accessing the same array for settings
-        3. repeating value resets
- 
-        What can we do?
-        1. programmatically generate the field names
-        2. access array by key 
-        3. merge this call using terse coding (ie. if checked, 
-            set a value, otherwise don't)
-  */  
-  $.each(fields, function(i,key){
-    $('#input_' + key).val(checked ? defaultSettings[key] : '');
-  });
-});
-
-
-
-</pre>
-</p>
 
 <p><strong>&nbsp;</strong></p>
 
