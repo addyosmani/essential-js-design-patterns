@@ -632,9 +632,11 @@ driver.topSpeed // 100mph
 <p><pre  class="brush: js">
 
 function Car( model, year, miles ){
+
    this.model = model;
-   this.year    = year;
-   this.miles  = miles;
+   this.year  = year;
+   this.miles = miles;
+
    this.toString = function(){
     return this.model + " has done " + this.miles + " miles";
    };
@@ -2129,10 +2131,12 @@ CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a 'facade' or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the facade rather than the subsystem behind the scenes. Whenever you're using jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, you're actually using a facade - the simpler public interface that avoids you having to manually call the many internal methods in jQuery core required to get some behavior working.</p>
+This allows us to interact with the facade rather than the subsystem behind the scenes. Whenever you're using jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, you're actually using a facade - the simpler public interface that avoids you having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM Apis and maintain state variables.</p> 
+
+<p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
 <p>
-The facade pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. This gives us the ability to indirectly interact with subsystems in a way that can sometimes be less prone to error than accessing the subsystem directly. A facade's advantages include ease of use and often a small size-footprint in implementing the pattern. </p>
+To build on what we've learned, the facade pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. This gives us the ability to indirectly interact with subsystems in a way that can sometimes be less prone to error than accessing the subsystem directly. A facade's advantages include ease of use and often a small size-footprint in implementing the pattern. </p>
 
 <p>
 Let’s take a look at the pattern in action. This is an unoptimized code example, but here we're utilizing a facade to simplify an interface for listening to events cross-browser. We do this by creating a common method that can be used in one’s code which does the task of checking for the existence of features so that it can provide a safe and cross-browser compatible solution.</p>
