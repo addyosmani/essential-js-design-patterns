@@ -1920,8 +1920,6 @@ var mediator = (function(){
 <pre class="brush: js">
 (function( m ){
 
-    function initialize(){
-
       // Set a default value for 'person'
       var person = "tim";
 
@@ -1935,12 +1933,11 @@ var mediator = (function(){
           person = arg;
           console.log( person ); // david
      });
-    }
 
-    function updateName(){
+    
       // Publish/Broadcast the 'nameChange' event with the new data
       m.publish( 'nameChange', 'david' ); 
-    }
+    
 
 })( mediator );
 
