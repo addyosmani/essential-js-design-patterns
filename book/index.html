@@ -2102,24 +2102,24 @@ $(function(){
 <p>Here is what we would like to be able to achieve:</p>
     
 <p><pre  class="brush: js">
-CarManager.execute({commandType: "buyVehicle", operand1: 'Ford Escort', operand2: '453543'});
+CarManager.execute("buyVehicle", "Ford Escort", "453543");
 </pre>
 </p>
 <p>
 As per this structure we should now add a definition for the "CarManager.execute" method as follows:
 </p>
 <p><pre  class="brush: js">  
-CarManager.execute = function( command ){
-  return CarManager[command.request](command.model,command.carID);
+CarManager.execute = function (name) {
+    return CarManager[name] && CarManager[name].apply(CarManager, [].slice.call(arguments, 1));
 };
 </pre></p>
 <p>Our final sample calls would thus look as follows:</p>
 
 <p><pre  class="brush: js">
-CarManager.execute({request: "arrangeViewing", model: 'Ferrari', carID: '145523'});  
-CarManager.execute({request: "requestInfo", model: 'Ford Mondeo', carID: '543434'});  
-CarManager.execute({request: "requestInfo", model: 'Ford Escort', carID: '543434'});  
-CarManager.execute({request: "buyVehicle", model: 'Ford Escort', carID: '543434'});
+CarManager.execute("arrangeViewing", "Ferrari", "14523");
+CarManager.execute("requestInfo", "Ford Mondeo", "54323");
+CarManager.execute("requestInfo", "Ford Escort", "34232");
+CarManager.execute("buyVehicle", "Ford Escort", "34232");
 </pre></p>
 <p>&nbsp;</p>
 
