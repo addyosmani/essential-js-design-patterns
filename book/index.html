@@ -1116,7 +1116,7 @@ store.basket.core = {
 require(["dojo/_base/customStore"], function(store){
 
   // using dojo.setObject()
-  customStore.setObject("basket.core", (function() {
+  store.setObject("basket.core", (function() {
       var basket = [];
       function privateMethod() {
           console.log(basket);
@@ -1126,7 +1126,7 @@ require(["dojo/_base/customStore"], function(store){
                   privateMethod();
           }
       };
-  }()), store);
+  }()));
 
 });
 </pre>
