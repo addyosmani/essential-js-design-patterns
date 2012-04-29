@@ -3871,7 +3871,9 @@ console.log(&#39;test 4&#39;, myNS);
 console.groupEnd();
 
 </pre>
-<p>If you do happen to be using jQuery in your application, you can achieve the exact same object namespact extensibility using $.extend as seen below:</p>
+<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only.</p>
+
+<p>If you do however happen to be using jQuery in your application, you can achieve the exact same object namespace extensibility with $.extend as follows:</p>
 <pre  class="brush: js">// top-level namespace
 var myApp = myApp || {};
 
