@@ -178,6 +178,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 <ul>
   <li><strong>Patterns can provide generalized solutions which are documented in a fashion that doesn't require them to be tied to a specific problem.</strong> This generalized approach means that regardless of the application (and in many cases the programming language) you are working with, design patterns can be applied to improve the structure of your code.</li>
   <li><strong>Certain patterns can actually decrease the overall file-size footprint of your code by avoiding repetition. </strong>By encouraging developers to look more closely at their solutions for areas where instant reductions in <span id="internal-source-marker_0.982673292361492">repetition</span> can be made, e.g. reducing the number of functions performing similar processes in favor of a single generalized function, the overall size of your codebase can be decreased. </li>
+  <li><strong>Patterns add to a developers vocabulary, which makes communication faster.</strong></li>
   <li><strong>Patterns that are frequently </strong>used can be improved over time by harnessing the collective experiences other developers using those patterns contribute back to the design pattern community. In some cases this leads to the creation of entirely new design patterns whilst in others it can lead to the provision of improved guidelines on how specific patterns can be best used. This can ensure that pattern-based solutions continue to become more robust than ad-hoc solutions may be.</li>
 </ul>
 <p>&nbsp;</p>
@@ -264,7 +265,7 @@ When looking at a body of code that you think may be using a pattern, you might 
 <p>
 If you&rsquo;re interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and books and take in what&rsquo;s meaningful to you - this will help you accomplish the goals you have laid out for your pattern. You&rsquo;ll probably also want to examine the structure and semantics of existing patterns - this can be begun by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
 <p>
-Once you&rsquo;ve exposed yourself to a wealth of information on pattern literature, you may wish to begin your pattern using an <em>existing</em> format and see if you can brainstorm new ideas for improving it or integrating your ideas in there. &nbsp;An example of someone that did this is in recent years is Mozilla developer evangelist Christian Heilmann, who took an existing pattern called the <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
+Once you&rsquo;ve exposed yourself to a wealth of information on pattern literature, you may wish to begin your pattern using an <em>existing</em> format and see if you can brainstorm new ideas for improving it or integrating your ideas in there. &nbsp;An example of someone that did this is in recent years is Christian Heilmann, who took the existing <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
 <p>
 If you would like to try your hand at writing a design pattern (even if just for the learning experience of going through the process), the tips I have for doing so would be as follows:</p>
 <ul type="disc">
@@ -2371,23 +2372,25 @@ subclassExample = {
 </pre>
 <p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing <code>Person</code> object. Let&#39;s imagine we want to add distinct properties to distinguish a <code>Person</code> from a <code>Superhero</code> whilst inheriting the properties of the <code>Person</code> &#39;superclass&#39;. As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
 <pre  class="brush: js">    
-//a new instance of Person can then easily be created as follows:
+// a new instance of Person can then easily be created as follows:
 var clark = new subclassExample.Person( &quot;Clark&quot; , &quot;Kent&quot; );
        
-//Define a subclass constructor for for &#39;Superhero&#39;:
+// Define a subclass constructor for for &#39;Superhero&#39;:
 subclassExample.Superhero = function( firstName, lastName , powers ){
-    /*
-        Invoke the superclass constructor on the new object
-        then use .call() to invoke the constructor as a method of
-        the object to be initialized.
-    */
+    
+    // Invoke the superclass constructor on the new object
+    // then use .call() to invoke the constructor as a method of
+    // the object to be initialized.
+    
     subclassExample.Person.call(this, firstName, lastName);
-    //Finally, store their powers, a new array of traits not found in a normal &#39;Person&#39;
+
+    // Finally, store their powers, a new array of traits not found in a normal &#39;Person&#39;
     this.powers = powers;
 }
+
 subclassExample.Superhero.prototype = new subclassExample.Person;
 var superman = new subclassExample.Superhero( &quot;Clark&quot; ,&quot;Kent&quot; , [&#39;flight&#39;,&#39;heat-vision&#39;] );
-console.log(superman); /* includes superhero props as well as gender*/
+console.log(superman); // includes superhero props as well as gender
 </pre>
 <p>The <code>Superhero</code> definition creates an object which descends from <code>Person</code>. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it&#39;s object.</p>
 <p>So where do decorators come in?</p>
@@ -2399,52 +2402,59 @@ console.log(superman); /* includes superhero props as well as gender*/
 <p>The extension of objects is something already built into JavaScript and as we know, objects can be extended rather easily with properties being included at any point. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
 <h3>Example 1: Basic decoration of existing object constructors with new functionality</h3>
 <pre  class="brush: js">function vehicle( vehicleType ){
-    /*properties and defaults*/
+    // properties and defaults
     this.vehicleType = vehicleType || &#39;car&#39;,
     this.model = &#39;default&#39;,
     this.license = &#39;00000-000&#39;
 }
-/*Test instance for a basic vehicle*/
+
+// Test instance for a basic vehicle
 var testInstance = new vehicle(&#39;car&#39;);
 console.log(testInstance);
-/*vehicle: car, model:default, license: 00000-000*/
-/*Lets create a new instance of vehicle, to be decorated*/
+
+// vehicle: car, model:default, license: 00000-000
+
+// Lets create a new instance of vehicle, to be decorated*/
 var truck = new vehicle(&#39;truck&#39;);
-/*New functionality we&#39;re decorating vehicle with*/
+
+// New functionality we&#39;re decorating vehicle with
 truck.setModel = function( modelName ){
     this.model = modelName;
 }
+
 truck.setColor = function( color ){
     this.color = color;
 }
     
-/*Test the value setters and value assignment works correctly*/
+// Test the value setters and value assignment works correctly
 truck.setModel(&#39;CAT&#39;);
 truck.setColor(&#39;blue&#39;);
 console.log(truck);
-/*vehicle:truck, model:CAT, color: blue*/
-/*Demonstrate &#39;vehicle&#39; is still unaltered*/
+// vehicle:truck, model:CAT, color: blue
+
+// Demonstrate &#39;vehicle&#39; is still unaltered
 var secondInstance = new vehicle(&#39;car&#39;);
 console.log(secondInstance);
-/*as before, vehicle: car, model:default, license: 00000-000*/
+
+// as before, vehicle: car, model:default, license: 00000-000
 </pre>
 <p>This type of simplistic implementation is something you&#39;re likely familiar with, but it doesn&#39;t really demonstrate some of the other strengths of the pattern. For this, we&#39;re first going to go through my variation of the Coffee example from an excellent book called Head First Design Patterns by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
 <p>We&#39;re then going to look at psuedo-classical decorators.</p>
 <h3>Example 2: Simply decorate objects with multiple decorators</h3>
-<pre  class="brush: js">//What we&#39;re going to decorate
+<pre  class="brush: js">// What we&#39;re going to decorate
 function MacBook() { 
     this.cost = function () { return 997; }; 
     this.screenSize = function () { return 13.3; }; 
 } 
 
-/*Decorator 1*/
+// Decorator 1
 function Memory( macbook ) { 
     var v = macbook.cost(); 
     macbook.cost = function() { 
         return v + 75; 
     } 
 } 
- /*Decorator 2*/
+// Decorator 2
 function Engraving( macbook ){
    var v = macbook.cost(); 
    macbook.cost = function(){
@@ -2452,7 +2462,7 @@ function Engraving( macbook ){
   };
 }
  
-/*Decorator 3*/
+// Decorator 3
 function Insurance( macbook ){
    var v = macbook.cost(); 
    macbook.cost = function(){
