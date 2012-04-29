@@ -537,69 +537,87 @@ console.log(myCar.getInfo());
 <p>&nbsp;</p>
 <h2 id="creationalpatternjavascript">The Creational Pattern</h2>
 
-<p>The Creational pattern is the basis for a number of the other design patterns we'll be looking at in this section and is probably the easiest to understand. As you may guess, the creational pattern deals with the idea of <em>creating</em> new things, specifically new objects. In JavaScript, the common way of creating new objects (collections of name/value) pairs is as follows:</p>
-
-<p>Each of the following options will create a new empty object:</p>
+<p>The Creational pattern forms the basis for a number of the other design patterns we'll be reviewing in this section and could be considered the easiest to understand. It deals with the idea of <em>creating</em> new <em>things</em>, specifically new objects. In JavaScript, the three common ways to create new objects are as follows:</p>
 
 <p><pre  class="brush: js">
+
+// Each of the following options will create a new empty object:
 
 var newObject = {}; // or 
 
 var newObject = Object.create(null); // or
 
 var newObject = new Object();
+
 </pre></p>
 
 <p>Where the 'Object' constructor creates an object wrapper for a specific value, or where no value is passed, it will create an empty object and return it.</p>
 
-<p>There are then a number of ways in which keys and values can then be assigned to an object including:</p>
-
-<p><pre  class="brush: js">
-newObject.someKey = 'Hello World';
-newObject['someKey'] = 'Hello World';
-
-// which can be accessed in a similar fashion
-var key = newObject.someKey; //or
-var key = newObject['someKey'];
-</pre></p>
-
-<p>We can also define new properties on objects as follows, should we require more granular configuration capabilities:</p>
+<p>There are then four ways in which keys and values can then be assigned to an object:</p>
 
 <p><pre  class="brush: js">
 
-// First, define a new Object 'man'
-var man = Object.create(null);
+// ECMAScript 3 compatible approaches
 
-// Next let's create a configuration object containing properties
-// Properties can be writable, enumerable and configurable
-var config = {
-  writable: true,
-  enumerable: true,
-  configurable: true
-};
+// 1. Dot syntax
+newObject.someKey = 'Hello World'; // Write properties
+var key = newObject.someKey; // Access properties
 
-// Typically one would use Object.defineProperty() to add new
-// properties. For convenience we will use a short-hand version:
+// 2. Square bracket syntax
+newObject['someKey'] = 'Hello World'; // Write properties
+var key = newObject['someKey']; // Access properties
+
+// ECMAScript 5 only compatible approaches
+// For more information see: http://kangax.github.com/es5-compat-table/
+
+// 3. Object.defineProperty 
+Object.defineProperty(newObject, "someKey", {
+    value: "for more control of the property's behavior",
+    writable: true,
+    enumerable: true,
+    configurable: true
+});
+
+// If the above feels a little difficult to read, a short-hand could
+// be written as follows:
 
 var defineProp = function ( obj, key, value ){
   config.value = value;
   Object.defineProperty(obj, key, config);
 }
 
+// Create a new empty object
+var man = Object.create(null);
+
+// Populate the object with properties
+
 defineProp( man, 'car',  'Delorean' );
 defineProp( man, 'dob', '1981' );
 defineProp( man, 'beard', false );
+
+
+// 4. Object.defineProperties
+
+Object.defineProperties(newObject, {  
+  "someKey": {  
+    value: "Hello World",  
+    writable: true  
+  },  
+  "anotherKey": {  
+    value: "Foo bar",  
+    writable: false  
+  }  
+});
+ 
 </pre></p>
 
-<p>As we will see a little later in the book, this can even be used for inheritance, as follows:</p>
+<p>As we will see a little later in the book, these methods can even be used for inheritance, as follows:</p>
 
 <p><pre  class="brush: js">
 var driver = Object.create( man );
 defineProp (driver, 'topSpeed', '100mph');
 driver.topSpeed // 100mph
 </pre></p>
-
-<p>Thanks to Yehuda Katz for the less verbose version presented above.</p>
 
 <p>&nbsp;</p>
 <h2 id="constructorpatternjavascript">The Constructor Pattern</h2>
@@ -1316,7 +1334,7 @@ Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, la
 
 <p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing a Pub/Sub system with very little effort.</p>
 
-<pre>
+<pre class="brush: js">
 // Publish
 
 // Dojo: dojo.publish("channel", [arg1, arg2, arg3]);
@@ -4040,7 +4058,7 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 <p>Does this look familiar?</p>
 <pre  class="brush: js">YAHOO.util.Dom.getElementsByClassName(&#39;test&#39;);
 </pre>
-<p>Yahoo&#39;s YUI framework uses the nested object namespacing pattern regularly and at AOL we also use this pattern in many of our main applications. A sample implementation of nested namespacing may look like this:</p>
+<p>Older versions of Yahoo!'s YUI library use the nested object namespacing pattern regularly. At AOL we also used this pattern in many of our larger applications. A sample implementation of nested namespacing may look like this:</p>
 <pre  class="brush: js">var myApp =  myApp || {};
  
 // perform a similar existence check when defining nested 
@@ -4054,8 +4072,9 @@ myApp.model.special = myApp.model.special || {};
 // myApp.modules.financePlanner.getSummary();
 // myApp.services.social.facebook.realtimeStream.getLatest();
 
-
 </pre>
+<p><strong>Note: The above differs from how YUI3 approaches namespacing as modules there use a sandboxed API host object with far less and far shallower namespacing.</strong></p>
+
 <p>You can also opt to declare new nested namespaces/properties as indexed properties as follows:</p>
 <pre  class="brush: js">myApp[&quot;routers&quot;] = myApp[&quot;routers&quot;] || {}; 
 myApp[&quot;models&quot;] = myApp[&quot;models&quot;] || {}; 
