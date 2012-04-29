@@ -296,9 +296,9 @@ If you would like to try your hand at writing a design pattern (even if just for
   <p>
   To summarize, an anti-pattern is a bad design that is worthy of documenting. Examples of anti-patterns in JavaScript are the following: </p>
 <ul type="disc">
-  <li>Polluting the namespace      by defining a large number of variables in the global context</li>
+  <li>Polluting the global namespace      by defining a large number of variables in the global context</li>
   <li>Passing strings rather      than functions to either setTimeout or setInterval as this triggers the      use of eval() internally.</li>
-  <li>Prototyping against the      Object object (this is a particularly bad anti-pattern)</li>
+  <li>Modifying the <code>Object</code> class prototype (this is a particularly bad anti-pattern)</li>
   <li>Using JavaScript in an      inline form as this is inflexible </li>
   <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it's executed after the page has been loaded it can actually overwrite the page you're on, whilst document.createElement does not. You can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn't work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
   </ul>
@@ -1026,6 +1026,7 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 
 <p>The disadvantages of the module pattern are that as you access both public and private members differently, when you wish to change visibility, you actually have to make changes to each place the member was used.</p>
 <p>You also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of your application.</p>
+<p>Other disadvantages include the inability to create automated unit tests for private members and additional complexity when bugs require hot fixes. It's simply not possible to patch privates. Instead, one must override all public methods which interact with the buggy privates. Developers can't easily extend privates either, so it's worth remembering privates are not as flexible as they may initially appear.</p>
 
 <p>Before we dive into how the module pattern may be implemented using different JavaScript frameworks, here's a simple template for using the pattern:</p>
 
@@ -1309,16 +1310,54 @@ For example, publishers may make an assumption that one or more subscribers are 
 <h3>Implementations</h3>
 
 <p>
-One of the benefits of design patterns is that once we understand the basics behind how a particular pattern works, being able to interpret an implementation of it becomes significantly more straight-forward.</p> 
+Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implements are event driven. This is particularly true in browser environments as the DOM uses events as it's main interaction API for scripting.</p>
+
+<p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
+
+<p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing a Pub/Sub system with very little effort.</p>
+
+<pre>
+// Publish
+
+// Dojo: dojo.publish("channel", [arg1, arg2, arg3]);
+dojo.publish("/login", [{username:"test", userData:"test"}]);
+
+// jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
+$(el).trigger("/login", [{username:"test", userData:"test"}]);
+
+// YUI: el.publish("channel", [arg1, arg2, arg3]);
+el.publish("/login", {username:"test", userData:"test"});
 
 
-<p>Luckily, popular JavaScript libraries such as dojo and YUI already have utilities that can assist in easily implementing your own Pub/Sub system.</p>
+// Subscribe
+
+// Dojo: dojo.subscribe("channel", fn);
+var handle = dojo.subscribe("/login", function(data){..});
+
+// jQuery: $(obj).on("channel", [data], fn);
+$(el).on("/login", function(event){...});
+
+// YUI: el.on("channel", handler);
+el.on("/login", function(data){...});
+
+
+// Unsubscribe
+
+// Dojo: dojo.unsubscribe(handle);
+dojo.unsubscribe(handle);
+
+// jQuery: $(obj).off("channel");
+$(el).off("/login");
+
+// YUI: el.detach("channel");
+el.detach("/login");
+</pre>
 
 <p>
-For those wishing to use the Pub/Sub pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation of Pub/Sub that can be used with any library or toolkit. ScriptJunkie also has a tutorial on how to get started with Amplify's Pub/Sub that was recently published. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
+For those wishing to use the Pub/Sub pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation of Pub/Sub that can be used with any library or toolkit. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
 
 <p>
-jQuery developers have quite a few options for Pub/Sub (in addition to Amplify) and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) gist on GitHub. Links to just a few of these can be found below.
+jQuery developers in particular have quite a few other options for Pub/Sub (in addition to Amplify) and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) gist on GitHub. Links to just a few of these can be found below.
 </p>
 
 <ul>
