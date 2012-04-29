@@ -2392,35 +2392,33 @@ vehicle.driveBackward();
 
 <p>Should B need to invoke a method in A that has been overridden, we refer to this as method chaining. Should B need to invoke the constructor A() (the superclass), we call this constructor chaining.</p>
 <p>In order to demonstrate subclassing, we first need a base object that can have new instances of itself created. Let&#39;s model this around the concept of a person.</p>
-<pre  class="brush: js">var subclassExample = subclassExample || {};
-subclassExample = {
-    Person: function( firstName , lastName ){
+<pre  class="brush: js">
+var Person =  function( firstName , lastName ){
         this.firstName = firstName;
         this.lastName =  lastName;
         this.gender = &#39;male&#39;
-    } 
-}
+};
 </pre>
 <p>Next, we&#39;ll want to specify a new class (object) that&#39;s a subclass of the existing <code>Person</code> object. Let&#39;s imagine we want to add distinct properties to distinguish a <code>Person</code> from a <code>Superhero</code> whilst inheriting the properties of the <code>Person</code> &#39;superclass&#39;. As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
 <pre  class="brush: js">    
 // a new instance of Person can then easily be created as follows:
-var clark = new subclassExample.Person( &quot;Clark&quot; , &quot;Kent&quot; );
+var clark = new Person( &quot;Clark&quot; , &quot;Kent&quot; );
        
 // Define a subclass constructor for for &#39;Superhero&#39;:
-subclassExample.Superhero = function( firstName, lastName , powers ){
+var Superhero = function( firstName, lastName , powers ){
     
     // Invoke the superclass constructor on the new object
     // then use .call() to invoke the constructor as a method of
     // the object to be initialized.
     
-    subclassExample.Person.call(this, firstName, lastName);
+    Person.call(this, firstName, lastName);
 
     // Finally, store their powers, a new array of traits not found in a normal &#39;Person&#39;
     this.powers = powers;
 }
 
-subclassExample.Superhero.prototype = new subclassExample.Person;
-var superman = new subclassExample.Superhero( &quot;Clark&quot; ,&quot;Kent&quot; , [&#39;flight&#39;,&#39;heat-vision&#39;] );
+SuperHero.prototype = Object.create(Person.prototype);
+var superman = new Superhero( &quot;Clark&quot; ,&quot;Kent&quot; , [&#39;flight&#39;,&#39;heat-vision&#39;] );
 console.log(superman); // includes superhero props as well as gender
 </pre>
 <p>The <code>Superhero</code> definition creates an object which descends from <code>Person</code>. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it&#39;s object.</p>
