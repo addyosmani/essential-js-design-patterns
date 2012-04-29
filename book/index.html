@@ -184,7 +184,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 
 <h3>We already use patterns everyday</h3>
 <p>
-To understand how useful patterns can be, let's review a very simple selection problem that the jQuery library solves for us everyday. </p>
+To understand how useful patterns can be, let's review a very simple element selection problem that the jQuery library solves for us everyday. </p>
 
 <p>
 If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to query for the list we need?. Well, there are a few different ways this problem could be tackled:</p>
@@ -202,7 +202,9 @@ So, which of these is the fastest?. You might be interested to know that it's ac
 <p>
 Developers using jQuery don't have to worry about this problem, as it's luckily abstracted away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
 
-<p>It internally uses a number of different <strong>design patterns</strong>, the most frequent one being a facade, which provides a simple set of interfaces to a more complex body of code. We're probably all familiar with <code>$(elem)</code> (yes, it's a facade!), which is a lot easier to use than having to manually normalize cross-browser differences.</p>
+<p>Core internally uses a number of different <strong>design patterns</strong>, the most frequent one being a facade. This provides a simple set of abstracted interfaces (e.g <code>$el.css()</code>, <code>$el.animate()</code>) to several more complex underlying bodies of code.</p>
+
+<p>We're probably all also familiar with jQuery's <code>$('selector')</code>. This is significantly more easy to use for selecting HTML elements on a page versus having to manually handle opt for <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName</code> and so on. Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! abstractions using patterns can offer real-world value.</p>
 <p>
 We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
