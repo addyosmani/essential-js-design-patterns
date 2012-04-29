@@ -3958,7 +3958,7 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 
 */
 </pre>
-<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using this next pattern when returning an interface for other developers to use. It&#39;s a variation on the module pattern where the core structure of the pattern is an IIFE, however the returned interface is an object literal:</p>
+<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using the Revealing Module Pattern, which we covered earlier in the book:</p>
 <pre  class="brush: js">var namespace = (function () {
 
     // defined within the local scope
