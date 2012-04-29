@@ -2508,7 +2508,7 @@ console.log(mb.cost()); //1522
 console.log(mb.screenSize()); //13.3
 </pre>
 <p>Here, the decorators are overriding the superclass <code>.cost()</code> method to return the current price of the <code>Macbook</code> plus with the cost of the upgrade being specified. It&#39;s considered a decoration as the original <code>Macbook</code> object&#39;s constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
-<p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and duck typing is used to shift the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
+<p>As you can probably tell, there isn&#39;t really a defined &#39;interface&#39; in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 <h2>Pseudo-classical decorators</h2>
 <p>We&#39;re now going to examine the variation of the decorator presented in &#39;Pro JavaScript Design Patterns&#39; (PJDP) by Dustin Diaz and Ross Harmes.</p>
 <p>Unlike some of the examples from earlier, Diaz and Harmes stick more closely to how decorators are implemented in other programming languages (such as Java or C++) using the concept of an &#39;interface&#39;, which we&#39;ll define in more detail shortly.</p>
