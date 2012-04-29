@@ -2261,27 +2261,32 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 <p>
 <pre  class="brush: js">
 
+function VehicleFactory() {}
+VehicleFactory.prototype.vehicleClass = Car;
+VehicleFactory.prototype.getVehicle = function (options) {
+    return new this.vehicleClass(options);
+};
 
-var Car = (function() {
-   var Car = function ( model, year, miles ){
-       this.model = model;
-       this.year   = year;
-       this.miles = miles;
-   };
+var carFactory = new VehicleFactory();
+var car = carFactory.getVehicle({ color: "yellow", turbo: true });
+console.log(car instanceof Car); // => true
 
-   return function ( model, year, miles ) {
-       return new Car( model, year, miles );
-   };
 
-})();
+// approach #1: Modify a VehicleFactory instance to use the Truck class
+carFactory.vehicleClass = Truck;
 
-var civic = Car( "Honda Civic", 2009, 20000 );
-var mondeo = Car("Ford Mondeo", 2010, 5000 );
+var mover = carFactory.getVehicle({ enclosedCargo: true, length: 26 });
+counsole.log(mover instanceof Truck); // => true
 
-// These are also valid:
-// var civic = new Car( "Honda Civic", 2009, 20000 );
-// var mondeo = new Car( "Ford Mondeo", 2010, 5000 );
+// approach #2: Subclass VehicleFactory to create a factory class that
+// builds Trucks
+function TruckFactory () {}
+TruckFactory.prototype = new VehicleFactory();
+TruckFactory.prototype.vehicleClass = Truck;
 
+var truckFactory = new TruckFactory();
+var bigfoot = truckFactory.getVehicle({ monster: true, cylinders: 12 });
+console.log(bigfoot instanceof Truck); // => true
 
 </pre>
     <p>&nbsp;</p>
