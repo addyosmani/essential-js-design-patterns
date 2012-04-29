@@ -149,12 +149,12 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 
     <p>Design patterns can be traced back to the early work of a civil engineer named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
 
-    <p>In  collaboration with Sarah ISara Ishikawa and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language', which was later released as a complete hardcover <a href="http://www.amazon.co.uk/Pattern-Language-Buildings-Construction-Environmental/dp/0195019199/ref=sr_1_1?s=books&ie=UTF8&qid=1329440685&sr=1-1">book</a>. </p>
+    <p>In  collaboration with Sara Ishikawa and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language', which was later released as a complete hardcover <a href="http://www.amazon.co.uk/Pattern-Language-Buildings-Construction-Environmental/dp/0195019199/ref=sr_1_1?s=books&ie=UTF8&qid=1329440685&sr=1-1">book</a>. </p>
     <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
 
     <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
     <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section &lsquo;Categories of Design Patterns&rsquo;.</p>
-    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as jQuery or Dojo as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
+    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="http://jquery.com">jQuery</a> or <a href="http://dojotoolkit.org">dojo</a> as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <h1 id="whatisapattern">What is a Pattern?</h1>
@@ -235,8 +235,16 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   </ol>
 <p>&nbsp;</p>
 <h1 id="designpatternstructure">The Structure Of A Design Pattern</h1>
-<p>When studying design patterns, you may wonder what teams that create them have to put in their design pattern descriptions.&nbsp; Every pattern has to initially be formulated in a form of a <strong>rule</strong> that establishes a relationship between a <strong>context</strong>, a system of <strong>forces</strong> that arises in that context and a <strong>configuration</strong> that allows these forces to resolve themselves in context.&nbsp; </p>
-<p>I find that a lot of the information available out there about the structure of a good pattern can be condensed down to something more easily digestible.With this in mind, lets now take a look at a summary of the component elements for a design pattern.A design pattern must have a:</p>
+<p>You may be curious about how a pattern author might approach outlining structure, implementation and purpose of a new pattern.&nbsp; Traditionally, a pattern is initially be presented in the form of a <strong>rule</strong> that establishes a relationship between:</p> 
+<p>
+
+<ul>
+<li>A <strong>context</strong></li>
+<li>A system of <strong>forces</strong> that arises in that context and</li>
+<li>A <strong>configuration</strong> that allows these forces to resolve themselves in context</li>
+</ul>
+
+<p>With this in mind, lets now take a look at a summary of the component elements for a design pattern. A design pattern should have a:</p>
 
 <ul>
   <li><strong>Pattern name</strong> and a <strong>description </strong></li>
@@ -252,7 +260,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Known usage</strong> – is the pattern being used in the &lsquo;wild&rsquo;?. If so, where and how? </li>
   <li><strong>Discussions</strong> – the team or author&rsquo;s thoughts on the exciting benefits of the pattern </li>
 </ul>
-<p>&nbsp;</p>
+
 <p>Design patterns are quite a powerful approach to getting all of the developers in an organization or team on the same page when creating or maintaining solutions. If you or your company ever consider working on your own pattern, remember that although they may have a heavy initial cost in the planning and write-up phases, the value returned from that investment can be quite worth it. Always research thoroughly before working on new patterns however, as you may find it more beneficial to use or build on top of existing proven patterns than starting afresh.</p>
 <p>&nbsp;</p>
 <h1 id="writingdesignpatterns">Writing Design Patterns</h1>
