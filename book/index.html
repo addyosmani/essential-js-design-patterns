@@ -358,11 +358,11 @@ and I've modified it where necessary to suit our discussion in this section of t
 
 <pre class="brush: js">
 // A car 'class'
-function Car ( model ){
+function Car(model) {
   this.model = model;
   this.color = 'silver';
-  this.year  = '2012';
-  this.getInfo = function(){
+  this.year = '2012';
+  this.getInfo = function () {
     return this.model + ' ' + this.year;
   }
 }
@@ -630,8 +630,8 @@ Object.defineProperties(newObject, {
 <p>As we will see a little later in the book, these methods can even be used for inheritance, as follows:</p>
 
 <p><pre  class="brush: js">
-var driver = Object.create( man );
-defineProp (driver, 'topSpeed', '100mph');
+var driver = Object.create(man);
+defineProp(driver, 'topSpeed', '100mph');
 driver.topSpeed // 100mph
 </pre></p>
 
@@ -647,19 +647,19 @@ driver.topSpeed // 100mph
 
 <p><pre  class="brush: js">
 
-function Car( model, year, miles ){
+function Car(model, year, miles) {
 
-   this.model = model;
-   this.year  = year;
-   this.miles = miles;
+  this.model = model;
+  this.year = year;
+  this.miles = miles;
 
-   this.toString = function(){
+  this.toString = function () {
     return this.model + " has done " + this.miles + " miles";
-   };
+  };
 }
- 
-var civic = new Car( "Honda Civic" , 2009, 20000 );
-var mondeo = new Car( "Ford Mondeo", 2010 , 5000 );
+
+var civic = new Car("Honda Civic", 2009, 20000);
+var mondeo = new Car("Ford Mondeo", 2010, 5000);
 
 console.log(civic.toString());
 console.log(mondeo.toString());
@@ -676,27 +676,25 @@ console.log(mondeo.toString());
 <p>Functions in JavaScript have a property called a prototype. When you call a JavaScript constructor to create an object, all the properties of the constructor's prototype are then made available to the new object. In this fashion, multiple Car objects can be created which access the same prototype. We can thus extend the original example as follows:
 </p>
 
-<p><pre  class="brush: js">
+<p><pre class="brush: js">
 
-function Car( model, year, miles ){
-   this.model = model;
-   this.year    = year;
-   this.miles  = miles;
+function Car(model, year, miles) {
+  this.model = model;
+  this.year = year;
+  this.miles = miles;
 }
 
-/*
- Note here that we are using Object.prototype.newMethod rather than 
- Object.prototype so as to avoid redefining the prototype object
-*/
-Car.prototype.toString = function(){
-    return this.model + " has done " + this.miles + " miles";
+
+// Note here that we are using Object.prototype.newMethod rather than 
+// Object.prototype so as to avoid redefining the prototype object
+Car.prototype.toString = function () {
+  return this.model + " has done " + this.miles + " miles";
 };
- 
-var civic = new Car( "Honda Civic", 2009, 20000);
-var mondeo = new Car( "Ford Mondeo", 2010, 5000);
+
+var civic = new Car("Honda Civic", 2009, 20000);
+var mondeo = new Car("Ford Mondeo", 2010, 5000);
 
 console.log(civic.toString());
-
 
 </pre></p>
 
@@ -719,11 +717,12 @@ var mySingleton = {
 
   property2: "something else",
 
-  method1:function(){
+  method1: function () {
     console.log('hello world');
   }
 
 };
+
 </pre>
 </p>
 
@@ -732,60 +731,60 @@ If you wished to extend this further, you could add your own private members and
 
 <pre  class="brush: js">
 
-var mySingleton = function(){
- 
-  // here are our private methods and variables
-  var privateVariable = 'something private';
-  function showPrivate(){
-    console.log( privateVariable );
-  }
- 
-  // public variables and methods (which can access 
-  // private variables and methods )
-  return {
+var mySingleton = function () {
 
-    publicMethod:function(){
-      showPrivate();
-    },
+    // here are our private methods and variables
+    var privateVariable = 'something private';
 
-    publicVar:'the public can see this!'
+    function showPrivate() {
+      console.log(privateVariable);
+    }
 
+    // public variables and methods (which can access 
+    // private variables and methods )
+    return {
+
+      publicMethod: function () {
+        showPrivate();
+      },
+
+      publicVar: 'the public can see this!'
+
+    };
   };
-};
- 
-var single = mySingleton();
-single.publicMethod();  // logs 'something private'
-console.log( single.publicVar ); // logs 'the public can see this!'
 
+var single = mySingleton();
+single.publicMethod(); // logs 'something private'
+console.log(single.publicVar); // logs 'the public can see this!'
 </pre>
 </p>
 <p>
 The above example is great, but let's next consider a situation where you only want to instantiate the singleton when it's needed. To save on resources, you can place the instantiation code inside another constructor function as follows:
 <pre  class="brush: js">
 
-var Singleton = (function(){
+var Singleton = (function () {
   var instantiated;
 
-  function init (){
+  function init() {
     // singleton here
     return {
-      publicMethod: function(){
-        console.log( 'hello world' );
+      publicMethod: function () {
+        console.log('hello world');
       },
       publicProperty: 'test'
     };
   }
- 
+
   return {
-    getInstance: function(){
-      if ( !instantiated ){
+    getInstance: function () {
+      if (!instantiated) {
         instantiated = init();
       }
-      return instantiated; 
+      return instantiated;
     }
   };
 })();
- 
+
 // calling public methods is then as easy as:
 Singleton.getInstance().publicMethod();
 
@@ -797,46 +796,48 @@ Singleton.getInstance().publicMethod();
 <p>
 <pre  class="brush: js">
 
+var SingletonTester  =   (function () {
 
-var SingletonTester = (function(){
+  // options: an object containing configuration options for the singleton
+  // e.g var options = { name: 'test', pointX: 5};  
+  function Singleton(options)  {
 
-  // args: an object containing arguments for the singleton
-  function Singleton( args ) {
-
-   // set args variable to args passed or empty object if none provided.
-    args = args || {};
+    // set options to the options supplied or an empty object if none provided.
+    options  =  options  ||   {};
     //set the name parameter
-    this.name = 'SingletonTester';
+    this.name  =  'SingletonTester';
     //set the value of pointX
-    this.pointX = args.pointX || 6; //get parameter from arguments or set default
+    this.pointX  =  args.pointX  ||  6;
     //set the value of pointY
-    this.pointY = args.pointY || 10;  
+    this.pointY  =  args.pointY  ||  10;  
 
-  }
-  
- // this is our instance holder
-  var instance;
+  } 
 
- // this is an emulation of static variables and methods
-  var _static = {
-    name: 'SingletonTester',
-   // This is a method for getting an instance
+  // this is our instance holder  
+  var instance;
 
-   // It returns a singleton instance of a singleton object
-    getInstance: function ( args ){
-      if (instance === undefined) {
-        instance = new Singleton( args );
-      }
-      return instance;
-    }
-  };
-  return _static;
+  // this is an emulation of static variables and methods
+  var _static  = {   
+
+    name:  'SingletonTester',
+
+    // This is a method for getting an instance
+    // It returns a singleton instance of a singleton object
+    getInstance:  function  (options) {    
+      if   (instance  ===  undefined)  {     
+        instance  =  new Singleton(options);    
+      }    
+      return  instance;   
+    }  
+  };  
+  return  _static;
 })();
 
-var singletonTest = SingletonTester.getInstance({pointX: 5});
-console.log(singletonTest.pointX); // outputs 5 
+var singletonTest  =  SingletonTester.getInstance({
+  pointX:  5
+});
 
-
+console.log(singletonTest.pointX);  // outputs 5
 
 </pre></p>
 <p>&nbsp;</p>
@@ -873,34 +874,37 @@ Object literals don't require instantiation using the <code>new</code> operator 
 <p>
 <pre  class="brush: js">
 var myModule = {
-    myProperty : 'someValue',
-    // object literals can contain properties and methods.
-    // here, another object is defined for configuration
-    // purposes:
-    myConfig:{
-        useCaching:true,
-        language: 'en'   
-    },
-    // a very basic method
-    myMethod: function(){
-        console.log('I can haz functionality?');
-    },
-    // output a value based on current configuration
-    myMethod2: function(){
-        console.log('Caching is:' + (this.myConfig.useCaching)?'enabled':'disabled');
-    },
-    // override the current configuration
-    myMethod3: function(newConfig){
-        if(typeof newConfig == 'object'){
-           this.myConfig = newConfig;
-           console.log(this.myConfig.language); 
-        }
+  myProperty: 'someValue',
+  // object literals can contain properties and methods.
+  // here, another object is defined for configuration
+  // purposes:
+  myConfig: {
+    useCaching: true,
+    language: 'en'
+  },
+  // a very basic method
+  myMethod: function () {
+    console.log('I can haz functionality?');
+  },
+  // output a value based on current configuration
+  myMethod2: function () {
+    console.log('Caching is:' + (this.myConfig.useCaching) ? 'enabled' : 'disabled');
+  },
+  // override the current configuration
+  myMethod3: function (newConfig) {
+    if (typeof newConfig == 'object') {
+      this.myConfig = newConfig;
+      console.log(this.myConfig.language);
     }
+  }
 };
 
-myModule.myMethod(); //I can haz functionality
-myModule.myMethod2(); //outputs enabled
-myModule.myMethod3({language:'fr',useCaching:false}); //fr
+myModule.myMethod(); // I can haz functionality
+myModule.myMethod2(); // outputs enabled
+myModule.myMethod3({
+  language: 'fr',
+  useCaching: false
+}); // fr
 </pre>
 </p>
 
@@ -938,13 +942,13 @@ From a historical perspective, the module pattern was originally developed by a 
 <p>
 <pre  class="brush: js">
 
-var testModule = (function(){
+var testModule = (function () {
   var counter = 0;
   return {
-    incrementCounter: function() {
+    incrementCounter: function () {
       return counter++;
     },
-    resetCounter: function() {
+    resetCounter: function () {
       console.log('counter value prior to reset:' + counter);
       counter = 0;
     }
@@ -954,6 +958,7 @@ var testModule = (function(){
 // test
 testModule.incrementCounter();
 testModule.resetCounter();
+
 </pre>
 </p>
 
@@ -965,23 +970,23 @@ testModule.resetCounter();
 <p>
 <pre  class="brush: js">
 
-var myNamespace = (function(){
+var myNamespace = (function () {
 
   var myPrivateVar = 0;
-  var myPrivateMethod = function( someText ){
-    console.log(someText);
-  };
-  
+  var myPrivateMethod = function (someText) {
+      console.log(someText);
+    };
+
   return {
 
-    myPublicVar: "foo",  
+    myPublicVar: "foo",
 
-    myPublicFunction: function(bar){
+    myPublicFunction: function (bar) {
       myPrivateVar++;
       myPrivateMethod(bar);
     }
   };
-  
+
 })();
 
 </pre>
@@ -992,32 +997,34 @@ Looking at another example, below we can see a shopping basket implemented using
 
 <pre  class="brush: js">
 
-var basketModule = (function() {
-    var basket = []; //private
-    function doSomethingPrivate(){
-      //...
-    }
+var basketModule = (function () {
+  var basket = []; //private
+  function doSomethingPrivate() {
+    //...
+  }
 
-    function doSomethingElsePrivate(){
-      //...
+  function doSomethingElsePrivate() {
+    //...
+  }
+  return { //exposed to public
+    addItem: function (values) {
+      basket.push(values);
+    },
+    getItemCount: function () {
+      return basket.length;
+    },
+    doSomething: doSomethingPrivate(),
+    getTotal: function () {
+      var q = this.getItemCount(),
+        p = 0;
+      while (q--) {
+        p += basket[q].price;
+      }
+      return p;
     }
-    return { //exposed to public
-        addItem: function(values) {
-            basket.push(values);
-        },
-        getItemCount: function() {
-            return basket.length;
-        },
-        doSomething: doSomethingPrivate(),
-        getTotal: function(){
-           var q = this.getItemCount(),p=0;
-            while(q--){
-                p+= basket[q].price; 
-            }
-            return p;
-        }
-    }
+  }
 }());
+
 </pre>
 
 <p>
@@ -1025,15 +1032,21 @@ Inside the module, you'll notice we return an <code>object</code>. This gets aut
 </p>
 <pre  class="brush: js">
 
-//basketModule is an object with properties which can also be methods
-basketModule.addItem({item:'bread',price:0.5});
-basketModule.addItem({item:'butter',price:0.3});
+// basketModule is an object with properties which can also be methods
+basketModule.addItem({
+  item: 'bread',
+  price: 0.5
+});
+basketModule.addItem({
+  item: 'butter',
+  price: 0.3
+});
 
 console.log(basketModule.getItemCount());
 console.log(basketModule.getTotal());
 
-//however, the following will not work:
-console.log(basketModule.basket);// (undefined as not inside the returned object)
+// however, the following will not work:
+console.log(basketModule.basket); // (undefined as not inside the returned object)
 console.log(basket); //(only exists within the scope of the closure)
 </pre>
 <p>
@@ -1065,33 +1078,35 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <p>
 <pre  class="brush: js">
 
-var someModule = (function(){
+var someModule  =   (function () {
 
   // private attributes
-  var privateVar = 5;
+  var privateVar  =  5;
 
   // private methods
-  var privateMethod = function(){
-     return 'Private Test';
-  };
+  var privateMethod  =  
+  function () {  
+    return  'Private Test';  
+  };
 
-  return {
+  return   {
     // public attributes
-    publicVar: 10,
+    publicVar:  10,
     // public methods
-    publicMethod: function(){
-      return ' Followed By Public Test ';
+    publicMethod:  
+    function () {
+      return  ' Followed By Public Test ';
     },
 
     // let's access the private members
-    getData: function(){
-      return privateMethod() + this.publicMethod() + privateVar;
-    }
-  }
-})(); //the parens here cause the anonymous function to execute and return
-        
+    getData:  
+    function () {
+      return  privateMethod()  +  this.publicMethod()  +  privateVar;  
+    } 
+  }
+})();  // the parens here cause the anonymous function to execute and return
+     
 someModule.getData();
-
 
 </pre></p>
 
@@ -1106,8 +1121,13 @@ Dojo provides a convenience method for working with objects called <code>dojo.se
 <p>For example, if we wanted to declare <code>basket.core</code> as an object of the <code>store</code> namespace, this could be achieved as follows using the traditional way:
 <pre class="brush: js">
 var store = window.store || {};
-if(!store["basket"]){ store.basket = {}; }
-if(!store.basket["core"]){ store.basket.core={}; }
+
+if (!store["basket"]) {
+  store.basket = {};
+}
+if (!store.basket["core"]) {
+  store.basket.core = {};
+}
 
 store.basket.core = {
   // ...rest of our logic
@@ -1144,40 +1164,39 @@ require(["dojo/_base/customStore"], function(store){
 Ext.namespace('myNameSpace');
 
 // create application
-myNameSpace.app = function() {
-    // do NOT access DOM from here; elements don't exist yet
- 
-    // private variables
-    var btn1;
-    var privVar1 = 11;
- 
-    // private functions
-    var btn1Handler = function(button, event) {
-        alert('privVar1=' + privVar1);
-        alert('this.btn1Text=' + this.btn1Text);
+myNameSpace.app = function () {
+  // do NOT access DOM from here; elements don't exist yet
+  // private variables
+  var btn1;
+  var privVar1 = 11;
+
+  // private functions
+  var btn1Handler = function (button, event) {
+      alert('privVar1=' + privVar1);
+      alert('this.btn1Text=' + this.btn1Text);
     };
- 
-    // public space
-    return {
-        // public properties, e.g. strings to translate
-        btn1Text: 'Button 1',
- 
-        // public methods
-        init: function() {
-            if (Ext.Ext2) {
-                btn1 = new Ext.Button({
-                    renderTo: 'btn1-ct',
-                    text: this.btn1Text,
-                    handler: btn1Handler
-                });
-            } else {
-                btn1 = new Ext.Button('btn1-ct', {
-                    text: this.btn1Text,
-                    handler: btn1Handler
-                });
-            }
-        }
-    };
+
+  // public space
+  return {
+    // public properties, e.g. strings to translate
+    btn1Text: 'Button 1',
+
+    // public methods
+    init: function () {
+      if (Ext.Ext2) {
+        btn1 = new Ext.Button({
+          renderTo: 'btn1-ct',
+          text: this.btn1Text,
+          handler: btn1Handler
+        });
+      } else {
+        btn1 = new Ext.Button('btn1-ct', {
+          text: this.btn1Text,
+          handler: btn1Handler
+        });
+      }
+    }
+  };
 }(); // end of app
 </pre>
 
@@ -1193,10 +1212,10 @@ Similarly, we can also implement the module pattern when building applications u
 <pre  class="brush: js">
 Y.namespace('store.basket') = (function () {
 
-    //"private" variables:
+    // private variables:
     var myPrivateVar = "I can be accessed only within Y.store.basket .";
 
-    //"private" method:
+    // private method:
     var myPrivateMethod = function () {
         Y.log("I can be accessed only from within YAHOO.store.basket");
     }
@@ -1206,12 +1225,12 @@ Y.namespace('store.basket') = (function () {
         myPublicMethod: function () {
             Y.log("I'm a public method.");
 
-            //Within basket, I can access "private" vars and methods:
+            // Within basket, I can access "private" vars and methods:
             Y.log(myPrivateVar);
             Y.log(myPrivateMethod());
 
-            //The native scope of myPublicMethod is store so we can
-            //access public members using "this":
+            // The native scope of myPublicMethod is store so we can
+            // access public members using "this":
             Y.log(this.myPublicProperty);
         }
     };
@@ -1231,7 +1250,7 @@ In the following example, a <code>library</code> function is defined which decla
 <pre  class="brush: js">
 
 function library(module) {
-  $(function() {
+  $(function () {
     if (module.init) {
       module.init();
     }
@@ -1239,13 +1258,14 @@ function library(module) {
   return module;
 }
 
-var myLibrary = library(function() {
-   return {
-     init: function() {
-       /*implementation*/
-     }
-   };
+var myLibrary = library(function () {
+  return {
+    init: function () {
+      /*implementation*/
+    }
+  };
 }());
+
 </pre>
 
 <p>For further reading on the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
@@ -1264,6 +1284,7 @@ var myLibrary = library(function() {
 <p>An example of how to use the revealing module pattern can be found below:</p>
 <p>
 <pre  class="brush: js">
+
  var myRevealingModule = (function(){
 
     var name = 'John Smith';
@@ -1487,27 +1508,29 @@ var pubsub = {};
 <p>
 <pre  class="brush: js">
 
-var testHandler= function( topics , data ){
-    console.log( topics + ": " + data );
+var testHandler = function (topics, data) {
+    console.log(topics + ": " + data);
 };
 
 // Subscribers basically "subscribe" (or listen)
 // And once they've been "notified" their callback functions are invoked
-var testSubscription = pubsub.subscribe( 'example1', testHandler );
+var testSubscription = pubsub.subscribe('example1', testHandler);
 
 
 // Publishers are in charge of "publishing" notifications about events
-
-pubsub.publish( 'example1', 'hello world!' );
-pubsub.publish( 'example1', ['test','a','b','c'] );
-pubsub.publish( 'example1', [{'color':'blue'},{'text':'hello'}] );
+pubsub.publish('example1', 'hello world!');
+pubsub.publish('example1', ['test', 'a', 'b', 'c']);
+pubsub.publish('example1', [{
+  'color': 'blue'
+}, {
+  'text': 'hello'
+}]);
 
 // Unsubscribe if you no longer wish to be notified
-
-pubsub.unsubscribe( testSubscription );
+pubsub.unsubscribe(testSubscription);
 
 // This will fail
-pubsub.publish( 'example1', 'hello again! (this will fail)' );
+pubsub.publish('example1', 'hello again! (this will fail)');
 
 </pre>
 </p>
@@ -1550,20 +1573,16 @@ var grid = {
 
 };
 
-
-
-//a very basic mediator
+// a very basic mediator
 
 var gridUpdate = function(topics, data){
      grid.refreshData();
      grid.updateCounter();
 }
 
-
 var dataSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
 PubSub.publish( 'dataUpdated', 'new stock data available!' );
 PubSub.publish( 'dataUpdated', 'new stock data available!' );
-
 
 function getCurrentTime(){
 
@@ -1591,43 +1610,52 @@ In addition to avoiding data having to be read from a cached store, this also av
 <pre  class="brush: js">
 var grid = {
 
-   addEntry: function(data){
+  addEntry: function (data) {
 
-       if (data !== 'undefined') {
+    if (data !== 'undefined') {
 
-          console.log('Entry:'
+      console.log('Entry:'
 
-                      + data.title
+      + data.title
 
-                      + ' Changenet / %'
+      + ' Changenet / %'
 
-                      + data.changenet
+      + data.changenet
 
-                      + '/' + data.percentage + ' % added');
+      + '/' + data.percentage + ' % added');
 
-       }
+    }
 
-   },
+  },
 
-   updateCounter: function(timestamp){
-       console.log('grid last updated at: ' + timestamp);
-   }
+  updateCounter: function (timestamp) {
+    console.log('grid last updated at: ' + timestamp);
+  }
 };
 
 
 
-var gridUpdate = function(topics, data){
-       grid.addEntry(data);
-       grid.updateCounter(data.timestamp);
-}
+var gridUpdate = function (topics, data) {
+    grid.addEntry(data);
+    grid.updateCounter(data.timestamp);
+  }
 
 
+var gridSubscription = PubSub.subscribe('dataUpdated', gridUpdate);
 
-var gridSubscription = PubSub.subscribe( 'dataUpdated', gridUpdate );
+PubSub.publish('dataUpdated', {
+  title: "Microsoft shares",
+  changenet: 4,
+  percentage: 33,
+  timestamp: '17:34:12'
+});
 
-PubSub.publish('dataUpdated',   { title: "Microsoft shares", changenet: 4, percentage: 33, timestamp: '17:34:12'  });
-
-PubSub.publish('dataUpdated',   { title: "Dell shares", changenet: 10, percentage: 20, timestamp: '17:35:16'  });
+PubSub.publish('dataUpdated', {
+  title: "Dell shares",
+  changenet: 10,
+  percentage: 20,
+  timestamp: '17:35:16'
+});
 </pre>
 
 
@@ -1645,12 +1673,12 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 <pre  class="brush: js">
 
 &lt;script id=&quot;userTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
-   &lt;li&gt;${user}
+   &lt;li&gt;${user}&lt;/li&gt;
 &lt;/script&gt;
 
 
 &lt;script id=&quot;ratingsTemplate&quot; type=&quot;text/x-jquery-tmpl&quot;&gt;
-   &lt;li&gt;&lt;strong&gt;${movie}&lt;/strong&gt; was rated ${rating}/5
+   &lt;li&gt;&lt;strong&gt;${movie}&lt;/strong&gt; was rated ${rating}/5&lt;/li&gt;
 &lt;/script&gt;
 
 
@@ -1705,8 +1733,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
      userList  = [];
 
 
-
-  /* subscribers */
+  // subscribers
 
   $.subscribe( "/new/user", function( e, userName ){
 
@@ -1730,11 +1757,13 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 
 
-  $('#add').bind('click', function(){
+  $('#add').on('click', function(){
 
          var strUser    = $("#twitter_handle").val(),
              strMovie = $("#movie_seen").val(),
              strRating = $("#movie_rating").val();
+
+        // publishers
 
          $.publish('/new/user',  strUser  );
          $.publish('/new/rating',  [ strMovie, strRating] );
@@ -1986,17 +2015,17 @@ console.log(anotherCar.name); // Now you'll hopefully see that one is a prototyp
 <pre  class="brush: js">
 
 var vehicle = {
-  getModel : function(){
-    console.log( 'The model of this vehicle is..' + this.model );
-   }
+  getModel: function () {
+    console.log('The model of this vehicle is..' + this.model);
+  }
 };
 
-var car = Object.create( vehicle, {
-  'id' : {
+var car = Object.create(vehicle, {
+  'id': {
     value: MY_GLOBAL.nextId(),
     enumerable: true // writable:false, configurable:false by default
   },
-  'model':{
+  'model': {
     value: 'Ford',
     enumerable: true
   }
@@ -2013,30 +2042,28 @@ Here the properties can be initialized on the second argument of Object.create u
 <p>
 <pre  class="brush: js">
 
-
 var vehiclePrototype = {
-    init: function( carModel ) {
-        this.model = carModel;
-    },
-    getModel: function() {
-        console.log( 'The model of this vehicle is..' + this.model );
-    }
+  init: function (carModel) {
+    this.model = carModel;
+  },
+  getModel: function () {
+    console.log('The model of this vehicle is..' + this.model);
+  }
 };
 
 
-function vehicle( model ) {
-    function F() {};
-    F.prototype = vehiclePrototype;
+function vehicle(model) {
+  function F() {};
+  F.prototype = vehiclePrototype;
 
-    var f = new F();
+  var f = new F();
 
-    f.init( model );
-    return f;
+  f.init(model);
+  return f;
 }
 
-var car = vehicle( 'Ford Escort' );
+var car = vehicle('Ford Escort');
 car.getModel();
-
 </pre>
 </p>
 
@@ -2577,7 +2604,7 @@ var MacbookWith4GBRam =  function(){},
 <pre  class="brush: js">var Macbook = new Interface(&#39;Macbook&#39;, [&#39;addEngraving&#39;, &#39;addParallels&#39;, &#39;add4GBRam&#39;, &#39;add8GBRam&#39;, &#39;addCase&#39;]);
 A Macbook Pro might thus be represented as follows:
 var MacbookPro = function(){
-    //implements Macbook
+    // implements Macbook
 }
 MacbookPro.prototype = {
         addEngraving: function(){
@@ -2630,7 +2657,7 @@ MacbookDecorator.prototype = {
     this.superclass.constructor(macbook);    
 }
 
-/*Let&#39;s now extend the superclass*/
+// Let&#39;s now extend the superclass
 extend( CaseDecorator, MacbookDecorator ); 
 
 CaseDecorator.prototype.addCase = function(){
@@ -2663,7 +2690,7 @@ console.log(myMacbookPro.getPrice());
 <p>In the following example, we define three objects: defaults, options and settings. The aim of the task is to decorate the &#39;defaults&#39; object with additional functionality found in &#39;options&#39;, which we&#39;ll make available through &#39;settings&#39;. We must:</p>
 <p>(a) Leave &#39;defaults&#39; in an untouched state where we don&#39;t lose the ability to access the properties or functions found in it a later point (b) Gain the ability to use the decorated properties and functions found in &#39;options&#39;</p>
 <pre  class="brush: js">var decoratorApp = decoratorApp || {};
-/* define the objects we&#39;re going to use*/
+// define the objects we&#39;re going to use
 decoratorApp = {
     defaults:{
               validate: false, 
@@ -2796,7 +2823,7 @@ Book.prototype = {
    getISBN: function(){
        return this.ISBN;
    },
-/*other getters not shown for brevity*/
+// other getters not shown for brevity
 updateCheckoutStatus: function(bookID, newStatus, checkoutDate,checkoutMember, newReturnDate){
    this.id  = bookID;
    this.availability = newStatus;
@@ -2826,15 +2853,15 @@ The following single instance of our book meta-data combinations will be shared 
 </p>
 
 <pre class="brush: js">
-/*flyweight optimized version*/
-var Book = function(title, author, genre, pageCount, publisherID, ISBN){
-   this.title = title;
-   this.author = author;
-   this.genre = genre;
-   this.pageCount = pageCount;
-   this.publisherID = publisherID;
-   this.ISBN = ISBN;
-};
+// flyweight optimized version
+var Book = function (title, author, genre, pageCount, publisherID, ISBN) {
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.pageCount = pageCount;
+    this.publisherID = publisherID;
+    this.ISBN = ISBN;
+  };
 </pre>
 
 <p>
@@ -2848,23 +2875,23 @@ Let's now define a very basic factory. What we're going to have it do is perform
 </p>
 
 <pre class="brush: js">
-/*Book Factory singleton */
-var BookFactory = (function(){
-   var existingBooks = {};
-   return{
-       createBook: function(title, author, genre,pageCount,publisherID,ISBN){
-       /*Find out if a particular book meta-data combination has been created before*/
-           var existingBook = existingBooks[ISBN];
-           if(existingBook){
-                   return existingBook;
-               }else{
-               /*if not, let's create a new instance of it and store it*/
-               var book = new Book(title, author, genre,pageCount,publisherID,ISBN);
-               existingBooks[ISBN] =  book;
-               return book;
-           }
-       }
-   }
+// Book Factory singleton 
+var BookFactory = (function () {
+  var existingBooks = {};
+  return {
+    createBook: function (title, author, genre, pageCount, publisherID, ISBN) {
+      // Find out if a particular book meta-data combination has been created before
+      var existingBook = existingBooks[ISBN];
+      if (existingBook) {
+        return existingBook;
+      } else {
+        // if not, let's create a new instance of it and store it
+        var book = new Book(title, author, genre, pageCount, publisherID, ISBN);
+        existingBooks[ISBN] = book;
+        return book;
+      }
+    }
+  }
 });
 </pre>
 
@@ -2876,37 +2903,37 @@ Next, we need to store the states that were removed from the Book objects somewh
 </p>
 
 <pre class="brush: js">
-/*BookRecordManager singleton*/
-var BookRecordManager = (function(){
-   var bookRecordDatabase = {};
-   return{
-       /*add a new book into the library system*/
-       addBookRecord: function(id, title, author, genre,pageCount,publisherID,ISBN, checkoutDate, checkoutMember, dueReturnDate, availability){
-           var book = bookFactory.createBook(title, author, genre,pageCount,publisherID,ISBN);
-            bookRecordDatabase[id] ={
-               checkoutMember: checkoutMember,
-               checkoutDate: checkoutDate,
-               dueReturnDate: dueReturnDate,
-               availability: availability,
-               book: book;
+// BookRecordManager singleton
+var BookRecordManager = (function () {
+  var bookRecordDatabase = {};
+  return {
+    // add a new book into the library system
+    addBookRecord: function (id, title, author, genre, pageCount, publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate, availability) {
+      var book = bookFactory.createBook(title, author, genre, pageCount, publisherID, ISBN);
+      bookRecordDatabase[id] = {
+        checkoutMember: checkoutMember,
+        checkoutDate: checkoutDate,
+        dueReturnDate: dueReturnDate,
+        availability: availability,
+        book: book;
 
-           };
-       },
-    updateCheckoutStatus: function(bookID, newStatus, checkoutDate, checkoutMember,     newReturnDate){
-        var record = bookRecordDatabase[bookID];
-        record.availability = newStatus;
-        record.checkoutDate = checkoutDate;
-        record.checkoutMember = checkoutMember;
-        record.dueReturnDate = newReturnDate;
-   },
-   extendCheckoutPeriod: function(bookID, newReturnDate){
-       bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
-   },
-   isPastDue: function(bookID){
-       var currentDate = new Date();
-       return currentDate.getTime() > Date.parse(bookRecordDatabase[bookID].dueReturnDate);
-   }
- };
+      };
+    },
+    updateCheckoutStatus: function (bookID, newStatus, checkoutDate, checkoutMember, newReturnDate) {
+      var record = bookRecordDatabase[bookID];
+      record.availability = newStatus;
+      record.checkoutDate = checkoutDate;
+      record.checkoutMember = checkoutMember;
+      record.dueReturnDate = newReturnDate;
+    },
+    extendCheckoutPeriod: function (bookID, newReturnDate) {
+      bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
+    },
+    isPastDue: function (bookID) {
+      var currentDate = new Date();
+      return currentDate.getTime() > Date.parse(bookRecordDatabase[bookID].dueReturnDate);
+    }
+  };
 });
 </pre>
 
@@ -2971,20 +2998,20 @@ Now to establish exactly what child element in the container is clicked, we make
 <strong>JavaScript</strong>
 
 <pre class="brush: js">
-stateManager = {
-   fly: function(){
-       var self =  this;
-       $('#container').unbind().bind("click", function(e){
-           var target = $(e.originalTarget || e.srcElement);
-           if(target.is("div.toggle")){
-               self.handleClick(target);
-           }
-       });
-   },
+var stateManager = {
+  fly: function () {
+    var self = this;
+    $('#container').unbind().bind("click", function (e) {
+      var target = $(e.originalTarget || e.srcElement);
+      if (target.is("div.toggle")) {
+        self.handleClick(target);
+      }
+    });
+  },
 
-   handleClick: function(elem){
-       elem.find('span').toggle('slow');
-   }
+  handleClick: function (elem) {
+    elem.find('span').toggle('slow');
+  }
 });
 </pre>
 
@@ -3001,13 +3028,16 @@ Unfortunately, many of us have become used to the idea of wrapping this in $() o
 <p>Rather than doing this:</p>
 
 <pre class="brush: js">
-$('div').bind('click', function(){
- console.log('You clicked: ' + $(this).attr('id'));
+$('div').on('click', function () {
+  console.log('You clicked: ' + $(this).attr('id'));
 });
-you should avoid using the DOM element to create a jQuery object (with the overhead that comes with it) and just use the DOM element itself like this:
 
-$('div').bind('click', function(){
- console.log('You clicked: ' + this.id);
+// you should avoid using the DOM element to create a 
+// jQuery object (with the overhead that comes with it) 
+// and just use the DOM element itself like this:
+
+$('div').on('click', function () {
+  console.log('You clicked: ' + this.id);
 });
 </pre>
 
@@ -3037,7 +3067,7 @@ jQuery.single = (function(o){
 An example of this in action with chaining is:
 </p>
 <pre class="brush: js">
-$('div').bind('click', function(){
+$('div').on('click', function(){
    var html = jQuery.single(this).next().html();
    console.log(html);
  });
@@ -3727,7 +3757,7 @@ var application = {
           drawing:{
               canvas:{
                   2d:{
-                          /*...*/
+                          //...
                   }
               }
           }
@@ -3846,7 +3876,7 @@ extend(myNS, {
                         world:{
                                 wave:{
                                     test: function(){
-                                        /*...*/
+                                        //...
                                     }
                                 }
                         }
@@ -3869,7 +3899,7 @@ myNS.library = {
 extend(myNS, {
         library:{ 
                 bar:function(){
-                    /*...*/  
+                    //... 
                 }
         }
 });
@@ -3908,7 +3938,7 @@ myApp.library = {
 $.extend(true, myApp, {
     library:{ 
         bar:function(){
-            /*..*/
+            //...
         }
     }
 });
@@ -3932,10 +3962,10 @@ console.log(&#39;test&#39;, myApp);
 <p>One popular pattern for namespacing in JavaScript is opting for a single global variable as your primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
 <pre  class="brush: js">var myApplication =  (function(){ 
         function(){
-            /*...*/
+            //...
         },
         return{
-            /*...*/
+            //...
         }
 })();
 
@@ -3971,10 +4001,10 @@ function myApplication_myMethod(){ /*..*/ }
 }
 myApplication.utils = {
     toString:function(){
-        /*..*/
+        //...
     },
     export: function(){
-        /*..*/
+        //...
     }
 }
 </pre>
@@ -3985,18 +4015,18 @@ myApplication.utils = {
 // clobber an existing variable/namespace with the same name
 var myApplication = {};
  
-/*
-The following options *do* check for variable/namespace existence. 
-If already defined, we use that instance, otherwise we assign a new 
-object literal to myApplication.
 
-Option 1: var myApplication = myApplication || {};
-Option 2  if(!MyApplication) MyApplication = {};
-Option 3: var myApplication = myApplication = myApplication || {}
-Option 4: myApplication || (myApplication = {});
-Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
+// The following options *do* check for variable/namespace existence. 
+// If already defined, we use that instance, otherwise we assign a new 
+// object literal to myApplication.
+// 
+// Option 1: var myApplication = myApplication || {};
+// Option 2  if(!MyApplication) MyApplication = {};
+// Option 3: var myApplication = myApplication = myApplication || {}
+// Option 4: myApplication || (myApplication = {});
+// Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
+//
 
-*/
 </pre>
 <p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using the Revealing Module Pattern, which we covered earlier in the book:</p>
 <pre  class="brush: js">var namespace = (function () {
@@ -4013,12 +4043,12 @@ Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
         // limited-scope applications in my personal opinion
         publicMethod1: privateMethod1,
 
-        //nested namespace with public properties
+        // nested namespace with public properties
         properties:{
             publicProperty1: privateProperty1
         },
 
-        //another tested namespace
+        // another tested namespace
         utils:{
             publicMethod2: privateMethod2
         }
@@ -4341,11 +4371,11 @@ $('input').addClass('active');
 
 <pre  class="brush: js">
 
-/*
-  Cross browser opacity:
-  opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+ 
-  filter: alpha(opacity=90);  IE6-IE8 
-*/
+//
+// Cross browser opacity:
+// opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+ 
+// filter: alpha(opacity=90);  IE6-IE8 
+//
    
 $('.container').css({ opacity: .5 });
 </pre>
@@ -4477,12 +4507,13 @@ $.Topic( 'mailSent' ).publish( 'woo! mail!' );
 //  when the 'mailArrived' notification is published
 //  with 'woo! mail!' also being pushed to fn1 when
 //  the 'mailSent' notification is published.
-/*
-output:
-hello world!
-fn2 says: hello world!
-woo! mail!
-*/
+
+//
+// output:
+// hello world!
+// fn2 says: hello world!
+// woo! mail!
+//
 </pre>
 
 <p>&nbsp;</p>
