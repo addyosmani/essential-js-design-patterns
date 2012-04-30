@@ -47,7 +47,7 @@
 <p>
 <ul>
 
-<li>Luke Smith (<a href="http://http://lucassmith.name//">http://lucassmith.name/</a>, <a href="http://twitter.com/ls_n">@ls_n</a>)</li>
+<li>Luke Smith (<a href="http://http://lucassmith.name//">http://lucassmith.name</a>, <a href="http://twitter.com/ls_n">@ls_n</a>)</li>
 <li>Nicholas Zakas (<a href="http://nczonline.net/">http://nczonline.net</a>, <a href="http://twitter.com/slicknet">@slicknet</a>)</li>
 <li>Andrée Hansson (<a href="http://andreehansson.se/">http://andreehansson.se</a>, <a href="http://twitter.com/peolanha">@peolanha</a>)</li>
 <li>Alex Sexton (<a href="http://alexsexton.com">http://alexsexton.com</a>, <a href="http://twitter.com/slexaxton">@slexaxton</a>)</li>
@@ -105,17 +105,17 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
             <li class="subitem"><a href="#mixinpatternjavascript">Mixin Pattern</a>
             <li class="subitem"><a href="#decoratorpatternjavascript">Decorator Pattern</a></li>
             <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
-            <li class="subitem"><a href="#detailnamespacing">Namespacing Patterns</a>
         </ul>
       </li>
-         <li><a href="#detailmvcmvp">MV* Patterns</a>
+         <li><a href="#detailnamespacing">JavaScript Namespacing Patterns</a></li>
+         <li><a href="#detailmvcmvp">JavaScript MV* Patterns</a>
         <ul>
           <li class="subitem"><a href="#detailmvc">MVC Pattern</a>
           <li class="subitem"><a href="#detailmvp">MVP Pattern</a>
           <li class="subitem"><a href="#detailmvvm">MVVM Pattern</a>
         </ul>
       </li>
-        <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a></li>
+        <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a>
         <ul>
           <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
           <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
@@ -129,6 +129,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
           <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
         </ul>
+      </li>
         <li><a href="#modularjavascript">Modern Modular JavaScript Design Patterns</a>
         <ul>
           <li class="subitem"><a href="#detailamd">AMD</a>
@@ -313,7 +314,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   To summarize, an anti-pattern is a bad design that is worthy of documenting. Examples of anti-patterns in JavaScript are the following: </p>
 <ul type="disc">
   <li>Polluting the global namespace      by defining a large number of variables in the global context</li>
-  <li>Passing strings rather      than functions to either setTimeout or setInterval as this triggers the      use of eval() internally.</li>
+  <li>Passing strings rather      than functions to either setTimeout or setInterval as this triggers the      use of <code>eval()</code> internally.</li>
   <li>Modifying the <code>Object</code> class prototype (this is a particularly bad anti-pattern)</li>
   <li>Using JavaScript in an      inline form as this is inflexible </li>
   <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it's executed after the page has been loaded it can actually overwrite the page you're on, whilst document.createElement does not. You can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn't work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
@@ -666,7 +667,7 @@ console.log(mondeo.toString());
 </pre></p>
 
 
-<p>The above is a simple version of the constructor pattern but it does suffer from some problems. One is that it makes inheritance difficult and the other is that functions such as toString() are redefined for each of the new objects created using the Car constructor. This isn't very optimal as the function should ideally be shared between all of the instances of the Car type.</p>
+<p>The above is a simple version of the constructor pattern but it does suffer from some problems. One is that it makes inheritance difficult and the other is that functions such as <code>toString()</code> are redefined for each of the new objects created using the Car constructor. This isn't very optimal as the function should ideally be shared between all of the instances of the Car type.</p>
 
 <p>&nbsp;</p>
 
@@ -919,7 +920,7 @@ In JavaScript, the module pattern is used to further <em>emulate</em> the concep
 The module pattern encapsulates 'privacy', state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
 
 <p>
-This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a>) except that an object is returned rather than a function. </p>
+This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> - see the section on namespacing patterns for more on this) except that an object is returned rather than a function. </p>
 
 <p>
 It should be noted that there isn't really an explicitly true sense of 'privacy' inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
@@ -1294,8 +1295,6 @@ myRevealingModule.get();
 <p>&nbsp;</p>
 
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 <h2 id="observerpatternjavascript">The Observer Pattern</h2>
 
 <p>The Observer pattern is more popularly known these days as the Publish/Subscribe pattern. It is a design pattern which allows an object (known as a subscriber) to watch another object (the publisher), where we provide a means for the subscriber and publisher form a listen and broadcast relationship. </p>
@@ -2712,6 +2711,345 @@ defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ consol
 <!--end detail-->
 
 
+<p>&nbsp;</p>
+<h1 id="detailflyweight">Flyweight</h1>
+<p>&nbsp;</p>
+
+
+<p>The Flyweight pattern is considered a useful classical solution for code that's repetitive, slow and inefficient - for example: situations where we might create a large number of similar objects.</p>
+
+<p>
+It's of particular use in JavaScript where code that's complex in nature may easily use all of the available memory, causing a number of performance issues. Interestingly, it's been quite underused in recent years. Given how reliant we are on JavaScript for the applications of today, both performance and scalability are often paramount and this pattern (when applied correctly) can assist with improving both.</p>
+
+<p>
+To give you some quick historical context, the pattern is named after the boxing weight class that includes fighters weighing less than 112lb - Poncho Villa being the most famous fighter in this division. It derives from this weight classification as it refers to the small amount of weight (memory) used.</p>
+
+<p>
+Flyweights are an approach to taking several similar objects and placing that shared information into a single external object or structure. The general idea is that (in theory) this reduces the resources required to run an overall application. The flyweight is also a structural pattern, meaning that it aims to assist with both the structure of your objects and the relationships between them.</p>
+
+<p>
+So, how do we apply it to JavaScript?
+</p>
+
+<p>
+There are two ways in which the Flyweight pattern can be applied. The first is on the data-layer, where we deal with the concept of large quantities of similar objects stored in memory. The second is on the DOM-layer where the flyweight can be used as a central event-manager to avoid attaching event handlers to every child element in a parent container you wish to have some similar behavior.</p>
+
+<p>
+As the data-layer is where the flyweight pattern is most used traditionally, we'll take a look at this first.</p>
+
+
+<h2>Flyweight and the data layer</h2>
+
+<p>
+For this application, there are a few more concepts around the classical flyweight pattern that we need to be aware of. In the Flyweight pattern there's a concept of two states - intrinsic and extrinsic. Intrinsic information may be required by internal methods in your objects which they absolutely can't function without. Extrinsic information can however be removed and stored externally.</p>
+<p>
+Objects with the same intrinsic data can be replaced with a single shared object, created by a factory method, meaning we're able to reduce the overall quantity of objects down significantly. The benefit of this is that we're able to keep an eye on objects that have already been instantiated so that new copies are only ever created should the intrinsic state differ from the object we already have.</p>
+<p>
+We use a manager to handle the extrinsic states. How this is implemented can vary, however as Dustin Diaz correctly points out in Pro JavaScript Design patterns, one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
+
+<h2>Converting code to use the Flyweight pattern</h2>
+
+<p>
+Let's now demonstrate some of these concepts using the idea of a system to manage all of the books in a library. The important meta-data for each book could probably be broken down as follows:</p>
+<ul>
+<li>ID</li>
+<li>Title</li>
+<li>Author</li>
+<li>Genre</li>
+<li>Page count</li>
+<li>Publisher ID</li>
+<li>ISBN</li>
+</ul>
+<p>
+We'll also require the following properties to keep track of which member has checked out a particular book, the date they've checked it out on as well as the expected date of return.
+</p>
+<ul>
+<li>checkoutDate</li>
+<li>checkoutMember</li>
+<li>dueReturnDate</li>
+<li>availability</li>
+</ul>
+<p>
+Each book would thus be represented as follows, prior to any optimization:
+</p>
+<pre class="brush: js">
+var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ){
+   this.id = id;
+   this.title = title;
+   this.author = author;
+   this.genre = genre;
+   this.pageCount = pageCount;
+   this.publisherID = publisherID;
+   this.ISBN = ISBN;
+   this.checkoutDate = checkoutDate;
+   this.checkoutMember = checkoutMember;
+   this.dueReturnDate = dueReturnDate;
+   this.availability = availability;
+};
+Book.prototype = {
+   getTitle:function(){
+       return this.title;
+   },
+   getAuthor: function(){
+       return this.author;
+   },
+   getISBN: function(){
+       return this.ISBN;
+   },
+/*other getters not shown for brevity*/
+updateCheckoutStatus: function(bookID, newStatus, checkoutDate,checkoutMember, newReturnDate){
+   this.id  = bookID;
+   this.availability = newStatus;
+   this.checkoutDate = checkoutDate;
+   this.checkoutMember = checkoutMember;
+   this.dueReturnDate = newReturnDate;
+},
+extendCheckoutPeriod: function(bookID, newReturnDate){
+    this.id =  bookID;
+    this.dueReturnDate = newReturnDate;
+},
+isPastDue: function(bookID){
+   var currentDate = new Date();
+   return currentDate.getTime() > Date.parse(this.dueReturnDate);
+ }
+};
+</pre>
+
+<p>
+This probably works fine initially for small collections of books, however as the library expands to include a larger inventory with multiple versions and copies of each book available, you'll find the management system running slower and slower over time. Using thousands of book objects may overwhelm the available memory, but we can optimize our system using the flyweight pattern to improve this.</p>
+<p>
+We can now separate our data into intrinsic and extrinsic states as follows: data relevant to the book object (title, author etc) is intrinsic whilst the checkout data (checkoutMember, dueReturnDate etc) is considered extrinsic. Effectively this means that only one Book object is required for each combination of book properties. It's still a considerable quantity of objects, but significantly fewer than we had previously.
+</p>
+
+<p>
+The following single instance of our book meta-data combinations will be shared among all of the copies of a book with a particular title.
+</p>
+
+<pre class="brush: js">
+/*flyweight optimized version*/
+var Book = function(title, author, genre, pageCount, publisherID, ISBN){
+   this.title = title;
+   this.author = author;
+   this.genre = genre;
+   this.pageCount = pageCount;
+   this.publisherID = publisherID;
+   this.ISBN = ISBN;
+};
+</pre>
+
+<p>
+As you can see, the extrinsic states have been removed. Everything to do with library check-outs will be moved to a manager and as the object's data is now segmented, a factory can be used for instantiation.
+</p>
+
+<h2>A Basic Factory</h2>
+
+<p>
+Let's now define a very basic factory. What we're going to have it do is perform a check to see if a book with a particular title has been previously created inside the system. If it has, we'll return it. If not, a new book will be created and stored so that it can be accessed later. This makes sure that we only create a single copy of each unique intrinsic piece of data:
+</p>
+
+<pre class="brush: js">
+/*Book Factory singleton */
+var BookFactory = (function(){
+   var existingBooks = {};
+   return{
+       createBook: function(title, author, genre,pageCount,publisherID,ISBN){
+       /*Find out if a particular book meta-data combination has been created before*/
+           var existingBook = existingBooks[ISBN];
+           if(existingBook){
+                   return existingBook;
+               }else{
+               /*if not, let's create a new instance of it and store it*/
+               var book = new Book(title, author, genre,pageCount,publisherID,ISBN);
+               existingBooks[ISBN] =  book;
+               return book;
+           }
+       }
+   }
+});
+</pre>
+
+
+<h2>Managing the extrinsic states</h2>
+
+<p>
+Next, we need to store the states that were removed from the Book objects somewhere - luckily a manager (which we'll be defining as a singleton) can be used to encapsulate them. Combinations of a Book object and the library member that's checked them out will be called Book records. Our manager will be storing both and will also include checkout related logic we stripped out during our flyweight optimization of the Book class.
+</p>
+
+<pre class="brush: js">
+/*BookRecordManager singleton*/
+var BookRecordManager = (function(){
+   var bookRecordDatabase = {};
+   return{
+       /*add a new book into the library system*/
+       addBookRecord: function(id, title, author, genre,pageCount,publisherID,ISBN, checkoutDate, checkoutMember, dueReturnDate, availability){
+           var book = bookFactory.createBook(title, author, genre,pageCount,publisherID,ISBN);
+            bookRecordDatabase[id] ={
+               checkoutMember: checkoutMember,
+               checkoutDate: checkoutDate,
+               dueReturnDate: dueReturnDate,
+               availability: availability,
+               book: book;
+
+           };
+       },
+    updateCheckoutStatus: function(bookID, newStatus, checkoutDate, checkoutMember,     newReturnDate){
+        var record = bookRecordDatabase[bookID];
+        record.availability = newStatus;
+        record.checkoutDate = checkoutDate;
+        record.checkoutMember = checkoutMember;
+        record.dueReturnDate = newReturnDate;
+   },
+   extendCheckoutPeriod: function(bookID, newReturnDate){
+       bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
+   },
+   isPastDue: function(bookID){
+       var currentDate = new Date();
+       return currentDate.getTime() > Date.parse(bookRecordDatabase[bookID].dueReturnDate);
+   }
+ };
+});
+</pre>
+
+<p>
+The result of these changes is that all of the data that's been extracted from the Book 'class' is now being stored in an attribute of the BookManager singleton (BookDatabase) which is considerable more efficient than the large number of objects we were previously using. Methods related to book checkouts are also now based here as they deal with data that's extrinsic rather than intrinsic.</p>
+
+<p>
+This process does add a little complexity to our final solution, however it's a small concern when compared to the performance issues that have been tackled.</p>
+
+<p>
+Data wise, if we have 30 copies of the same book, we are now only storing it once. Also, every function takes up memory. With the flyweight pattern these functions exist in one place (on the manager) and not on every object, thus saving more memory.</p>
+
+
+<h2>The Flyweight pattern and the DOM</h2>
+<p>
+In JavaScript, functions are effectively object descriptors and all functions are also JavaScript objects internally. The goal of the pattern here is thus to make triggering objects have little to no responsibility for the actions they perform and to instead abstract this responsibility up to a global manager. One of the best metaphors for describing the pattern was written by Gary Chisholm and it goes a little like this:</p>
+
+<p>
+Try to think of the flyweight in terms of a pond. A fish opens its mouth (the event), bubbles raise to the surface (the bubbling) a fly sitting on the top flies away when the bubble reaches the surface (the action). In this example you can easily transpose the fish opening its mouth to a button being clicked, the bubbles as the bubbling effect and the fly flying away to some function being run'.</p>
+
+<p>
+As jQuery is accepted as one of the best options for DOM-manipulation and selection, we'll be using it for our DOM-related examples.</p>
+
+<h3>Example 1: Centralized event handling</h3>
+<p>
+For our first practical example, consider scenarios where you may have a number of similar elements or structures on a page that share similar behavior when a user-action is performed against them.
+</p>
+<p>
+In JavaScript, there's a known bubbling effect in the language so that if an element such as a link or button is clicked, that event is bubbled up to the parent, informing them that something lower down the tree has been clicked. We can use this effect to our advantage.
+</p>
+<p>
+Normally what you might do when constructing your own accordion component, menu or other list-based widget is bind a click event to each link element in the parent container. Instead of binding the click to multiple elements, we can easily attach a flyweight to the top of our container which can listen for events coming from below. These can then be handled using as simple or as complex logic needed.
+</p>
+<p>
+The benefit here is that we're converting many independent objects into a few shared ones (potentially saving on memory), similar to what we were doing with our first JavaScript example.
+</p>
+<p>
+As the types of components mentioned often have the same repeating markup for each section (e.g. each section of an accordion), there's a good chance the behavior of each element that may be clicked is going to be quite similar and relative to similar classes nearby. We'll use this information to construct a very basic accordion using the flyweight below.
+</p>
+<p>
+A stateManager namespace is used here encapsulate our flyweight logic whilst jQuery is used to bind the initial click to a container div. In order to ensure that no other logic on the page is attaching similar handles to the container, an unbind event is first applied.
+</p>
+<p>
+Now to establish exactly what child element in the container is clicked, we make use of a target check which provides a reference to the element that was clicked, regardless of its parent. We then use this information to handle the click event without actually needing to bind the event to specific children when our page loads.
+</p>
+
+<strong>HTML</strong>
+<pre class="brush: js" style="word-wrap:break-word">
+&lt;div id=&quot;container&quot;&gt;
+   &lt;div class=&quot;toggle&quot; href=&quot;#&quot;&gt;More Info (Address)
+       &lt;span class=&quot;info&quot;&gt;
+           This is more information
+       &lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;toggle&quot; href=&quot;#&quot;&gt;Even More Info (Map)
+       &lt;span class=&quot;info&quot;&gt;
+          &lt;iframe src=&quot;http://www.map-generator.net/extmap.php?name=London&amp;amp;address=london%2C%20england&amp;amp;width=500...gt;"&lt;/iframe&gt;
+       &lt;/span&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<strong>JavaScript</strong>
+
+<pre class="brush: js">
+stateManager = {
+   fly: function(){
+       var self =  this;
+       $('#container').unbind().bind("click", function(e){
+           var target = $(e.originalTarget || e.srcElement);
+           if(target.is("div.toggle")){
+               self.handleClick(target);
+           }
+       });
+   },
+
+   handleClick: function(elem){
+       elem.find('span').toggle('slow');
+   }
+});
+</pre>
+
+<h3>Example 2: Using the Flyweight for Performance Gains</h3>
+
+<p>In our second example, we'll reference some useful performance gains you can get from applying the flyweight pattern to jQuery.</p>
+
+<p>
+James Padolsey previously wrote a post called '76 bytes for faster jQuery' where he reminds us of an important point: every time jQuery fires off a callback, regardless of type (filter, each, event handler), you're able to access the function's context (the DOM element related to it) via the this keyword.</p>
+
+<p>
+Unfortunately, many of us have become used to the idea of wrapping this in $() or jQuery(), which means that a new instance of jQuery is constructed every time.</p>
+
+<p>Rather than doing this:</p>
+
+<pre class="brush: js">
+$('div').bind('click', function(){
+ console.log('You clicked: ' + $(this).attr('id'));
+});
+you should avoid using the DOM element to create a jQuery object (with the overhead that comes with it) and just use the DOM element itself like this:
+
+$('div').bind('click', function(){
+ console.log('You clicked: ' + this.id);
+});
+</pre>
+
+<p>
+Now with respect to redundant wrapping, where possible with jQuery's utility methods, it's better to use jQuery.N as opposed to jQuery.fn.N where N represents a utility such as each. Because not all of jQuery's methods have corresponding single-node functions, Padolsey devised the idea of jQuery.single.</p>
+
+<p>
+The idea here is that a single jQuery object is created and used for each call to jQuery.single (effectively meaning only one jQuery object is ever created). The implementation for this can be found below and is a flyweight as we're consolidating multiple possible objects into a more central singular structure.</p>
+
+<pre class="brush: js">
+jQuery.single = (function(o){
+
+   var collection = jQuery([1]);
+   return function(element) {
+
+       // Give collection the element:
+       collection[0] = element;
+
+        // Return the collection:
+       return collection;
+
+   };
+ });
+</pre>
+
+<p>
+An example of this in action with chaining is:
+</p>
+<pre class="brush: js">
+$('div').bind('click', function(){
+   var html = jQuery.single(this).next().html();
+   console.log(html);
+ });
+</pre>
+
+<p>
+Note that although we may believe that simply caching our jQuery code may offer just as equivalent performance gains, Padolsey claims that $.single() is still worth using and can perform better. That's not to say don't apply any caching at all, just be mindful that this approach can assist. For further details about $.single, I recommend reading Padolsey's full post.</p>
+
+<p>&nbsp;</p>
+
+
+
 <!--more-->
 
 
@@ -3371,347 +3709,7 @@ var bindings = {
 
 
 
-<p>&nbsp;</p>
-<h1 id="detailflyweight">Flyweight</h1>
-<p>&nbsp;</p>
-
-
-<p>The Flyweight pattern is considered a useful classical solution for code that's repetitive, slow and inefficient - for example: situations where we might create a large number of similar objects.</p>
-
-<p>
-It's of particular use in JavaScript where code that's complex in nature may easily use all of the available memory, causing a number of performance issues. Interestingly, it's been quite underused in recent years. Given how reliant we are on JavaScript for the applications of today, both performance and scalability are often paramount and this pattern (when applied correctly) can assist with improving both.</p>
-
-<p>
-To give you some quick historical context, the pattern is named after the boxing weight class that includes fighters weighing less than 112lb - Poncho Villa being the most famous fighter in this division. It derives from this weight classification as it refers to the small amount of weight (memory) used.</p>
-
-<p>
-Flyweights are an approach to taking several similar objects and placing that shared information into a single external object or structure. The general idea is that (in theory) this reduces the resources required to run an overall application. The flyweight is also a structural pattern, meaning that it aims to assist with both the structure of your objects and the relationships between them.</p>
-
-<p>
-So, how do we apply it to JavaScript?
-</p>
-
-<p>
-There are two ways in which the Flyweight pattern can be applied. The first is on the data-layer, where we deal with the concept of large quantities of similar objects stored in memory. The second is on the DOM-layer where the flyweight can be used as a central event-manager to avoid attaching event handlers to every child element in a parent container you wish to have some similar behavior.</p>
-
-<p>
-As the data-layer is where the flyweight pattern is most used traditionally, we'll take a look at this first.</p>
-
-
-<h2>Flyweight and the data layer</h2>
-
-<p>
-For this application, there are a few more concepts around the classical flyweight pattern that we need to be aware of. In the Flyweight pattern there's a concept of two states - intrinsic and extrinsic. Intrinsic information may be required by internal methods in your objects which they absolutely can't function without. Extrinsic information can however be removed and stored externally.</p>
-<p>
-Objects with the same intrinsic data can be replaced with a single shared object, created by a factory method, meaning we're able to reduce the overall quantity of objects down significantly. The benefit of this is that we're able to keep an eye on objects that have already been instantiated so that new copies are only ever created should the intrinsic state differ from the object we already have.</p>
-<p>
-We use a manager to handle the extrinsic states. How this is implemented can vary, however as Dustin Diaz correctly points out in Pro JavaScript Design patterns, one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
-
-<h2>Converting code to use the Flyweight pattern</h2>
-
-<p>
-Let's now demonstrate some of these concepts using the idea of a system to manage all of the books in a library. The important meta-data for each book could probably be broken down as follows:</p>
-<ul>
-<li>ID</li>
-<li>Title</li>
-<li>Author</li>
-<li>Genre</li>
-<li>Page count</li>
-<li>Publisher ID</li>
-<li>ISBN</li>
-</ul>
-<p>
-We'll also require the following properties to keep track of which member has checked out a particular book, the date they've checked it out on as well as the expected date of return.
-</p>
-<ul>
-<li>checkoutDate</li>
-<li>checkoutMember</li>
-<li>dueReturnDate</li>
-<li>availability</li>
-</ul>
-<p>
-Each book would thus be represented as follows, prior to any optimization:
-</p>
-<pre class="brush: js">
-var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ){
-   this.id = id;
-   this.title = title;
-   this.author = author;
-   this.genre = genre;
-   this.pageCount = pageCount;
-   this.publisherID = publisherID;
-   this.ISBN = ISBN;
-   this.checkoutDate = checkoutDate;
-   this.checkoutMember = checkoutMember;
-   this.dueReturnDate = dueReturnDate;
-   this.availability = availability;
-};
-Book.prototype = {
-   getTitle:function(){
-       return this.title;
-   },
-   getAuthor: function(){
-       return this.author;
-   },
-   getISBN: function(){
-       return this.ISBN;
-   },
-/*other getters not shown for brevity*/
-updateCheckoutStatus: function(bookID, newStatus, checkoutDate,checkoutMember, newReturnDate){
-   this.id  = bookID;
-   this.availability = newStatus;
-   this.checkoutDate = checkoutDate;
-   this.checkoutMember = checkoutMember;
-   this.dueReturnDate = newReturnDate;
-},
-extendCheckoutPeriod: function(bookID, newReturnDate){
-    this.id =  bookID;
-    this.dueReturnDate = newReturnDate;
-},
-isPastDue: function(bookID){
-   var currentDate = new Date();
-   return currentDate.getTime() > Date.parse(this.dueReturnDate);
- }
-};
-</pre>
-
-<p>
-This probably works fine initially for small collections of books, however as the library expands to include a larger inventory with multiple versions and copies of each book available, you'll find the management system running slower and slower over time. Using thousands of book objects may overwhelm the available memory, but we can optimize our system using the flyweight pattern to improve this.</p>
-<p>
-We can now separate our data into intrinsic and extrinsic states as follows: data relevant to the book object (title, author etc) is intrinsic whilst the checkout data (checkoutMember, dueReturnDate etc) is considered extrinsic. Effectively this means that only one Book object is required for each combination of book properties. It's still a considerable quantity of objects, but significantly fewer than we had previously.
-</p>
-
-<p>
-The following single instance of our book meta-data combinations will be shared among all of the copies of a book with a particular title.
-</p>
-
-<pre class="brush: js">
-/*flyweight optimized version*/
-var Book = function(title, author, genre, pageCount, publisherID, ISBN){
-   this.title = title;
-   this.author = author;
-   this.genre = genre;
-   this.pageCount = pageCount;
-   this.publisherID = publisherID;
-   this.ISBN = ISBN;
-};
-</pre>
-
-<p>
-As you can see, the extrinsic states have been removed. Everything to do with library check-outs will be moved to a manager and as the object's data is now segmented, a factory can be used for instantiation.
-</p>
-
-<h2>A Basic Factory</h2>
-
-<p>
-Let's now define a very basic factory. What we're going to have it do is perform a check to see if a book with a particular title has been previously created inside the system. If it has, we'll return it. If not, a new book will be created and stored so that it can be accessed later. This makes sure that we only create a single copy of each unique intrinsic piece of data:
-</p>
-
-<pre class="brush: js">
-/*Book Factory singleton */
-var BookFactory = (function(){
-   var existingBooks = {};
-   return{
-       createBook: function(title, author, genre,pageCount,publisherID,ISBN){
-       /*Find out if a particular book meta-data combination has been created before*/
-           var existingBook = existingBooks[ISBN];
-           if(existingBook){
-                   return existingBook;
-               }else{
-               /*if not, let's create a new instance of it and store it*/
-               var book = new Book(title, author, genre,pageCount,publisherID,ISBN);
-               existingBooks[ISBN] =  book;
-               return book;
-           }
-       }
-   }
-});
-</pre>
-
-
-<h2>Managing the extrinsic states</h2>
-
-<p>
-Next, we need to store the states that were removed from the Book objects somewhere - luckily a manager (which we'll be defining as a singleton) can be used to encapsulate them. Combinations of a Book object and the library member that's checked them out will be called Book records. Our manager will be storing both and will also include checkout related logic we stripped out during our flyweight optimization of the Book class.
-</p>
-
-<pre class="brush: js">
-/*BookRecordManager singleton*/
-var BookRecordManager = (function(){
-   var bookRecordDatabase = {};
-   return{
-       /*add a new book into the library system*/
-       addBookRecord: function(id, title, author, genre,pageCount,publisherID,ISBN, checkoutDate, checkoutMember, dueReturnDate, availability){
-           var book = bookFactory.createBook(title, author, genre,pageCount,publisherID,ISBN);
-            bookRecordDatabase[id] ={
-               checkoutMember: checkoutMember,
-               checkoutDate: checkoutDate,
-               dueReturnDate: dueReturnDate,
-               availability: availability,
-               book: book;
-
-           };
-       },
-    updateCheckoutStatus: function(bookID, newStatus, checkoutDate, checkoutMember,     newReturnDate){
-        var record = bookRecordDatabase[bookID];
-        record.availability = newStatus;
-        record.checkoutDate = checkoutDate;
-        record.checkoutMember = checkoutMember;
-        record.dueReturnDate = newReturnDate;
-   },
-   extendCheckoutPeriod: function(bookID, newReturnDate){
-       bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
-   },
-   isPastDue: function(bookID){
-       var currentDate = new Date();
-       return currentDate.getTime() > Date.parse(bookRecordDatabase[bookID].dueReturnDate);
-   }
- };
-});
-</pre>
-
-<p>
-The result of these changes is that all of the data that's been extracted from the Book 'class' is now being stored in an attribute of the BookManager singleton (BookDatabase) which is considerable more efficient than the large number of objects we were previously using. Methods related to book checkouts are also now based here as they deal with data that's extrinsic rather than intrinsic.</p>
-
-<p>
-This process does add a little complexity to our final solution, however it's a small concern when compared to the performance issues that have been tackled.</p>
-
-<p>
-Data wise, if we have 30 copies of the same book, we are now only storing it once. Also, every function takes up memory. With the flyweight pattern these functions exist in one place (on the manager) and not on every object, thus saving more memory.</p>
-
-
-<h2>The Flyweight pattern and the DOM</h2>
-<p>
-In JavaScript, functions are effectively object descriptors and all functions are also JavaScript objects internally. The goal of the pattern here is thus to make triggering objects have little to no responsibility for the actions they perform and to instead abstract this responsibility up to a global manager. One of the best metaphors for describing the pattern was written by Gary Chisholm and it goes a little like this:</p>
-
-<p>
-Try to think of the flyweight in terms of a pond. A fish opens its mouth (the event), bubbles raise to the surface (the bubbling) a fly sitting on the top flies away when the bubble reaches the surface (the action). In this example you can easily transpose the fish opening its mouth to a button being clicked, the bubbles as the bubbling effect and the fly flying away to some function being run'.</p>
-
-<p>
-As jQuery is accepted as one of the best options for DOM-manipulation and selection, we'll be using it for our DOM-related examples.</p>
-
-<h3>Example 1: Centralized event handling</h3>
-<p>
-For our first practical example, consider scenarios where you may have a number of similar elements or structures on a page that share similar behavior when a user-action is performed against them.
-</p>
-<p>
-In JavaScript, there's a known bubbling effect in the language so that if an element such as a link or button is clicked, that event is bubbled up to the parent, informing them that something lower down the tree has been clicked. We can use this effect to our advantage.
-</p>
-<p>
-Normally what you might do when constructing your own accordion component, menu or other list-based widget is bind a click event to each link element in the parent container. Instead of binding the click to multiple elements, we can easily attach a flyweight to the top of our container which can listen for events coming from below. These can then be handled using as simple or as complex logic needed.
-</p>
-<p>
-The benefit here is that we're converting many independent objects into a few shared ones (potentially saving on memory), similar to what we were doing with our first JavaScript example.
-</p>
-<p>
-As the types of components mentioned often have the same repeating markup for each section (e.g. each section of an accordion), there's a good chance the behavior of each element that may be clicked is going to be quite similar and relative to similar classes nearby. We'll use this information to construct a very basic accordion using the flyweight below.
-</p>
-<p>
-A stateManager namespace is used here encapsulate our flyweight logic whilst jQuery is used to bind the initial click to a container div. In order to ensure that no other logic on the page is attaching similar handles to the container, an unbind event is first applied.
-</p>
-<p>
-Now to establish exactly what child element in the container is clicked, we make use of a target check which provides a reference to the element that was clicked, regardless of its parent. We then use this information to handle the click event without actually needing to bind the event to specific children when our page loads.
-</p>
-
-<strong>HTML</strong>
-<pre class="brush: js" style="word-wrap:break-word">
-&lt;div id=&quot;container&quot;&gt;
-   &lt;div class=&quot;toggle&quot; href=&quot;#&quot;&gt;More Info (Address)
-       &lt;span class=&quot;info&quot;&gt;
-           This is more information
-       &lt;/span&gt;&lt;/div&gt;
-   &lt;div class=&quot;toggle&quot; href=&quot;#&quot;&gt;Even More Info (Map)
-       &lt;span class=&quot;info&quot;&gt;
-          &lt;iframe src=&quot;http://www.map-generator.net/extmap.php?name=London&amp;amp;address=london%2C%20england&amp;amp;width=500...gt;"&lt;/iframe&gt;
-       &lt;/span&gt;
-   &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-
-<strong>JavaScript</strong>
-
-<pre class="brush: js">
-stateManager = {
-   fly: function(){
-       var self =  this;
-       $('#container').unbind().bind("click", function(e){
-           var target = $(e.originalTarget || e.srcElement);
-           if(target.is("div.toggle")){
-               self.handleClick(target);
-           }
-       });
-   },
-
-   handleClick: function(elem){
-       elem.find('span').toggle('slow');
-   }
-});
-</pre>
-
-<h3>Example 2: Using the Flyweight for Performance Gains</h3>
-
-<p>In our second example, we'll reference some useful performance gains you can get from applying the flyweight pattern to jQuery.</p>
-
-<p>
-James Padolsey previously wrote a post called '76 bytes for faster jQuery' where he reminds us of an important point: every time jQuery fires off a callback, regardless of type (filter, each, event handler), you're able to access the function's context (the DOM element related to it) via the this keyword.</p>
-
-<p>
-Unfortunately, many of us have become used to the idea of wrapping this in $() or jQuery(), which means that a new instance of jQuery is constructed every time.</p>
-
-<p>Rather than doing this:</p>
-
-<pre class="brush: js">
-$('div').bind('click', function(){
- console.log('You clicked: ' + $(this).attr('id'));
-});
-you should avoid using the DOM element to create a jQuery object (with the overhead that comes with it) and just use the DOM element itself like this:
-
-$('div').bind('click', function(){
- console.log('You clicked: ' + this.id);
-});
-</pre>
-
-<p>
-Now with respect to redundant wrapping, where possible with jQuery's utility methods, it's better to use jQuery.N as opposed to jQuery.fn.N where N represents a utility such as each. Because not all of jQuery's methods have corresponding single-node functions, Padolsey devised the idea of jQuery.single.</p>
-
-<p>
-The idea here is that a single jQuery object is created and used for each call to jQuery.single (effectively meaning only one jQuery object is ever created). The implementation for this can be found below and is a flyweight as we're consolidating multiple possible objects into a more central singular structure.</p>
-
-<pre class="brush: js">
-jQuery.single = (function(o){
-
-   var collection = jQuery([1]);
-   return function(element) {
-
-       // Give collection the element:
-       collection[0] = element;
-
-        // Return the collection:
-       return collection;
-
-   };
- });
-</pre>
-
-<p>
-An example of this in action with chaining is:
-</p>
-<pre class="brush: js">
-$('div').bind('click', function(){
-   var html = jQuery.single(this).next().html();
-   console.log(html);
- });
-</pre>
-
-<p>
-Note that although we may believe that simply caching our jQuery code may offer just as equivalent performance gains, Padolsey claims that $.single() is still worth using and can perform better. That's not to say don't apply any caching at all, just be mindful that this approach can assist. For further details about $.single, I recommend reading Padolsey's full post.</p>
-
-<p>&nbsp;</p>
-
-
-<p><strong>&nbsp;</strong></p>
-
-<h2 id="detailnamespacing">Namespacing Patterns/Conventions</h2>
+<h2 id="detailnamespacing">Namespacing Patterns</h2>
 
 <p>In this section, I&#39;ll be discussing both intermediate and advanced conventions for namespacing in JavaScript. We&#39;re going to begin with the latter, however if you&#39;re new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled &#39;<a href="#beginners">namespacing fundamentals</a>&#39; to continue reading.</p>
 
