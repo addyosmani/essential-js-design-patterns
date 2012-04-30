@@ -20,6 +20,7 @@ h1{
 	text-align: left;
 	border-bottom:3px solid #CCCCCC;
 	padding-bottom:13px;
+  position: relative;
 }
 
 h2.booktitle{
@@ -29,6 +30,11 @@ h2.booktitle{
 
 h2 {
 	font-size:28px;
+  position: relative;
+}
+
+h3 {
+  position: relative;
 }
 
 a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
@@ -47,6 +53,24 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	text-decoration: none;
 }
 
+a.subhead-link, a.subhead-link:visited {
+  font-size: 19px;
+  position: absolute;
+  top: 10px;
+  left: -16px;
+  font-style: italic;
+  color: #999999;
+}
+
+a.subhead-link:hover {
+  color: #333333;
+  text-decoration: none;
+}
+
+h3 a.subhead-link { /* since h3's are smaller, the top offset should be less, so they line up */
+  top: 5px;
+}
+
 /* ~~ this fixed width container surrounds the other divs ~~ */
 .container {
 	width: 740px;
@@ -60,7 +84,7 @@ header {
 }
 
 
-/* ~~ This is the layout information. ~~ 
+/* ~~ This is the layout information. ~~
 
 1) Padding is only placed on the top and/or bottom of the div. The elements within this div have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
 
@@ -118,7 +142,7 @@ padding:1em 1em 1em 3em;
 }
 
 .subitem{
- margin-left:25px;	
+ margin-left:25px;
 }
 
 #references-list {
