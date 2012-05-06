@@ -358,20 +358,25 @@ and I've modified it where necessary to suit our discussion in this section of t
 
 <pre class="brush: js">
 // A car 'class'
-function Car(model) {
+function Car( model ) {
+
   this.model = model;
   this.color = 'silver';
   this.year = '2012';
+
   this.getInfo = function () {
     return this.model + ' ' + this.year;
   }
+
 }
 </pre>
 
 <p>We can then instantiate the object using the Car constructor we defined above like this:</p>
 <pre class="brush: js" >
 var myCar = new Car('ford');
+
 myCar.year = '2010';
+
 console.log(myCar.getInfo());
 </pre>
 
@@ -646,7 +651,7 @@ driver.topSpeed // 100mph
 
 <p><pre  class="brush: js">
 
-function Car(model, year, miles) {
+function Car( model, year, miles ) {
 
   this.model = model;
   this.year = year;
@@ -677,7 +682,7 @@ console.log(mondeo.toString());
 
 <p><pre class="brush: js">
 
-function Car(model, year, miles) {
+function Car( model, year, miles ) {
   this.model = model;
   this.year = year;
   this.miles = miles;
@@ -1121,10 +1126,10 @@ Dojo provides a convenience method for working with objects called <code>dojo.se
 <pre class="brush: js">
 var store = window.store || {};
 
-if (!store["basket"]) {
+if ( !store["basket"] ) {
   store.basket = {};
 }
-if (!store.basket["core"]) {
+if ( !store.basket["core"] ) {
   store.basket.core = {};
 }
 
@@ -1135,7 +1140,7 @@ store.basket.core = {
 </p>
 <p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
 <pre  class="brush: js">
-require(["dojo/_base/customStore"], function(store){
+require(["dojo/_base/customStore"], function( store ){
 
   // using dojo.setObject()
   store.setObject("basket.core", (function() {
@@ -1170,7 +1175,7 @@ myNameSpace.app = function () {
   var privVar1 = 11;
 
   // private functions
-  var btn1Handler = function (button, event) {
+  var btn1Handler = function ( button, event ) {
       alert('privVar1=' + privVar1);
       alert('this.btn1Text=' + this.btn1Text);
     };
@@ -1248,7 +1253,7 @@ In the following example, a <code>library</code> function is defined which decla
 
 <pre  class="brush: js">
 
-function library(module) {
+function library( module ) {
   $(function () {
     if (module.init) {
       module.init();
@@ -1397,7 +1402,7 @@ el.on("/login", function(data){...});
 
 // Unsubscribe
 
-// Dojo: dojo.unsubscribe(handle);
+// Dojo: dojo.unsubscribe( handle );
 dojo.unsubscribe(handle);
 
 // jQuery: $(obj).off("channel");
@@ -1507,7 +1512,7 @@ var pubsub = {};
 <p>
 <pre  class="brush: js">
 
-var testHandler = function (topics, data) {
+var testHandler = function ( topics, data ) {
     console.log(topics + ": " + data);
 };
 
@@ -1574,7 +1579,7 @@ var grid = {
 
 // a very basic mediator
 
-var gridUpdate = function(topics, data){
+var gridUpdate = function( topics, data {
      grid.refreshData();
      grid.updateCounter();
 }
@@ -1609,7 +1614,7 @@ In addition to avoiding data having to be read from a cached store, this also av
 <pre  class="brush: js">
 var grid = {
 
-  addEntry: function (data) {
+  addEntry: function ( data ) {
 
     if (data !== 'undefined') {
 
@@ -1627,14 +1632,14 @@ var grid = {
 
   },
 
-  updateCounter: function (timestamp) {
+  updateCounter: function ( timestamp ) {
     console.log('grid last updated at: ' + timestamp);
   }
 };
 
 
 
-var gridUpdate = function (topics, data) {
+var gridUpdate = function ( topics, data ) {
     grid.addEntry(data);
     grid.updateCounter(data.timestamp);
   }
@@ -1835,7 +1840,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 
 
-   $.subscribe('/search/tags', function(tags){
+   $.subscribe('/search/tags', function( tags ){
 
        $.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?',
                   { tags: tags, tagmode: 'any', format: 'json'},
@@ -1849,7 +1854,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 
 
-   $.subscribe('/search/tags', function(tags){
+   $.subscribe('/search/tags', function( tags ){
        $('#searchResults').html('<p>Searched for:<strong>' + tags + '</strong></p>');
    });
 
@@ -1944,7 +1949,6 @@ var mediator = (function(){
           console.log( person ); // David
      });
 
-    
       // Publish the 'nameChange' topic/event with the new data
       m.publish( 'nameChange', 'David' ); 
     
@@ -2042,7 +2046,7 @@ Here the properties can be initialized on the second argument of Object.create u
 <pre  class="brush: js">
 
 var vehiclePrototype = {
-  init: function (carModel) {
+  init: function ( carModel ) {
     this.model = carModel;
   },
   getModel: function () {
@@ -2051,7 +2055,7 @@ var vehiclePrototype = {
 };
 
 
-function vehicle(model) {
+function vehicle( model ) {
   function F() {};
   F.prototype = vehiclePrototype;
 
@@ -2138,7 +2142,7 @@ CarManager.execute("buyVehicle", "Ford Escort", "453543");
 As per this structure we should now add a definition for the "CarManager.execute" method as follows:
 </p>
 <p><pre  class="brush: js">  
-CarManager.execute = function (name) {
+CarManager.execute = function ( name ) {
     return CarManager[name] && CarManager[name].apply(CarManager, [].slice.call(arguments, 1));
 };
 </pre></p>
@@ -2174,7 +2178,7 @@ Let’s take a look at the pattern in action. This is an unoptimized code exampl
 <pre class="brush: js">
 
 var addMyEvent = function( el,ev,fn ){
-   if(el.addEventListener){
+   if( el.addEventListener ){
             el.addEventListener( ev,fn, false );
       }else if(el.attachEvent){
             el.attachEvent( 'on'+ ev, fn );
@@ -2322,13 +2326,13 @@ console.log(bigfoot instanceof Truck); // => true
     var types = {};
 
     return {
-        getVehicle: function (type, customizations) {
+        getVehicle: function ( type, customizations ) {
             var Vehicle = types[type];
 
             return (Vehicle) ? return new Vehicle(customizations) : null;
         },
 
-        registerVehicle: function (type, Vehicle) {
+        registerVehicle: function ( type, Vehicle ) {
             var proto = Vehicle.prototype;
 
             // only register classes that fulfill the vehicle contract
@@ -2853,7 +2857,7 @@ The following single instance of our book meta-data combinations will be shared 
 
 <pre class="brush: js">
 // flyweight optimized version
-var Book = function (title, author, genre, pageCount, publisherID, ISBN) {
+var Book = function ( title, author, genre, pageCount, publisherID, ISBN ) {
     this.title = title;
     this.author = author;
     this.genre = genre;
@@ -3047,7 +3051,7 @@ Now with respect to redundant wrapping, where possible with jQuery's utility met
 The idea here is that a single jQuery object is created and used for each call to jQuery.single (effectively meaning only one jQuery object is ever created). The implementation for this can be found below and is a flyweight as we're consolidating multiple possible objects into a more central singular structure.</p>
 
 <pre class="brush: js">
-jQuery.single = (function(o){
+jQuery.single = (function( o ){
 
    var collection = jQuery([1]);
    return function(element) {
@@ -3387,7 +3391,7 @@ var PhotosController = Spine.Controller.sub({
 <p>The only exception to this rule tends to be validation and it&rsquo;s considered acceptable for Models to validate data being used to define or update existing models (e.g does an e-mail address being input meet the requirements of a particular Regular expression?).</p>
 <p>In KnockoutJS, Models fall under the above definition, but often make Ajax calls to a server-side service to both read and write Model data.</p>
 <p>If we were constructing a simple Todo application, a KnockoutJS Model representing a single Todo item could look as follows:</p>
-<pre   class="brush: js">var Todo = function (content, done) {
+<pre   class="brush: js">var Todo = function ( content, done ) {
     this.content = ko.observable(content);
     this.done = ko.observable(done);
     this.editing = ko.observable(false);
@@ -3401,7 +3405,7 @@ var PhotosController = Spine.Controller.sub({
 <p>A KnockoutJS View is simply a HTML document with declarative bindings to link it to the ViewModel. KnockoutJS Views display information from the ViewModel, pass commands to it (e.g a user clicking on an element) and update as the state of the ViewModel changes. Templates generating markup using data from the ViewModel can however also be used for this purpose.</p>
 <p>To give a brief initial example, we can look to the JavaScript MVVM framework KnockoutJS for how it allows the definition of a ViewModel and it&rsquo;s related bindings in markup:</p>
 <p>ViewModel:</p>
-<pre   class="brush: js">var aViewModel = {
+<pre class="brush: js">var aViewModel = {
     contactName: ko.observable(&#39;John&#39;);
 };
 </pre>
@@ -3465,7 +3469,7 @@ var PhotosController = Spine.Controller.sub({
 <p>KnockoutJS interprets the ViewModel as the representation of data and operations that can be performed on a UI. This isn&#39;t the UI itself nor the data model that persists, but rather a layer that can also hold the yet to be saved data a user is working with. Knockout&#39;s ViewModels are implemented JavaScript objects with no knowledge of HTML markup. This abstract approach to their implementation allows them to stay simple, meaning more complex behavior can be more easily managed on-top as needed.</p>
 <p>A partial KnockoutJS ViewModel for our Todo application could thus look as follows:</p>
 <pre   class="brush: js">// our main ViewModel
-    var ViewModel = function (todos) {
+    var ViewModel = function ( todos ) {
         var self = this;
 
     // map array of passed in todos to an observableArray of Todo objects
