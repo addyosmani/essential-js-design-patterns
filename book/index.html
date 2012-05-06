@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Essential JavaScript And jQuery Design Patterns</title>
+<title>Learning JavaScript Design Patterns</title>
 
 <link href="css/style.css" rel="stylesheet" type="text/css">
 
@@ -16,7 +16,7 @@
 <div class="container inner wrap">
   <header>
     <p>
-    <h1 class="booktitle title">Essential JavaScript &amp; jQuery Design Patterns</h1>
+    <h1 class="booktitle title">Learning JavaScript Design Patterns</h1>
     <h3 class="booktitle author">
         A book by <a href="http://twitter.com/addyosmani">Addy Osmani</a>
     </h3>
@@ -25,7 +25,7 @@
     <p class="copyright">
       Copyright &copy; Addy Osmani 2012. Last updated 6 May 2012.
     </p>
-    <p class="copyright">Creative Commons <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. You are free to remix, tweak, and build upon this work non-commercially, as long as you credit Addy Osmani (the copyright holder) and license your new creations under the identical terms. Any of the above conditions can be waived if you get permission from the copyright holder. For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">link to the license</a>. </p>
+    <p class="copyright">Released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. <em>Learning JavaScript Design Patterns</em> will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012. It will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
   </header>
   <div class="content">
@@ -5324,11 +5324,11 @@ define(["dojo", "dijit", "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit 
 define(["dojo", "dojo/store/Observable"], function ( dojo, Observable ) {
     return function UpdatableObservable ( store ) {
 
-        var observable = dojo.isFunction(store.notify) ? store :
+        var observable = dojo.isFunction( store.notify ) ? store :
                 new Observable(store);
 
         observable.updated = function( object ) {
-            dojo.when(object, function ( itemOrArray) {
+            dojo.when( object, function ( itemOrArray) {
                 dojo.forEach( [].concat(itemOrArray), this.notify, this );
             };
         };
@@ -5347,7 +5347,7 @@ define(["mylib/UpdatableObservable"], function ( makeUpdatable ) {
         someItem;
 
     // make the observable store updatable
-    updatable = makeUpdatable(observable); // `new` is optional!
+    updatable = makeUpdatable( observable ); // `new` is optional!
 
     // we can then call .updated() later on if we wish to pass 
     // on data that has changed
@@ -5363,8 +5363,8 @@ define(["mylib/UpdatableObservable"], function ( makeUpdatable ) {
 // "mylib/Array" adapts `each` function to mimic jQuery"s:
 define(["dojo/_base/lang", "dojo/_base/array"], function ( lang, array ) {
     return lang.delegate( array, {
-        each: function (arr, lambda) {
-            array.forEach(arr, function ( item, i ) {
+        each: function ( arr, lambda ) {
+            array.forEach( arr, function ( item, i ) {
                 lambda.call( item, i, item ); // like jQuery"s each
             })
         }
@@ -5400,7 +5400,7 @@ define(["js/jquery.js","js/jquery.color.js","js/underscore.js"],
 
         // Animate the background-color of any elements with the class
         // "item" on the page using the shuffled color
-        $( ".item" ).animate({"backgroundColor": shuffleColor });
+        $( ".item" ).animate( {"backgroundColor": shuffleColor } );
         
         // What we return can be used by other modules
         return {};
@@ -5432,7 +5432,7 @@ originaljQuery = jQuery,
 original$ = $;
 
 define(["jquery"] , function ( $ ) {
-    $( ".items" ).css( "background","green");
+    $( ".items" ).css( "background","green" );
     return function () {};
 });
 </pre>
@@ -5518,7 +5518,6 @@ function foobar(){
 // expose foobar to other modules
 exports.foobar = foobar;
 
-
 // an application consuming "foobar"
 
 // access the module relative to the path
@@ -5528,7 +5527,8 @@ exports.foobar = foobar;
 var foobar = require("./foobar").foobar,
     test   = new foobar();
 
-test.bar(); // "Hello bar"
+// Outputs: "Hello bar"
+test.bar(); 
 
 </pre>
 
@@ -5648,7 +5648,7 @@ exports.helloWorld = function(){
 <pre class="brush: js">
 define( function ( require, exports, module ){
     
-    var shuffler = require("lib/shuffle");
+    var shuffler = require( "lib/shuffle" );
 
     exports.randomize = function( input ){
         return shuffler.shuffle( input );
@@ -5676,7 +5676,7 @@ define( function ( require, exports, module ){
     define( "id", function ( require, exports ) {
 
         // If dependencies are required, get them here
-        var a = require("a");
+        var a = require( "a" );
 
         // Attach properties to exports.
         exports.name = value;
@@ -7414,7 +7414,7 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
 </ol>
 <p>&nbsp;</p>
 <p>If you&rsquo;ve managed to absorb most of the information in my book, I think you&rsquo;ll find reading these the next logical step in your learning process (beyond trying out some pattern examples for yourself of course).</p>
-<p>Thanks for reading <em>Essential JavaScript Design Patterns</em>. For more educational material on learning JavaScript, please feel free to read more from me on my blog <a href="http://addyosmani.com">http://addyosmani.com</a> or on Twitter <a href="http://twitter.com/addyosmani">@addyosmani</a>.</p>
+<p>Thanks for reading <em>Learning JavaScript Design Patterns</em>. For more educational material on learning JavaScript, please feel free to read more from me on my blog <a href="http://addyosmani.com">http://addyosmani.com</a> or on Twitter <a href="http://twitter.com/addyosmani">@addyosmani</a>.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h1 id="references"><span id="internal-source-marker_0.05095413855216446">References</span>
