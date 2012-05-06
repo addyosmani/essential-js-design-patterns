@@ -148,16 +148,16 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 
     <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.</p>
 
-    <p>In the first part of this book, we will explore the history and importance of design patterns which can really be applied to any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter '<a href="#whatisapattern">What is a Pattern?</a>' to continue reading.</p>
+    <p>In the first part of this book, we will explore the history and importance of design patterns which can really be applied to any programming language. If you're already sold on or are familiar with this history, feel free to skip to the chapter "<a href="#whatisapattern">What is a Pattern?</a>" to continue reading.</p>
 
     <p>Design patterns can be traced back to the early work of a civil engineer named <a href="http://en.wikipedia.org/wiki/Christopher_Alexander">Christopher Alexander</a>. He would often write publications about his experience in solving design issues and how they related to buildings and towns. One day, it occurred to Alexander that when used time and time again, certain design constructs lead to a desired optimal effect. </p>
 
-    <p>In  collaboration with Sara Ishikawa and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled 'A Pattern Language', which was later released as a complete hardcover <a href="http://www.amazon.co.uk/Pattern-Language-Buildings-Construction-Environmental/dp/0195019199/ref=sr_1_1?s=books&ie=UTF8&qid=1329440685&sr=1-1">book</a>. </p>
+    <p>In  collaboration with Sara Ishikawa and Murray Silverstein, Alexander produced a  pattern language that would help empower anyone wishing to design and  build at any scale. This was published back in 1977 in a paper titled "A Pattern Language", which was later released as a complete hardcover <a href="http://www.amazon.co.uk/Pattern-Language-Buildings-Construction-Environmental/dp/0195019199/ref=sr_1_1?s=books&ie=UTF8&qid=1329440685&sr=1-1">book</a>. </p>
     <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
 
     <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
-    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section &lsquo;Categories of Design Patterns&rsquo;.</p>
-    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="http://jquery.com">jQuery</a> or <a href="http://dojotoolkit.org">dojo</a> as well. Before we begin, let&rsquo;s look at the exact definition of a &lsquo;pattern&rsquo; in software design.</p>
+    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section "Categories of Design Patterns".</p>
+    <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="http://jquery.com">jQuery</a> or <a href="http://dojotoolkit.org">dojo</a> as well. Before we begin, let&rsquo;s look at the exact definition of a "pattern" in software design.</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <h1 id="whatisapattern">What is a Pattern?</h1>
@@ -169,7 +169,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         <ol>
           <li><strong>Patterns are proven      solutions:</strong> They provide solid approaches to solving issues      in software development using proven solutions that reflect the experience      and insights the developers that helped define and improve them bring to      the pattern.</li>
           <li><strong>Patterns can be easily      reused: </strong>A pattern usually reflects an out of the box      solution that can be adapted to suit your own needs. This feature makes      them quite robust.</li>
-          <li><strong>Patterns can be      expressive: </strong>When you look at a pattern there&rsquo;s generally a      set structure and &lsquo;vocabulary&rsquo; to the solution presented that can help      express rather large solutions quite elegantly.</li>
+          <li><strong>Patterns can be      expressive: </strong>When you look at a pattern there&rsquo;s generally a set structure and &lsquo;vocabulary&rsquo; to the solution presented that can help      express rather large solutions quite elegantly.</li>
         </ol>
       </ol>
     </ol>
@@ -211,17 +211,17 @@ Developers using jQuery don't have to worry about this problem, as it's luckily 
 <p>
 We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
-<h1 id="patternity">'Pattern'-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
+<h1 id="patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
 Remember that not every algorithm, best-practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally weary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
 <p>
-Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a &lsquo;thing&rsquo;. This definition is obtuse on purpose as he follows by saying that it is the process should create the &lsquo;thing&rsquo;. This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
+Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a "thing". This definition is obtuse on purpose as he follows by saying that it is the process should create the "thing". This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
 <p>
-In studying design patterns, you may come across the term &lsquo;proto-pattern&rsquo; quite frequently. What is this? Well, a pattern that has not yet been known to pass the &lsquo;pattern&rsquo;-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to its very young age.</p>
+In studying design patterns, you may come across the term "proto-pattern" quite frequently. What is this? Well, a pattern that has not yet been known to pass the "pattern"-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to its very young age.</p>
 <p>
-Alternatively, the individual(s) sharing the pattern may not have the time or interest of going through the &lsquo;pattern&rsquo;-ity process and might release a short description of their proto-pattern instead. Brief descriptions or snippets of this type of pattern are known as patlets.</p>
+Alternatively, the individual(s) sharing the pattern may not have the time or interest of going through the "pattern"-ity process and might release a short description of their proto-pattern instead. Brief descriptions or snippets of this type of pattern are known as patlets.</p>
 <p>
-The work involved in fully documenting a qualified pattern can be quite daunting. Looking back at some of the earliest work in the field of design patterns, a pattern may be considered &lsquo;good&rsquo; if it does the following: </p>
+The work involved in fully documenting a qualified pattern can be quite daunting. Looking back at some of the earliest work in the field of design patterns, a pattern may be considered "good" if it does the following: </p>
 <ul type="disc">
   <li><strong>Solves a particular problem</strong>: Patterns are not supposed      to just capture principles or strategies. They need to capture solutions.      This is one of the most essential ingredients for a good pattern.</li>
   <li><strong>The solution to this problem cannot be obvious</strong>: You      can often find that problem-solving techniques attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
@@ -271,7 +271,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
 <h1 id="writingdesignpatterns">Writing Design Patterns</h1>
 <p>Although this book is aimed at those new to design patterns, a fundamental understanding of how a design pattern is written can offer you a number of useful benefits. For starters, you can gain a deeper appreciation for the reasoning behind a pattern being needed. You can also learn how to tell if a pattern (or proto-pattern) is up to scratch when reviewing it for your own needs.</p>
 <p>
-Writing good patterns is a challenging task. Patterns not only need to provide a substantial quantity of reference material for end-users (such as the items found in the <em>structure</em> section above), but they also need to be able to defend why they are necessary. If you&rsquo;ve already read the previous section on &lsquo;what&rsquo; a pattern is, you may think that this in itself should help you identify patterns when you see them in the wild. This is actually quite the opposite - you can&rsquo;t always tell if a piece of code you&rsquo;re inspecting follows a pattern.</p>
+Writing good patterns is a challenging task. Patterns not only need to provide a substantial quantity of reference material for end-users (such as the items found in the <em>structure</em> section above), but they also need to be able to defend why they are necessary. If you&rsquo;ve already read the previous section on "what" a pattern is, you may think that this in itself should help you identify patterns when you see them in the wild. This is actually quite the opposite - you can&rsquo;t always tell if a piece of code you&rsquo;re inspecting follows a pattern.</p>
 
 
 <p>
@@ -3481,7 +3481,7 @@ var PhotosController = Spine.Controller.sub({
     self.current = ko.observable();
 
     // add a new todo, when enter key is pressed
-    self.add = function (data, event) {
+    self.add = function ( data, event ) {
         var newTodo, current = self.current().trim();
         if (current) {
             newTodo = new Todo(current);
@@ -3491,7 +3491,7 @@ var PhotosController = Spine.Controller.sub({
     };
 
     // remove a single todo
-    self.remove = function (todo) {
+    self.remove = function ( todo ) {
         self.todos.remove(todo);
     };
 
@@ -3504,12 +3504,14 @@ var PhotosController = Spine.Controller.sub({
 
     // writeable computed observable to handle marking all complete/incomplete
     self.allCompleted = ko.computed({
+
         //always return true/false based on the done flag of all todos
         read:function () {
             return !self.remainingCount();
         },
+
         //set all todos to the written value (true/false)
-        write:function (newValue) {
+        write:function ( newValue ) {
             ko.utils.arrayForEach(self.todos(), function (todo) {
                 //set even if value is the same, as subscribers are not notified in that case
                 todo.done(newValue);
@@ -3518,7 +3520,7 @@ var PhotosController = Spine.Controller.sub({
     });
 
     // edit an item
-    self.editItem = function(item) {
+    self.editItem = function( item ) {
         item.editing(true);
     };
  ..
@@ -3575,7 +3577,7 @@ myObservableArray.push(&lsquo;A new todo item&rsquo;);
 </ul>
 <p>A skeleton binding provider might thus look as follows:</p>
 <pre   class="brush: js">var ourBindingProvider = {
-    nodeHasBindings: function(node) {
+    nodeHasBindings: function( node ) {
         // returns true/false
     },
 
@@ -3587,7 +3589,7 @@ myObservableArray.push(&lsquo;A new todo item&rsquo;);
 <p>Before we get to fleshing out this provider, let&rsquo;s briefly discuss logic in data-bind attributes.</p>
 <p>If when using Knockout&rsquo;s MVVM you find yourself dissatisfied with the idea of application logic being overly tied into your View, you can change this. We could implement something a little like CSS classes to assign bindings by name to elements. Ryan Niemeyer (of knockmeout.net) has previously suggested using <code>data-class</code> for this to avoid confusing presentation classes with data classes, so let&rsquo;s get our <code>nodeHasBindings</code> function supporting this:</p>
 <pre   class="brush: js">// does an element have any bindings?
-function nodeHasBindings(node) {
+function nodeHasBindings( node ) {
     return node.getAttribute ? node.getAttribute(&quot;data-class&quot;) : false;
 };
 </pre>
@@ -3636,17 +3638,17 @@ var bindings = {
 <p>There are however two lines missing from the above snippet - we still need our <code>getBindings</code> function, which will loop through each of the keys in our data-class attributes and build up the resulting object from each of them. If we detect that the binding object is a function, we call it with our current data using the context <code>this</code>. Our complete custom binding provider would look as follows:</p>
 <pre   class="brush: js">    // We can now create a bindingProvider that uses 
     // something different than data-bind attributes
-    ko.customBindingProvider = function(bindingObject) {
+    ko.customBindingProvider = function( bindingObject ) {
         this.bindingObject = bindingObject;
 
         //determine if an element has any bindings
-        this.nodeHasBindings = function(node) {
+        this.nodeHasBindings = function( node ) {
             return node.getAttribute ? node.getAttribute(&quot;data-class&quot;) : false;
         };
       };
 
     // return the bindings given a node and the bindingContext
-    this.getBindings = function(node, bindingContext) {
+    this.getBindings = function( node, bindingContext ) {
         var result = {};
         var classes = node.getAttribute(&quot;data-class&quot;);
         if (classes) {
@@ -3844,7 +3846,7 @@ drawing.plot(98, 50,60);
 
 <pre  class="brush: js">// extend.js
 // written by andrew dupont, optimized by addy osmani
-function extend(destination, source) {
+function extend( destination, source ) {
     var toString = Object.prototype.toString,
         objTest = toString.call({});
     for (var property in source) {
@@ -4281,7 +4283,7 @@ creator.call(ns2, 5000);
 <p>
 We have already explored the module pattern previously, but in case you've skipped ahead: the <strong>Module Pattern</strong> allows us to encapsulate logic for a unit of code such that we can have both private and public methods and variables. This can be applied to writing jQuery plugins too, where a private API holds any code we don't wish to expose and a public API contains anything a user will be allowed to interact with. See below for an example:</p>
 <pre  class="brush: js">
-!function(exports, $, undefined){
+!function( exports, $, undefined ){
 
     var Plugin = function(){
 
