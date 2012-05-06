@@ -458,11 +458,6 @@ container: 12*60px (unit) + 13*16px (gutter) = 928px = 58em = 100%
   overflow: hidden;
 }
 
-.footer p {
-  color: #FFF;
-  text-shadow: 1px 1px 0 #000;
-}
-
 
 /* buying options */
 
