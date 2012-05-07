@@ -21,7 +21,10 @@
         A book by <a href="http://twitter.com/addyosmani">Addy Osmani</a>
     </h3>
     <h2 class="booktitle edition">Volume 1.5.2</h2>
+
+    <!--
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
+  -->
     <p class="copyright">
       Copyright &copy; Addy Osmani 2012. Last updated 6 May 2012.
     </p>
@@ -928,9 +931,20 @@ console.log( singletonTest.pointX ); 
 <h2 id="detailmodule">Modules</h2>
 
 <p>
-Modules are an integral piece of any robust application's architecture and typically help in keeping the code for a project organized. In JavaScript, there are several options for implementing modules including both the well-known module pattern as well as object literal notation.</p>
+Modules are an integral piece of any robust application's architecture and typically help in keeping the units of code for a project both cleanly separated and organized.</p>
 
-<p>The module pattern is based in part on object literals and so it makes sense to review them first.</p>
+<p>In JavaScript, there are several options for implementing modules. These include:</p>
+<ul>
+    <li>The Module pattern</li>
+    <li>Object literal notation</li>
+    <li>AMD modules</li>
+    <li>CommonJS modules</li>
+    <li>ECMAScript Harmony modules</li>
+</ul>
+
+<p>We will be exploring the latter three of these options later on in the book in the section <em>Modern Modular JavaScript Design Patterns</em>.</p>
+
+<p>The module pattern is based in part on object literals and so it makes sense to refresh our knowledge of them first.</p>
 
 <h3>Object Literals</h3>
 
@@ -1392,14 +1406,14 @@ var myLibrary = library(function () {
 
 </pre>
 
-<p>For further reading on the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
+<p>For further reading on this version of the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
 
 <p>&nbsp;</p>
 
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
 <p>Now that we're a little more familiar with the Module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
 
-<p>The Revealing Module Pattern came about as Heilmann (now at Mozilla) was frustrated with the fact that if you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
+<p>The Revealing Module Pattern came about as Heilmann was frustrated with the fact that if you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
 
 <p>The result of his efforts were an updated pattern where you would simply define all of your functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions you wished to reveal as public.</p>
 
