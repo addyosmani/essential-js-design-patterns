@@ -356,7 +356,7 @@ If you would like to try your hand at writing a design pattern (even if just for
 <p>&nbsp;</p>
 <h1 id="summarytabledesignpatterns">Design Pattern Categorization</h1>
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
-and I"ve modified it where necessary to suit our discussion in this section of the book. 
+and I've modified it where necessary to suit our discussion in this section of the book. 
 <p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p> 
 
 <h3>A brief note on classes</h3>
@@ -1215,7 +1215,7 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <ul>
   <li>The freedom to have private functions which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they"re considered truly private.</li>
   <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attempting to discover what function(s) threw an exception.</li>
-  <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I"ve seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
+  <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
 </ul>
 <p>&nbsp;</p>
 
@@ -1468,6 +1468,56 @@ myRevealingModule.get();
 <p>When subscribers are no longer interested in being notified of topics by the publisher they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
 
 <p>
+Here is an example of how one might use the Observer pattern if provided with a functional implementation powering <code>publish()</code>,<code>subscribe()</code> and <code>unsubscribe()</code> behind the scenes:</p>
+
+<pre class="brush: js">
+
+// A very simple new e-mail handler
+
+// A count of the number of messages received
+var mailCounter = 0;
+
+// Initialize subscribers that will listen out for a topic
+// with the name 'inbox/newMessage'. This could correspond
+// to a new e-mail (message) being received
+
+var subscriber1 = subscribe( 'inbox/newMessage', function( topic, data ) {
+
+  // Log the topic for debugging purposes
+  console.log( 'A new message was received: ', topic );
+
+  // Use the data that was passed from our publisher
+  // to display a message preview to the user
+  $( "messageSender" ).html( data.sender );
+  $( "messagePreview" ).html( data.body );
+
+});
+
+// Here's another subscriber using the same data to perform
+// a different task. Note how nothing different has to be
+// done to the publisher in order for this to be possible.
+
+var subscriber2 = subscribe( 'inbox/newMessage', function( topic, data ) {
+
+  // Increment our counter of the number of new messages
+  // received via the publisher
+  mailCounter++;
+
+});
+
+publish( 'inbox/newMessage', [{
+  sender:'hello@google.com', 
+  body: 'Hey there! How are you doing today?'
+}]);
+
+// We could then at a later point unsubscribe our subscribers
+// from receiving any new topic notifications as follows:
+// unsubscribe( subscriber1 );
+// unsubscribe( subscriber2 );
+</pre>
+
+
+<p>
  The general idea here is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they instead subscribe to a specific task or activity of another object and are notified when it occurs.</p>
 
 <p>
@@ -1486,7 +1536,7 @@ Unlimited numbers of objects may observe topics in the subject by registering th
 <h3>Advantages</h3>
 
 <p>
-Arguably, the largest benefit of using Pub/Sub is the ability to break down our applications into smaller, more loosely coupled modules, which can also improve general manageability.
+Arguably, the largest benefit of using the Observers is the ability to break down our applications into smaller, more loosely coupled modules, which can also improve general manageability.
 </p>
 <p>
 It is also a pattern that encourages us to think hard about the relationships between different parts of your application, identifying what layers need to observe or listen for behavior and which need to  push notifications regarding behavior occurring to other parts of our apps.</p>
@@ -1508,7 +1558,7 @@ For example, publishers may make an assumption that one or more subscribers are 
 <h3>Implementations</h3>
 
 <p>
-Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as it's main interaction API for scripting.</p>
+The Observer is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as it's main interaction API for scripting.</p>
 
 <p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
 
@@ -1517,11 +1567,11 @@ Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, la
 <pre class="brush: js">
 // Publish
 
-// Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
-dojo.publish( "/login", [{username:"test", userData:"test"}] );
-
 // jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
 $(el).trigger( "/login", [{username:"test", userData:"test"}] );
+
+// Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
+dojo.publish( "/login", [{username:"test", userData:"test"}] );
 
 // YUI: el.publish("channel", [arg1, arg2, arg3]);
 el.publish( "/login", {username:"test", userData:"test"} );
@@ -1529,11 +1579,11 @@ el.publish( "/login", {username:"test", userData:"test"} );
 
 // Subscribe
 
-// Dojo: dojo.subscribe( "channel", fn);
-var handle = dojo.subscribe( "/login", function(data){..} );
-
 // jQuery: $(obj).on( "channel", [data], fn );
 $(el).on( "/login", function( event ){...} );
+
+// Dojo: dojo.subscribe( "channel", fn);
+var handle = dojo.subscribe( "/login", function(data){..} );
 
 // YUI: el.on("channel", handler);
 el.on( "/login", function( data ){...} );
@@ -1541,21 +1591,22 @@ el.on( "/login", function( data ){...} );
 
 // Unsubscribe
 
-// Dojo: dojo.unsubscribe( handle );
-dojo.unsubscribe( handle );
-
 // jQuery: $(obj).off( "channel" );
 $(el).off( "/login" );
 
+// Dojo: dojo.unsubscribe( handle );
+dojo.unsubscribe( handle );
+
 // YUI: el.detach("channel");
 el.detach( "/login" );
+
 </pre>
 
 <p>
-For those wishing to use the Pub/Sub pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation of Pub/Sub that can be used with any library or toolkit. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
+For those wishing to use the Observer pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation that can be used with any library or toolkit. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
 
 <p>
-jQuery developers in particular have quite a few other options for Pub/Sub (in addition to Amplify) and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) gist on GitHub. Links to just a few of these can be found below.
+jQuery developers in particular have quite a few other options and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) Pub/Sub jQuery gist on GitHub. Links to just a few of these can be found below.
 </p>
 
 <ul>
@@ -1566,13 +1617,12 @@ jQuery developers in particular have quite a few other options for Pub/Sub (in a
 <li>Ben Truyman's gist <a href="https://gist.github.com/826794">https://gist.github.com/826794</a></li>
 </ul>
 
-<p>&nbsp;</p>
 
 <p>
-So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a minimalist version of Pub/Sub I released on GitHub under a project called <a href="http://github.com/addyosmani/pubsubz">pubsubz</a>. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
+So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a minimalist version of the Observer/Pub/Sub I released on GitHub under a project called <a href="http://github.com/addyosmani/pubsubz">pubsubz</a>. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
 
 <p>
-I"ve opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the original observer pattern.</p>
+I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the original observer pattern.</p>
 
 
 <h4>Sample Pub/Sub implementation</h4>
@@ -4844,7 +4894,7 @@ $( document ).trigger( "topicName" );
 $( document ).off( "topicName" );
   </pre>
 </p>
-<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code>, and <code>$.unsubscribe</code> methods. I"ve previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code>, and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
 (function( $ ) {
@@ -5461,7 +5511,7 @@ define(["jquery"] , function ( $ ) {
 </pre>
 
 <h4>Smarter jQuery Plugins</h4>
-<p>I"ve recently discussed some ideas and examples of how jQuery plugins could be written using Universal Module Definition (<a href="https://github.com/umdjs">UMD</a>) patterns <a href="http://coding.smashingmagazine.com/2011/10/11/essential-jquery-plugin-patterns/">here</a>. UMDs define modules that can work on both the client and server, as well as with all popular script loaders available at the moment. Whilst this is still a new area with a lot of concepts still being finalized, feel free to look at the code samples in the section title <i>AMD &#38;&#38; CommonJS</i> below and let me know if you feel there's anything we could do better. </p>
+<p>I've recently discussed some ideas and examples of how jQuery plugins could be written using Universal Module Definition (<a href="https://github.com/umdjs">UMD</a>) patterns <a href="http://coding.smashingmagazine.com/2011/10/11/essential-jquery-plugin-patterns/">here</a>. UMDs define modules that can work on both the client and server, as well as with all popular script loaders available at the moment. Whilst this is still a new area with a lot of concepts still being finalized, feel free to look at the code samples in the section title <i>AMD &#38;&#38; CommonJS</i> below and let me know if you feel there's anything we could do better. </p>
 
 
 <h4>What Script Loaders &#38; Frameworks Support AMD?</h4
@@ -5961,7 +6011,7 @@ module stdlib from "@std";
 
 <h3>Classes With Constructors, Getters & Setters</h3>
 <p>The notion of a class has always been a contentious issue with purists and we've so far got along with either falling back on JavaScript's <a href="http://javascript.crockford.com/prototypal.html">prototypal</a> nature or through using frameworks or abstractions that offer the ability to use <i>class</i> definitions in a form that desugars to the same prototypal behavior.</p>
-<p>In Harmony, classes come as part of the language along with constructors and (finally) some sense of true privacy. In the following examples, I"ve included some inline comments to help you understand how classes are structured, but you may also notice the lack of the word "function" in here. This isn't a typo error: TC39 have been making a conscious effort to decrease our abuse of the <code>function</code> keyword for everything and the hope is that this will help simplify how we write code.</p>
+<p>In Harmony, classes come as part of the language along with constructors and (finally) some sense of true privacy. In the following examples, I've included some inline comments to help you understand how classes are structured, but you may also notice the lack of the word "function" in here. This isn't a typo error: TC39 have been making a conscious effort to decrease our abuse of the <code>function</code> keyword for everything and the hope is that this will help simplify how we write code.</p>
 <pre class="brush: js">
 class Cake{
 
