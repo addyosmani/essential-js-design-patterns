@@ -1769,7 +1769,7 @@ getCurrentTime = function (){
 }
 
 // Add a new row of data to our fictional grid component
-addGridRow = function ( data ) {
+function addGridRow( data ) {
 
    // ui.grid.addRow( data );
    console.log( "updated grid component with:" + data );
@@ -1778,7 +1778,7 @@ addGridRow = function ( data ) {
 
 // Update our fictional grid to show the time it was last
 // updated
-updateCounter = function ( data ) {
+function updateCounter( data ) {
 
    // ui.grid.updateLastChanged( getCurrentTime() );   
    console.log( "data last updated at: " + getCurrentTime() + " with " + data);
@@ -1822,19 +1822,19 @@ In the following movie ratings example, we'll be using Ben Alman's jQuery implem
 </p>
 
 <p>
-It's left up to the subscribers to those topics to then delegate what happens with that data. In our case we're pushing that new data into existing arrays and then rendering them using the jQuery.tmpl plugin.</p>
+It's left up to the subscribers to those topics to then delegate what happens with that data. In our case we're pushing that new data into existing arrays and then rendering them using the Underscore library's <code>.template()</code> method for templating.</p>
 
 <strong>HTML/Templates</strong>
 
 <pre  class="brush: js">
 
-&lt;script id="userTemplate" type="text/x-jquery-tmpl"&gt;
-   &lt;li&gt;${user}&lt;/li&gt;
+&lt;script id="userTemplate" type="text/html"&gt;
+   &lt;li&gt;<%= name %>&lt;/li&gt;
 &lt;/script&gt;
 
 
-&lt;script id="ratingsTemplate" type="text/x-jquery-tmpl"&gt;
-   &lt;li&gt;&lt;strong&gt;${movie}&lt;/strong&gt; was rated ${rating}/5&lt;/li&gt;
+&lt;script id="ratingsTemplate" type="text/html"&gt;
+   &lt;li&gt;&lt;strong&gt;<%= title %>&lt;/strong&gt; was rated <%= rating %>/5&lt;/li&gt;
 &lt;/script&gt;
 
 
@@ -1880,32 +1880,39 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 <strong>JavaScript</strong>
 
-
 <pre  class="brush: js">
-(function($) {
-
-  var movieList = [],
-     userList  = [];
+;(function( $ ) {
 
   // subscribers
 
-  $.subscribe( "/new/user", function( e, userName ){
+  $.subscribe( "/new/user", function( e, data ){
 
-    if( userName.length ){
-         userList.push( {user: userName} );
-         $( "#userTemplate" ).tmpl( userList[userList.length - 1] ).appendTo( "#users" );
+    var compiledTemplate;
+
+    if( data ){
+
+       compiledTemplate = _.template($( "#userTemplate" ).html());
+
+       $('#users').append( compiledTemplate( data ));
+
     }
 
   });
 
   $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
 
-    if( movieTitle.length ){
-     movieList.push( { movie: movieTitle, rating: userRating} );
-     $( "#ratingsTemplate" ).tmpl( movieList[movieList.length - 1] ).appendTo( "#ratings" );
+    var compiledTemplate;
+
+    if( data ){
+      
+      compiledTemplate = _.template($( "#ratingsTemplate" ).html());
+
+      $( "#ratings" ).append( compiledTemplate( data );
+
     }
 
   });
+
 
   $("#add").on("click", function(){
 
@@ -1915,8 +1922,8 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     // publishers
 
-    $.publish( "/new/user",  strUser  );
-    $.publish( "/new/rating",  [ strMovie, strRating] );
+    $.publish( "/new/user",  { name: strUser } );
+    $.publish( "/new/rating",  { title: strMovie, rating: strRating} );
 
     });
 
@@ -1961,18 +1968,18 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 
 
-&lt;script id="resultTemplate" type="text/x-jquery-tmpl"&gt;
-    {{each(i, items) items}}
-            &lt;li&gt;&lt;p&gt;&lt;img src="${items.media.m}"/&gt;&lt;/p&gt;&lt;/li&gt;
-    {{/each}}
+&lt;script id="resultTemplate" type="text/html"&gt;
+    <% _.each(items, function( item ){  %>
+            &lt;li&gt;&lt;p&gt;&lt;img src="<%= item.media.m %>"/&gt;&lt;/p&gt;&lt;/li&gt;
+    <% });%>
 &lt;/script&gt;
 
 </pre>
 
 <strong>JavaScript</strong>:
-
 <pre  class="brush: js">
-(function($) {
+
+;(function( $ ) {
 
    $( "#flickrSearch" ).submit( function( e ) {
 
@@ -2002,7 +2009,7 @@ Notice how in our sample below, one topic notification is made when a user indic
                 return; 
               }
 
-              $.publish( "/search/resultSet" , [ data ] );
+              $.publish( "/search/resultSet" , data.items  );
        });
 
    });
@@ -2015,9 +2022,9 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe( "/search/resultSet" , function( results ){
 
-       var holder = $( "#searchResults" );
-       holder.html("");
-       $( "#resultTemplate" ).tmpl( results ).appendTo( holder );
+       var compiled_template = _.template($( "#resultTemplate" ).html());
+
+       $( "#searchResults" ).append(compiled_template( results ));
 
    });
 
