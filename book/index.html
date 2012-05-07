@@ -1883,8 +1883,8 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 <pre  class="brush: js">
 ;(function( $ ) {
 
-  // subscribers
-
+  // Subscribe to the new user topic, which adds a user
+  // to a list of users who have submitted reviews
   $.subscribe( "/new/user", function( e, data ){
 
     var compiledTemplate;
@@ -1899,7 +1899,10 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
   });
 
-  $.subscribe( "/new/rating", function( e, movieTitle, userRating ){
+  // Subscribe to the new rating topic. This is composed of a title and
+  // rating. New ratings are appended to a running list of added user
+  // ratings.
+  $.subscribe( "/new/rating", function( e, data ){
 
     var compiledTemplate;
 
@@ -1913,16 +1916,19 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
   });
 
+  // Handler for adding a new user and rating
+  $("#add").on("click", function( e ) {
 
-  $("#add").on("click", function(){
+    e.preventDefault();
 
     var strUser = $("#twitter_handle").val(),
        strMovie = $("#movie_seen").val(),
        strRating = $("#movie_rating").val();
 
-    // publishers
-
+    // Inform the application a new user is available
     $.publish( "/new/user",  { name: strUser } );
+
+    // Inform the app a new rating is available
     $.publish( "/new/rating",  { title: strMovie, rating: strRating} );
 
     });
@@ -1981,6 +1987,22 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 ;(function( $ ) {
 
+   // Subscribe to the new search tags topic
+   $.subscribe( "/search/tags" , function( tags ) {
+       $( "#searchResults" )
+                .html("<p>Searched for:<strong>" + tags + "</strong></p>");
+   });
+
+   // Subscribe to the new results topic
+   $.subscribe( "/search/resultSet" , function( results ){
+
+       var compiled_template = _.template($( "#resultTemplate" ).html());
+
+       $( "#searchResults" ).append(compiled_template( results ));
+
+   });
+
+   // Submit a search query and publish tags on the /search/tags topic
    $( "#flickrSearch" ).submit( function( e ) {
 
        e.preventDefault();
@@ -1994,6 +2016,11 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    });
 
+
+   // Subscribe to new tags being published and perform
+   // a search query using them. Once data has returned
+   // publish this data for the rest of the application
+   // to consume
 
    $.subscribe("/search/tags", function( tags ) {
 
@@ -2011,20 +2038,6 @@ Notice how in our sample below, one topic notification is made when a user indic
 
               $.publish( "/search/resultSet" , data.items  );
        });
-
-   });
-
-   $.subscribe( "/search/tags" , function( tags ) {
-       $( "#searchResults" )
-                .html("<p>Searched for:<strong>" + tags + "</strong></p>");
-   });
-
-
-   $.subscribe( "/search/resultSet" , function( results ){
-
-       var compiled_template = _.template($( "#resultTemplate" ).html());
-
-       $( "#searchResults" ).append(compiled_template( results ));
 
    });
 
