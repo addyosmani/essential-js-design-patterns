@@ -1472,19 +1472,19 @@ Here is an example of how one might use the Observer pattern if provided with a 
 
 <pre class="brush: js">
 
-// A very simple new e-mail handler
+// A very simple new message handler
 
 // A count of the number of messages received
 var mailCounter = 0;
 
 // Initialize subscribers that will listen out for a topic
-// with the name 'inbox/newMessage'. This could correspond
+// with the name "inbox/newMessage". This could correspond
 // to a new e-mail (message) being received
 
-var subscriber1 = subscribe( 'inbox/newMessage', function( topic, data ) {
+var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
   // Log the topic for debugging purposes
-  console.log( 'A new message was received: ', topic );
+  console.log( "A new message was received: ", topic );
 
   // Use the data that was passed from our publisher
   // to display a message preview to the user
@@ -1497,7 +1497,7 @@ var subscriber1 = subscribe( 'inbox/newMessage', function( topic, data ) {
 // a different task. Note how nothing different has to be
 // done to the publisher in order for this to be possible.
 
-var subscriber2 = subscribe( 'inbox/newMessage', function( topic, data ) {
+var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
   // Increment our counter of the number of new messages
   // received via the publisher
@@ -1505,14 +1505,14 @@ var subscriber2 = subscribe( 'inbox/newMessage', function( topic, data ) {
 
 });
 
-publish( 'inbox/newMessage', [{
-  sender:'hello@google.com', 
-  body: 'Hey there! How are you doing today?'
+publish( "inbox/newMessage", [{
+  sender:"hello@google.com", 
+  body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1 );
+// unsubscribe( subscriber1,  );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -1562,7 +1562,7 @@ The Observer is a design pattern which fits in very well in JavaScript ecosystem
 
 <p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
 
-<p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing a Pub/Sub system with very little effort.</p>
+<p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing an Observer (Pub/Sub) system with very little effort. Below we can see some examples of this:</p>
 
 <pre class="brush: js">
 // Publish
@@ -1603,7 +1603,7 @@ el.detach( "/login" );
 </pre>
 
 <p>
-For those wishing to use the Observer pattern with vanilla JavaScript (or another library) AmplifyJS includes a clean, library-agnostic implementation that can be used with any library or toolkit. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
+For those wishing to use the Observer pattern with vanilla JavaScript (or another library) <a href="http://amplifyjs.com/">AmplifyJS</a> includes a clean, library-agnostic implementation that can be used with any library or toolkit. You can of course also write your own implementation from scratch or also check out either PubSubJS or OpenAjaxHub, both of which are also library-agnostic.</p>
 
 <p>
 jQuery developers in particular have quite a few other options and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) Pub/Sub jQuery gist on GitHub. Links to just a few of these can be found below.
@@ -1617,12 +1617,11 @@ jQuery developers in particular have quite a few other options and can opt to us
 <li>Ben Truyman's gist <a href="https://gist.github.com/826794">https://gist.github.com/826794</a></li>
 </ul>
 
-
 <p>
 So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a minimalist version of the Observer/Pub/Sub I released on GitHub under a project called <a href="http://github.com/addyosmani/pubsubz">pubsubz</a>. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
 
 <p>
-I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the original observer pattern.</p>
+I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the classic Observer pattern.</p>
 
 
 <h4>Sample Pub/Sub implementation</h4>
@@ -1692,50 +1691,49 @@ var pubsub = {};
 </pre>
 
 
-
-<h4>Example 1: Basic use of publishers and subscribers</h4>
+<h4>Example: Basic use of publishers and subscribers</h4>
 
 <p>We can now use the implementation to publish and subscribe to events of interest as follows:</p>
 <p>
 <pre  class="brush: js">
 
-var testHandler,
-    testSubscription;
+// Another simple message handler
 
-testHandler = function ( topics, data ) {
-    console.log( topics + ": " + data );
+// A simple message logger that logs any topics and data received through our
+// subscriber
+var messageLogger = function ( topics, data ) {
+    console.log( "Logging: " + topics + ": " + data );
 };
 
-// Subscribers basically "subscribe" (or listen)
-// And once they"ve been "notified" their callback functions are invoked
-testSubscription = pubsub.subscribe( "example1", testHandler );
+// Subscribers listen for topics they have subscribed to and
+// invoke a callback function (e.g messageLogger) once a new 
+// notification is broadcast on that topic
+var subscriber = pubsub.subscribe( "inbox/newMessage", messageLogger );
 
+// Publishers are in charge of publishing topics or notifications of
+// interest to the application. e.g:
 
-// Publishers are in charge of "publishing" notifications about events. e.g
-
-pubsub.publish( "example1", "hello world!" );
-
-// or
-pubsub.publish( "example1", ["test", "a", "b", "c"]);
+pubsub.publish( "inbox/newMessage", "hello world!" );
 
 // or
-pubsub.publish( "example1", [{
-  "color": "blue"
-}, {
-  "text": "hello"
+pubsub.publish( "inbox/newMessage", ["test", "a", "b", "c"]);
+
+// or
+pubsub.publish( "inbox/newMessage", [{
+  sender: "hello@google.com", body: "Hey again!"
 }]);
 
-// Unsubscribe if you no longer wish to be notified
-pubsub.unsubscribe( testSubscription );
+// We cab also unsubscribe if we no longer wish for our subscribers
+// to be notified
+// pubsub.unsubscribe( testSubscription );
 
-// This will fail
-pubsub.publish(" example1", "hello again! (this will fail)" );
+// Once unsubscribed, this for example won't result in our
+// messageLogger being executed as the subscriber is
+// no longer listening
+pubsub.publish( "inbox/newMessage", "Hello! are you still there?" );
 
 </pre>
 </p>
-<p>A jsFiddle version of this example can be found at <a href="http://jsfiddle.net/LxPrq/">http://jsfiddle.net/LxPrq/</a></p>
-</p>
-
 
 <h4>Real-time stock market application</h4>
 
@@ -1748,7 +1746,7 @@ The application might have a grid for displaying the stock stats and a counter f
 When the observers receive notification that the model itself has changed, they can update themselves accordingly.
 </p>
 
-<h4>Example 2: UI notifications using pub/sub</h4>
+<h4>Example: UI notifications using pub/sub</h4>
 
 <p>
 In the following example, we limit our usage of pub/sub to that of a notification system. Our subscriber is listening to the topic "dataUpdated" to find out when new stock information is available. It then triggers "gridUpdate" which goes on to call hypothetical methods that pull in the latest cached data object and re-render our UI components.
@@ -1807,9 +1805,9 @@ PubSub.publish( "gridUpdated", "new stock data! Microsoft made $2 billion" );
 
 </pre>
 
-<p>Whilst there's nothing terribly wrong with this, there are more optimal ways that we can utilize pub/sub to our advantage.</p>
+<p>Whilst there's nothing terribly wrong with this, there are more optimal ways that we can utilize Observers to our advantage.</p>
 
-<h4>Example 3: Taking notifications further</h4>
+<h4>Example: Taking notifications further</h4>
 
 <p>
 Rather than just notifying our subscribers that new data is available, why not actually push the new data through to gridUpdate when we publish a new notification from a publisher. In this next example, our publisher will notify subscribers with the actual data that's been updated as well as a timestamp from the data-source of when the new data was added.
@@ -1873,7 +1871,7 @@ PubSub.publish( "dataUpdated", {
 </pre>
 
 
-<h4>Example 4: Decoupling applications using Ben Alman"s pub/sub implementation</h4>
+<h4>Example: Decoupling applications using Ben Alman's Pub/Sub implementation</h4>
 
 <p>
 In the following movie ratings example, we'll be using Ben Alman's jQuery implementation of pub/sub to demonstrate how we can decouple a user interface. Notice how submitting a rating only has the effect of publishing the fact that new user and rating data is available.
@@ -1981,7 +1979,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 })( jQuery );
 </pre>
 
-<h4>Example 5: Decoupling an Ajax-based jQuery application</h4>
+<h4>Example: Decoupling an Ajax-based jQuery application</h4>
 
 <p>
 In our final example, we're going to take a practical look at how decoupling our code using pub/sub early on in the development process can save us some potentially painful refactoring later on. This is something Rebecca Murphey touched on in her pub/sub screencast and is another reason why pub/sub is favored by so many developers in the community.</p>
@@ -1993,7 +1991,7 @@ Quite often in Ajax-heavy applications, once we've received a response to a requ
 Highly coupled applications sometimes increase the effort required to reuse functionality due to the increased inter-function/code dependency. What this means is that although keeping our post-request logic hardcoded in a callback might be fine if we're just trying to grab a result set once, it's not as appropriate when we want to make further Ajax-calls to the same data source (and different end-behavior) without rewriting parts of the code multiple times. Rather than having to go back through each layer that calls the same data-source and generalizing them later on, we can use pub/sub from the start and save time.</p>
 
 <p>
-Using pub/sub, we can also easily separate application-wide notifications regarding different events down to whatever level of granularity you"re comfortable with, something which can be less elegantly done using other patterns.</p>
+Using Observers, we can also easily separate application-wide notifications regarding different events down to whatever level of granularity you"re comfortable with, something which can be less elegantly done using other patterns.</p>
 
 <p>
 Notice how in our sample below, one topic notification is made when a user indicates they want to make a search query and another is made when the request returns and actual data is available for consumption. It's left up to the subscribers to then decide how to use knowledge of these events (or the data returned). The benefits of this are that, if we wanted, we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.</p>
@@ -2084,7 +2082,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven"t been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
 <p>&nbsp;</p>
 
-<!--end tood-->
+
 <h2 id="mediatorpatternjavascript">The Mediator Pattern</h2>
 
 <p>
