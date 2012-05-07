@@ -183,7 +183,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
       <li><strong>Reusing patterns assists in preventing minor issues that can cause major problems in the application development process. </strong>What this means is when code is built on proven patterns, we can afford to spend less time worrying about the structure of our code and more time focusing on the quality of our overall solution. This is because patterns can encourage us to code in a more structured and organized fashion avoiding the need to refactor it for cleanliness purposes in the future.</li>
 </ul>
 <ul>
-  <li><strong>Patterns can provide generalized solutions which are documented in a fashion that doesn"t require them to be tied to a specific problem.</strong> This generalized approach means that regardless of the application (and in many cases the programming language) you are working with, design patterns can be applied to improve the structure of your code.</li>
+  <li><strong>Patterns can provide generalized solutions which are documented in a fashion that doesn't require them to be tied to a specific problem.</strong> This generalized approach means that regardless of the application (and in many cases the programming language) you are working with, design patterns can be applied to improve the structure of your code.</li>
   <li><strong>Certain patterns can actually decrease the overall file-size footprint of your code by avoiding repetition. </strong>By encouraging developers to look more closely at their solutions for areas where instant reductions in <span id="internal-source-marker_0.982673292361492">repetition</span> can be made, e.g. reducing the number of functions performing similar processes in favor of a single generalized function, the overall size of your codebase can be decreased. </li>
   <li><strong>Patterns add to a developers vocabulary, which makes communication faster.</strong></li>
   <li><strong>Patterns that are frequently used can be improved over time by harnessing the collective experiences other developers using those patterns contribute back to the design pattern community.</strong> In some cases this leads to the creation of entirely new design patterns whilst in others it can lead to the provision of improved guidelines on how specific patterns can be best used. This can ensure that pattern-based solutions continue to become more robust than ad-hoc solutions may be.</li>
@@ -206,7 +206,7 @@ Use a modern native browser feature such as <code>querySelectorAll()</code> to s
 </p>
 
 <p>
-So, which of these is the fastest?. You might be interested to know that it's actually number 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it"s necessary to use 1. where 3. isn't supported.</p>
+So, which of these is the fastest?. You might be interested to know that it's actually number 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
 <p>
 Developers using jQuery don"t have to worry about this problem, as it's luckily abstracted away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
 
@@ -322,7 +322,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   <li>Passing strings rather      than functions to either setTimeout or setInterval as this triggers the      use of <code>eval()</code> internally.</li>
   <li>Modifying the <code>Object</code> class prototype (this is a particularly bad anti-pattern)</li>
   <li>Using JavaScript in an      inline form as this is inflexible </li>
-  <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it"s executed after the page has been loaded it can actually overwrite the page you"re on, whilst document.createElement does not. You can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn"t work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
+  <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it's executed after the page has been loaded it can actually overwrite the page you"re on, whilst document.createElement does not. You can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn't work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
   </ul>
 <p>
   Knowledge of anti-patterns is critical for success. Once you are able to recognize such anti-patterns, you will be able to refactor your code to negate them so that the overall quality of your solutions improves instantly. </p>
@@ -343,7 +343,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   <p>Some of the patterns that fall under this category are: Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
 
 <h2>Structural Design Patterns</h2>
-<p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn"t need to do the same. They also assist in recasting parts of the system which don"t fit a particular purpose into those that do. </p>
+<p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn't need to do the same. They also assist in recasting parts of the system which don"t fit a particular purpose into those that do. </p>
   <p>Patterns that fall under this category include: Decorator, Facade, Flyweight, Adapter and Proxy.</p>
 
 <h2>Behavioral Design Patterns
@@ -690,7 +690,7 @@ console.log( driver.topSpeed );
 
 <h3>Basic Constructors</h3>
 
-<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn"t support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
+<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
 
 <p>Inside a constructor, the keyword "this" references the new object that's being created. Revising object creation, a basic constructor may look as follows:</p>
 
@@ -763,14 +763,12 @@ console.log( mondeo.toString() );
 <p>Above, a single instance of toString() will now be shared between all of the Car objects.</p>
 
 <h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
-<p>In conventional software engineering, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn"t exist. In the event of an instance already existing, it simply returns a reference to that object.</p>
+<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.</p>
 
-<p>The singleton pattern is thus known because traditionally, it restricts instantiation of a class to a single object. With JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so-as to provide a single point of access for functions.</p>
-
-<p>The singleton doesn"t provide a way for code that doesn"t know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren"t actually closures - the function scope that provides the closure is the closure.</p>
+<p>The singleton pattern is thus known because it restricts instantiation of a class to a single object. With JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
 
 <p>
-Singletons in JavaScript can take on a number of different forms and researching this pattern online is likely to result in at least 10 different variations. In its simplest form, a singleton in JS can be an object literal grouped together with its related methods and properties as follows:
+Singletons in JavaScript can take on a number of different forms, but in its simplest form, a singleton could be an object literal grouped together with its related methods and properties as follows:
 <p>
 <pre  class="brush: js">
 
@@ -781,7 +779,7 @@ var mySingleton = {
   property2: "something else",
 
   method1: function () {
-    console.log( "hello world" );
+    console.log( "Hey Nicholas!" );
   }
 
 };
@@ -789,8 +787,10 @@ var mySingleton = {
 </pre>
 </p>
 
+<p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
+
 <p>
-If you wished to extend this further, you could add your own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which you wish to make public is quite straight-forward from that point as demonstrated below:</p>
+If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which you wish to make public is quite straight-forward from that point as demonstrated below:</p>
 
 <pre  class="brush: js">
 
@@ -866,7 +866,7 @@ Singleton.getInstance().publicMethod();
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>So, where else is the singleton pattern useful in practice?. Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here"s one last example of the singleton pattern being used:</p>
+<p>So, where else is the singleton pattern useful in practice?. Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here"s one last example of the singleton pattern being used in this context:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -1021,7 +1021,7 @@ The module pattern encapsulates "privacy", state and organization using closures
 This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> - see the section on namespacing patterns for more on this) except that an object is returned rather than a function. </p>
 
 <p>
-It should be noted that there isn't really an explicitly true sense of "privacy" inside JavaScript because unlike some traditional languages, it doesn"t have access modifiers. Variables can"t technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
+It should be noted that there isn't really an explicitly true sense of "privacy" inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can"t technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
 </p>
 
 <h4>History</h4>
@@ -1199,7 +1199,7 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <p>Notice how the scoping function in the above basket module is wrapped around all of our functions, which we then call and immediately store the return value of. This has a number of advantages including:</p>
 
 <ul>
-  <li>The freedom to have private functions which can only be consumed by our module. As they aren"t exposed to the rest of the page (only our exported API is), they"re considered truly private.</li>
+  <li>The freedom to have private functions which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they"re considered truly private.</li>
   <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attempting to discover what function(s) threw an exception.</li>
   <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I"ve seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
 </ul>
@@ -1269,7 +1269,7 @@ require(["dojo/_base/customStore"], function( store ){
 
 <p><strong>ExtJS</strong></p>
 <p>For those using Sencha's ExtJS, you"re in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p> 
-<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it"s quite close to how the module pattern is implemented in vanilla JavaScript: </p>
+<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
 Ext.namespace("myNameSpace");
@@ -1440,8 +1440,8 @@ myRevealingModule.get();
 
 </pre></p>
 <p><strong>Disadvantages</strong></p>
-<p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can"t be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn"t apply to public members, only to functions.</p>
-<p>It"s only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
+<p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can"t be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
+<p>it's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
 <p>&nbsp;</p>
 
 
@@ -1494,7 +1494,7 @@ For example, publishers may make an assumption that one or more subscribers are 
 <h3>Implementations</h3>
 
 <p>
-Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as it"s main interaction API for scripting.</p>
+Pub/Sub is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as it's main interaction API for scripting.</p>
 
 <p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
 
@@ -1932,7 +1932,7 @@ Highly coupled applications sometimes increase the effort required to reuse func
 Using pub/sub, we can also easily separate application-wide notifications regarding different events down to whatever level of granularity you"re comfortable with, something which can be less elegantly done using other patterns.</p>
 
 <p>
-Notice how in our sample below, one topic notification is made when a user indicates they want to make a search query and another is made when the request returns and actual data is available for consumption. It's left up to the subscribers to then decide how to use knowledge of these events (or the data returned). The benefits of this are that, if we wanted, we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn"t care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.</p>
+Notice how in our sample below, one topic notification is made when a user indicates they want to make a search query and another is made when the request returns and actual data is available for consumption. It's left up to the subscribers to then decide how to use knowledge of these events (or the data returned). The benefits of this are that, if we wanted, we could have 10 different subscribers utilizing the data returned in different ways but as far as the Ajax-layer is concerned, it doesn't care. Its sole duty is to request and return data then pass it on to whoever wants to use it. This separation of concerns can make the overall design of your code a little cleaner.</p>
 
 
 <strong>HTML/Templates</strong>:
@@ -1943,7 +1943,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    &lt;input type="text" name="tag" id="query"/&gt;
 
-   &lt;input type="submit" name="submit" value="submit"/&gt;
+   &lt;input type="submit' name="submit' value="submit'/&gt;
 
 &lt;/form&gt;
 
@@ -2144,7 +2144,7 @@ The Mediator pattern centralizes rather than simply just distributing. It places
 <p>We will be covering the Facade pattern shortly, but for reference purposes some developers may also wonder whether there are similarities between the Mediator and Facade patterns. They do both abstract the functionality of existing modules, but there are some subtle differences.</p>
 
 <p>
-The Mediator centralizes communication between modules where it"s explicitly referenced by these modules. In a sense this is multidirectional. The Facade however just defines a simpler interface to a module or system but doesn"t add any additional functionality. Other modules in the system aren"t directly aware of the concept of a facade and could be considered unidirectional.
+The Mediator centralizes communication between modules where it's explicitly referenced by these modules. In a sense this is multidirectional. The Facade however just defines a simpler interface to a module or system but doesn't add any additional functionality. Other modules in the system aren't directly aware of the concept of a facade and could be considered unidirectional.
 </p>
 
 <p>
@@ -2269,7 +2269,7 @@ var beget = (function () {
 <h2 id="commandpatternjavascript">The Command Pattern</h2>
 <p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives you the ability to both parameterize and pass method calls around that can be executed at your discretion. In addition, it enables you to decouple objects invoking the action from the objects which implement them, giving you a greater degree of overall flexibility in swapping out concrete "classes".</p>
 
-<p>If you haven"t come across concrete classes before, they are best explained in terms of class-based programming languages and are related to the idea of abstract classes. An abstract class defines an interface, but doesn"t necessarily provide implementations for all of its member functions. It acts as a base class from which others are derived. A derived class which implements the missing functionality is called a concrete class (you may find these concepts familiar if you"re read about the Decorator or Prototype patterns).</p>
+<p>If you haven"t come across concrete classes before, they are best explained in terms of class-based programming languages and are related to the idea of abstract classes. An abstract class defines an interface, but doesn't necessarily provide implementations for all of its member functions. It acts as a base class from which others are derived. A derived class which implements the missing functionality is called a concrete class (you may find these concepts familiar if you"re read about the Decorator or Prototype patterns).</p>
 
 <p>The main idea behind the command pattern is that it provides you a means to separate the responsibilities of issuing commands from anything executing commands, delegating this responsibility to different objects instead.</p>
 
@@ -2505,7 +2505,7 @@ console.log( bigfoot instanceof Truck );
 <p>&nbsp;</p>
 <h3>When Not To Use The Factory Pattern</h3>
 
-<p>It"s generally a good practice to not use the factory pattern in every situation as it can easily add an unnecessarily additional aspect of complexity to your code. It can also make some tests more difficult to run.
+<p>it's generally a good practice to not use the factory pattern in every situation as it can easily add an unnecessarily additional aspect of complexity to your code. It can also make some tests more difficult to run.
 </p>
 
 <p>&nbsp;</p>
@@ -2600,7 +2600,7 @@ function augment( receivingClass, givingClass ) {
   // provide all methods
   else {
     for ( var methodName in givingClass.prototype ) {
-         // check to make sure the receiving class doesn"t 
+         // check to make sure the receiving class doesn't 
          // have a method of the same name as the one currently 
          // being processed 
 
@@ -3124,7 +3124,7 @@ isPastDue: function(bookID){
 <p>
 This probably works fine initially for small collections of books, however as the library expands to include a larger inventory with multiple versions and copies of each book available, you"ll find the management system running slower and slower over time. Using thousands of book objects may overwhelm the available memory, but we can optimize our system using the flyweight pattern to improve this.</p>
 <p>
-We can now separate our data into intrinsic and extrinsic states as follows: data relevant to the book object (title, author etc) is intrinsic whilst the checkout data (checkoutMember, dueReturnDate etc) is considered extrinsic. Effectively this means that only one Book object is required for each combination of book properties. It"s still a considerable quantity of objects, but significantly fewer than we had previously.
+We can now separate our data into intrinsic and extrinsic states as follows: data relevant to the book object (title, author etc) is intrinsic whilst the checkout data (checkoutMember, dueReturnDate etc) is considered extrinsic. Effectively this means that only one Book object is required for each combination of book properties. it's still a considerable quantity of objects, but significantly fewer than we had previously.
 </p>
 
 <p>
@@ -3452,7 +3452,7 @@ var PhotoGallery = Backbone.Collection.extend({
 <p>So to summarize, models are primarily concerned with business data.</p>
 <h3>Views</h3>
 <p>Views are a visual representation of models that present a filtered view of their current state. A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as "dumb" given that their knowledge of models and controllers in an application is limited.</p>
-<p>Users are able to interact with views and this includes the ability to read and edit (i.e get or set the attribute values in) models. As the view is the presentation layer, we generally present the ability to edit and update in a user-friendly fashion. For example, in the former photo gallery application we discussed earlier, model editing could be facilitated through an "edit" view where a user who has selected a specific photo could edit its meta-data.</p>
+<p>Users are able to interact with views and this includes the ability to read and edit (i.e get or set the attribute values in) models. As the view is the presentation layer, we generally present the ability to edit and update in a user-friendly fashion. For example, in the former photo gallery application we discussed earlier, model editing could be facilitated through an "edit' view where a user who has selected a specific photo could edit its meta-data.</p>
 <p>The actual task of updating the model falls to controllers (which we will be covering shortly).</p>
 <p>let's explore views a little further using a vanilla JavaScript sample implementation. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance.</p>
 <p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
@@ -3737,7 +3737,7 @@ var aViewModel = {
                     &lt;label data-bind="text: content"&gt;&lt;/label&gt;
                     &lt;a class="destroy" href="#" data-bind="click: $root.remove"&gt;&lt;/a&gt;
                 &lt;/div&gt;
-                &lt;input class="edit" type="text"
+                &lt;input class="edit' type="text"
                        data-bind="value: content, valueUpdate: "afterkeydown", enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/&gt;
             &lt;/li&gt;
             
@@ -4011,8 +4011,8 @@ ko.applyBindings( viewModel );
                                 &lt;div class="todo-content" data-class="todoContent" style="cursor: pointer;"&gt;&lt;/div&gt;
                                 &lt;span class="todo-destroy" data-class="todoDestroy"&gt;&lt;/span&gt;
                             &lt;/div&gt;
-                            &lt;div class="edit"&gt;
-                                &lt;input class="todo-input" data-class="todoEdit"/&gt;
+                            &lt;div class="edit'&gt;
+                                &lt;input class="todo-input" data-class="todoEdit'/&gt;
                             &lt;/div&gt;
                         &lt;/div&gt;
                     &lt;/li&gt;
@@ -4943,7 +4943,7 @@ $( "button" ).on( "click", function () {
 <pre class="brush: js">
 $( "button" ).on( "click", function () {
   setTimeout(function () {
-    // "this" doesn"t refer to our element!
+    // "this" doesn't refer to our element!
     $( this ).addClass( "active" );
   });
 });
@@ -5051,9 +5051,9 @@ function clone( obj ) {
 <h2>The Importance Of Decoupling Your Application </small></h2>
 </div>
 
-<p>In the world of modern JavaScript, when we say an application is <strong>modular</strong>, we often mean it's composed of a set of highly decoupled, distinct pieces of functionality stored in modules. As you probably know, <a href="http://arguments.callee.info/2009/05/18/javascript-design-patterns--mediator/">loose coupling</a> facilitates easier maintainability of apps by removing <i>dependencies</i> where possible. When this is implemented efficiently, it"s quite easy to see how changes to one part of a system may affect another.</p>
+<p>In the world of modern JavaScript, when we say an application is <strong>modular</strong>, we often mean it's composed of a set of highly decoupled, distinct pieces of functionality stored in modules. As you probably know, <a href="http://arguments.callee.info/2009/05/18/javascript-design-patterns--mediator/">loose coupling</a> facilitates easier maintainability of apps by removing <i>dependencies</i> where possible. When this is implemented efficiently, it's quite easy to see how changes to one part of a system may affect another.</p>
 
-<p>Unlike some more traditional programming languages however, the current iteration of JavaScript (<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a>) doesn"t provide developers with the means to import such modules of code in a clean, organized manner. It's one of the concerns with specifications that haven"t required great thought until more recent years where the need for more organized JavaScript applications became apparent.</p>
+<p>Unlike some more traditional programming languages however, the current iteration of JavaScript (<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a>) doesn't provide developers with the means to import such modules of code in a clean, organized manner. It's one of the concerns with specifications that haven"t required great thought until more recent years where the need for more organized JavaScript applications became apparent.</p>
 
 <p>Instead, developers at present are left to fall back on variations of the <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">module</a> or <a href="http://blog.rebeccamurphey.com/2009/10/15/using-objects-to-organize-your-code">object literal</a> patterns, which we covered earlier in the book. With many of these, module scripts are strung together in the DOM with namespaces being described by a single global object where it's still possible to incur naming collisions in your architecture. There"s also no clean way to handle dependency management without some manual effort or third party tools.</p>
 
@@ -5072,8 +5072,8 @@ function clone( obj ) {
 <p>
 There are a number of great loaders for handling module loading in the AMD and CommonJS formats, but my personal preferences are <a href="http://requirejs.org">RequireJS</a> and <a href="https://github.com/unscriptable/curl">curl.js</a>. Complete tutorials on these tools are outside the scope of this book, but I can recommend reading John Hann's article about <a href="http://unscriptable.com/index.php/2011/03/30/curl-js-yet-another-amd-loader/">curl.js</a> and James Burke's <a href="http://requirejs.org/docs/api.html">RequireJS</a> API documentation for more.</p> 
 
-<p>From a production perspective, the use of optimization tools (like the RequireJS optimizer) to concatenate scripts is recommended for deployment when working with such modules. Interestingly, with the <a href="https://github.com/jrburke/almond">Almond</a> AMD shim, RequireJS doesn"t need to be rolled in the deployed site and what you might consider a script loader can be easily shifted outside of development.</p>
-<p>That said, James Burke would probably say that being able to dynamically load scripts after page load still has its use cases and RequireJS can assist with this too. With these notes in mind, let"s get started.</p>
+<p>From a production perspective, the use of optimization tools (like the RequireJS optimizer) to concatenate scripts is recommended for deployment when working with such modules. Interestingly, with the <a href="https://github.com/jrburke/almond">Almond</a> AMD shim, RequireJS doesn't need to be rolled in the deployed site and what you might consider a script loader can be easily shifted outside of development.</p>
+<p>That said, James Burke would probably say that being able to dynamically load scripts after page load still has its use cases and RequireJS can assist with this too. With these notes in mind, let's get started.</p>
 
 <div class="hr"></div>
 
@@ -5106,7 +5106,7 @@ define(
 );
 </pre>
 
-<p>As you can tell by the inline comments, the <code>module_id</code> is an optional argument which is typically only required when non-AMD concatenation tools are being used (there may be some other edge cases where it"s useful too). When this argument is left out, we call the module anonymous.</p>
+<p>As you can tell by the inline comments, the <code>module_id</code> is an optional argument which is typically only required when non-AMD concatenation tools are being used (there may be some other edge cases where it's useful too). When this argument is left out, we call the module anonymous.</p>
 
 <p>When working with anonymous modules, the idea of a module's identity is DRY, making it trivial to avoid duplication of filenames and code. Because the code is more portable, it can be easily moved to other locations (or around the file-system) without needing to alter the code itself or change its ID. The <code>module_id</code> is equivalent to folder paths in simple packages and when not used in packages. Developers can also run the same code on multiple environments just by using an AMD optimizer that works with a CommonJS environment such as <a href="https://github.com/jrburke/r.js/">r.js</a>. </p>
 
@@ -5141,7 +5141,7 @@ define( "myModule",
 
         // Note that this is a slightly different pattern
         // With AMD, it's possible to define modules in a few
-        // different ways due to it"s flexibility with
+        // different ways due to it's flexibility with
         // certain aspects of the syntax
         return {
             plot: function( x, y ){
@@ -5217,7 +5217,7 @@ require(["app/myModule"],
 });
 </pre>
 
-<p>This example could simply be looked at as <code>requirejs(["app/myModule"], function(){})</code> which indicates the loader's top level globals are being used. This is how to kick off top-level loading of modules with different AMD loaders however with a <code>define()</code> function, if it"s passed a local require all <code>require([])</code> examples apply to both types of loader (curl.js and RequireJS).</p>
+<p>This example could simply be looked at as <code>requirejs(["app/myModule"], function(){})</code> which indicates the loader's top level globals are being used. This is how to kick off top-level loading of modules with different AMD loaders however with a <code>define()</code> function, if it's passed a local require all <code>require([])</code> examples apply to both types of loader (curl.js and RequireJS).</p>
 
 <h4>Loading AMD Modules Using curl.js</h4>
 <pre class="brush: js">
@@ -5256,7 +5256,7 @@ define(["lib/Deferred"], function( Deferred ){
 
     <li>Module definitions are encapsulated, helping us to avoid pollution of the global namespace.</li>
 
-    <li>Works better than some alternative solutions (e.g. CommonJS, which we'll be looking at shortly). Doesn"t have issues with cross-domain, local or debugging and doesn"t have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
+    <li>Works better than some alternative solutions (e.g. CommonJS, which we'll be looking at shortly). doesn't have issues with cross-domain, local or debugging and doesn't have a reliance on server-side tools to be used. Most AMD loaders support loading modules in the browser without a build process.</li>
 
     <li>Provides a "transport" approach for including multiple modules in a single file. Other approaches like CommonJS have yet to agree on a transport format.</li>
 
@@ -5306,12 +5306,12 @@ define(["dojo/cookie", "dijit/Tooltip"], function( cookie, Tooltip ){
 
 <p>This has many advances over nested namespacing as modules no longer need to directly reference complete namespaces every time - all we require is the "dojo/cookie" path in dependencies, which once aliased to an argument, can be referenced by that variable. This removes the need to repeatedly type out "dojo." in your applications.</p>
 
-<div class="alert-message"><strong>Note:</strong> Although Dojo 1.6 doesn"t officially support user-based AMD modules (nor asynchronous loading), it's possible to get this working with Dojo using a number of different script loaders. At present, all Dojo core and Dijit modules have been transformed to the AMD syntax and improved overall AMD support will likely land between 1.7 and 2.0.</div>
+<div class="alert-message"><strong>Note:</strong> Although Dojo 1.6 doesn't officially support user-based AMD modules (nor asynchronous loading), it's possible to get this working with Dojo using a number of different script loaders. At present, all Dojo core and Dijit modules have been transformed to the AMD syntax and improved overall AMD support will likely land between 1.7 and 2.0.</div>
 
 <p>The final gotcha to be aware of is that if you wish to continue using the Dojo build system or wish to migrate older modules to this newer AMD-style, the following more verbose version enables easier migration. Notice that dojo and dijit and referenced as dependencies too:</p>
 
 <pre class="brush: js">
-define(["dojo", "dijit", "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit ){
+define(["dojo", "dijit', "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit ){
     var cookieValue = dojo.cookie( "cookieName" );
     new dijit.Tooltip(...);
 });
@@ -5622,7 +5622,7 @@ exports.helloWorld = function(){
 
 <p>Although it's beyond the scope of this section, you may have also noticed that there were different types of "require" methods mentioned when discussing AMD and CommonJS. </p>
 
-<p>The concern with a similar naming convention is of course confusion and the community are currently split on the merits of a global require function. John Hann's suggestion here is that rather than calling it "require", which would probably fail to achieve the goal of informing users about the different between a global and inner require, it may make more sense to rename the global loader method something else (e.g. the name of the library). It"s for this reason that a loader like curl.js uses <code>curl()</code> as opposed to <code>require</code>. </p>
+<p>The concern with a similar naming convention is of course confusion and the community are currently split on the merits of a global require function. John Hann's suggestion here is that rather than calling it "require", which would probably fail to achieve the goal of informing users about the different between a global and inner require, it may make more sense to rename the global loader method something else (e.g. the name of the library). it's for this reason that a loader like curl.js uses <code>curl()</code> as opposed to <code>require</code>. </p>
 
 <p></p>
 
@@ -5646,7 +5646,7 @@ exports.helloWorld = function(){
 
 <p>Whilst this section has placed more emphasis on using AMD over CommonJS, the reality is that both formats are valid and have a use. </p>
 
-<p>AMD adopts a browser-first approach to development, opting for asynchronous behavior and simplified backwards compatibility but it doesn"t have any concept of File I/O. It supports objects, functions, constructors, strings, JSON and many other types of modules, running natively in the browser. It's incredibly flexible.</p>
+<p>AMD adopts a browser-first approach to development, opting for asynchronous behavior and simplified backwards compatibility but it doesn't have any concept of File I/O. It supports objects, functions, constructors, strings, JSON and many other types of modules, running natively in the browser. It's incredibly flexible.</p>
 
 <p>CommonJS on the other hand takes a server-first approach, assuming synchronous behavior, no global <i>baggage</i> as John Hann would refer to it as and it attempts to cater for the future (on the server). What we mean by this is that because CommonJS supports unwrapped modules, it can feel a little more close to the ES.next/Harmony specifications, freeing you of the <code>define()</code> wrapper that AMD enforces. CommonJS modules however only support objects as modules.</p>
 
@@ -5963,7 +5963,7 @@ class Cake{
     }
 
     // As a part of ES.next's efforts to decrease the unnecessary
-    // use of "function" for everything, you"ll notice that it"s
+    // use of "function" for everything, you"ll notice that it's
     // dropped for cases such as the following. Here an identifier
     // followed by an argument list and a body defines a new method
 
@@ -6195,7 +6195,7 @@ $("#elem").defaultPluginName({
 <p>&nbsp;</p>
 <h3>“Complete” Widget Factory</h3>
 
-<p>While the authoring guide is a great introduction to plugin development, it doesn"t offer a great number of conveniences for obscuring away from common plumbing tasks that we have to deal with on a regular basis.</p>
+<p>While the authoring guide is a great introduction to plugin development, it doesn't offer a great number of conveniences for obscuring away from common plumbing tasks that we have to deal with on a regular basis.</p>
 
 <p>The jQuery UI Widget Factory is a solution to this problem that helps you build complex, stateful plugins based on object-oriented principles. It also eases communication with your plugin’s instance, obfuscating a number of the repetitive tasks that you would have to code when working with basic plugins.</p>
 
@@ -6329,7 +6329,7 @@ collection.widgetName("methodB");
 
 <p>Namespacing your code is a way to avoid collisions with other objects and variables in the global namespace. They’re important because you want to safeguard your plugin from breaking in the event that another script on the page uses the same variable or plugin names as yours. As a good citizen of the global namespace, you must also do your best not to prevent other developer's scripts from executing because of the same issues.</p>
 
-<p>JavaScript doesn"t really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of your namespace, you can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
+<p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of your namespace, you can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
 
 <p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should give you everything you need to get started with these concepts.</p>
 
@@ -6840,7 +6840,7 @@ $(document).bind("pagecreate", function ( e ) {
     // data-role attribute of "foo":
     $(e.target).find( "[data-role="foo"]" ).foo( options );
 
-    // Or, better yet, let"s write the selector accounting for the configurable 
+    // Or, better yet, let's write the selector accounting for the configurable 
     // data-attribute namespace
     $( e.target ).find( ":jqmData(role="foo")" ).foo( options );
 });
@@ -7045,7 +7045,7 @@ function (req, $) {
 
     // Globally overriding options
     // Here are our publicly accessible default plugin options 
-    // that are available in case the user doesn"t pass in all 
+    // that are available in case the user doesn't pass in all 
     // of the values expected. The user is given a default
     // experience but can also override the values as necessary.
     // e.g. $fn.pluginName.key ="otherval";
