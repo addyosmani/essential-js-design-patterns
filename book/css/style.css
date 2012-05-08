@@ -1,13 +1,5 @@
 @charset "UTF-8";
-body {
-	font: 1.1em Georgia;
-	line-height:1.4em;
-	background: #fff;
-	margin: 0;
-	padding: 0;
-	color: #000;
-	text-align: left;
-}
+
 
 /* ~~ Element/tag selectors ~~ */
 ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
@@ -22,13 +14,13 @@ h1, h2, h3, h4, h5, h6, p {
 	font-family:Georgia;
 }
 
-
 h1{
 	font-size: 32px;
 	line-height: 43px;
 	text-align: left;
 	border-bottom:3px solid #CCCCCC;
 	padding-bottom:13px;
+  position: relative;
 }
 
 h2.booktitle{
@@ -38,6 +30,11 @@ h2.booktitle{
 
 h2 {
 	font-size:28px;
+  position: relative;
+}
+
+h3 {
+  position: relative;
 }
 
 a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
@@ -56,6 +53,24 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 	text-decoration: none;
 }
 
+a.subhead-link, a.subhead-link:visited {
+  font-size: 19px;
+  position: absolute;
+  top: 10px;
+  left: -16px;
+  font-style: italic;
+  color: #999999;
+}
+
+a.subhead-link:hover {
+  color: #333333;
+  text-decoration: none;
+}
+
+h3 a.subhead-link { /* since h3's are smaller, the top offset should be less, so they line up */
+  top: 5px;
+}
+
 /* ~~ this fixed width container surrounds the other divs ~~ */
 .container {
 	width: 740px;
@@ -69,7 +84,7 @@ header {
 }
 
 
-/* ~~ This is the layout information. ~~ 
+/* ~~ This is the layout information. ~~
 
 1) Padding is only placed on the top and/or bottom of the div. The elements within this div have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
 
@@ -101,6 +116,8 @@ header {
 	font-size: 1px;
 	line-height: 0px;
 }
+
+
 .copyright {
 	text-align: left;
 }
@@ -113,10 +130,8 @@ header {
 	font-size: 2.2em;
 }
 
-.bookauthor{
-  font-family:Helvetica,Arial,sans-serif;
-  font-weight:bold;
-  text-align:center;
+.booktitle.author{
+	font-size:24px;
 }
 
 
@@ -127,7 +142,7 @@ padding:1em 1em 1em 3em;
 }
 
 .subitem{
- margin-left:25px;	
+ margin-left:25px;
 }
 
 #references-list {
