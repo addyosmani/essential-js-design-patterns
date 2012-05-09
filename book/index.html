@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 9 May 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 10 May 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -2734,7 +2734,7 @@ CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a "facade" or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$( el ).css()</code> or <code>$( el ).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p> 
+This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p> 
 
 <p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
@@ -2761,7 +2761,7 @@ var addMyEvent = function( el,ev,fn ){
 </pre>
 
 <p>
-In a similar manner, we're all familiar with jQuery's <code>$( document ).ready(..)</code>. Internally, this is actually being powered by a method called <code>bindReady()</code>, which is doing this:</p>
+In a similar manner, we're all familiar with jQuery's <code>$(document).ready(..)</code>. Internally, this is actually being powered by a method called <code>bindReady()</code>, which is doing this:</p>
 
 <pre class="brush: js">
 
@@ -2785,7 +2785,7 @@ bindReady: function() {
 
 </pre>
 <p>
-This is another example of a Facade, where the rest of the world simply uses the limited interface exposed by <code>$( document ).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
+This is another example of a Facade, where the rest of the world simply uses the limited interface exposed by <code>$(document).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
 
 <p>
 Facades don't just have to be used on their own, however. They can also be integrated with other patterns such as the Module pattern. As you can see below, our instance of the module patterns contains a number of methods which have been privately defined. A Facade is then used to supply a much simpler API to accessing these methods:
@@ -2834,11 +2834,11 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <h3>Notes on abstraction</h3>
 
-<p>Facades generally have few disadvantages, but one concern worth noting is performance. Namely, one must determine whether there is an implicit cost to the abstraction a Facade offers to your implementation and if so, whether this cost is justifiable. Going back to the jQuery library, most of us are aware that both <code>getElementById( "identifier" )</code> and <code>$( "#identifier" )</code> can be used to query an element on a page by its ID.</p>
+<p>Facades generally have few disadvantages, but one concern worth noting is performance. Namely, one must determine whether there is an implicit cost to the abstraction a Facade offers to your implementation and if so, whether this cost is justifiable. Going back to the jQuery library, most of us are aware that both <code>getElementById("identifier")</code> and <code>$("#identifier")</code> can be used to query an element on a page by its ID.</p>
 
 <p>Did you know however that <code>getElementById()</code> on its own is significantly faster by a high order of magnitude? Take a look at this jsPerf test if you would like to see results on a per-browser level: <a href="http://jsperf.com/getelementbyid-vs-jquery-id">http://jsperf.com/getelementbyid-vs-jquery-id</a>. Now of course, we have to keep in mind that jQuery (and Sizzle - its selector engine) are doing a lot more behind the scenes to optimize your query (and that a jQuery object, not just a DOM node is returned). </p>
 
-<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById( "identifier" )</code> or <code>jQuery.getbyClass( "identifier" )</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
+<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById("identifier")</code> or <code>jQuery.getbyClass("identifier")</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
 
 <p>When using the pattern, try to be aware of any performance costs involved and make a call on whether they are worth the level of abstraction offered.</p>
 
@@ -2846,73 +2846,155 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>&nbsp;</p>
 <h2 id="factorypatternjavascript">The Factory Pattern</h2>
-<p>Similar to other creational patterns, the Factory Pattern deals with the problem of creating objects (which we can think of as &lsquo;factory products&rsquo;) without the need to specify the exact class of object being created.&nbsp; </p>
-<p>Specifically, the Factory Pattern suggests defining an interface for creating an object where you allow the subclasses to decide which class to instantiate. This pattern handles the problem by defining a completely separate method for the creation of objects and which sub-classes are able to override so they can specify the &lsquo;type&rsquo; of factory product that will be created.</p>
-<p>This is quite useful, in particular if the creation process involved is quite complex, e.g. if it strongly depends on the settings in configuration files.</p>
-<p>You can often find factory methods in frameworks where the code for a library may need to create objects of particular types which may be subclassed by scripts using the frameworks.</p>
-<p>In our example, let&rsquo;s take the code used in the original Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
+
+
+<p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
+
+<p>Imagine that we have a UI factory where we are asked to create a type of UI component. Rather than creating this component directly using the <code>new</code> operator or via another creational constructor, we ask a Factory object for a new component instead. We inform the Factory what type of object is required (e.g 'Button', 'Panel') and it instantiates this, returning it to us for use.</p>
+
+<p>This is particularly useful if the object creation process is re latively complex, e.g. if it strongly depends on dynamic factors or application configuration.</p>
+
+<p>Examples of this pattern can be found in UI libraries such as ExtJS where the methods for creating objects or components may be further subclassed.</p>
+
+<p>The following is an example of how to use the Factory Pattern, where we present a simple Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
+
+<p>The following is an example that builds upon our previous snippets using the Constructor pattern logic to define cars. It demonstrates how a Vehicle <em>Factory</em>  may be implemented using Factory pattern:</p>
+
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
 
+// Types.js - Constructors used behind the scenes
+
+// A constructor for defining new cars
+function Car( options ) {
+
+  // some defaults
+  this.doors = options.doors || 4;
+  this.state = options.state || "brand new";
+  this.color = options.color || "silver";
+
+}
+
+// A constructor for defining new trucks
+function Truck( options){
+
+  this.state = options.state || "used";
+  this.wheelSize = options.wheelSize || "large";
+  this.color = options.color || "blue";
+}
+
+
+// FactoryExample.js
+
+// Define a skeleton vehicle factory
 function VehicleFactory() {}
+
+// Define the prototypes and utilities for this factory
+
+// Our default vehicleClass is Car
 VehicleFactory.prototype.vehicleClass = Car;
-VehicleFactory.prototype.getVehicle = function ( options ) {
-    return new this.vehicleClass( options );
+
+// Our Factory method for creating new Vehicle instances
+VehicleFactory.prototype.createVehicle = function ( options ) {
+
+  if( options.vehicleType === "car" ){
+    this.vehicleClass = Car;
+  }else{
+    this.vehicleClass = Truck;
+  }
+
+  return new this.vehicleClass( options );
+
 };
 
+// Create an instance of our factory that makes cars
 var carFactory = new VehicleFactory();
-var car = carFactory.getVehicle( { color: "yellow", turbo: true } );
+var car = carFactory.createVehicle( { 
+            vehicleType: "car", 
+            color: "yellow", 
+            doors: 6 } );
+
+// Test to confirm our car was created using the vehicleClass/prototype Car
 
 // Outputs: true
 console.log( car instanceof Car ); 
 
+// Outputs: Car object of color "yellow", doors: 6 in a "brand new" state
+console.log( car );
+</pre>
 
-// Approach #1: Modify a VehicleFactory instance to use the Truck class
-carFactory.vehicleClass = Truck;
+<p><strong>Approach #1: Modify a VehicleFactory instance to use the Truck class</strong></p>
 
-var mover = carFactory.getVehicle( { enclosedCargo: true, length: 26 } );
+<pre  class="brush: js">
+var movingTruck = carFactory.createVehicle( { 
+                      vehicleType: "truck", 
+                      state: "like new", 
+                      color: "red", 
+                      wheelSize: "small" } );
+
+// Test to confirm our truck was created with the vehicleClass/prototype Truck
 
 // Outputs: true
-counsole.log(mover instanceof Truck);
+console.log( movingTruck instanceof Truck );
 
+// Outputs: Truck object of color "red", a "like new" state 
+// and a "small" wheelSize
+console.log( movingTruck );
+</pre>
 
+<p><strong>Approach #2: Subclass VehicleFactory to create a factory class that builds Trucks</strong></p>
 
-// Approach #2: Subclass VehicleFactory to create a factory class that
-// builds Trucks
+<pre class="brush: js" >
 
 function TruckFactory () {}
 TruckFactory.prototype = new VehicleFactory();
 TruckFactory.prototype.vehicleClass = Truck;
 
 var truckFactory = new TruckFactory();
-var bigfoot = truckFactory.getVehicle( { monster: true, cylinders: 12 } );
+var myBigTruck = truckFactory.createVehicle( { 
+                    state: "omg..so bad.", 
+                    color: "pink", 
+                    wheelSize: "so big" } );
 
-//Outputs: true
-console.log( bigfoot instanceof Truck );
+// Confirms that myBigTruck was created with the 
+
+prototype Truck
+// Outputs: true
+console.log( myBigTruck instanceof Truck );
+
+// Outputs: Truck object with the color "pink", wheelSize "so big" 
+// and state "omg. so bad"
+console.log( myBigTruck );
 
 </pre>
 
+<p>&nbsp;</p>
 <h3>When To Use The Factory Pattern</h3>
 
 <p>The Factory pattern can be especially useful when applied to the following situations:
 <ul>
-  <li>When your object's setup requires a high level of complexity</li>
-  <li>When you need to generate different instances depending on the environment</li>
-  <li>When you're working with many small objects that share the same properties</li>
-  <li>When composing classes with instances of other classes that need only satisfy an API contract (aka, duck typing) to work.  This is useful for decoupling.</li>
+  <li>When our object or component setup involves a high level of complexity</li>
+  <li>When we need to easily generate different instances of objects depending on the environment we are in</li>
+  <li>When we're working with many small objects or components that share the same properties</li>
+  <li>When composing objects with instances of other objects that need only satisfy an API contract (aka, duck typing) to work.  This is useful for decoupling.</li>
 </ul>
 </p>
 <p>&nbsp;</p>
 <h3>When Not To Use The Factory Pattern</h3>
 
-<p>it's generally a good practice to not use the factory pattern in every situation as it can easily add an unnecessarily additional aspect of complexity to your code. It can also make some tests more difficult to run.
-</p>
+<p>
+When applied to the wrong type of problem, this pattern can introduce an unnessarily great deal of complexity to an application. Unless providing an interface for object creation is a design goal for the library or framework you are writing, I would suggest sticking to explicit constructors to avoid the unnecessary overhead.</p>
 
-<p>&nbsp;</p>
+<p>Due to the fact that the process of object creation is effectively abstracted behind an interface, this can also introduce problems with unit testing depending on just how complex this process might be.</p>
+
+<h3>Abstract Factories</h3>
+
 <p>It is also useful to be aware of the <strong>Abstract Factory</strong> pattern, which aims to encapsulate a group of individual factories with a common goal. It separates the details of implementation of a set of objects from their general usage.</p>
 
-<p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
+<p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.</p>
+
+<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
 
 <pre class="brush: js">
   var AbstractVehicleFactory = (function () {
@@ -2947,10 +3029,14 @@ AbstractVehicleFactory.registerVehicle( "car", Car );
 AbstractVehicleFactory.registerVehicle( "truck", Truck );
 
 // Instantiate a new car based on the abstract vehicle type
-var car = AbstractVehicleFactory.getVehicle( "car" , { color: "yellow", turbo: true } );
+var car = AbstractVehicleFactory.getVehicle( "car" , { 
+            color: "lime green", 
+            state: "like new" } );
 
 // Instantiate a new truck in a similar manner
-var truck = AbstractVehicleFactory.getVehicle( "truck" , { monster: true, cylinders: 12 } );
+var truck = AbstractVehicleFactory.getVehicle( "truck" , { 
+            wheelSize: "medium", 
+            color: "neon yellow" } );
 </pre>
 
 
