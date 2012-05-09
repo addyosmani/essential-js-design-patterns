@@ -2128,25 +2128,17 @@ var mediator = (function(){
 <p><em>Thanks to Jake for his excellent code comments which assisted with this section.</em></p>
 
 
-<p>To start, we define <code>guidGenerator()</code>, which generates GUIDs for instances of our Mediator Subscribers so we can easily reference them later on.</p>
+<p>To start, let's implement the notion of Subscriber, which we can consider an instance of a Mediators topic registration.</p>
+
+<p>By generating object instances, we can easily update Subscribers later without the need to unregister and re-register them. Subscribers can be written as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
 
 <pre  class="brush: js">
 // Pass in a context to attach our Mediator to. By default this will be the window object
 (function( root ){
    
-  function guidGenerator() {
+  function guidGenerator() { /*..*/}
 
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-    };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-
-  }
-</pre>
-
-<p>Next we want to implement Subscribers, which we can consider instances of our Mediators topic registrations. By generating object instances, we can easily update them later without the need to unregister and re-register them. We can then implement Subscribers as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
-
-<pre  class="brush: js">
+  // Our Subscriber constructor
   function Subscriber( fn, options, context ){
 
     if ( !this instanceof Subscriber ) {
@@ -2155,11 +2147,16 @@ var mediator = (function(){
 
     }else{
 
+      // guidGenerator() is a function that generates 
+      // GUIDs for instances of our Mediators Subcribers so
+      // we can easily reference them later on. We're going
+      // to skip its implementation for brevity
+
       this.id = guidGenerator();
       this.fn = fn;
       this.options = options;
       this.context = context;
-      this.channel = null;
+      this.topic = null;
 
     }
   };
@@ -2213,7 +2210,7 @@ var mediator = (function(){
     },
 </pre>
 
-<p>We also want to make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
+<p>We can also make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
 
 <pre  class="brush: js">
     GetSubscriber: function( identifier ){
@@ -2237,7 +2234,7 @@ var mediator = (function(){
 
 </pre>
 
-<p>In case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
+<p>Next, in case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
 <pre  class="brush: js">
 
     AddTopic: function( topic ){
@@ -2356,7 +2353,7 @@ var mediator = (function(){
 </pre>
 
 <p>
-Next we have <code>Mediator.Subscribe</code>, which accepts a topic namespace, a function <code>fn</code> to be executed, <code>options</code> and once again a <code>context</code> to call the function in to Subscribe. This creates a topic if one doesn't exist.
+In this section we define a <code>Mediator.Subscribe</code> method, which accepts a topic namespace, a function <code>fn</code> to be executed, <code>options</code> and once again a <code>context</code> to call the function in to Subscribe. This creates a topic if one doesn't exist.
 </p>
 
 <pre  class="brush: js">
@@ -2371,7 +2368,7 @@ Next we have <code>Mediator.Subscribe</code>, which accepts a topic namespace, a
 
 </pre>
 
-<p>Followed by further utilities for accessing specific subscribers or removing them from topics recursively.</p>
+<p>Following on from this, we can also define further utilities for accessing specific subscribers or removing them from topics recursively.</p>
 <pre  class="brush: js">
 
     // Returns a subscriber for a given subscriber id / named function and topic namespace
@@ -2390,7 +2387,8 @@ Next we have <code>Mediator.Subscribe</code>, which accepts a topic namespace, a
 </pre>
 
 <p>
-Our primary <code>Publish</code> methood allows us to arbitrarily publish data to a chosen topic namespace. Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
+Our primary <code>Publish</code> methood allows us to arbitrarily publish data to a chosen topic namespace and can be seen below.</p>
+<p>Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
 
 <pre  class="brush: js">
     Publish: function( topicName ){
@@ -2399,7 +2397,7 @@ Our primary <code>Publish</code> methood allows us to arbitrarily publish data t
 
       args.push( topic );
 
-      this.GetChannel( topicName ).Publish( args );
+      this.GetTopic( topicName ).Publish( args );
     }
   };
 </pre>
