@@ -2535,35 +2535,38 @@ The Mediator centralizes communication between modules where it's explicitly ref
 
 <p>The GoF refer to the prototype pattern as one which creates objects based on a template of an existing object through cloning.</p>
 
-<p>We can think of the prototype pattern as being based on prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates. If the prototype of the constructor function used contains a property called "name" for example (as per the code sample lower down), then each object created by that same constructor will also have this same property.</p>
+<p>We can think of the prototype pattern as being based on prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates. If the prototype of the constructor function used contains a property called <code>name</code> for example (as per the code sample lower down), then each object created by that same constructor will also have this same property.</p>
 
-<p>Looking at the definitions for the prototype pattern in existing literature non-specific to JavaScript, you <strong>may</strong> find references to concepts outside the scope of the language such as classes. The reality is that prototypal inheritance avoids using classes altogether. There isn't a "definition" object nor a core object in theory. we're simply creating copies of existing functional objects.</p>
+<p>Looking at the definitions for this pattern in existing (non-JavaScript literature), you <strong>may</strong> find references to classes once again. The reality is that prototypal inheritance avoids using classes altogether. There isn't a "definition" object nor a core object in theory. we're simply creating copies of existing functional objects.</p>
 
 <p>One of the benefits of using the prototype pattern is that we're working with the strengths JavaScript has to offer natively rather than attempting to imitate features of other languages. With other design patterns, this isn't always the case. Not only is the pattern an easy way to implement inheritance, but it can also come with a performance boost as well: when defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
 
-<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> (which we've previously looked at briefly). <code>Object.create</code> creates an object which has a specified prototype and which optionally contains specified properties (i.e <code>Object.create(prototype, optionalDescriptorObjects)</code>). We can also see this being demonstrated in the example below:</p>
+<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> (which we previously looked at earlier in this section). To remind ourselves, <code>Object.create</code> creates an object which has a specified prototype and optionally contains specified properties as well (e.g <code>Object.create( prototype, optionalDescriptorObjects )</code>). We can also see this being demonstrated in the example below:</p>
 
 <pre  class="brush: js">
 
-// No need for capitalization as it's not a constructor
-var someCar = {
+var myCar = {
+
+  name: "Ford Escort",
 
   drive: function () {
-      //..
+    console.log( "Weeee. I'm driving!" );
   },
 
-  name: "Mazda 3" 
+  panic: function () {
+    console.log( "Wait. How do you stop this thing?" )
+  }
 
 };
 
 // Use Object.create to instantiate a new car
-var anotherCar = Object.create( someCar );
+var yourCar = Object.create( myCar );
 
 // Now we can see that one is a prototype of the other
-console.log( anotherCar.name );
+console.log( your.name );
 </pre></p>
 <p>
-<code>Object.create</code> allows you to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. With <code>Object.create</code> you're also able to initialise object properties using the second supplied argument. For example:
+<code>Object.create</code> also allows is to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. We saw earlier that <code>Object.create</code> allows us to initialise object properties using the second supplied argument. For example:
 </p>
 <p>
 <pre  class="brush: js">
@@ -2592,10 +2595,11 @@ var car = Object.create(vehicle, {
 </pre>
 </p>
 <p>
-Here the properties can be initialized on the second argument of Object.create using an object literal using the syntax similar to that used by the <code>Object.defineProperties</code> and <code>Object.defineProperty</code> methods. It allows you to set the property attributes such as enumerable, writable or configurable.</p>
+Here the properties can be initialized on the second argument of <code>Object.create</code> using an object literal with a syntax similar to that used by the <code>Object.defineProperties</code> and <code>Object.defineProperty</code> methods that we looked at previously.</p>
+
 <p>It is worth noting that prototypal relationships can cause trouble when enumerating properties of objects and (as Crockford recommends) wrapping the contents of the loop in a <code>hasOwnProperty()</code> check.</p>
 
-<p>If you wish to implement the prototype pattern without directly using <code>Object.create</code>, you can simulate the pattern as per the above example as follows:</p>
+<p>If we wish to implement the prototype pattern without directly using <code>Object.create</code>, we can simulate the pattern as per the above example as follows:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -2613,6 +2617,7 @@ var vehiclePrototype = {
 
 
 function vehicle( model ) {
+
   function F() {};
   F.prototype = vehiclePrototype;
 
@@ -2620,6 +2625,7 @@ function vehicle( model ) {
 
   f.init( model );
   return f;
+
 }
 
 var car = vehicle( "Ford Escort" );
@@ -2629,7 +2635,7 @@ car.getModel();
 
 <p><strong>Note:</strong> This alternative does not allow the user to define read-only properties in the same manner (as the vehiclePrototype may be altered if not careful).</p>
 
-<p>A final alternative implementation of the Prototype pattern is the following:</p>
+<p>A final alternative implementation of the Prototype pattern could be the following:</p>
 
 <pre  class="brush: js">
 var beget = (function () {
@@ -2647,11 +2653,11 @@ var beget = (function () {
 
 <p>&nbsp;</p>
 <h2 id="commandpatternjavascript">The Command Pattern</h2>
-<p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives you the ability to both parameterize and pass method calls around that can be executed at your discretion. In addition, it enables you to decouple objects invoking the action from the objects which implement them, giving you a greater degree of overall flexibility in swapping out concrete "classes".</p>
+<p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives us the ability to both parameterize and pass method calls around that can be executed at our discretion. In addition, it enables us to decouple objects invoking the action from the objects which implement them, giving us a greater degree of overall flexibility in swapping out concrete "classes" (objects).</p>
 
-<p>If you haven"t come across concrete classes before, they are best explained in terms of class-based programming languages and are related to the idea of abstract classes. An abstract class defines an interface, but doesn't necessarily provide implementations for all of its member functions. It acts as a base class from which others are derived. A derived class which implements the missing functionality is called a concrete class (you may find these concepts familiar if you're read about the Decorator or Prototype patterns).</p>
+<p>If you haven't come across concrete classes before, they are best explained in terms of class-based programming languages and are related to the idea of abstract classes. An abstract class defines an interface, but doesn't necessarily provide implementations for all of its member functions. It acts as a base class from which others are derived. A derived class which implements the missing functionality is called a concrete class. Readers also interested in the Decorator pattern may find this useful to know.</p>
 
-<p>The main idea behind the command pattern is that it provides you a means to separate the responsibilities of issuing commands from anything executing commands, delegating this responsibility to different objects instead.</p>
+<p>The main idea behind the Command pattern is that it provides us a means to separate the responsibilities of issuing commands from anything executing commands, delegating this responsibility to different objects instead.</p>
 
 <p>Implementation wise, simple command objects bind together both an action and the object wishing to invoke the action. They consistently include an execution operation (such as <code>run()</code> or <code>execute()</code>). All Command objects with the same interface can easily be swapped as needed and this is considered one of the larger benefits of the pattern.</p>
 
@@ -2717,21 +2723,21 @@ CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
 <p>&nbsp;</p>
 <h2 id="facadepatternjavascript">The Facade Pattern</h2>
 
-<p>When we put up a facade, we present an outward appearance to the world which may conceal a very different reality. This was the inspiration for the name behind the next pattern we're going to review - the facade pattern. The facade pattern provides a convenient higher-level interface to a larger body of code, hiding its true underlying complexity. Think of it as simplifying the API being presented to other developers, something which almost always improves usability.</p>
+<p>When we put up a facade, we present an outward appearance to the world which may conceal a very different reality. This was the inspiration for the name behind the next pattern we're going to review - the Facade pattern. This pattern provides a convenient higher-level interface to a larger body of code, hiding its true underlying complexity. Think of it as simplifying the API being presented to other developers, something which almost always improves usability.</p>
 
 <p>
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a "facade" or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the facade rather than the subsystem behind the scenes. Whenever you're using jQuery"s <code>$(el).css()</code> or <code>$(el).animate()</code> methods, you're actually using a facade - the simpler public interface that avoids you having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM Apis and maintain state variables.</p> 
+This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p> 
 
 <p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
 <p>
-To build on what we've learned, the facade pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. This gives us the ability to indirectly interact with subsystems in a way that can sometimes be less prone to error than accessing the subsystem directly. A facade's advantages include ease of use and often a small size-footprint in implementing the pattern. </p>
+To build on what we've learned, the Facade pattern both simplifies the interface of a class and it also decouples the class from the code that utilizes it. This gives us the ability to indirectly interact with subsystems in a way that can sometimes be less prone to error than accessing the subsystem directly. A Facade's advantages include ease of use and often a small size-footprint in implementing the pattern. </p>
 
 <p>
-Let’s take a look at the pattern in action. This is an unoptimized code example, but here we're utilizing a facade to simplify an interface for listening to events cross-browser. We do this by creating a common method that can be used in one’s code which does the task of checking for the existence of features so that it can provide a safe and cross-browser compatible solution.</p>
+Let’s take a look at the pattern in action. This is an unoptimized code example, but here we're utilizing a Facade to simplify an interface for listening to events cross-browser. We do this by creating a common method that can be used in one’s code which does the task of checking for the existence of features so that it can provide a safe and cross-browser compatible solution.</p>
 
 <pre class="brush: js">
 
@@ -2774,10 +2780,10 @@ bindReady: function() {
 
 </pre>
 <p>
-This is another example of a facade, where the rest of the world simply uses the limited interface exposed by <code>$(document).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
+This is another example of a Facade, where the rest of the world simply uses the limited interface exposed by <code>$(document).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
 
 <p>
-Facades don"t just have to be used on their own, however. They can also be integrated with other patterns such as the module pattern. As you can see below, our instance of the module patterns contains a number of methods which have been privately defined. A facade is then used to supply a much simpler API to accessing these methods:
+Facades don't just have to be used on their own, however. They can also be integrated with other patterns such as the Module pattern. As you can see below, our instance of the module patterns contains a number of methods which have been privately defined. A Facade is then used to supply a much simpler API to accessing these methods:
 </p>
 <pre class="brush: js">
 
@@ -2820,6 +2826,16 @@ module.facade( {run: true, val:10} );
 <p>
 In this example, calling <code>module.facade()</code> will actually trigger a set of private behavior within the module, but again, the user isn't concerned with this. we've made it much easier for them to consume a feature without needing to worry about implementation-level details.
 </p>
+
+<h3>Disadvantages</h3>
+
+<p>Facades generally have few disadvantages, but one concern worth noting is performance. Namely, one must determine whether there is an implicit cost to the abstraction a Facade offers to your implementation and if so, whether this cost is justifiable. Going back to the jQuery library, most of us are aware that both <code>getElementById( identifier )</code> and <code>$( "#identifier" )</code> can be used to query an element on a page by its ID.</p>
+
+<p>Did you know however that <code>getElementById()</code> on its own is significantly faster by a high order of magnitude? Take a look at this jsPerf test if you would like to see results on a per-browser level: <a href="http://jsperf.com/getelementbyid-vs-jquery-id">http://jsperf.com/getelementbyid-vs-jquery-id</a>. Now of course, we have to keep in mind that jQuery (and Sizzle - its selector engine) are doing a lot more behind the scenes to optimize your query (and that a jQuery object, not just a DOM node is returned). </p>
+
+<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById( identifier )</code> or <code>jQuery.getbyClass( identifier )</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
+
+<p>When using the pattern, try to be aware of any performance costs involved and make a call on whether they are worth the level of abstraction offered.</p>
 
 
 
