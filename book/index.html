@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 7 May 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 9 May 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -2729,7 +2729,7 @@ CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a "facade" or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p> 
+This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$( el ).css()</code> or <code>$( el ).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p> 
 
 <p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
@@ -2756,7 +2756,7 @@ var addMyEvent = function( el,ev,fn ){
 </pre>
 
 <p>
-In a similar manner, we're all familiar with jQuery's <code>$(document).ready(..)</code>. Internally, this is actually being powered by a method called <code>bindReady()</code>, which is doing this:</p>
+In a similar manner, we're all familiar with jQuery's <code>$( document ).ready(..)</code>. Internally, this is actually being powered by a method called <code>bindReady()</code>, which is doing this:</p>
 
 <pre class="brush: js">
 
@@ -2780,7 +2780,7 @@ bindReady: function() {
 
 </pre>
 <p>
-This is another example of a Facade, where the rest of the world simply uses the limited interface exposed by <code>$(document).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
+This is another example of a Facade, where the rest of the world simply uses the limited interface exposed by <code>$( document ).ready(..)</code> and the more complex implementation powering it is kept hidden from sight.</p>
 
 <p>
 Facades don't just have to be used on their own, however. They can also be integrated with other patterns such as the Module pattern. As you can see below, our instance of the module patterns contains a number of methods which have been privately defined. A Facade is then used to supply a much simpler API to accessing these methods:
@@ -2827,13 +2827,13 @@ module.facade( {run: true, val:10} );
 In this example, calling <code>module.facade()</code> will actually trigger a set of private behavior within the module, but again, the user isn't concerned with this. we've made it much easier for them to consume a feature without needing to worry about implementation-level details.
 </p>
 
-<h3>Disadvantages</h3>
+<h3>Notes on abstraction</h3>
 
-<p>Facades generally have few disadvantages, but one concern worth noting is performance. Namely, one must determine whether there is an implicit cost to the abstraction a Facade offers to your implementation and if so, whether this cost is justifiable. Going back to the jQuery library, most of us are aware that both <code>getElementById( identifier )</code> and <code>$( "#identifier" )</code> can be used to query an element on a page by its ID.</p>
+<p>Facades generally have few disadvantages, but one concern worth noting is performance. Namely, one must determine whether there is an implicit cost to the abstraction a Facade offers to your implementation and if so, whether this cost is justifiable. Going back to the jQuery library, most of us are aware that both <code>getElementById( "identifier" )</code> and <code>$( "#identifier" )</code> can be used to query an element on a page by its ID.</p>
 
 <p>Did you know however that <code>getElementById()</code> on its own is significantly faster by a high order of magnitude? Take a look at this jsPerf test if you would like to see results on a per-browser level: <a href="http://jsperf.com/getelementbyid-vs-jquery-id">http://jsperf.com/getelementbyid-vs-jquery-id</a>. Now of course, we have to keep in mind that jQuery (and Sizzle - its selector engine) are doing a lot more behind the scenes to optimize your query (and that a jQuery object, not just a DOM node is returned). </p>
 
-<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById( identifier )</code> or <code>jQuery.getbyClass( identifier )</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
+<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById( "identifier" )</code> or <code>jQuery.getbyClass( "identifier" )</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
 
 <p>When using the pattern, try to be aware of any performance costs involved and make a call on whether they are worth the level of abstraction offered.</p>
 
