@@ -2062,39 +2062,47 @@ The dictionary refers to a mediator as <i>a neutral party that assists in negoti
 <p>If it appears a system has too many direct relationships between components, it may be time to have a central point of control that components communicate through instead. The Mediator promotes loose coupling by ensuring that instead of components referring to each other explicitly, their interaction is handled through this central point. This can help us decouple systems and improve the potential for component reusability.
 </p>
 <p>
-A real-world analogy could be a typical airport traffic control system. A tower (mediator) handles what planes can take off and land because all communications (notifications being listened out for or broadcast) are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a mediator plays in software design.</p>
+A real-world analogy could be a typical airport traffic control system. A tower (Mediator) handles what planes can take off and land because all communications (notifications being listened out for or broadcast) are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a Mediator plays in software design.</p>
 
-<p>In implementation terms, the mediator pattern is essentially a shared subject in the observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact. It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
+<p>In implementation terms, the Mediator pattern is essentially a shared subject in the Observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact. It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
 
-<p>Another analogy would be DOM event bubbling and event delegation. If all subscriptions in a system are made against the document rather than individual nodes, the document effectively serves as a mediator. Instead of binding to the events of the individual nodes, a higher level object is given the responsibility of notifying subscribers about interaction events.</p>
+<p>Another analogy would be DOM event bubbling and event delegation. If all subscriptions in a system are made against the document rather than individual nodes, the document effectively serves as a Mediator. Instead of binding to the events of the individual nodes, a higher level object is given the responsibility of notifying subscribers about interaction events.</p>
 
 <h3>Basic Implementation</h3>
-<p>A simple implementation of the mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
+<p>A simple implementation of the Mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
 
 <pre class="brush: js">
 var mediator = (function(){
 
-    // Storage for our topics/events
-    var channels = {};
+    // Storage for topics that can be broadcast or listened to
+    var topics = {};
 
-    // Subscribe to an event, supply a callback to be executed
-    // when that event is broadcast
-    var subscribe = function( channel, fn ){
-        if (!channels[channel]){ 
-          channels[channel] = [];
+    // Subscribe to a topic, supply a callback to be executed
+    // when that topic is broadcast to
+    var subscribe = function( topic, fn ){
+
+        if ( !topics[topic] ){ 
+          topics[topic] = [];
         }
-        channels[channel].push( { context: this, callback: fn } );
+
+        topics[topic].push( { context: this, callback: fn } );
+
         return this;
     };
 
     // Publish/broadcast an event to the rest of the application
-    var publish = function( channel ){
-        if ( !channels[channel] ){
+    var publish = function( topic ){
+
+        var args;
+
+        if ( !topics[topic] ){
           return false;
         } 
-        var args = Array.prototype.slice.call( arguments, 1 );
-        for ( var i = 0, l = channels[channel].length; i < l; i++ ) {
-            var subscription = channels[channel][i];
+
+        args = Array.prototype.slice.call( arguments, 1 );
+        for ( var i = 0, l = topics[topic].length; i < l; i++ ) {
+
+            var subscription = topics[topic][i];
             subscription.callback.apply( subscription.context, args );
         }
         return this;
@@ -2115,7 +2123,7 @@ var mediator = (function(){
 
 <h3>Advanced Implementation</h3>
 
-<p>For those interested in a more advanced implementation, read on for a walk-through of my trimmed down version of Jake Lawson's excellent <a href="http://thejacklawson.com/Mediator.js/">Mediator.js</a>. Amongst other improvements, this version supports topic/channel namespaces, subscriber removal and a much more robust Publish/Subscribe system for our Mediator. If however, you wish to skip this walk-through, you can go directly to the next example to continue reading.</p>
+<p>For those interested in a more advanced implementation, read on for a walk-through of my trimmed down version of Jake Lawson's excellent <a href="http://thejacklawson.com/Mediator.js/">Mediator.js</a>. Amongst other improvements, this version supports topic namespaces, subscriber removal and a much more robust Publish/Subscribe system for our Mediator. If however, you wish to skip this walk-through, you can go directly to the next example to continue reading.</p>
 
 <p><em>Thanks to Jake for his excellent code comments which assisted with this section.</em></p>
 
@@ -2136,7 +2144,7 @@ var mediator = (function(){
   }
 </pre>
 
-<p>Next we want to implement Subscribers, which we can consider instances of our Mediator's Channel (topic) registrations. By generating object instances, we can easily update them later without the need to unregister and re-register them. We can then implement Subscribers as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
+<p>Next we want to implement Subscribers, which we can consider instances of our Mediators topic registrations. By generating object instances, we can easily update them later without the need to unregister and re-register them. We can then implement Subscribers as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
 
 <pre  class="brush: js">
   function Subscriber( fn, options, context ){
@@ -2157,31 +2165,31 @@ var mediator = (function(){
   };
 </pre>
 
-<p>Channels (topics) in our Mediator hold a list of callbacks and sub-channels that are fired when <code>Mediator.Publish</code> is called on our Mediator instance. It also contains methods for manipulating lists of data.</p>
+<p>Topics in our Mediator hold a list of callbacks and sub-topics that are fired when <code>Mediator.Publish</code> is called on our Mediator instance. It also contains methods for manipulating lists of data.</p>
 
 <pre  class="brush: js">
   Subscriber.prototype = {
 
-  function Channel( namespace ){
+  function Topic( namespace ){
 
-    if ( !this instanceof Channel ) {
-      return new Channel( namespace );
+    if ( !this instanceof Topic ) {
+      return new Topic( namespace );
 
     }else{
 
       this.namespace = namespace || "";
       this._callbacks = [];
-      this._channels = [];
+      this._topics = [];
       this.stopped = false;
 
     }
   };
 
 
-  // Define the prototype for our channel, including ways to
+  // Define the prototype for our topic, including ways to
   // add new subscribers or retrieve existing ones.
 
-  Channel.prototype = {
+  Topic.prototype = {
 
     // Add a new subscriber 
     AddSubscriber: function( fn, options, context ){
@@ -2190,14 +2198,14 @@ var mediator = (function(){
 
       this._callbacks.push( callback );
 
-      callback.channel = this;
+      callback.topic = this;
 
       return callback;
     },
 
 </pre>
 
-<p>Our topic/channel instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
+<p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
 
 <pre  class="brush: js">
     StopPropagation: function(){
@@ -2216,9 +2224,9 @@ var mediator = (function(){
         }
       }
 
-      for( var z in this._channels ){
-        if( this._channels.hasOwnProperty( z ) ){
-          var sub = this._channels[z].GetSubscriber( identifier );
+      for( var z in this._topics ){
+        if( this._topics.hasOwnProperty( z ) ){
+          var sub = this._topics[z].GetSubscriber( identifier );
           if( sub !== undefined ){
             return sub;
           }
@@ -2229,23 +2237,23 @@ var mediator = (function(){
 
 </pre>
 
-<p>In case we need them, we can offer easy ways to add new channels, check for existing channels or retrieve channels as well:</p>
+<p>In case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
 <pre  class="brush: js">
 
-    AddChannel: function( channel ){
-      this._channels[channel] = new Channel( (this.namespace ? this.namespace + ":" : "") + channel);
+    AddTopic: function( topic ){
+      this._topics[topic] = new Topic( (this.namespace ? this.namespace + ":" : "") + topic );
     },
 
-    HasChannel: function( channel ){
-      return this._channels.hasOwnProperty( channel );
+    HasTopic: function( topic ){
+      return this._topics.hasOwnProperty( topic );
     },
 
-    ReturnChannel: function( channel ){
-      return this._channels[channel];
+    ReturnTopic: function( topic ){
+      return this._topics[topic];
     },
 </pre>
 
-<p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its subchannels:</p>
+<p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its sub-topics:</p>
 
 <pre  class="brush: js">
     RemoveSubscriber: function( identifier ){
@@ -2253,16 +2261,16 @@ var mediator = (function(){
       if( !identifier ){
         this._callbacks = [];
 
-        for( var z in this._channels ){
-          if( his._channels.hasOwnProperty(z) ){
-            this._channels[z].RemoveSubscriber( identifier );
+        for( var z in this._topics ){
+          if( this._topics.hasOwnProperty(z) ){
+            this._topics[z].RemoveSubscriber( identifier );
           }
         }
       }
 
       for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
         if( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ){
-          this._callbacks[y].channel = null;
+          this._callbacks[y].topic = null;
           this._callbacks.splice( y,1 );
           x--; y--;
         }
@@ -2272,7 +2280,7 @@ var mediator = (function(){
 
 </pre>
 
-<p>Next we include the ability to <code>Publish</code> arbitrary arguments to Subscribers recursively through sub-channels. 
+<p>Next we include the ability to <code>Publish</code> arbitrary arguments to Subscribers recursively through sub-topics. 
 </p>
 
 <pre  class="brush: js">
@@ -2291,10 +2299,10 @@ var mediator = (function(){
         }
       }
 
-      for( var x in this._channels ){
+      for( var x in this._topics ){
         if( !this.stopped ){
-          if( this._channels.hasOwnProperty( x ) ){
-            this._channels[x].Publish( data );
+          if( this._topics.hasOwnProperty( x ) ){
+            this._topics[x].Publish( data );
           }
         }
       }
@@ -2304,7 +2312,7 @@ var mediator = (function(){
   };
 </pre>
 
-<p>Here we expose the <code>Mediator</code> instance we interact we'll primarily be interacting with and it's through here that events are registered and removed from Publish channels.</p>
+<p>Here we expose the <code>Mediator</code> instance we will primarily be interacting with. It is through here that events are registered and removed from topics.</p>
 
 <pre  class="brush: js">
   function Mediator() {
@@ -2312,87 +2320,86 @@ var mediator = (function(){
     if ( !this instanceof Mediator ) {
       return new Mediator();
     }else{
-      this._channels = new Channel("");
+      this._topics = new Topic( "" );
     }
 
   };
 
 </pre>
 
-<p>For more advanced use-cases, we can get our Mediator supporting namespaces for channels such as <code>inbox:messages:new:read</code>.<code>GetChannel</code> below returns channel instances based on a namespace.</p>
+<p>For more advanced use-cases, we can get our Mediator supporting namespaces for topics such as <code>inbox:messages:new:read</code>.<code>GetTopic</code> below returns topic instances based on a namespace.</p>
 
 <pre  class="brush: js">
   Mediator.prototype = {
 
-    GetChannel: function( namespace ){
-      var channel = this._channels;
-      var namespaceHierarchy = namespace.split(":");
+    GetTopic: function( namespace ){
+      var topic = this._topics,
+          namespaceHierarchy = namespace.split( ":" );
 
       if( namespace === "" ){
-        return channel;
+        return topic;
       }
 
       if( namespaceHierarchy.length > 0 ){
         for( var i = 0, j = namespaceHierarchy.length; i < j; i++ ){
 
-          if( !channel.HasChannel( namespaceHierarchy[i]) ){
-            channel.AddChannel( namespaceHierarchy[i] );
+          if( !topic.HasTopic( namespaceHierarchy[i]) ){
+            topic.AddTopic( namespaceHierarchy[i] );
           }
 
-          channel = channel.ReturnChannel( namespaceHierarchy[i] );
+          topic = topic.ReturnTopic( namespaceHierarchy[i] );
         }
       }
 
-      return channel;
+      return topic;
     },
 </pre>
 
 <p>
-Next we have <code>Mediator.Subscribe</code>, which accepts a channel/topic namespace, a function <code>fn</code> to be executed, <code>options</code> and once again a <code>context</code> to call the function in to Subscribe. This creates a channel if one doesn't exist.
+Next we have <code>Mediator.Subscribe</code>, which accepts a topic namespace, a function <code>fn</code> to be executed, <code>options</code> and once again a <code>context</code> to call the function in to Subscribe. This creates a topic if one doesn't exist.
 </p>
 
 <pre  class="brush: js">
-    Subscribe: function( channelName, fn, options, context ){
+    Subscribe: function( topiclName, fn, options, context ){
       var options = options || {},
           context = context || {},
-          channel = this.GetChannel( channelName ),
-          sub = channel.AddSubscriber( fn, options, context );
+          topic = this.GetTopic( topicName ),
+          sub = topic.AddSubscriber( fn, options, context );
 
       return sub;
     },
 
 </pre>
 
-<p>Followed by further utilities for accessing specific subscribers or removing them from channels recursively.</p>
+<p>Followed by further utilities for accessing specific subscribers or removing them from topics recursively.</p>
 <pre  class="brush: js">
 
-    // Returns a subscriber for a given subscriber id / named function and
-    // channel namespace
+    // Returns a subscriber for a given subscriber id / named function and topic namespace
 
-    GetSubscriber: function( identifier, channel ){
-      return this.GetChannel(channel || "").GetSubscriber( identifier );
+    GetSubscriber: function( identifier, topic ){
+      return this.GetTopic( topic || "" ).GetSubscriber( identifier );
     },
 
-    // Remove a subscriber from a given channel namespace recursively based on
-    // a passed-in subscriber id or named function.
+    // Remove a subscriber from a given topic namespace recursively based on
+    // a provided subscriber id or named function.
 
-    Remove: function( channelName, identifier ){
-      this.GetChannel( channelName ).RemoveSubscriber( identifier );
+    Remove: function( topicName, identifier ){
+      this.GetTopic( topicName ).RemoveSubscriber( identifier );
     },
 
 </pre>
 
 <p>
-This <code>Publish</code> allows us to arbitrarily publish data to a chosen channel namespace. Channels are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
+Our primary <code>Publish</code> methood allows us to arbitrarily publish data to a chosen topic namespace. Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
 
 <pre  class="brush: js">
-    Publish: function( channelName ){
+    Publish: function( topicName ){
       var args = Array.prototype.slice.call( arguments, 1),
-          channel = this.GetChannel( channelName );
+          topic = this.GetTopic( topicName );
 
-      args.push( channel);
+      args.push( topic );
 
-      this.GetChannel( channelName).Publish(args );
+      this.GetChannel( topicName ).Publish( args );
     }
   };
 </pre>
@@ -2403,7 +2410,7 @@ Finally we can easily expose our Mediator for attachment to the object passed in
 
 <pre  class="brush: js">
   root.Mediator = Mediator;
-  Mediator.Channel = Channel;
+  Mediator.Topic = Topic;
   Mediator.Subscriber = Subscriber;
 
 // Remember you can pass anything in here. I've passed in <code>window</code> to
