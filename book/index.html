@@ -3322,7 +3322,7 @@ console.log(truck);
 
 // Demonstrate "vehicle" is still unaltered
 var secondInstance = new vehicle( "car" );
-console.log(secondInstance);
+console.log( secondInstance );
 
 // as before, vehicle: car, model:default, license: 00000-000
 </pre>
@@ -3373,15 +3373,15 @@ function Insurance( macbook ){
 }
 
 var mb = new MacBook(); 
-Memory(mb); 
-Engraving(mb);
-Insurance(mb);
+Memory( mb ); 
+Engraving( mb );
+Insurance( mb );
 
 // Outputs: 1522
-console.log(mb.cost());
+console.log( mb.cost() );
 
 // Outputs: 11.6
-console.log(mb.screenSize()); 
+console.log( mb.screenSize() ); 
 </pre>
 
 <p>Here, the Decorators are overriding the superclass <code>.cost()</code> method to return the current price of the <code>Macbook</code> plus with the cost of the upgrade being specified. It's considered a decoration as the original <code>Macbook</code> object's constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
