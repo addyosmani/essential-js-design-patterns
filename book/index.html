@@ -3293,11 +3293,12 @@ function vehicle( vehicleType ){
     this.vehicleType = vehicleType || "car",
     this.model = "default",
     this.license = "00000-000";
+
 }
 
 // Test instance for a basic vehicle
 var testInstance = new vehicle( "car" );
-console.log(testInstance);
+console.log( testInstance );
 
 // vehicle: car, model:default, license: 00000-000
 
@@ -3317,7 +3318,7 @@ truck.setColor = function( color ){
 truck.setModel( "CAT" );
 truck.setColor( "blue" );
 
-console.log(truck);
+console.log( truck );
 // vehicle:truck, model:CAT, color: blue
 
 // Demonstrate "vehicle" is still unaltered
@@ -3325,6 +3326,7 @@ var secondInstance = new vehicle( "car" );
 console.log( secondInstance );
 
 // as before, vehicle: car, model:default, license: 00000-000
+
 </pre>
 
 <p>This type of simplistic implementation is something you're likely familiar with, but it doesn't really demonstrate some of the other strengths of the pattern. For this, we're first going to go through my variation of the Coffee example from an excellent book called <em>Head First Design Patterns</em> by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
@@ -3553,7 +3555,7 @@ CaseDecorator.prototype.getPrice = function(){
     return this.macbook.getPrice() + 45.00;  
 };
 </pre>
-<p>As you can see, most of this is relatively easy to implement. What we're doing is overriding the addCase() and getPrice() methods that need to be decorated and we're achieving this by first executing the component's method and then adding to it.</p>
+<p>As you can see, most of this is relatively easy to implement. What we're doing is overriding the <code>addCase()</code> and <code>getPrice()</code> methods that need to be decorated and we're achieving this by first executing the component's method and then adding to it.</p>
 
 <p>As there's been quite a lot of information presented in this section so far, let's try to bring it all together in a single example that will hopefully highlight what we have learned.</p>
 
@@ -3578,11 +3580,11 @@ console.log( myMacbookPro.getPrice() );
 
 <h2>Implementing decorators with jQuery</h2>
 
-<p>As with other patterns we've covered, there are also examples of the decorator pattern that can be implemented with jQuery. jQuery.extend() allows you to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
+<p>As with other patterns we've covered, there are also examples of the decorator pattern that can be implemented with jQuery. <code>jQuery.extend()</code> allows you to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
 
 <p>In this scenario, a target object can be decorated with new functionality without necessarily breaking or overriding existing methods in the source/superclass object (although this can be done).</p>
 
-<p>In the following example, we define three objects: defaults, options and settings. The aim of the task is to decorate the "defaults" object with additional functionality found in "options", which we will make available through "settings". We must:</p>
+<p>In the following example, we define three objects: defaults, options and settings. The aim of the task is to decorate the <code>defaults</code> object with additional functionality found in <code>options</code, which we will make available through <code>settings</code>. We must:</p>
 
 <p>(a) Leave "defaults" in an untouched state where we don't lose the ability to access the properties or functions found in it a later point (b) Gain the ability to use the decorated properties and functions found in "options"</p>
 
@@ -3644,8 +3646,11 @@ $( "#log" ).append( "&lt;div&gt;&lt;b&gt;settings -- &lt;/b&gt;" + decoratorApp.
 // defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ console.log("welcome!"); } }
 </pre>
 <h2>Pros and cons of the pattern</h2>
+
 <p>Developers enjoy using this pattern as it can be used transparently and is also fairly flexible - as we've seen, objects can be wrapped or "decorated" with new behavior and then continue to be used without needing to worry about the base object being modified. In a broader context, this pattern also avoids us needing to rely on large numbers of subclasses to get the same benefits.</p>
+
 <p>There are however drawbacks that you should be aware of when implementing the pattern. If poorly managed, it can significantly complicate your application's architecture as it introduces many small, but similar objects into your namespace. The concern here is that in addition to becoming hard to manage, other developers unfamiliar with the pattern may have a hard time grasping why it's being used.</p>
+
 <p>Sufficient commenting or pattern research should assist with the latter, however as long as you keep a handle on how widespread you use the decorator in your application you should be fine on both counts.</p>
 
 <p>&nbsp;</p>
