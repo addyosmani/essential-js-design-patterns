@@ -3042,79 +3042,177 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 
 <br />
 <br />
-<br />
+
 
 <h2 id="mixinpatternjavascript">The Mixin Pattern</h2>
 
-<p>In traditional object-oriented programming languages, <strong>mixins</strong> are classes which provide the functionality to be inherited by a subclass. Inheriting from mixins are a means of collecting functionality and classes may inherit functionality from multiple mixins through multiple inheritance.</p>
+<p>In traditional programming languages such as C++ and Lisp, Mixins are classes which offer functionality that can be easily inherited by a sub-class or group of sub-classes for the purpose of function re-use.</p>
 
+<p>In JavaScript, we can look at inheriting from Mixins are a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but can even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use and that's where Mixins come in.</p>
 
-<p>In the following example, we have a Car defined without any methods. We also have a constructor called "Mixin". What we're going to do is augment the Car so it has access to the methods within the Mixin.This code demonstrates how with JavaScript you can augment a constructor to have a particular method without using the typical inheritance methods or duplicating code for each constructor function you have.</p>
+<p>Mixins allow objects to borrow (or inherit) functionality from them with a minimal amount of complexity. As the pattern works well with JavaScripts object prototypes, it gives us a fairly flexible way to share functionality from not just one Mixin, but effectively many through multiple inheritance.</p>
+
+<p>Mixins can be viewed as objects with attributes and methods that can be easily shared across a number of other object prototypes. Imagine that we define a Mixin containing utility functions in a standard object literal as follows:</p>
+
+<pre>
+var myMixins = {
+
+  moveUp: function(){
+    console.log( "move up" );
+  },
+
+  moveDown: function(){
+    console.log( "move down" );
+  },
+
+  stop: function(){
+    console.log( "stop! in the name of love!" );
+  }
+
+};
+</pre>
+
+<p>We can then easily extend the prototype of existing constructor functions to include this behavior using a helper such as the Underscore.js <code>_.extend()</code> method:</p>
+
+<pre>
+// A skeleton carAnimator constructor
+function carAnimator(){
+  this.moveLeft = function(){
+    console.log( "move left" );
+  }
+}
+
+// A skeleton personAnimator constructor
+function personAnimator(){
+  this.moveRandomly = function(){ /*..*/ }
+}
+
+// Extend both constructors with our Mixin
+_.extend( carAnimator.prototype, myMixins );
+_.extend( personAnimator.prototype, myMixins );
+
+// Create a new instance of carAnimator
+var myAnimator = new carAnimator();
+myAnimator.moveLeft();
+myAnimator.moveDown();
+myAnimator.stop();
+
+// Outputs:
+// move left
+// move down
+// stop! in the name of love!
+</pre>
+
+<p>As we can see, this allows us to easily "mix" in common behaviour into object constructors fairly trivially. </p>
+
+<p>In the next example, we have two constructors: a Car and a Mixin. What we're going to do is extend the Car so that it can inherit specific methods defined in the Mixin, namely <code>driveForward()</code> and <code>driveBackward()</code>. This time we won't be using Underscore.js.</p>
+
+<p>Instead, this snippet will demonstrate how to augment a constructor to include functionality without the need to duplicate this process for every constructor function you may have.</p>
 
 <p>
 <pre  class="brush: js">
 
-// Car 
-var Car = function( settings ){
-  this.model = settings.model || "no model provided";
-  this.colour = settings.colour || "no colour provided";
-};
+// Define a simple Car constructor
+var Car = function ( settings ) {
+
+        this.model = settings.model || "no model provided";
+        this.color = settings.color || "no colour provided";
+
+    };
 
 // Mixin
-var Mixin = function(){};
+var Mixin = function () {};
 
 Mixin.prototype = {
 
-  driveForward: function(){
-    console.log( "drive forward" );
-  },
+    driveForward: function () {
+        console.log( "drive forward" );
+    },
 
-  driveBackward: function(){
-    console.log( "drive backward" );
-  }
+    driveBackward: function () {
+        console.log( "drive backward" );
+    },
+
+    driveSideways: function () {
+        console.log( "drive sideways" );
+    }
 
 };
 
 
-// Augment existing "class" with a method from another
+// Extend an existing object with a method from another
 function augment( receivingClass, givingClass ) {
-  // only provide certain methods
-  if ( arguments[2] ) {
-    for ( var i=2, len=arguments.length; i&lt;len; i++ ) {
-      receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
-    }
-  }
-  // provide all methods
-  else {
-    for ( var methodName in givingClass.prototype ) {
-         // check to make sure the receiving class doesn't 
-         // have a method of the same name as the one currently 
-         // being processed 
 
-      if ( !receivingClass.prototype[methodName] ) {
-        receivingClass.prototype[methodName] = givingClass.prototype[methodName];
-      }
+    // only provide certain methods
+    if ( arguments[2] ) {
+        for ( var i = 2, len = arguments.length; i < len; i++ ) {
+            receivingClass.prototype[arguments[i]] = givingClass.prototype[arguments[i]];
+        }
     }
-  }
+    // provide all methods
+    else {
+        for ( var methodName in givingClass.prototype ) {
+
+            // check to make sure the receiving class doesn't 
+            // have a method of the same name as the one currently 
+            // being processed 
+            if ( !Object.hasOwnProperty(receivingClass.prototype, methodName) ) {
+                receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+            }
+
+            // Alternatively:
+            // if ( !receivingClass.prototype[methodName] ) {
+            //  receivingClass.prototype[methodName] = givingClass.prototype[methodName];
+            // }
+        }
+    }
 }
 
 
-// Augment the Car have the methods "driveForward" and "driveBackward"*/
+// Augment the Car constructor to include "driveForward" and "driveBackward"
 augment( Car, Mixin, "driveForward", "driveBackward" );
 
 // Create a new Car
-var vehicle = new Car( {model:"Ford Escort", colour:"blue"} );
+var myCar = new Car({
+    model: "Ford Escort",
+    color: "blue"
+});
 
 // Test to make sure we now have access to the methods
-vehicle.driveForward();
-vehicle.driveBackward();
+myCar.driveForward();
+myCar.driveBackward();
+
+// Outputs:
+// drive forward
+// drive backward
+
+// We can also augment Car to include all functions from our mixin
+// by not explicitly listing a selection of them
+augment( Car, Mixin );
+
+var mySportsCar = new Car({
+    model: "Porsche",
+    color: "red"
+});
+
+mySportsCar.driveSideways();
+
+// Outputs:
+// drive sideways
 
 </pre>
 </p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 
-<p>It's worth noting that handling mixins that have constructor code is possible, but can be more complicated. Although the mixed in class prototype members are mirrored on the receiving class prototype, instances of the receiving class do not pass instanceof for the mixin class; JS does not support multiple inheritance.</p>
+<h3>Advantages &amp; Disadvantages</h3>
+
+<p>Mixins assist in decreasing functional repetition and increasing function re-use in a system. Where an application is likely to require shared behaviour across object instances, we can easily avoid any duplication by maintaining this shared functionality in a Mixin and thus focusing on implementing only the functionality in our system which is truly distinct.</p.
+
+<p>That said, the downsides to Mixins are a little more debatable. Some developers feel that injecting functionality into a object prototype is a bad idea as it leads to both prototype pollution and a level of uncertainly regarding the origin of our functions. In large systems this may well be the case.</p>
+
+<p>I would argue that strong documentation can assist in minimizing the amount of confusion regarding the source of mixed in functions, but as with every pattern, if care is taken during implementation you should be okay.</p>
+
+<p></p>
+
 
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
 
