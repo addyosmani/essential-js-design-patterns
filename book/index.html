@@ -3578,7 +3578,7 @@ console.log( myMacbookPro.getPrice() );
 
 <p>As decorators are able to modify objects dynamically, they're a perfect pattern for changing existing systems. Occasionally, it's just simpler to create decorators around an object versus the trouble of maintaining individual subclasses. This makes maintaining applications of this type significantly more straight-forward.</p>
 
-<h2>Implementing decorators with jQuery</h2>
+<h2>Decorators With jQuery</h2>
 
 <p>As with other patterns we've covered, there are also examples of the decorator pattern that can be implemented with jQuery. <code>jQuery.extend()</code> allows you to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
 
@@ -3594,62 +3594,62 @@ var decoratorApp = decoratorApp || {};
 // define the objects we're going to use
 decoratorApp = {
 
-    defaults:{
-              validate: false, 
+    defaults: {
+        validate: false,
+        limit: 5,
+        name: "foo",
+        welcome: function () {
+            console.log( "welcome!" );
+        }
+    },
 
-              limit: 5, 
+    options: {
+        validate: true,
+        name: "bar",
+        helloWorld: function () {
+            console.log( "hello world" );
+        }
+    },
 
-              name: "foo",
+    settings: {},
 
-              welcome: function(){
-                  console.log( "welcome!" );
-              }
-             },
+    printObj: function ( obj ) {
+        var arr = [],
+            next;
+        $.each( obj, function ( key, val ) {
+            next = key + ": ";
+            next += $.isPlainObject(val) ? printObj( val ) : val;
+            arr.push( next );
+        } );
 
-    options:{
-             validate: true,
-
-             name: "bar", 
-
-             helloWorld: function () { 
-              console.log( "hello world" );
-             }
-            },
-
-    settings:{},
-
-    printObj: function( obj ) {
-            var arr = [], next;
-            $.each( obj, function( key, val ) {
-                      next = key + ": ";
-                      next += $.isPlainObject(val) ? printObj(val) : val;
-                      arr.push( next );
-            });
-
-      return "{ " +  arr.join(", ") + " }";
+        return "{ " + arr.join(", ") + " }";
     }
-    
+
 }
 
 // merge defaults and options, without modifying defaults explicitly
-
-decoratorApp.settings = $.extend( {}, decoratorApp.defaults,decoratorApp.options );
+decoratorApp.settings = $.extend({}, decoratorApp.defaults, decoratorApp.options);
 
 // what we have done here is decorated defaults in a way that provides 
 // access to the properties and functionality it has to offer (as well as 
 // that of the decorator "options"). defaults itself is left unchanged
 
-$( "#log" ).append( "&lt;div&gt;&lt;b&gt;settings -- &lt;/b&gt;" + decoratorApp.printObj(decoratorApp.settings ) + "&lt;/div&gt;&lt;div&gt;&lt;b&gt;options -- &lt;/b&gt;" + decoratorApp.printObj(decoratorApp.options) + "&lt;/div&gt;&lt;div&gt;&lt;b&gt;defaults -- &lt;/b&gt;" + decoratorApp.printObj(decoratorApp.defaults) + "&lt;/div&gt;" );
+$("#log")
+    .append( decoratorApp.printObj(decoratorApp.settings) +  
+          + decoratorApp.printObj(decoratorApp.options) +
+          + decoratorApp.printObj(decoratorApp.defaults));
 
-// settings -- { validate: true, limit: 5, name: bar, welcome: function (){ console.log( "welcome!" ); }, // helloWorld: function (){ console.log("hello!"); } }
+// settings -- { validate: true, limit: 5, name: bar, welcome: function (){ console.log( "welcome!" ); }, 
+// helloWorld: function (){ console.log("hello!"); } }
 // options -- { validate: true, name: bar, helloWorld: function (){ console.log("hello!"); } }
 // defaults -- { validate: false, limit: 5, name: foo, welcome: function (){ console.log("welcome!"); } }
+
 </pre>
-<h2>Pros and cons of the pattern</h2>
+<h2>Advantages &amp; Disadvantages</h2>
 
 <p>Developers enjoy using this pattern as it can be used transparently and is also fairly flexible - as we've seen, objects can be wrapped or "decorated" with new behavior and then continue to be used without needing to worry about the base object being modified. In a broader context, this pattern also avoids us needing to rely on large numbers of subclasses to get the same benefits.</p>
 
-<p>There are however drawbacks that you should be aware of when implementing the pattern. If poorly managed, it can significantly complicate your application's architecture as it introduces many small, but similar objects into your namespace. The concern here is that in addition to becoming hard to manage, other developers unfamiliar with the pattern may have a hard time grasping why it's being used.</p>
+<p>There are however drawbacks that you should be aware of when implementing the pattern. If poorly managed, it can significantly complicate your application architecture as it introduces many small, but similar objects into your namespace. The concern here is that in addition to becoming hard to manage, other developers unfamiliar with the pattern may have a hard time grasping why it's being used.</p>
 
 <p>Sufficient commenting or pattern research should assist with the latter, however as long as you keep a handle on how widespread you use the decorator in your application you should be fine on both counts.</p>
 
@@ -3690,7 +3690,7 @@ For this application, there are a few more concepts around the classical flyweig
 <p>
 Objects with the same intrinsic data can be replaced with a single shared object, created by a factory method, meaning we're able to reduce the overall quantity of objects down significantly. The benefit of this is that we're able to keep an eye on objects that have already been instantiated so that new copies are only ever created should the intrinsic state differ from the object we already have.</p>
 <p>
-We use a manager to handle the extrinsic states. How this is implemented can vary, however as Dustin Diaz correctly points out in Pro JavaScript Design patterns, one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
+We use a manager to handle the extrinsic states. How this is implemented can vary, but one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
 
 <h2>Converting code to use the Flyweight pattern</h2>
 
