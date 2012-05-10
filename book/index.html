@@ -3054,7 +3054,7 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 
 <p>Mixins can be viewed as objects with attributes and methods that can be easily shared across a number of other object prototypes. Imagine that we define a Mixin containing utility functions in a standard object literal as follows:</p>
 
-<pre>
+<pre class="brush: js">
 var myMixins = {
 
   moveUp: function(){
@@ -3074,7 +3074,7 @@ var myMixins = {
 
 <p>We can then easily extend the prototype of existing constructor functions to include this behavior using a helper such as the Underscore.js <code>_.extend()</code> method:</p>
 
-<pre>
+<pre class="brush: js">
 // A skeleton carAnimator constructor
 function carAnimator(){
   this.moveLeft = function(){
@@ -3105,7 +3105,7 @@ myAnimator.stop();
 
 <p>As we can see, this allows us to easily "mix" in common behaviour into object constructors fairly trivially. </p>
 
-<p>In the next example, we have two constructors: a Car and a Mixin. What we're going to do is extend the Car so that it can inherit specific methods defined in the Mixin, namely <code>driveForward()</code> and <code>driveBackward()</code>. This time we won't be using Underscore.js.</p>
+<p>In the next example, we have two constructors: a Car and a Mixin. What we're going to do is augment (another way of saying extend) the Car so that it can inherit specific methods defined in the Mixin, namely <code>driveForward()</code> and <code>driveBackward()</code>. This time we won't be using Underscore.js.</p>
 
 <p>Instead, this snippet will demonstrate how to augment a constructor to include functionality without the need to duplicate this process for every constructor function you may have.</p>
 
@@ -3205,13 +3205,13 @@ mySportsCar.driveSideways();
 
 <h3>Advantages &amp; Disadvantages</h3>
 
-<p>Mixins assist in decreasing functional repetition and increasing function re-use in a system. Where an application is likely to require shared behaviour across object instances, we can easily avoid any duplication by maintaining this shared functionality in a Mixin and thus focusing on implementing only the functionality in our system which is truly distinct.</p.
+<p>Mixins assist in decreasing functional repetition and increasing function re-use in a system. Where an application is likely to require shared behaviour across object instances, we can easily avoid any duplication by maintaining this shared functionality in a Mixin and thus focusing on implementing only the functionality in our system which is truly distinct.</p>
 
 <p>That said, the downsides to Mixins are a little more debatable. Some developers feel that injecting functionality into a object prototype is a bad idea as it leads to both prototype pollution and a level of uncertainly regarding the origin of our functions. In large systems this may well be the case.</p>
 
 <p>I would argue that strong documentation can assist in minimizing the amount of confusion regarding the source of mixed in functions, but as with every pattern, if care is taken during implementation you should be okay.</p>
 
-<p></p>
+<p>&nbsp;</p>
 
 
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
