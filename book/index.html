@@ -3048,6 +3048,55 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 
 <p>In traditional programming languages such as C++ and Lisp, Mixins are classes which offer functionality that can be easily inherited by a sub-class or group of sub-classes for the purpose of function re-use.</p>
 
+
+<h2>Sub-classing</h2>
+
+<p>For developers unfamiliar with sub-classing, here is a beginners primer on them before we dive further into Mixins and Decorators: sub-classing is a term that refers to inheriting properties for a new object from a base or "superclass" object.</p>
+
+<p>In traditional object-oriented programming, a class <code>B</code> is able to extend another class <code>A</code>. Here we consider <code>A</code> a superclass and <code>B</code> a subclass of <code>A</code>. As such, all instances of <code>B</code> inherit the methods from <code>A</code>. <code>B</code> is however still able to define its own methods, including those that override methods originally defined by <code>A</code>.</p>
+
+<p>Should <code>B</code> need to invoke a method in <code>A</code> that has been overridden, we refer to this as method chaining. Should <code>B</code> need to invoke the constructor <code>A</code> (the superclass), we call this constructor chaining.</p>
+
+<p>In order to demonstrate sub-classing, we first need a base object that can have new instances of itself created. let's model this around the concept of a person.</p>
+
+<pre  class="brush: js">
+var Person =  function( firstName , lastName ){
+
+  this.firstName = firstName;
+  this.lastName =  lastName;
+  this.gender = "male";
+
+};
+</pre>
+
+<p>Next, we'll want to specify a new class (object) that's a subclass of the existing <code>Person</code> object. Let us imagine we want to add distinct properties to distinguish a <code>Person</code> from a <code>Superhero</code> whilst inheriting the properties of the <code>Person</code> "superclass". As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how sub-classing works adequately.</p>
+
+<pre  class="brush: js">    
+// a new instance of Person can then easily be created as follows:
+var clark = new Person( "Clark" , "Kent" );
+       
+// Define a subclass constructor for for "Superhero":
+var Superhero = function( firstName, lastName , powers ){
+    
+    // Invoke the superclass constructor on the new object
+    // then use .call() to invoke the constructor as a method of
+    // the object to be initialized.
+    
+    Person.call( this, firstName, lastName );
+
+    // Finally, store their powers, a new array of traits not found in a normal "Person"
+    this.powers = powers;
+}
+
+SuperHero.prototype = Object.create( Person.prototype );
+var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
+console.log( superman ); 
+
+// Outputs Person attributes as well as powers
+</pre>
+
+<p>The <code>Superhero</code> constructor creats an object which descends from <code>Person</code>. Objects of this type have attributes of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it's object.</p>
+
 <p>In JavaScript, we can look at inheriting from Mixins are a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but can even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use and that's where Mixins come in.</p>
 
 <p>Mixins allow objects to borrow (or inherit) functionality from them with a minimal amount of complexity. As the pattern works well with JavaScripts object prototypes, it gives us a fairly flexible way to share functionality from not just one Mixin, but effectively many through multiple inheritance.</p>
@@ -3217,57 +3266,25 @@ mySportsCar.driveSideways();
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
 
 
-<p>In this section we're going to explore the <strong>decorator</strong>  - a structural design pattern that promotes code reuse and is a flexible alternative to subclassing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
+<p>In this section we're going to explore the Decorator - a structural design pattern that promotes code reuse and is a flexible alternative to sub-classing. This pattern is also useful for modifying existing systems where you may wish to add additional features to objects without the need to change the underlying code that uses them.</p>
 
 <p>Traditionally, the decorator is defined as a design pattern that allows behavior to be added to an existing object dynamically. The idea is that the decoration itself isn't essential to the base functionality of an object otherwise it would be baked into the "superclass" object itself.</p>
 
 
-<h2>Subclassing</h2>
-<p>For developers unfamiliar with subclassing, here is a beginner's primer on them before we dive further into decorators: subclassing is a term that refers to inheriting properties for a new object from a base or 'superclass" object.</p>
-<p>In traditional OOP, a class B is able to extend another class A. Here we consider A a superclass and B a subclass of A. As such, all instances of B inherit the methods from A. B is however still able to define its own methods, including those that override methods originally defined by A.</p>
-
-<p>Should B need to invoke a method in A that has been overridden, we refer to this as method chaining. Should B need to invoke the constructor A() (the superclass), we call this constructor chaining.</p>
-<p>In order to demonstrate subclassing, we first need a base object that can have new instances of itself created. let's model this around the concept of a person.</p>
-<pre  class="brush: js">
-var Person =  function( firstName , lastName ){
-
-        this.firstName = firstName;
-        this.lastName =  lastName;
-        this.gender = "male";
-
-};
-</pre>
-<p>Next, we'll want to specify a new class (object) that's a subclass of the existing <code>Person</code> object. let's imagine we want to add distinct properties to distinguish a <code>Person</code> from a <code>Superhero</code> whilst inheriting the properties of the <code>Person</code> "superclass". As superheroes share many common traits with normal people (e.g. name, gender), this should hopefully illustrate how subclassing works adequately.</p>
-<pre  class="brush: js">    
-// a new instance of Person can then easily be created as follows:
-var clark = new Person( "Clark" , "Kent" );
-       
-// Define a subclass constructor for for "Superhero":
-var Superhero = function( firstName, lastName , powers ){
-    
-    // Invoke the superclass constructor on the new object
-    // then use .call() to invoke the constructor as a method of
-    // the object to be initialized.
-    
-    Person.call( this, firstName, lastName );
-
-    // Finally, store their powers, a new array of traits not found in a normal "Person"
-    this.powers = powers;
-}
-
-SuperHero.prototype = Object.create(Person.prototype);
-var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
-console.log(superman); // includes superhero props as well as gender
-</pre>
-<p>The <code>Superhero</code> definition creates an object which descends from <code>Person</code>. Objects of this type have properties of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it's object.</p>
-<p>So where do decorators come in?</p>
 <h2>Decorators</h2>
+
 <p>Decorators are used when it's necessary to delegate responsibilities to an object where it doesn't make sense to subclass it. A common reason for this is that the number of features required demand for a very large quantity of subclasses. Can you imagine having to define hundreds or thousands of subclasses for a project? It would likely become unmanageable fairly quickly.</p>
-<p>To give you a visual example of where this is an issue, imagine needing to define new kinds of <code>Superhero</code>: SuperheroThatCanFly, SuperheroThatCanRunQuickly and SuperheroWithXRayVision.</p>
-<p>Now, what if superhero had more than one of these properties?. We would need to define a subclass called SuperheroThatCanFlyAndRunQuickly , SuperheroThatCanFlyRunQuicklyAndHasXRayVision etc - effectively, one for each possible combination. As you can see, this isn't very manageable when you factor in different abilities.</p>
-<p>The decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just using inheritance, where we're used to extending objects linearly, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than subclassing, we add (decorate) properties or methods to a base object so its a little more streamlined.</p>
+
+<p>To give you a visual example of where this is an issue, imagine needing to define new kinds of <code>Superhero</code> (from our sub-classing example early-on in the Mixins section): <code>SuperheroThatCanFly</code>, <code>SuperheroThatCanRunQuickly</code> and <code>SuperheroWithXRayVision</code>.</p>
+
+<p>Now, what if superhero had more than one of these properties?. We would need to define a subclass called <code>SuperheroThatCanFlyAndRunQuickly</code>, <code>SuperheroThatCanFlyRunQuicklyAndHasXRayVision</code> etc - effectively, one for each possible combination. As you can see, this isn't very manageable when you factor in different abilities.</p>
+
+<p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just using inheritance, where we're used to extending objects linearly, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than subclassing, we add (decorate) properties or methods to a base object so its a little more streamlined.</p>
+
 <p>The extension of objects is something already built into JavaScript and as we know, objects can be extended rather easily with properties being included at any point. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
+
 <h3>Example 1: Basic decoration of existing object constructors with new functionality</h3>
+
 <pre  class="brush: js">
 
 function vehicle( vehicleType ){
@@ -3309,8 +3326,11 @@ console.log(secondInstance);
 
 // as before, vehicle: car, model:default, license: 00000-000
 </pre>
-<p>This type of simplistic implementation is something you're likely familiar with, but it doesn't really demonstrate some of the other strengths of the pattern. For this, we're first going to go through my variation of the Coffee example from an excellent book called Head First Design Patterns by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
-<p>we're then going to look at psuedo-classical decorators.</p>
+
+<p>This type of simplistic implementation is something you're likely familiar with, but it doesn't really demonstrate some of the other strengths of the pattern. For this, we're first going to go through my variation of the Coffee example from an excellent book called <em>Head First Design Patterns</em> by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
+
+<p>We're then going to look at psuedo-classical decorators.</p>
+
 <h3>Example 2: Simply decorate objects with multiple decorators</h3>
 <pre  class="brush: js">
 
@@ -3363,17 +3383,27 @@ console.log(mb.cost());
 // Outputs: 11.6
 console.log(mb.screenSize()); 
 </pre>
-<p>Here, the decorators are overriding the superclass <code>.cost()</code> method to return the current price of the <code>Macbook</code> plus with the cost of the upgrade being specified. It's considered a decoration as the original <code>Macbook</code> object's constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
+
+<p>Here, the Decorators are overriding the superclass <code>.cost()</code> method to return the current price of the <code>Macbook</code> plus with the cost of the upgrade being specified. It's considered a decoration as the original <code>Macbook</code> object's constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
+
 <p>As you can probably tell, there isn't really a defined "interface" in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
+
 <h2>Pseudo-classical decorators</h2>
-<p>we're now going to examine the variation of the decorator presented in "Pro JavaScript Design Patterns" (PJDP) by Dustin Diaz and Ross Harmes.</p>
+
+<p>We're now going to examine the variation of the Decorator presented in <em>Pro JavaScript Design Patterns</em> (PJDP) by Dustin Diaz and Ross Harmes.</p>
+
 <p>Unlike some of the examples from earlier, Diaz and Harmes stick more closely to how decorators are implemented in other programming languages (such as Java or C++) using the concept of an "interface", which we will define in more detail shortly.</p>
-<p><strong>Note:</strong> This particular variation of the decorator pattern is provided for reference purposes. If you find it overly complex for your application's needs, I recommend sticking to one the simplier implementations covered earlier, but I would still read the section. If you haven't yet grasped how decorators are different from subclassing, it may help!.</p>
+
+<p><strong>Note:</strong> This particular variation of the Decorator pattern is provided for reference purposes. If you find it overly complex for your application's needs, I recommend sticking to one the simplier implementations covered earlier, but I would still read the section. If you haven't yet grasped how Decorators are different from subclassing, it may help!.</p>
+
 <h3>Interfaces</h3>
-<p>PJDP describes the decorator as a pattern that is used to transparently wrap objects inside other objects of the same interface. An interface is a way of defining the methods an object <strong>should</strong> have, however, it doesn't actually directly specify how those methods should be implemented.</p>
+
+<p>PJDP describes the Decorator as a pattern that is used to transparently wrap objects inside other objects of the same interface. An interface is a way of defining the methods an object <strong>should</strong> have, however, it doesn't actually directly specify how those methods should be implemented.</p>
 <p>They can also indicate what parameters the methods take, but this is considered optional.</p>
+
 <p>So, why would you use an interface in JavaScript? The idea is that they're self-documenting and promote reusability. In theory, interfaces also make code more stable by ensuring changes to them must also be made to the classes implementing them.</p>
 <p>Below is an example of an implementation of Interfaces in JavaScript using duck-typing - an approach that helps determine whether an object is an instance of constructor/object based on the methods it implements.</p>
+
 <pre  class="brush: js">
 
 var TodoList,
@@ -3394,15 +3424,19 @@ function addTodo( todoInstance ) {
 
         Interface.ensureImplements( todoInstance, TodoList, TodoItem );
 
-        // This function will throw an error if a required method is not implemented,
-        // halting execution of the function.
+        // This function will throw an error if a required method 
+        // is not implemented, halting execution of the function.
         //...
 }
 </pre>
-<p>where Interface.ensureImplements provides strict checking. If you would like to explore interfaces further, I recommend looking at Chapter 2 of Pro JavaScript design patterns. For the Interface class used above, see <a href="https://gist.github.com/1057989">here</a>.</p>
+
+<p>where Interface.ensureImplements provides strict checking. If you would like to explore interfaces further, I recommend looking at Chapter 2 of <em>Pro JavaScript design patterns</em>. For the Interface class used above, see <a href="https://gist.github.com/1057989">here</a>.</p>
+
 <p>The biggest problem with interfaces is that, as there isn't built-in support for them in JavaScript, Here's a danger of us attempting to emulate the functionality of another language, however, we're going to continue demonstrating their use just to give you a complete view of how the decorator is implemented by other developers.</p>
-<h3>This variation of decorators and abstract decorators</h3>
-<p>To demonstrate the structure of this version of the decorator pattern, we're going to imagine we have a superclass that models a macbook once again and a store that allows you to "decorate" your macbook with a number of enhancements for an additional fee.</p>
+
+<h3>Variation of Decorators and Abstract Decorators</h3>
+
+<p>To demonstrate the structure of this version of the Decorator pattern, we're going to imagine we have a superclass that models a macbook once again and a store that allows you to "decorate" your macbook with a number of enhancements for an additional fee.</p>
 <p>Enhancements can include upgrades to 4GB or 8GB Ram, engraving, Parallels or a case. Now if we were to model this using an individual subclass for each combination of enhancement options, it might look something like this:</p>
 <pre  class="brush: js">
 var Macbook = function(){
@@ -3421,8 +3455,11 @@ var  MacbookWith4GBRam =  function(){},
 </pre>
 <p>and so on.</p>
 <p>This would be an impractical solution as a new subclass would be required for every possible combination of enhancements that are available. As we would prefer to keep things simple without maintaining a large set of subclasses, let's look at how decorators may be used to solve this problem better.</p>
+
 <p>Rather than requiring all of the combinations we saw earlier, we should simply have to create five new decorator classes. Methods that are called on these enhancement classes would be passed on to our Macbook class.</p>
+
 <p>In our next example, decorators transparently wrap around their components and can interestingly be interchanged astray use the same interface.</p>
+
 <p>Here's the interface we're going to define for the Macbook:</p>
 <pre  class="brush: js">
 
@@ -3456,10 +3493,15 @@ MacbookPro.prototype = {
     }
 };
 </pre>
+
 <p>we're not going to worry about the actual implementation at this point as we will shortly be passing on all method calls that are made on them.</p>
+
 <p>To make it easier for us to add as many more options as needed later on, an abstract decorator class is defined with default methods required to implement the Macbook interface, which the rest of the options will subclass.</p>
+
 <p>Abstract decorators ensure that we can decorate a base class independently with as many decorators as needed in different combinations (remember the example earlier?) without needing to derive a class for every possible combination.</p>
-<pre  class="brush: js">//Macbook decorator abstract decorator class
+
+<pre  class="brush: js">
+// Macbook decorator abstract decorator class
 var MacbookDecorator = function( macbook ){
 
     Interface.ensureImplements( macbook, Macbook );
@@ -3488,16 +3530,19 @@ MacbookDecorator.prototype = {
     }        
 };
 </pre>
+
 <p>What's happening in the above sample is that the Macbook decorator is taking an object to use as the component. It's using the Macbook interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes just by using the Macbook decorator - simply call the superclass constructor and any methods can be overridden as per necessary.</p>
+
 <pre  class="brush: js">
 
 var CaseDecorator = function( macbook ){
 
     // call the superclass's constructor next
-    this.superclass.constructor( macbook );    
+    this.superclass.constructor( macbook );   
+
 }
 
-// let's now extend the superclass
+// Let's now extend the superclass
 extend( CaseDecorator, MacbookDecorator ); 
 
 CaseDecorator.prototype.addCase = function(){
@@ -3509,7 +3554,9 @@ CaseDecorator.prototype.getPrice = function(){
 };
 </pre>
 <p>As you can see, most of this is relatively easy to implement. What we're doing is overriding the addCase() and getPrice() methods that need to be decorated and we're achieving this by first executing the component's method and then adding to it.</p>
-<p>As tHere's been quite a lot of information presented in this section so far, let's try to bring it all together in a single example that will hopefully highlight what we have learned.</p>
+
+<p>As there's been quite a lot of information presented in this section so far, let's try to bring it all together in a single example that will hopefully highlight what we have learned.</p>
+
 <pre  class="brush: js">
 
 // Instantiation of the macbook
@@ -3524,15 +3571,24 @@ myMacbookPro = new CaseDecorator( myMacbookPro );
 // This will return 945.00
 console.log( myMacbookPro.getPrice() );
 </pre>
+
 <p>An important note from PJDP is that in the line denoted <strong>note</strong>, Harmes and Diaz claim that it's important not to create a separate variable to store the instance of your decorators, opting for the same variable instead. The downside to this is that we're unable to access the original macbook object in our example, however we technically shouldn't need to further.</p>
+
 <p>As decorators are able to modify objects dynamically, they're a perfect pattern for changing existing systems. Occasionally, it's just simpler to create decorators around an object versus the trouble of maintaining individual subclasses. This makes maintaining applications of this type significantly more straight-forward.</p>
+
 <h2>Implementing decorators with jQuery</h2>
+
 <p>As with other patterns we've covered, there are also examples of the decorator pattern that can be implemented with jQuery. jQuery.extend() allows you to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
+
 <p>In this scenario, a target object can be decorated with new functionality without necessarily breaking or overriding existing methods in the source/superclass object (although this can be done).</p>
+
 <p>In the following example, we define three objects: defaults, options and settings. The aim of the task is to decorate the "defaults" object with additional functionality found in "options", which we will make available through "settings". We must:</p>
+
 <p>(a) Leave "defaults" in an untouched state where we don't lose the ability to access the properties or functions found in it a later point (b) Gain the ability to use the decorated properties and functions found in "options"</p>
+
 <pre  class="brush: js">
 var decoratorApp = decoratorApp || {};
+
 // define the objects we're going to use
 decoratorApp = {
 
