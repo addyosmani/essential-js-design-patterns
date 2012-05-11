@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 10 May 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 11 May 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -3274,7 +3274,7 @@ mySportsCar.driveSideways();
 
 <p>We could have: Character objects (<code>playableCharacter</code>, <code>staticCharacter</code>, <code>enemyCharacter</code>, <code>specialPowerModeCharacter</code>), Sound objects (<code>actionSound</code>, <code>backgroundSound</code>) and so on.</p.
 
-<p>Now, what if our Character could have multiple abilities too?. We could need to define sub-classes such as <code>CharacterThatCanFlyAndRunQuickly</code>, <code>CharacterThatCanFlyRunQuicklyAndHasXRayVision</code> etc - effectively, one for each possible combination. As you can see, this isn't very practial and certainly isn't manageable when we factor in a growing number of different abilities.</p>
+<p>Now, what if our Character could have multiple abilities too?. We could need to define sub-classes such as <code>CharacterThatCanFlyAndRunQuickly</code>, <code>CharacterThatCanFlyRunQuicklyAndHasXRayVision</code> etc - effectively, one for each possible combination. As we can see, this isn't very practial and certainly isn't manageable when we factor in a growing number of different abilities.</p>
 
 <p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality.</p>
 
@@ -3282,7 +3282,7 @@ mySportsCar.driveSideways();
 
 <p>As we know, adding new attributes to objects in JavaScript is a very straight-forward process. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
 
-<h3>Example 1: Basic decoration of existing object constructors with new functionality</h3>
+<h3>Example 1: Decorating Constructors With New Functionality</h3>
 
 <pre  class="brush: js">
 
@@ -3335,7 +3335,7 @@ console.log( secondInstance );
 
 <p>This type of simplistic implementation makes sense, but it doesn't really demonstrate all of the strengths Decorators have to offer. For this, we're first going to go through my variation of the Coffee example from an excellent book called <em>Head First Design Patterns</em> by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
 
-<h3>Example 2: Simply decorating objects with multiple decorators</h3>
+<h3>Example 2: Decorating Objects With Multiple Decorators</h3>
 <pre  class="brush: js">
 
 // The constructor to decorate
@@ -3392,7 +3392,7 @@ console.log( mb.screenSize() );
 
 <p>It's considered a decoration as the original <code>Macbook</code> objects constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
 
-<p>As you can probably tell, there isn't really a defined "interface" in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
+<p>As we can probably tell, there isn't really a defined "interface" in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 
 <h2>Pseudo-classical Decorators</h2>
 
