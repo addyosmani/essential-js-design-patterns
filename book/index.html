@@ -3715,10 +3715,191 @@ For this application, there are a few more concepts around the classical Flyweig
 <p>
 We use a manager to handle the extrinsic states. How this is implemented can vary, but one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
 
+
+<h2>Implementing Classical Flyweights</h2>
+
+<p>As the Flyweight pattern hasn't been heavily used in JavaScript in recent years, many of the implementations we might use for inspiration come form the Java and C++ worlds.</p>
+
+<p>Our first look at Flyweights in code is my JavaScript implementation of the Java sample of the Flyweight pattern from Wikipedia (<a href="http://en.wikipedia.org/wiki/Flyweight_pattern">http://en.wikipedia.org/wiki/Flyweight_pattern</a>).
+
+<p>We will be making use of three types of Flyweight components in this implementation, which are listed below:</p>
+
+<p><ul>
+  <li><strong>Flyweight</strong> corresponds to an interface through which flyweights are able to receive and act on extrinsic states</li>
+  <li><strong>Concrete Flyweight</strong> actually implements the Flyweight interface and stores instrinsic state. Concrete Flyweights need to be sharable and capable of manipulating state that is extrinsic</li>
+  <li><strong>Flyweight Factory</strong> manages flyweight objects and creates them too. It makes sure that our flyweights are shared and manages them as a group of objects which can be queried if we require individual instances. If an object has been already created in the group it returns it, otherwise it adds a new object to the pool and returns it.</li>
+</p>
+
+<p>These correspond to the following definitions in our implementation:</p>
+<p>
+  <ul>
+    <li>CoffeeOrder: Flyweight</li>
+    <li>CoffeeFlavor: Concrete Flyweight </li>
+    <li>CoffeeOrderContext: Helper</li>
+    <li>CoffeeFlavorFactory: Flyweight Factory</li>
+    <li>testFlyweight: Utilization of our Flyweights</li>
+  </ul>
+</p>
+
+<h3>Monkey-patching 'implements'</h3>
+
+<p>Note: As this uses a Java keyword (<code>implements</code>) for implementing interfaces that isn't found in JavaScript, let's first write a simulation for this.</p>
+
+<p><code>Function.prototype.implementsFor</code> works on an object constructor will accept a parent class (function) or object and either inherit from this using normal inheritance (for functions) or virtual inheritance (for objects).</p>
+
+<pre class="brush: js">
+
+// Simulate pure virtual inheritance/'implement' keyword for JS
+Function.prototype.implementsFor = function( parentClassOrObject ){ 
+    if ( parentClassOrObject.constructor === Function ) 
+    { 
+        // Normal Inheritance 
+        this.prototype = new parentClassOrObject;
+        this.prototype.constructor = this;
+        this.prototype.parent = parentClassOrObject.prototype;
+    } 
+    else 
+    { 
+        // Pure Virtual Inheritance 
+        this.prototype = parentClassOrObject;
+        this.prototype.constructor = this;
+        this.prototype.parent = parentClassOrObject;
+    } 
+    return this;
+}
+</pre>
+
+<p>We can use this to patch the lack of an <code>implements</code> keyword by having a function inherit an interface explicitly. Below, <code>CoffeeFlavor</code> implements the <code>CoffeeOrder</code> interface and must contain its interface methods in order for us to assign the functionality powering these implementations to an object.</p>
+
+<pre class="brush: js">
+// Flyweight object
+var CoffeeOrder = {
+
+  // Interfaces
+  serveCoffee:function(context){},
+    getFlavor:function(){}
+
+};
+
+
+// ConcreteFlyweight object that creates ConcreteFlyweight 
+// Implements CoffeeOrder
+function CoffeeFlavor( newFlavor ){
+    
+    var flavor = newFlavor;
+
+    // If an interface has been defined for a feature
+    // implement the feature
+    if( typeof this.getFlavor === "function" ){
+      this.getFlavor = function() {
+          return flavor;
+      };
+    }
+
+    if( typeof this.serveCoffee === "function" ){
+      this.serveCoffee = function( context ) {
+        console.log("Serving Coffee flavor " 
+          + flavor 
+          + " to table number " 
+          + context.getTable());
+    };      
+    }
+  
+}
+
+
+// Implement interface for CoffeeOrder
+CoffeeFlavor.implementsFor( CoffeeOrder );
+
+
+// Handle table numbers for a coffee order
+function CoffeeOrderContext( tableNumber ) {
+
+  var tableNumber = tableNumber;
+
+   return{
+      getTable: function() {
+         return tableNumber;
+     }
+   }
+}
+
+
+ 
+// FlyweightFactory object
+function CoffeeFlavorFactory() {
+    var flavors = [];
+ 
+  return {
+      getCoffeeFlavor: function( flavorName ) {
+
+          var flavor = flavors[flavorName];
+          if (flavor === undefined) {
+              flavor = new CoffeeFlavor( flavorName );
+              flavors.push( [flavorName, flavor] );
+          }
+          return flavor;
+      },
+   
+      getTotalCoffeeFlavorsMade: function() {
+        return flavors.length;
+      }
+  }
+}
+
+// Sample usage:
+// testFlyweight()
+ 
+function testFlyweight(){
+
+
+  // The flavors ordered. 
+  var flavors = new CoffeeFlavor(),
+
+  // The tables for the orders. 
+    tables = new CoffeeOrderContext(),
+
+  // Number of orders made
+    ordersMade = 0,
+
+  // The CoffeeFlavorFactory instance
+    flavorFactory; 
+
+  function takeOrders( flavorIn, table) {
+     flavors[ordersMade] = flavorFactory.getCoffeeFlavor( flavorIn );
+     tables[ordersMade++] = new CoffeeOrderContext( table );
+  }
+
+   flavorFactory = new CoffeeFlavorFactory();
+
+   takeOrders("Cappuccino", 2);
+   takeOrders("Cappuccino", 2);
+   takeOrders("Frappe", 1);
+   takeOrders("Frappe", 1);
+   takeOrders("Xpresso", 1);
+   takeOrders("Frappe", 897);
+   takeOrders("Cappuccino", 97);
+   takeOrders("Cappuccino", 97);
+   takeOrders("Frappe", 3);
+   takeOrders("Xpresso", 3);
+   takeOrders("Cappuccino", 3);
+   takeOrders("Xpresso", 96);
+   takeOrders("Frappe", 552);
+   takeOrders("Cappuccino", 121);
+   takeOrders("Xpresso", 121);
+
+   for (var i = 0; i < ordersMade; ++i) {
+       flavors[i].serveCoffee(tables[i]);
+   }
+   console.log(" ");
+   console.log("total CoffeeFlavor objects made: " +  flavorFactory.getTotalCoffeeFlavorsMade());
+}         
+</pre>
+
 <h2>Converting code to use the Flyweight pattern</h2>
 
 <p>
-Let's now demonstrate some of these concepts using the idea of a system to manage all of the books in a library. The important meta-data for each book could probably be broken down as follows:</p>
+Next, let's continue our look at Flyweights by implementing a system to manage all of the books in a library. The important meta-data for each book could probably be broken down as follows:</p>
 <ul>
 <li>ID</li>
 <li>Title</li>
@@ -3729,7 +3910,7 @@ Let's now demonstrate some of these concepts using the idea of a system to manag
 <li>ISBN</li>
 </ul>
 <p>
-we'll also require the following properties to keep track of which member has checked out a particular book, the date they've checked it out on as well as the expected date of return.
+We'll also require the following properties to keep track of which member has checked out a particular book, the date they've checked it out on as well as the expected date of return.
 </p>
 <ul>
 <li>checkoutDate</li>
@@ -3738,7 +3919,7 @@ we'll also require the following properties to keep track of which member has ch
 <li>availability</li>
 </ul>
 <p>
-Each book would thus be represented as follows, prior to any optimization:
+Each book would thus be represented as follows, prior to any optimization using the Flyweight pattern:
 </p>
 <pre class="brush: js">
 var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, 
@@ -3916,7 +4097,11 @@ var BookRecordManager = (function () {
 The result of these changes is that all of the data that's been extracted from the Book <em>class</em> is now being stored in an attribute of the BookManager singleton (BookDatabase) - something considerably more efficient than the large number of objects we were previously using. Methods related to book checkouts are also now based here as they deal with data that's extrinsic rather than intrinsic.</p>
 
 <p>
-This process does add a little complexity to our final solution, however it's a small concern when compared to the performance issues that have been tackled.Data wise, if we have 30 copies of the same book, we are now only storing it once. Also, every function takes up memory. With the flyweight pattern these functions exist in one place (on the manager) and not on every object, thus saving more memory.</p>
+This process does add a little complexity to our final solution, however it's a small concern when compared to the performance issues that have been tackled.Data wise, if we have 30 copies of the same book, we are now only storing it once. Also, every function takes up memory. With the flyweight pattern these functions exist in one place (on the manager) and not on every object, thus saving on memory use.</p>
+
+<p></p>
+
+
 
 
 <h2>The Flyweight pattern and the DOM</h2>
@@ -4025,7 +4210,7 @@ $( "a" ).map( function () {
 });
 </pre>
 
-<p>Now with respect to redundant wrapping, where possible with jQuery's utility methods, it's better to use <code>jQuery.methodName</code> (e.g <code>jQuery.text</code>) as opposed to <code>jQuery.fn.methodName</code> (e.g <code>jQuery.fn.text</cpde>) where methodName represents a utility such as <code>each()</code> or <code>text</code>. This avoids the need to call a further level of abstraction or construct a new jQuery object each time your function is called as as <code>jQuery.methodName</code> is what the library itself uses at a lower-level to power <code>jQuery.fn.methodName</code>.
+<p>Now with respect to redundant wrapping, where possible with jQuery's utility methods, it's better to use <code>jQuery.methodName</code> (e.g <code>jQuery.text</code>) as opposed to <code>jQuery.fn.methodName</code> (e.g <code>jQuery.fn.text</code>) where methodName represents a utility such as <code>each()</code> or <code>text</code>. This avoids the need to call a further level of abstraction or construct a new jQuery object each time your function is called as as <code>jQuery.methodName</code> is what the library itself uses at a lower-level to power <code>jQuery.fn.methodName</code>.
 
   <p>Because however not all of jQuery's methods have corresponding single-node functions, Padolsey devised the idea of a jQuery.single utility.</p>
 
