@@ -4261,21 +4261,27 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 <p>Let us first now cover the basics.</p>
 
 <h2 id="detailmvc">MVC</h2>
-<p>MVC is an architectural design pattern that encourages improved application organization through a separation of concerns. It enforces the isolation of business data (Models) from user interfaces (Views), with a third component (Controllers) (traditionally) managing logic, user-input and coordinating both the models and views. The pattern was originally designed by <a href="http://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a> during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in <a href="http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612">&ldquo;Design Patterns: Elements of Reusable Object-Oriented Software&rdquo;</a> (The "GoF" book) in 1994, which played a role in popularizing its use.</p>
+<p>MVC is an architectural design pattern that encourages improved application organization through a separation of concerns. It enforces the isolation of business data (Models) from user interfaces (Views), with a third component (Controllers) traditionally managing logic and user-input. The pattern was originally designed by <a href="http://en.wikipedia.org/wiki/Trygve_Reenskaug">Trygve Reenskaug</a> during his time working on Smalltalk-80 (1979) where it was initially called Model-View-Controller-Editor. MVC went on to be described in depth in <a href="http://www.amazon.co.uk/Design-patterns-elements-reusable-object-oriented/dp/0201633612">&ldquo;Design Patterns: Elements of Reusable Object-Oriented Software&rdquo;</a> (The "GoF" book) in 1994, which played a role in popularizing its use.</p>
+
 <h3>Smalltalk-80 MVC</h3>
 <p>It's important to understand what the original MVC pattern was aiming to solve as it's mutated quite heavily since the days of its origin. Back in the 70's, graphical user-interfaces were far and few between and a concept known as <a href="http://martinfowler.com/eaaDev/uiArchs.html">Separated Presentation</a> began to be used as a means to make a clear division between domain objects which modeled concepts in the real world (e.g a photo, a person) and the presentation objects which were rendered to the user's screen.</p>
+
 <p>The Smalltalk-80 implementation of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80's MVC architecture:</p>
+
 <ul>
-  <li>A Domain element was known as a Model and were ignorant of the user-interface (Views and Controllers)</li>
+  <li>A Domain element was known as a Model and was ignorant of the user-interface (Views and Controllers)</li>
   <li>Presentation was taken care of by the View and the Controller, but there wasn't just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them</li>
-  <li>The Controller's role in this pair was handling user input (such as key-presses and click events), doing something sensible with them.</li>
+  <li>The Controllers role in this pair was handling user input (such as key-presses and actions e.g clicks), doing something sensible with them.</li>
   <li>The Observer pattern was relied upon for updating the View whenever the Model changed</li>
 </ul>
+
 <p>Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as a Publish/Subscribe system) was included as a part of MVC's architecture many decades ago. In Smalltalk-80's MVC, the View and Controller both observe the Model. As mentioned in the bullet point above, anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - in order for the application to be useful, any change to the data in our Models should result in the View being refreshed instantly.</p>
 <p>Martin Fowler has done an excellent job of writing about the <a href="http://martinfowler.com/eaaDev/uiArchs.html">origins</a> of MVC over the years and if you are interested in some further historical information about Smalltalk-80's MVC, I recommend reading his work.</p>
+
 <h2>MVC For JavaScript Developers</h2>
 <p>We've reviewed the 70's, but let us now return to the here and now. In modern times, the MVC pattern has been applied to a diverse range of programming languages including of most relevance to us: JavaScript. JavaScript now has a number of frameworks boasting support for MVC (or variations on it, which we refer to as the MV* family), allowing developers to easily add structure to their applications without great effort. you've likely come across at least one of these such frameworks, but they include the likes of Backbone, Ember.js and JavaScriptMVC. Given the importance of avoiding "spaghetti" code, a term which describes code that is very difficult to read or maintain due to its lack of structure, it's imperative that the modern JavaScript developer understand what this pattern provides. This allows us to effectively appreciate what these frameworks enable us to do differently.</p>
 <p>We know that MVC is composed of three core components:</p>
+
 <h3>Models</h3>
 <p>Models manage the data for an application. They are concerned with neither the user-interface nor presentation layers but instead represent unique forms of data that an application may require. When a model changes (e.g when it is updated), it will typically notify its observers (e.g views, a concept we will cover shortly) that a change has occurred so that they may react accordingly.</p>
 <p>To understand models further, let us imagine we have a JavaScript photo gallery application. In a photo gallery, the concept of a photo would merit its own model as it represents a unique kind of domain-specific data. Such a model may contain related attributes such as a caption, image source and additional meta-data. A specific photo would be stored in an instance of a model and a model may also be reusable. Below we can see an example of a very simplistic model implemented using Backbone.</p>
@@ -4323,11 +4329,18 @@ var PhotoGallery = Backbone.Collection.extend({
 });
 </pre>
 <p>Should you read any of the older texts on MVC, you may come across a description of models as also managing application "state". In JavaScript applications "state" has a different meaning, typically referring to the current "state" i.e view or sub-view (with specific data) on a users screen at a fixed point. State is a topic which is regularly discussed when looking at Single-page applications, where the concept of state needs to be simulated.</p>
+
 <p>So to summarize, models are primarily concerned with business data.</p>
+
 <h3>Views</h3>
-<p>Views are a visual representation of models that present a filtered view of their current state. A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as "dumb" given that their knowledge of models and controllers in an application is limited.</p>
+<p>Views are a visual representation of models that present a filtered view of their current state. Whilst Smalltalk views are about painting and maintaining a bitmap, JavaScript views are about building and maintaining a DOM element.</p>
+
+<p>A view typically observes a model and is notified when the model changes, allowing the view to update itself accordingly. Design pattern literature commonly refers to views as "dumb" given that their knowledge of models and controllers in an application is limited.</p>
+
 <p>Users are able to interact with views and this includes the ability to read and edit (i.e get or set the attribute values in) models. As the view is the presentation layer, we generally present the ability to edit and update in a user-friendly fashion. For example, in the former photo gallery application we discussed earlier, model editing could be facilitated through an "edit' view where a user who has selected a specific photo could edit its meta-data.</p>
+
 <p>The actual task of updating the model falls to controllers (which we will be covering shortly).</p>
+
 <p>let's explore views a little further using a vanilla JavaScript sample implementation. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance.</p>
 <p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
 <p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of it's subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
@@ -4373,8 +4386,11 @@ var buildPhotoView = function ( photoModel, photoController ) {
 </pre>
 <p><strong>Templating</strong></p>
 <p>In the context of JavaScript frameworks that support MVC/MV*, it is worth briefly discussing JavaScript templating and its relationship to views as we briefly touched upon it in the last section.</p>
+
 <p>It has long been considered (and proven) a performance bad practice to manually create large blocks of HTML markup in-memory through string concatenation. Developers doing so have fallen prey to inperformantly iterating through their data, wrapping it in nested divs and using outdated techniques such as <code>document.write</code> to inject the "template" into the DOM. As this typically means keeping scripted markup inline with your standard markup, it can quickly become both difficult to read and more importantly, maintain such disasters, especially when building non-trivially sized applications.</p>
+
 <p>JavaScript templating solutions (such as Handlebars.js and Mustache) are often used to define templates for views as markup (either stored externally or within script tags with a custom type - e.g text/template) containing template variables. Variables may be deliminated using a variable syntax (e.g {{name}}) and frameworks are typically smart enough to accept data in a JSON form (of which model instances can be converted to) such that we only need be concerned with maintaining clean models and clean templates. Most of the grunt work to do with population is taken care of by the framework itself. This has a large number of benefits, particularly when opting to store templates externally as this can give way to templates being dynamically loaded on an as-needed basis when it comes to building larger applications.</p>
+
 <p>Below we can see two examples of HTML templates. One implemented using the popular Handlebars.js framework and another using Underscore's templates.</p>
 <p><strong>Handlebars.js:</strong></p>
 <pre  class="brush: js">&lt;li class="photo"&gt;
@@ -4395,7 +4411,9 @@ var buildPhotoView = function ( photoModel, photoController ) {
 &lt;/li&gt;
 </pre>
 <p>It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In Single-page JavaScript applications however, once data is fetched from a server via Ajax, it can simply be dynamically rendered in a new view within the same page without any such refresh being necessary. The role of navigation thus falls to a "router", which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are however neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.</p>
+
 <p>To summarize, views are a visual representation of our application data.</p>
+
 <h3>Controllers</h3>
 <p>Controllers are an intermediary between models and views which are classically responsible for two tasks: they both update the view when the model changes and update the model when the user manipulates the view.</p>
 <p>In our photo gallery application, a controller would be responsible for handling changes the user made to the edit view for a particular photo, updating a specific photo model when a user has finished editing.</p>
@@ -4407,7 +4425,9 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
 <p><strong>Spine.js</strong></p>
 <p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we will be discussing in this book (Backbone) doesn't have it's <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let's take a look at a sample controller from Spine.js:</p>
+
 <p>In this example, we're going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user editd the photo meta-data) the corresonding model does too.</p>
+
 <p>Note: We won't be delving heavily into Spine.js at all, but will just take a ten-foot view of what its controllers can do:</p>
 <pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
 
@@ -4433,6 +4453,7 @@ var PhotosController = Spine.Controller.sub({
 </pre>
 <p>In Spine, controllers are considered the glue for an application, adding and responding to DOM events, rendering templates and ensuring that views and models are kept in sync (which makes sense in the context of what we know to be a controller).</p>
 <p>What we're doing in the above example is setting up listeners in the <code>update</code> and <code>destroy</code> events using <code>render()</code> and <code>remove()</code>. When a photo entry gets updated , we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the <code>tmpl()</code> function in the code snippet: in the <code>render()</code> function, we're using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller's current element.</p>
+
 <p>What this provides us with is a very lightweight, simple way to manage changes between the model and the view.</p>
 <p><strong>Backbone.js</strong></p>
 <p>Later on in this section we're going to revisit the differences between Backbone and traditional MVC, but for now let's focus on controllers.</p>
@@ -4467,21 +4488,30 @@ var PhotoRouter = Backbone.Router.extend({
 <h3>Summary</h3>
 <p>Having reviewed the classical MVC pattern, we should now understand how it allows us to cleanly separate concerns in an application. We should also now appreciate how JavaScript MVC frameworks may differ in their interpretation of the MVC pattern, which although quite open to variation, still shares some of the fundamental concepts the original pattern has to offer.</p>
 <p>When reviewing a new JavaScript MVC/MV* framework, remember - it can be useful to step back and review how it's opted to approach architecture (specifically, how it supports implementing models, views, controllers or other alternatives) as this can better help you grok how the framework expects to be used.</p>
+
 <h2 id="detailmvp">MVP</h2>
 <p>Model-view-presenter (MVP) is a derivative of the MVC design pattern which focuses on improving presentation logic. It originated at a company named <a href="http://en.wikipedia.org/wiki/Taligent">Taligent</a> in the early 1990s while they were working on a model for a C++ CommonPoint environment. Whilst both MVC and MVP target the separation of concerns across multiple components, there are some fundamental differences between them.</p>
 <p>For the purposes of this summary we will focus on the version of MVP most suitable for web-based architectures.</p>
+
 <h3>Models, Views &amp; Presenters</h3>
 <p>The P in MVP stands for presenter. It's a component which contains the user-interface business logic for the view. Unlike MVC, invocations from the view are delegated to the presenter, which are decoupled from the view and instead talk to it through an interface. This allows for all kinds of useful things such as being able to mock views in unit tests.</p>
+
 <p>The most common implementation of MVP is one which uses a Passive View (a view which is for all intents and purposes "dumb"), containing little to no logic. MVP models are almost identical to MVC models and handle application data. The presenter acts as a mediator which talks to both the view and model, however both of these are isolated from each other. They effectively bind models to views, a responsibility which was previously held by controllers in MVC. Presenters are at the heart of the MVP pattern and as you can guess, incorporate the presentation logic behind views.</p>
 <p>Solicited by a view, presenters perform any work to do with user requests and pass data back to them. In this respect, they retrieve data, manipulate it and determine how the data should be displayed in the view. In some implementations, the presenter also interacts with a service layer to persist data (models). Models may trigger events but it's the presenters role to subscribe to them so that it can update the view. In this passive architecture, we have no concept of direct data binding. Views expose setters which presenters can use to set data.</p>
+
 <p>The benefit of this change from MVC is that it increases the testability of your application and provides a more clean separation between the view and the model. This isn't however without its costs as the lack of data binding support in the pattern can often mean having to take care of this task separately.</p>
+
 <p>Although a common implementation of a <a href="http://martinfowler.com/eaaDev/PassiveScreen.html">Passive View</a> is for the view to implement an interface, there are variations on it, including the use of events which can decouple the View from the Presenter a little more. As we don't have the interface construct in JavaScript, we're using more a protocol than an explicit interface here. It's technically still an API and it's probably fair for us to refer to it as an interface from that perspective.</p>
 <p>There is also a <a href="http://martinfowler.com/eaaDev/SupervisingPresenter.html">Supervising Controller</a> variation of MVP, which is closer to the MVC and <a href="http://en.wikipedia.org/wiki/Model_View_ViewModel">MVVM</a> patterns as it provides data-binding from the Model directly from the View. Key-value observing (KVO) plugins (such as Derick Bailey's Backbone.ModelBinding plugin) tend to bring Backbone out of the Passive View and more into the Supervising Controller or MVVM variations.</p>
+
 <h3>MVP or MVC?</h3>
 <p>MVP is generally used most often in enterprise-level applications where it's necessary to reuse as much presentation logic as possible. Applications with very complex views and a great deal of user interaction may find that MVC doesn't quite fit the bill here as solving this problem may mean heavily relying on multiple controllers. In MVP, all of this complex logic can be encapsulated in a presenter, which can simplify maintenance greatly.</p>
+
 <p>As MVP views are defined through an interface and the interface is technically the only point of contact between the system and the view (other than a presenter), this pattern also allows developers to write presentation logic without needing to wait for designers to produce layouts and graphics for the application.</p>
+
 <p>Depending on the implementation, MVP may be more easy to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (tHere's quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).</p>
 <p>At the end of the day, the underlying concerns you may have with MVC will likely hold true for MVP given that the differences between them are mainly semantic. As long as you are cleanly separating concerns into models, views and controllers (or presenters) you should be achieving most of the same benefits regardless of the pattern you opt for.</p>
+
 <h3>MVC, MVP and Backbone.js</h3>
 <p>There are very few, if any architectural JavaScript frameworks that claim to implement the MVC or MVC patterns in their classical form as many JavaScript developers don't view MVC and MVP as being mutually exclusive (we are actually more likely to see MVP strictly implemented when looking at web frameworks such as ASP.net or GWT). This is because it's possible to have additional presenter/view logic in your application and yet still consider it a flavor of MVC.</p>
 <p>Backbone contributor <a href="http://ireneros.com/">Irene Ros</a> (of Boston-based Bocoup) subscribes to this way of thinking as when she separates views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a <code>Backbone.Router</code>, covered later in the book) or a callback in response to data being fetched.</p>
@@ -4539,7 +4569,7 @@ var PhotoView = Backbone.View.extend({
 
 <p>Another (quite different) opinion is that Backbone more closely resembles <a href="http://martinfowler.com/eaaDev/uiArchs.html#ModelViewController">Smalltalk-80 MVC</a>, which we went through earlier.</p>
 
-<p>As regular Backbone user Derick Bailey has <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">previously</a> put it, it's ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone fits neither MVC nor MVP. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well.</p>
+<p>As regular Backbone blogger Derick Bailey has <a href="http://lostechies.com/derickbailey/2011/12/23/backbone-js-is-not-an-mvc-framework/">previously</a> put it, it's ultimately best not to force Backbone to fit any specific design patterns. Design patterns should be considered flexible guides to how applications may be structured and in this respect, Backbone fits neither MVC nor MVP. Instead, it borrows some of the best concepts from multiple architectural patterns and creates a flexible framework that just works well.</p>
 <p>It <em>is</em> however worth understanding where and why these concepts originated, so I hope that my explanations of MVC and MVP have been of help. Call it <strong>the Backbone way</strong>, MV* or whatever helps reference its flavor of application architecture. Most structural JavaScript frameworks will adopt their own take on classical patterns, either intentionally or by accident, but the important thing is that they help us develop applications which are organized, clean and can be easily maintained.</p>
 <p>&nbsp;</p>
 
