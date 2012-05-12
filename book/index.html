@@ -3266,21 +3266,17 @@ mySportsCar.driveSideways();
 <h2 id="decoratorpatternjavascript">The Decorator Pattern</h2>
 
 
-<p>Decorators are a structural design pattern that (like Mixins) aim to promote code re-use. They can be considered another viable alternative to sub-classing. Decorators may be used to modify existing systems where we may wish to add additional features to objects without the need to heavily modify the underlying code using them.</p>
+<p>Decorators are a structural design pattern that aim to promote code re-use. Similar to Mixins, they can be considered another viable alternative to object sub-classing.</p>
 
 <p>Classically, Decorators offered the ability to add behaviour to existing classes in a system dynamically. The idea was that the <em>decoration</em> itself wasn't essential to the base functionality of the class, otherwise it would be baked into the <em>superclass</em> itself.</p>
 
-<p>A common reason why developers use Decorators is that their applications may contain features requiring a large quantity of distinct types of object. Imagine having to define hundreds of different types of objects for say, a JavaScript game.</p>
+<p>Decorators can be used to modify existing systems where we wish to add additional features to objects without the need to heavily modify the underlying code using them. A common reason why developers use them is their applications may contain features requiring a large quantity of distinct types of object. Imagine having to define hundreds of different object constructors for say, a JavaScript game.</p>
 
-<p>We could have: Character objects (<code>playableCharacter</code>, <code>staticCharacter</code>, <code>enemyCharacter</code>, <code>specialPowerModeCharacter</code>), Sound objects (<code>actionSound</code>, <code>backgroundSound</code>) and so on.</p.
+<p>The object constructors could represent distinct player types, each with differing capabilities. A <em>Lord of the Rings</em> game could require constructors for <code>Hobbit</code>, <code>Elf</code>,<code>Ork</code>,<code>Wizard</code>, <code>Mountain Giant</code>, <code>Stone Giant</code> and so on, but there could easily be hundreds of these. If we then factored in capabilities, imagine having to create sub-classes for each combination of capability type e.g <code>HobbitWithRing</code>,<code>HobbitWithSword</code>, <code>HobbitWithRingAndSword</code> and so on.This isn't very practial and certainly isn't manageable when we factor in a growing number of different abilities.</p>
 
-<p>Now, what if our Character could have multiple abilities too?. We could need to define sub-classes such as <code>CharacterThatCanFlyAndRunQuickly</code>, <code>CharacterThatCanFlyRunQuicklyAndHasXRayVision</code> etc - effectively, one for each possible combination. As we can see, this isn't very practial and certainly isn't manageable when we factor in a growing number of different abilities.</p>
+<p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just relying on prototypal inheritance, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than sub-classing, we add (decorate) properties or methods to a base object so it's a little more streamlined.</p>
 
-<p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality.</p>
-
-<p>Rather than just relying on prototypal inheritance, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than sub-classing, we add (decorate) properties or methods to a base object so it's a little more streamlined.</p>
-
-<p>As we know, adding new attributes to objects in JavaScript is a very straight-forward process. With this in mind, a very very simplistic decorator may be implemented as follows:</p>
+<p>Adding new attributes to objects in JavaScript is a very straight-forward process so with this in mind, a very very simplistic decorator may be implemented as follows:</p>
 
 <h3>Example 1: Decorating Constructors With New Functionality</h3>
 
@@ -3333,7 +3329,7 @@ console.log( secondInstance );
 
 </pre>
 
-<p>This type of simplistic implementation makes sense, but it doesn't really demonstrate all of the strengths Decorators have to offer. For this, we're first going to go through my variation of the Coffee example from an excellent book called <em>Head First Design Patterns</em> by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
+<p>This type of simplistic implementation is functional, but it doesn't really demonstrate all of the strengths Decorators have to offer. For this, we're first going to go through my variation of the Coffee example from an excellent book called <em>Head First Design Patterns</em> by Freeman, Sierra and Bates, which is modelled around a Macbook purchase.</p>
 
 <h3>Example 2: Decorating Objects With Multiple Decorators</h3>
 <pre  class="brush: js">
@@ -3392,7 +3388,7 @@ console.log( mb.screenSize() );
 
 <p>It's considered a decoration as the original <code>Macbook</code> objects constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
 
-<p>As we can probably tell, there isn't really a defined "interface" in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
+<p>There isn't really a defined <em>interface</em> in the above example and we're shifting away the responsibility of ensuring an object meets an interface when moving from the creator to the receiver.</p>
 
 <h2>Pseudo-classical Decorators</h2>
 
@@ -3656,7 +3652,7 @@ decoratorApp = {
         return "{ " + arr.join(", ") + " }";
     }
 
-}
+};
 
 // merge defaults and options, without modifying defaults explicitly
 decoratorApp.settings = $.extend({}, decoratorApp.defaults, decoratorApp.options);
