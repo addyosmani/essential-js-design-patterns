@@ -3844,7 +3844,7 @@ var BookFactory = (function () {
 
       // Find out if a particular book meta-data combination has been created before
       // !! or (bang bang) forces a boolean to be returned
-      if (!!existingBooks[ISBN]) {
+      if ( !!existingBooks[ISBN] ) {
 
         return existingBook;
       } else {
@@ -3902,7 +3902,7 @@ var BookRecordManager = (function () {
       bookRecordDatabase[bookID].dueReturnDate = newReturnDate;
     },
 
-    isPastDue: function (bookID) {
+    isPastDue: function ( bookID ) {
       var currentDate = new Date();
       return currentDate.getTime() > Date.parse( bookRecordDatabase[bookID].dueReturnDate );
     }
