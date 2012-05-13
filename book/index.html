@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 11 May 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 12 May 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -115,7 +115,6 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
             <li class="subitem"><a href="#detailflyweight">Flyweight Pattern</a>
         </ul>
       </li>
-         <li><a href="#detailnamespacing">JavaScript Namespacing Patterns</a></li>
          <li><a href="#detailmvcmvp">JavaScript MV* Patterns</a>
         <ul>
           <li class="subitem"><a href="#detailmvc">MVC Pattern</a>
@@ -123,6 +122,8 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
           <li class="subitem"><a href="#detailmvvm">MVVM Pattern</a>
         </ul>
       </li>
+        <li><a href="#detailnamespacing">JavaScript Namespacing Patterns</a></li>
+
         <li><a href="#designpatternsjquery">Examples Of Design Patterns In jQuery</a>
         <ul>
           <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
@@ -4968,16 +4969,386 @@ ko.applyBindings( viewModel );
 
 <h2 id="detailnamespacing">Namespacing Patterns</h2>
 
-<p>In this section, I'll be discussing both intermediate and advanced conventions for namespacing in JavaScript. we're going to begin with the latter, however if you're new to namespacing with the language and would like to learn more about some of the fundamentals, please feel free to skip to <!--more-->the section titled "<a href="#beginners">namespacing fundamentals</a>" to continue reading.</p>
+<p>In this section, we're going to explore patterns for namespacing in JavaScript. Namespaces can be considered a logical grouping of units of code under a unique identifier. The identifier can be referenced in many namespaces and each identifier can itself contain a hierarchy of it's own nested (or sub) namespaces.</p>
 
-<h2>What is namespacing?</h2>
-<p>In many programming languages, namespacing is a technique employed to avoid <b>collisions</b> with other objects or variables in the global namespace. They're also extremely useful for helping organize blocks of functionality in your application into easily manageable groups that can be uniquely identified.</p>
-<p>In JavaScript, namespacing at an enterprise level is critical as it's important to safeguard your code from breaking in the event of another script on the page using the <b>same</b> variable or method names as you are. With the number of <b>third-party</b> tags regularly injected into pages these days, this can be a common problem we all need to tackle at some point in our careers. As a well-behaved "citizen" of the global namespace, it's also imperative that you do your best to similarly not prevent other developer's scripts executing due to the same issues.</p>
+<p>In application development, we employ namespaces for a number of important reasons. In JavaScript, they help us avoid <b>collisions</b> with other objects or variables in the global namespace. They're also extremely useful for helping organize blocks of functionality in a code-base so that it can be more easily referenced and used.</p>
+
+<p>Namespacing any serious script or application is critical as it's important to safeguard our code from breaking in the event of another script on the page using the <b>same</b> variable or method names we are. With the number of <b>third-party</b> tags regularly injected into pages these days, this can be a common problem we all need to tackle at some point in our careers. As a well-behaved "citizen" of the global namespace, it's also imperative thatwe best to similarly not prevent other developer's scripts executing due to the same issues.</p>
+
 <p>Whilst JavaScript doesnt really have built-in support for namespaces like other languages, it does have objects and closures which can be used to achieve a similar effect.</p>
+
+<p><a name="beginners"></a></p>
+
+<h2>Namespacing Fundamentals</h2>
+<p>Namespaces can be found in almost any serious JavaScript application. Unless we're working with a simple code-snippet, it's imperative that we do our best to ensure that we're implementing namespacing correctly as it's not just simple to pick-up, it'll also avoid third party code clobbering our own. The patterns we'll be examining in this section are:</p>
+<ol>
+  <li>Single global variables</li>
+  <li>Object literal notation</li>
+  <li>Nested namespacing</li>
+  <li>Immediately-invoked Function Expressions</li>
+  <li>Namespace injection</li>
+</ol>
+<h3>1.Single global variables</h3>
+<p>One popular pattern for namespacing in JavaScript is opting for a single global variable as our primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
+<pre  class="brush: js">
+var myApplication =  (function () { 
+        function(){
+            //...
+        },
+        return{
+            //...
+        }
+})();
+
+</pre>
+<p>Although this works for certain situations, the biggest challenge with the single global variable pattern is ensuring that no one else has used the same global variable name as we have in the page.</p>
+
+<h3>2. Prefix namespacing </h3>
+
+<p>One solution to the above problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It's a simple concept at heart, but the idea is we select a unique prefix namespace we wish to use (in this example, <code>myApplication_</code>) and then define any methods, variables or other objects after the prefix as follows:</p>
+<pre  class="brush: js">var myApplication_propertyA = {};
+var myApplication_propertyB = {};
+function myApplication_myMethod(){ 
+  //...
+}
+</pre>
+<p>This is effective from the perspective of decreasing the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect</p>. 
+
+<p>This aside, the biggest issue with the pattern is that it can result in a large number of global objects once our application starts to grow. There is also quite a heavy reliance on our prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
+
+<p>For more on Peter's views about the single global variable pattern, read his excellent post on them <a href="http://michaux.ca/articles/javascript-namespacing">http://michaux.ca/articles/javascript-namespacing</a>.</p>
+
+<h3>3. Object literal notation</h3>
+<p>Object literal notation (which we also cover in the module pattern section of the book) can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values where keys can also represent new namespaces.</p>
+<pre  class="brush: js">
+var myApplication = {
+
+    // As we've seen, we can easily define functionality for
+    // this object literal..
+    getInfo:function(){ 
+      //...
+    },
+
+    // but we can also populate it to support 
+    // further object namespaces containing anything
+    // anything we wish:
+    models : {},
+    views : {
+        pages : {}
+    },
+    collections : {}
+};
+</pre>
+<p>One can also opt for adding properties directly to the namespace:</p>
+<pre  class="brush: js">
+myApplication.foo = function(){
+    return "bar";
+}
+
+myApplication.utils = {
+    toString:function(){
+        //...
+    },
+    export: function(){
+        //...
+    }
+}
+</pre>
+<p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
+
+<p>The code at the very top of the next sample demonstrates the different ways in which we can check to see if a variable (object namespace) already exists before defining it. We may commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best-practice.</p>
+<pre  class="brush: js">
+// This doesn't check for existence of "myApplication" in
+// the global namespace. Bad practice as you can easily
+// clobber an existing variable/namespace with the same name
+var myApplication = {};
+
+// The following options *do* check for variable/namespace existence. 
+// If already defined, we use that instance, otherwise we assign a new 
+// object literal to myApplication.
+// 
+// Option 1: var myApplication = myApplication || {};
+// Option 2  if( !MyApplication ){ MyApplication = {} };
+// Option 3: var myApplication = myApplication = myApplication || {}
+// Option 4: myApplication || ( myApplication = {});
+// Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
+
+
+</pre>
+<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using the Revealing Module Pattern, which we covered earlier in the book:</p>
+<pre  class="brush: js">
+
+var namespace = (function () {
+
+    // defined within the local scope
+    var privateMethod1 = function () { /* ... */ },
+        privateMethod2 = function () { /* ... */ }
+        privateProperty1 = "foobar";
+
+    return {
+
+        // the object literal returned here can have as many 
+        // nested depths as you wish, however as mentioned, 
+        // this way of doing things works best for smaller, 
+        // limited-scope applications in my personal opinion
+        publicMethod1: privateMethod1,
+
+        // nested namespace with public properties
+        properties:{
+            publicProperty1: privateProperty1
+        },
+
+        // another tested namespace
+        utils:{
+            publicMethod2: privateMethod2
+        }
+        ...
+    }
+})();
+</pre>
+<p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we're able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending your code.</p>
+<p>A possible downside however is that object literals have the potential to grow into long syntactic constructs. Opting to take advantage of the nested namespace pattern (which also uses the same pattern as its base)</p>
+<p>This pattern has a number of other useful applications too. In addition to namespacing, it's often of benefit to decouple the default configuration for our application into a single area that can be easily modified without the need to search through our entire codebase just to alter them - object literals work great for this purpose. Here's an example of a hypothetical object literal for configuration:</p>
+<pre  class="brush: js">
+var myConfig = {
+
+    language: "english",
+
+    defaults: {
+        enableGeolocation: true,
+        enableSharing: false,
+        maxPhotos: 20
+    },
+
+    theme: {
+        skin: "a",
+        toolbars: {
+            index: "ui-navigation-toolbar",
+            pages: "ui-custom-toolbar"    
+        }
+    }
+
+}
+
+</pre>
+<p>Note that there are really only minor syntactical differences between the object literal pattern and a standard JSON data set. If for any reason you wish to use JSON for storing your configurations instead (e.g. for simpler storage when sending to the back-end), feel free to. For more on the object literal pattern, I recommend reading Rebecca Murphey's excellent <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">article</a> on the topic.</p>
+<h3>4. Nested namespacing</h3>
+<p>An extension of the object literal pattern is nested namespacing. It's another common pattern used that offers a lower risk of collision due to the fact that even if a namespace already exists, it's unlikely the same nested children do.</p>
+<p>Does this look familiar?</p>
+<pre  class="brush: js">YAHOO.util.Dom.getElementsByClassName("test");
+</pre>
+<p>Older versions of Yahoo!'s YUI library use the nested object namespacing pattern regularly. During my time as an engineer at AOL, we also used this pattern in many of our larger applications. A sample implementation of nested namespacing may look like this:</p>
+<pre  class="brush: js">
+
+var myApp =  myApp || {};
+ 
+// perform a similar existence check when defining nested 
+// children
+myApp.routers = myApp.routers || {};
+myApp.model = myApp.model || {};
+myApp.model.special = myApp.model.special || {};
+
+// nested namespaces can be as complex as required:
+// myApp.utilities.charting.html5.plotGraph(/*..*/);
+// myApp.modules.financePlanner.getSummary();
+// myApp.services.social.facebook.realtimeStream.getLatest();
+
+</pre>
+<p><strong>Note: The above differs from how YUI3 approaches namespacing as modules there use a sandboxed API host object with far less and far shallower namespacing.</strong></p>
+
+<p>We can also opt to declare new nested namespaces/properties as indexed properties as follows:</p>
+<pre  class="brush: js">
+myApp["routers"] = myApp["routers"] || {}; 
+myApp["models"] = myApp["models"] || {}; 
+myApp["controllers"] = myApp["controllers"] || {}; 
+</pre>
+<p>Both options are readable, organized and offer a relatively safe way of namespacing our application in a similar fashion to what we may be used to in other languages. The only real caveat however is that it requires our browser's JavaScript engine first locating the myApp object and then digging down until it gets to the function we actually wish to use.</p>
+<p>This can mean an increased amount of work to perform lookups, however developers such as <a href="http://twitter.com/kangax">Juriy Zaytsev</a> have previously tested and found the performance differences between single object namespacing vs the "nested" approach to be quite negligible.</p>
+<h3>5. Immediately-invoked Function Expressions (IIFE)s</h3>
+<p>An <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> (which we have also previously looked at) is effectively an unnamed function which is immediately invoked after it's been defined. In JavaScript, because both variables and functions explicitly defined within such a context may only be accessed inside of it, function invocation provides an easy means to achieving privacy.</p>
+<p>This is one of the many reasons why IIFEs are a popular approach to encapsulating application logic to protect it from the global namespace. You have probably come across this pattern before under the name of a self-executing (or self-invoked) anonymous function, however I personally prefer Ben Alman's naming convention for this particular pattern as I believe it to be both more descriptive and more accurate.</p>
+<p>The simplest version of an IIFE could be the following:</p>
+<pre  class="brush: js">
+// an (anonymous) immediately-invoked function expression
+(function () { /*...*/})();
+
+// a named immediately-invoked function expression
+(function foobar () { /*..*/}());
+
+// this is technically a self-executing function which is quite different
+function foobar () { foobar(); }
+</pre>
+<p>whilst a slightly more expanded version of the first example might look like:</p>
+<pre  class="brush: js">var namespace = namespace || {};
+
+// here a namespace object is passed as a function 
+// parameter, where we assign public methods and 
+// properties to it
+(function( o ){    
+    o.foo = "foo";
+    o.bar = function(){
+        return "bar";    
+    };
+})( namespace );
+
+console.log( namespace );
+</pre>
+<p>Whilst readable, this example could be significantly expanded on to address common development concerns such as defined levels of privacy (public/private functions and variables) as well as convenient namespace extension. let's go through some more code:</p>
+<pre  class="brush: js">
+
+// namespace (our namespace name) and undefined are passed here 
+// to ensure 1. namespace can be modified locally and isn't 
+// overwritten outside of our function context
+// 2. the value of undefined is guaranteed as being truly 
+// undefined. This is to avoid issues with undefined being 
+// mutable pre-ES5.
+
+;(function ( namespace, undefined ) {
+
+    // private properties
+    var foo = "foo", 
+        bar = "bar";
+
+    // public methods and properties
+    namespace.foobar = "foobar";
+    namespace.sayHello = function () {
+        speak( "hello world" );
+    };
+
+    // private method
+    function speak(msg) {
+        console.log( "You said: " + msg );
+    };
+
+    // check to evaluate whether "namespace" exists in the 
+    // global namespace - if not, assign window.namespace an 
+    // object literal
+
+}( window.namespace = window.namespace || {} );
+
+
+// we can then test our properties and methods as follows
+
+// public
+
+// Outputs: foobar
+console.log( namespace.foobar );
+
+// Outputs: hello world
+namescpace.sayHello();
+
+// assigning new properties
+namespace.foobar2 = "foobar";
+
+// Outputs: foobar
+console.log( namespace.foobar2 );
+</pre>
+<p>Extensibility is of course key to any scalable namespacing pattern and IIFEs can be used to achieve this quite easily. In the below example, our "namespace" is once again passed as an argument to our anonymous function and is then extended (or decorated) with further functionality:</p>
+<pre  class="brush: js">// let's extend the namespace with new functionality
+(function( namespace, undefined ){
+
+    // public method
+    namespace.sayGoodbye = function () {
+        console.log( namespace.foo );
+        console.log( namespace.bar );
+        speak( "goodbye" );
+    }    
+}( window.namespace = window.namespace || {});
+</pre>
+<p>namespace.sayGoodbye(); //goodbye</p>
+<p>That's it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor's post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
+<h3>6. Namespace injection</h3>
+<p>Namespace injection is another variation on the IIFE where we "inject" the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
+<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the section.</p>
+<p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
+<pre  class="brush: js">var myApp = myApp || {};
+myApp.utils =  {};
+
+(function () {
+  var val = 5;
+
+  this.getValue = function () {
+      return val;
+  };
+   
+  this.setValue = function( newVal ) {
+      val = newVal;
+  }
+      
+  // also introduce a new sub-namespace
+  this.tools = {};
+    
+}).apply( myApp.utils );  
+
+// inject new behaviour into the tools namespace
+// which we defined via the utilities module
+
+(function () {
+    this.diagnose = function(){
+        return "diagnosis";   
+    }
+}).apply( myApp.utils.tools );
+
+// note, this same approach to extension could be applied
+// to a regular IIFE, by just passing in the context as 
+// an argument and modifying the context rather than just
+// "this"
+
+// Usage:
+
+// Outputs our populated namespace
+console.log( myApp );
+
+// Outputs: 5
+console.log( myApp.utils.getValue() );
+
+// Sets the value of `val` and returns it
+myApp.utils.setValue( 25 ); 
+console.log( myApp.utils.getValue() );
+
+// Testing another level down
+console.log( myApp.utils.tools.diagnose() );
+
+</pre>
+<p>Angus Croll has also <a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg578608">previously</a> suggested the idea of using the call API to provide a natural separation between contexts and arguments. This pattern can feel a lot more like a module creator, but as modules still offer an encapsulation solution, we'll briefly cover it for the sake of thoroughness:</p>
+<pre  class="brush: js">
+// define a namespace we can use later
+var ns = ns || {}, 
+    ns2 = ns2 || {};
+
+// the module/namespace creator
+var creator = function( val ){
+
+    var val = val || 0;
+
+    this.next = function () {
+        return val++
+    };
+
+    this.reset = function () {
+        val = 0;
+    }
+}
+
+creator.call( ns );
+
+// ns.next, ns.reset now exist
+creator.call( ns2 , 5000 );
+
+// ns2 contains the same methods
+// but has an overridden value for val
+// of 5000
+
+</pre>
+<p>As mentioned, this type of pattern is useful for assigning a similar base set of functionality to multiple modules or namespaces, but I'd really only suggest using it where explicitly declaring your functionality within an object/closure for direct access doesn't make sense.</p>
+
+
 <h2>Advanced namespacing patterns</h2>
-<p>In this section, I'll be exploring some advanced patterns and utility techniques that have helped me when working on larger projects requiring a re-think of how application namespacing is approached. I should state that I'm not advocating any of these as <strong>the</strong> way to do things, but rather just ways that I've found work in practice.</p>
+
+<p>We'll now explore some advanced patterns and utilities that I have found invaluable when woring on larger applications -  some of which have required a re-think of traditional approaches to application namespacing. I'll note that I am not advocating any of the following as <em>the</em> way to namespace, but rather ways that I have found work in practice.</p>
+
 <h3>Automating nested namespacing</h3>
-<p>As you're probably aware, a nested namespace provides an organized hierarchy of structures in an application and an example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. In JavaScript the equivalent of this definition using the object literal pattern would be:</p>
+<p>As we've reviewed, nested namespaces can provide an organized hierarchy of structure for a unit of code. An example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. This can also be expanded using the object literal pattern to be:</p>
 <pre  class="brush: js">
 var application = {
       utilities:{
@@ -4991,9 +5362,11 @@ var application = {
     }        
 };
 </pre>
-<p>Wow, that could be done better.</p>
-<p>One of the obvious challenges with this pattern is that each additional depth you wish to create requires yet another object to be defined as a child of some parent in your top-level namespace. This can become particularly laborious when multiple depths are required as your application increases in complexity.</p>
-<p>How can this problem be better solved? In <a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752">JavaScript Patterns</a>, <a href="http://jspatterns.com">Stoyan Stefanov</a> presents a very-clever approach for automatically defining nested namespaces under an existing global variable using a convenience method that takes a single string argument for a nest, parses this and automatically populates your base namespace with the objects required.</p>
+
+<p>One of the obvious challenges with this pattern is that each additional layer or we wish to create requires yet another object to be defined as a child of some parent in our top-level namespace. This can become particularly laborious when multiple depths are required as our application increases in complexity.</p>
+
+<p>How can this problem be better solved? In <a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752">JavaScript Patterns</a>, <a href="http://jspatterns.com">Stoyan Stefanov</a> presents a very-clever approach for automatically defining nested namespaces under an existing global variable. He suggests a convenience method that takes a single string argument for a nest, parses this and automatically populates our base namespace with the objects required.</p>
+
 <p>The method he suggests using is the following, which I've updated it to be a generic function for easier re-use with multiple namespaces:</p>
 <pre  class="brush: js">
 // top-level namespace being assigned an object literal
@@ -5043,9 +5416,10 @@ console.log(myApp);
 </pre>
 <p>Web inspector output:</p>
 <p><img border="0" src="img/ns1.png" width="520" /></p>
-<p>Note how where one would previously have had to explicitly declare the various nests for their namespace as objects, this can now be easily achieved using a single, cleaner line of code. This works exceedingly well when defining purely namespaces alone, but can seem a little less flexible when you want to define both functions and properties at the same time as declaring your namespaces. Regardless, it is still incredibly powerful and I regularly use a similar approach in some of my projects.</p>
+<p>Where one would previously have had to explicitly declare the various nests for their namespace as objects, this can now be easily achieved using a single, cleaner line of code.</p>
+
 <h3>Dependency declaration pattern</h3>
-<p>In this section we're going to take a look at a minor augmentation to the nested namespacing pattern you may be used to seeing in some applications. We all know that local references to objects can decrease overall lookup times, but let's apply this to namespacing to see how it might look in practice:</p>
+<p>We're now going to explore a minor augmentation to the nested namespacing pattern which we'll refer to as the Dependency Declaration pattern. We all know that local references to objects can decrease overall lookup times, but let's apply this to namespacing to see how it might look in practice:</p>
 <pre  class="brush: js">
 // common approach to accessing nested namespaces
 myApp.utilities.math.fibonacci( 25 );
@@ -5067,7 +5441,7 @@ drawing.plot( 98, 50,60 );
 // namespaces vs. a local reference to the namespace
 </pre>
 <p>Working with a local variable here is almost always faster than working with a top-level global (e.g.myApp). It's also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
-<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of your function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One of the benefits this offers is a decrease in locating dependencies and resolving them, should you have an extendable architecture that dynamically loads modules into your namespace when required.</p>
+<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of our function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One of the benefits this offers is a decrease in locating dependencies and resolving them, should we have an extendable architecture that dynamically loads modules into your namespace when required.</p>
 <p>In my opinion this pattern works best when working at a modular level, localizing a namespace to be used by a group of methods. Localizing namespaces on a per-function level, especially where there is significant overlap between namespace dependencies would be something I would recommend avoiding where possible. Instead, define it further up and just have them all access the same reference.</p>
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
@@ -5159,9 +5533,9 @@ console.log( "test 4", myNS);
 console.groupEnd();
 
 </pre>
-<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. You may find the Underscore.js <code>extend</code> method a simpler, more cross-browser implementation to start with http://documentcloud.github.com/underscore/docs/underscore.html#section-67. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: https://gist.github.com/1123784.</p>
+<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. You may find the Underscore.js <code>extend</code> method a simpler, more cross-browser implementation to start with <a href="http://documentcloud.github.com/underscore/docs/underscore.html#section-67">http://documentcloud.github.com/underscore/docs/underscore.html#section-67</a>. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: <a href="https://gist.github.com/1123784">https://gist.github.com/1123784</a>.</p>
 
-<p>If you do however happen to be using jQuery in your application, you can achieve the exact same object namespace extensibility with $.extend as follows:</p>
+<p>For developers that are going to use jQuery in their application, one can achieve the exact same object namespace extensibility with <code>$.extend</code> as follows:</p>
 <pre  class="brush: js">// top-level namespace
 var myApp = myApp || {};
 
@@ -5189,364 +5563,13 @@ console.log("test", myApp);
 // nothing has been overwritten which is what we're hoping for.
 </pre>
 <p>For the sake of thoroughness, please see <a href="https://gist.github.com/1221980">here</a> for jQuery $.extend equivalents to the rest of the namespacing experiments found in this section.</p>
-<p><a name="beginners"></a></p>
-<h2>Namespacing Fundamentals</h2>
-<p>Namespaces can be found in almost any serious JavaScript application. Unless you're working with a code-snippet, it's imperative that you do your best to ensure that you're implementing namespacing correctly as it's not just simple to pick-up, it'll also avoid third party code clobbering your own. The patterns we'll be examining in this section are:</p>
-<ol>
-  <li>Single global variables</li>
-  <li>Object literal notation</li>
-  <li>Nested namespacing</li>
-  <li>Immediately-invoked Function Expressions</li>
-  <li>Namespace injection</li>
-</ol>
-<h3>1.Single global variables</h3>
-<p>One popular pattern for namespacing in JavaScript is opting for a single global variable as your primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
-<pre  class="brush: js">
-var myApplication =  (function () { 
-        function(){
-            //...
-        },
-        return{
-            //...
-        }
-})();
 
-</pre>
-<p>Although this works for certain situations, the biggest challenge with the single global variable pattern is ensuring that no one else has used the same global variable name as you have in the page.</p>
+<h3>Recommendation</h3>
 
-<h3>2. Prefix namespacing </h3>
+<p>Reviewing the namespace patterns we've explored in this section, the option that I would personally use for most larger applications is nested object namespacing with the object literal pattern. Where possible, I would implement this using automated nested namespacing, however this is just a personal preference.</p>
 
-<p>One solution to the above problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It's a simple concept at heart, but the idea is you select a unique prefix namespace you wish to use (in this example, "myApplication_") and then define any methods, variables or other objects after the prefix as follows:</p>
-<pre  class="brush: js">var myApplication_propertyA = {};
-var myApplication_propertyB = {};
-function myApplication_myMethod(){ 
-  //...
-}
-</pre>
-<p>This is effective from the perspective of trying to lower the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect. This aside, the biggest issue with the pattern is that it can result in a large number of global objects once your application starts to grow. There is also quite a heavy reliance on your prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
-<p>For more on Peter's views about the single global variable pattern, read his excellent post on them <a href="http://michaux.ca/articles/javascript-namespacing">here</a>.</p>
-<h3>3. Object literal notation</h3>
-<p>Object literal notation (which we also cover in the module pattern section of the book) can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values where keys can also represent new namespaces.</p>
-<pre  class="brush: js">
-var myApplication = {
-
-    getInfo:function(){ 
-      //...
-    },
-
-    // we can also populate object literal to support 
-    // further object namespaces containing anything really:
-    models : {},
-    views : {
-        pages : {}
-    },
-    collections : {}
-};
-</pre>
-<p>One can also opt for adding properties directly to the namespace:</p>
-<pre  class="brush: js">
-myApplication.foo = function(){
-    return "bar";
-}
-
-myApplication.utils = {
-    toString:function(){
-        //...
-    },
-    export: function(){
-        //...
-    }
-}
-</pre>
-<p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They're beneficial if you wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
-<p>The code at the very top of the next sample demonstrates the different ways in which you can check to see if a variable (object namespace) already exists before defining it. You'll commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best-practice.</p>
-<pre  class="brush: js">
-// This doesn't check for existence of "myApplication" in
-// the global namespace. Bad practice as you can easily
-// clobber an existing variable/namespace with the same name
-var myApplication = {};
-
-// The following options *do* check for variable/namespace existence. 
-// If already defined, we use that instance, otherwise we assign a new 
-// object literal to myApplication.
-// 
-// Option 1: var myApplication = myApplication || {};
-// Option 2  if( !MyApplication ){ MyApplication = {} };
-// Option 3: var myApplication = myApplication = myApplication || {}
-// Option 4: myApplication || ( myApplication = {});
-// Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
-
-
-</pre>
-<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using the Revealing Module Pattern, which we covered earlier in the book:</p>
-<pre  class="brush: js">
-
-var namespace = (function () {
-
-    // defined within the local scope
-    var privateMethod1 = function () { /* ... */ },
-        privateMethod2 = function () { /* ... */ }
-        privateProperty1 = "foobar";
-
-    return {
-
-        // the object literal returned here can have as many 
-        // nested depths as you wish, however as mentioned, 
-        // this way of doing things works best for smaller, 
-        // limited-scope applications in my personal opinion
-        publicMethod1: privateMethod1,
-
-        // nested namespace with public properties
-        properties:{
-            publicProperty1: privateProperty1
-        },
-
-        // another tested namespace
-        utils:{
-            publicMethod2: privateMethod2
-        }
-        ...
-    }
-})();
-</pre>
-<p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we're able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending your code.</p>
-<p>A possible downside however is that object literals have the potential to grow into long syntactic constructs. Opting to take advantage of the nested namespace pattern (which also uses the same pattern as its base)</p>
-<p>This pattern has a number of other useful applications too. In addition to namespacing, it's often of benefit to decouple the default configuration for your application into a single area that can be easily modified without the need to search through your entire codebase just to alter them - object literals work great for this purpose. Here's an example of a hypothetical object literal for configuration:</p>
-<pre  class="brush: js">
-var myConfig = {
-
-    language: "english",
-
-    defaults: {
-        enableGeolocation: true,
-        enableSharing: false,
-        maxPhotos: 20
-    },
-
-    theme: {
-        skin: "a",
-        toolbars: {
-            index: "ui-navigation-toolbar",
-            pages: "ui-custom-toolbar"    
-        }
-    }
-
-}
-
-</pre>
-<p>Note that there are really only minor syntactical differences between the object literal pattern and a standard JSON data set. If for any reason you wish to use JSON for storing your configurations instead (e.g. for simpler storage when sending to the back-end), feel free to. For more on the object literal pattern, I recommend reading Rebecca Murphey's excellent <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">article</a> on the topic.</p>
-<h3>4. Nested namespacing</h3>
-<p>An extension of the object literal pattern is nested namespacing. It's another common pattern used that offers a lower risk of collision due to the fact that even if a namespace already exists, it's unlikely the same nested children do.</p>
-<p>Does this look familiar?</p>
-<pre  class="brush: js">YAHOO.util.Dom.getElementsByClassName("test");
-</pre>
-<p>Older versions of Yahoo!'s YUI library use the nested object namespacing pattern regularly. At AOL we also used this pattern in many of our larger applications. A sample implementation of nested namespacing may look like this:</p>
-<pre  class="brush: js">
-
-var myApp =  myApp || {};
- 
-// perform a similar existence check when defining nested 
-// children
-myApp.routers = myApp.routers || {};
-myApp.model = myApp.model || {};
-myApp.model.special = myApp.model.special || {};
-
-// nested namespaces can be as complex as required:
-// myApp.utilities.charting.html5.plotGraph(/*..*/);
-// myApp.modules.financePlanner.getSummary();
-// myApp.services.social.facebook.realtimeStream.getLatest();
-
-</pre>
-<p><strong>Note: The above differs from how YUI3 approaches namespacing as modules there use a sandboxed API host object with far less and far shallower namespacing.</strong></p>
-
-<p>You can also opt to declare new nested namespaces/properties as indexed properties as follows:</p>
-<pre  class="brush: js">
-myApp["routers"] = myApp["routers"] || {}; 
-myApp["models"] = myApp["models"] || {}; 
-myApp["controllers"] = myApp["controllers"] || {}; 
-</pre>
-<p>Both options are readable, organized and offer a relatively safe way of namespacing your application in a similar fashion to what you may be used to in other languages. The only real caveat however is that it requires your browser's JavaScript engine first locating the myApp object and then digging down until it gets to the function you actually wish to use.</p>
-<p>This can mean an increased amount of work to perform lookups, however developers such as <a href="http://twitter.com/kangax">Juriy Zaytsev</a> have previously tested and found the performance differences between single object namespacing vs the "nested" approach to be quite negligible.</p>
-<h3>5. Immediately-invoked Function Expressions (IIFE)s</h3>
-<p>An <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> is effectively an unnamed function which is immediately invoked after it's been defined. In JavaScript, because both variables and functions explicitly defined within such a context may only be accessed inside of it, function invocation provides an easy means to achieving privacy.</p>
-<p>This is one of the many reasons why IIFEs are a popular approach to encapsulating application logic to protect it from the global namespace. you've probably come across this pattern before under the name of a self-executing (or self-invoked) anonymous function, however I personally prefer Ben Alman's naming convention for this particular pattern as I believe it to be both more descriptive and more accurate.</p>
-<p>The simplest version of an IIFE could be the following:</p>
-<pre  class="brush: js">
-// an (anonymous) immediately-invoked function expression
-(function () { /*...*/})();
-
-// a named immediately-invoked function expression
-(function foobar () { /*..*/}());
-
-// this is technically a self-executing function which is quite different
-function foobar () { foobar(); }
-</pre>
-<p>whilst a slightly more expanded version of the first example might look like:</p>
-<pre  class="brush: js">var namespace = namespace || {};
-
-// here a namespace object is passed as a function 
-// parameter, where we assign public methods and 
-// properties to it
-(function( o ){    
-    o.foo = "foo";
-    o.bar = function(){
-        return "bar";    
-    };
-})( namespace );
-
-console.log( namespace );
-</pre>
-<p>Whilst readable, this example could be significantly expanded on to address common development concerns such as defined levels of privacy (public/private functions and variables) as well as convenient namespace extension. let's go through some more code:</p>
-<pre  class="brush: js">
-
-// namespace (our namespace name) and undefined are passed here 
-// to ensure 1. namespace can be modified locally and isn't 
-// overwritten outside of our function context
-// 2. the value of undefined is guaranteed as being truly 
-// undefined. This is to avoid issues with undefined being 
-// mutable pre-ES5.
-
-;(function ( namespace, undefined ) {
-
-    // private properties
-    var foo = "foo", 
-        bar = "bar";
-
-    // public methods and properties
-    namespace.foobar = "foobar";
-    namespace.sayHello = function () {
-        speak( "hello world" );
-    };
-
-    // private method
-    function speak(msg) {
-        console.log( "You said: " + msg );
-    };
-
-    // check to evaluate whether "namespace" exists in the 
-    // global namespace - if not, assign window.namespace an 
-    // object literal
-
-}( window.namespace = window.namespace || {} );
-
-
-// we can then test our properties and methods as follows
-
-// public
-
-// Outputs: foobar
-console.log( namespace.foobar );
-
-// Outputs: hello world
-namescpace.sayHello();
-
-// assigning new properties
-namespace.foobar2 = "foobar";
-
-// Outputs: foobar
-console.log( namespace.foobar2 );
-</pre>
-<p>Extensibility is of course key to any scalable namespacing pattern and IIFEs can be used to achieve this quite easily. In the below example, our "namespace" is once again passed as an argument to our anonymous function and is then extended (or decorated) with further functionality:</p>
-<pre  class="brush: js">// let's extend the namespace with new functionality
-(function( namespace, undefined ){
-
-    // public method
-    namespace.sayGoodbye = function () {
-        console.log( namespace.foo );
-        console.log( namespace.bar );
-        speak( "goodbye" );
-    }    
-}( window.namespace = window.namespace || {});
-</pre>
-<p>namespace.sayGoodbye(); //goodbye</p>
-<p>that's it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor's post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
-<h3>6. Namespace injection</h3>
-<p>Namespace injection is another variation on the IIFE where we "inject" the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
-<p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the section.</p>
-<p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
-<pre  class="brush: js">var myApp = myApp || {};
-myApp.utils =  {};
-
-(function () {
-  var val = 5;
-
-  this.getValue = function () {
-      return val;
-  };
-   
-  this.setValue = function( newVal ) {
-      val = newVal;
-  }
-      
-  // also introduce a new sub-namespace
-  this.tools = {};
-    
-}).apply( myApp.utils );  
-
-// inject new behaviour into the tools namespace
-// which we defined via the utilities module
-
-(function () {
-    this.diagnose = function(){
-        return "diagnosis";   
-    }
-}).apply( myApp.utils.tools );
-
-// note, this same approach to extension could be applied
-// to a regular IIFE, by just passing in the context as 
-// an argument and modifying the context rather than just
-// "this"
-
-// Usage:
-
-// Outputs our populated namespace
-console.log( myApp );
-
-// Outputs: 5
-console.log( myApp.utils.getValue() );
-
-// Sets the value of `val` and returns it
-myApp.utils.setValue( 25 ); 
-console.log( myApp.utils.getValue() );
-
-// Testing another level down
-console.log( myApp.utils.tools.diagnose() );
-
-</pre>
-<p>Angus Croll has also <a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg578608">previously</a> suggested the idea of using the call API to provide a natural separation between contexts and arguments. This pattern can feel a lot more like a module creator, but as modules still offer an encapsulation solution, I'll briefly cover it for the sake of thoroughness:</p>
-<pre  class="brush: js">
-// define a namespace we can use later
-var ns = ns || {}, 
-    ns2 = ns2 || {};
-
-// the module/namespace creator
-var creator = function( val ){
-
-    var val = val || 0;
-
-    this.next = function () {
-        return val++
-    };
-
-    this.reset = function () {
-        val = 0;
-    }
-}
-
-creator.call( ns );
-
-// ns.next, ns.reset now exist
-creator.call( ns2 , 5000 );
-
-// ns2 contains the same methods
-// but has an overridden value for val
-// of 5000
-
-</pre>
-<p>As mentioned, this type of pattern is useful for assigning a similar base set of functionality to multiple modules or namespaces, but I'd really only suggest using it where explicitly declaring your functionality within an object/closure for direct access doesn't make sense.</p>
-
-<p>Reviewing the namespace patterns above, the option that I would personally use for most larger applications is nested object namespacing with the object literal pattern.</p>
 <p>IIFEs and single global variables may work fine for applications in the small to medium range, however, larger codebases requiring both namespaces and deep sub-namespaces require a succinct solution that promotes readability and scales. I feel this pattern achieves all of these objectives well.</p>
+
 <p>I would also recommend trying out some of the suggested advanced utility methods for namespace extension as they really can save you time in the long-run.</p>
 
 
