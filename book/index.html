@@ -6025,92 +6025,27 @@ class Cake{
 
 
 <p>&nbsp;</p>
-<h1 id="designpatternsjquery">Design Patterns With jQuery</h1>
+<h1 id="designpatternsjquery">Design Patterns In jQuery</h1>
+
+
 <p>&nbsp;</p>
-<p>Now that we've taken a look at vanilla-JavaScript implementations of popular design patterns, let's switch gears and find out what of these design patterns might look like when implemented using jQuery. jQuery (as you may know) is currently the most popular JavaScript library and provides a layer of "sugar" on top of regular JavaScript with a syntax that can be easier to understand at a glance.</p>
-<p>Before we dive into this section, it's important to remember that many vanilla-JavaScript design patterns can be intermixed with jQuery when used correctly because jQuery is still essentially JavaScript itself. </p>
-  
-  <p>jQuery is an interesting topic to discuss in the realm of patterns because the library actually uses a number of design patterns itself. &nbsp;What impresses me is just how cleanly all of the patterns it uses have been implemented so that they exist in harmony. </p>
-<p>Let's take a look at what some of these patterns are and how they are used.
+<p>jQuery is currently the most popular JavaScript DOM manipulation library and provides an abstracted layer for interacting with the DOM in a safe, cross-browser manner.Interestigly, the library also serves as an example of how design patterns can be effectively used to create an API which is both readable and easy to use.</p>
+
+<p>Whilst in many cases the core contributors that wrote jQuery didn't set out to use specific patterns, they exist there regardless and are useful to learn from. Let's take a look at what some of these patterns are and how they are used in the API.
 </p>
 
-<h2 id="modulepatternjquery">Module Pattern</h2>
-<p>
-We have already explored the module pattern previously, but in case you've skipped ahead: the <strong>Module Pattern</strong> allows us to encapsulate logic for a unit of code such that we can have both private and public methods and variables. This can be applied to writing jQuery plugins too, where a private API holds any code we don"t wish to expose and a public API contains anything a user will be allowed to interact with. See below for an example:</p>
-<pre  class="brush: js">
-!function( exports, $, undefined ){
 
-    var Plugin = function(){
 
-        // Our private API
-        var priv = {},
-
-            // Our public API
-            Plugin = {},
-
-            // Plugin defaults
-            defaults = {};
-
-        // Private options and methods
-        priv.options = {};
-        priv.method1 = function(){};
-        priv.method2 = function(){};
-
-        // Public methods
-        Plugin.method1 = function(){...};
-        Plugin.method2 = function(){...};
-
-        // Public initialization
-        Plugin.init = function( options ) {
-            $.extend( priv.options, defaults, options );
-            priv.method1();
-            return Plugin;
-        }
-
-        // Return the Public API (Plugin) we want
-        // to expose
-        return Plugin;
-    }
-
-    exports.Plugin = Plugin;
-
-}( this, jQuery );
-</pre>
-</p>
-<p>This can then be used as follows:</p>
-<pre class="brush: js">
-var myPlugin = new Plugin;
-myPlugin.init(/* custom options */);
-myPlugin.method1();
-</pre>
-<p>&nbsp;</p>
-<h2 id="lazyinitialisationjquery">Lazy Initialization</h2>
-<p>
-  <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes (e.g. the creation of objects) until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a function once the DOM is ready.</p>
-<pre class="brush: js">
-$( document ).ready( function () {
-
-    // The ajax request won't attempt to execute until
-    // the DOM is ready
-
-    var jqxhr = $.ajax({
-      url: "http://domain.com/api/",
-      data: "display=latest&order=ascending"
-    })
-    .done( function( data ) ){
-        $(".status").html( "content loaded" );
-        console.log( "Data output:" + data );
-    });
-
-});
-
-</pre>
-</p>
-<p>Whilst it isn't directly used in jQuery core, some developers will be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>. LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g. when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
 <p>&nbsp;</p>
 <h2 id="compositepatternjquery">The Composite Pattern</h2>
 <p>
-  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object may be. Implementing this pattern allows you to treat both individual objects and compositions in a uniform manner. In jQuery, when we're accessing or performing actions on a single DOM element or a collection of elements, we can treat both sets in a uniform manner. This is demonstrated by the code sample below:</p>
+  <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object may be.</p>
+
+  <p>This allows us to treat both individual objects and compositions in a uniform manner, meaning that the same behavior will be applied regardless of whether we're working with one item or a thousand.</p>
+
+  <p>In jQuery, when we're applying methods to an element or collection of elements, we can treat both sets in a uniform manner as both selections return a jQuery object.</p>
+
+  <p>This is demonstrated by the code sample using the jQuery selector below. Here it's possible to add an <code>active</code> class to both selections for a single element (e.g an element with a unique ID) or a group of elements with the same tag name or class, without additional effort:</p>
   
 <pre  class="brush: js">
 // Single elements
@@ -6123,12 +6058,56 @@ $( ".item" ).addClass( "active" );
 $( "input" ).addClass( "active" ); 
   </pre>
 <p>&nbsp;</p>
+
+<p>The jQuery <code>addClass()</code> implementation could either directly use native <em>for</em> loops (or jQuery's <code>jQuery.each()</code>/<code>jQuery.fn.each()</code>) to iterate through a collection in order to apply the method to both single items or groups. Looking through the source we can see this is indeed the case:</p>
+
+<pre class="brush: js">
+    addClass: function( value ) {
+    var classNames, i, l, elem,
+      setClass, c, cl;
+
+    if ( jQuery.isFunction( value ) ) {
+      return this.each(function( j ) {
+        jQuery( this ).addClass( value.call(this, j, this.className) );
+      });
+    }
+
+    if ( value && typeof value === "string" ) {
+      classNames = value.split( rspace );
+
+      for ( i = 0, l = this.length; i < l; i++ ) {
+        elem = this[ i ];
+
+        if ( elem.nodeType === 1 ) {
+          if ( !elem.className && classNames.length === 1 ) {
+            elem.className = value;
+
+          } else {
+            setClass = " " + elem.className + " ";
+
+            for ( c = 0, cl = classNames.length; c < cl; c++ ) {
+              if ( !~setClass.indexOf( " " + classNames[ c ] + " " ) ) {
+                setClass += classNames[ c ] + " ";
+              }
+            }
+            elem.className = jQuery.trim( setClass );
+          }
+        }
+      }
+    }
+
+    return this;
+  }
+</pre>
+
 <h2 id="wrapperpatternjquery"><strong>The Adapter Pattern</strong></h2>
 <p>
-  <strong>The Adapter Pattern</strong> is a pattern which translates an <em>interface </em>for a class into an interface compatible with a specific system. Adapters basically allow classes to function together which normally couldn"t due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
-</p>
-<p>One example of a adapter you may have used is jQuery's <code>$(el).css()</code> method. Not only does it help normalize the interfaces to how styles can be applied between a number of browsers, there are plenty of good examples of this, including opacity.</p>
+  <strong>The Adapter Pattern</strong> translates an <em>interface </em>for an object or class into an interface compatible with a specific system.</p>
 
+  <p>Adapters basically allow objects or classes to function together which normally couldn't due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
+</p>
+
+<p>One example of a adapter we may have used is the jQuery <code>jQuery.fn.css()</code> method. It helps normalize the interfaces to how styles can be applied across a number of browsers, making in trivial for us to use a simple syntax which is adapted to use what the browser actually supports behind the scenes:</p>
 
 <pre  class="brush: js">
 
@@ -6136,12 +6115,68 @@ $( "input" ).addClass( "active" );
 // opacity: 0.9;  Chrome 4+, FF2+, Saf3.1+, Opera 9+, IE9, iOS 3.2+, Android 2.1+ 
 // filter: alpha(opacity=90);  IE6-IE8 
    
+// Setting opacity
 $( ".container" ).css( { opacity: .5 } );
+
+// Getting opacity
+var currentOpacity = $( ".container" ).css('opacity');
 </pre>
 <p>&nbsp;</p>
+
+<p>The corresponding jQuery core cssHook which makes the above possible can be seen below:</p>
+<pre class="brush: js">
+get: function( elem, computed ) {
+  // IE uses filters for opacity
+  return ropacity.test( (
+        computed && elem.currentStyle ? 
+            elem.currentStyle.filter : elem.style.filter) || "" ) ?
+    ( parseFloat( RegExp.$1 ) / 100 ) + "" :
+    computed ? "1" : "";
+},
+
+set: function( elem, value ) {
+  var style = elem.style,
+    currentStyle = elem.currentStyle,
+    opacity = jQuery.isNumeric( value ) ? 
+          "alpha(opacity=" + value * 100 + ")" : "",
+    filter = currentStyle && currentStyle.filter || style.filter || "";
+
+  // IE has trouble with opacity if it does not have layout
+  // Force it by setting the zoom level
+  style.zoom = 1;
+
+  // if setting opacity to 1, and no other filters 
+  //exist - attempt to remove filter attribute #6652
+  if ( value >= 1 && jQuery.trim( filter.replace( ralpha, "" ) ) === "" ) {
+
+    // Setting style.filter to null, "" & " " still leave 
+    // "filter:" in the cssText if "filter:" is present at all, 
+    // clearType is disabled, we want to avoid this style.removeAttribute 
+    // is IE Only, but so apparently is this code path...
+    style.removeAttribute( "filter" );
+
+    // if there there is no filter style applied in a css rule, we are done
+    if ( currentStyle && !currentStyle.filter ) {
+      return;
+    }
+  }
+
+  // otherwise, set new filter values
+  style.filter = ralpha.test( filter ) ?
+    filter.replace( ralpha, opacity ) :
+    filter + " " + opacity;
+}
+};
+</pre>
+
+
 <h2 id="facadepatternjquery">The Facade Pattern</h2>
-<p>
-  As we saw in earlier sections, the <strong>Facade Pattern</strong> is where an object provides a simpler interface to a larger (possibly more complex) body of code. Facades can be frequently found across the jQuery library and make methods both easier to use and understand, but also more readable. The following are facades for jQuery"s <code>$.ajax()</code>:</p>
+
+<p>As we reviewed earlier in the book, the <strong>Facade Pattern</strong> provides a simpler abstracted interface to a larger (potentially more complex) body of code.</p>
+
+<p>Facades can be frequently found across the jQuery library and provide developers easy access to implementations for handling DOM manipulation, animation and of particular interest, cross-browser Ajax.</p>
+
+<p>The following are facades for jQuery"s <code>$.ajax()</code>:</p>
   
 <pre  class="brush: js">
 $.get( url, data, callback, dataType );
@@ -6181,14 +6216,97 @@ $.ajax({
 }).done( callback );
 
 </pre>
-<p>What's even more interesting is that the above facades are actually facades in their own right. You see, <code>$.ajax</code> offers a much simpler interface to a complex body of code that handles cross-browser XHR (XMLHttpRequest) as well as <a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg723713">deferreds</a>. While I could link you to the jQuery source, here's a <a href="https://github.com/ilinsky/xmlhttprequest/blob/master/XMLHttpRequest.js">cross-browser XHR implementation</a> just so you can get an idea of how much easier this pattern makes our lives.</p>
+
+<p>What's even more interesting is that the above facades are actually facades in their own right, hiding a great deal of complexity behind the scenes.</p>
+
+<p>This is because the <code>jQuery.ajax()</code> implementation in jQuery core is a non-trivial piece of code to say the least. At minimum it normalizes the cross-browser differences between XHR (XMLHttpRequest) and makes it trivial for us to perform common HTTP actions (e.g <code>get</code>, <code>post</code> etc), work with Deferreds and so on.</p>
+
+<p>As it would take an entire chapter to show all of the code related to the above facades, here is instead the code in jQuery core normalizing XHR:</p>
+
+<pre class="brush: js">
+// Functions to create xhrs
+function createStandardXHR() {
+  try {
+    return new window.XMLHttpRequest();
+  } catch( e ) {}
+}
+
+function createActiveXHR() {
+  try {
+    return new window.ActiveXObject( "Microsoft.XMLHTTP" );
+  } catch( e ) {}
+}
+
+// Create the request object
+jQuery.ajaxSettings.xhr = window.ActiveXObject ?
+  /* Microsoft failed to properly
+   * implement the XMLHttpRequest in IE7 (can't request local files),
+   * so we use the ActiveXObject when it is available
+   * Additionally XMLHttpRequest can be disabled in IE7/IE8 so
+   * we need a fallback.
+   */
+  function() {
+    return !this.isLocal && createStandardXHR() || createActiveXHR();
+  } :
+  // For all other browsers, use the standard XMLHttpRequest object
+  createStandardXHR;
+  ...
+</pre>
+
+<p>Whilst the following block of code is also a level above the actual jQuery XHR (<code>jqXHR</code>) implementation, it's the convenience facade that we actually most commonly interact with:</p>
+
+<pre class="brush: js">
+    // Request the remote document
+    jQuery.ajax({
+      url: url,
+      type: type,
+      dataType: "html",
+      data: params,
+      // Complete callback (responseText is used internally)
+      complete: function( jqXHR, status, responseText ) {
+        // Store the response as specified by the jqXHR object
+        responseText = jqXHR.responseText;
+        // If successful, inject the HTML into all the matched elements
+        if ( jqXHR.isResolved() ) {
+          // Get the actual response in case
+          // a dataFilter is present in ajaxSettings
+          jqXHR.done(function( r ) {
+            responseText = r;
+          });
+          // See if a selector was specified
+          self.html( selector ?
+            // Create a dummy div to hold the results
+            jQuery("<div>")
+              // inject the contents of the document in, removing the scripts
+              // to avoid any 'Permission Denied' errors in IE
+              .append(responseText.replace(rscript, ""))
+
+              // Locate the specified elements
+              .find(selector) :
+
+            // If not, just inject the full result
+            responseText );
+        }
+
+        if ( callback ) {
+          self.each( callback, [ responseText, status, jqXHR ] );
+        }
+      }
+    });
+
+    return this;
+  }
+</pre>
+
 <p>&nbsp;</p>
 <h2 id="observerpatternjquery">The Observer Pattern</h2>
 <p>
-  Another pattern we've look at previously is the Observer (Publish/Subscribe) pattern, where a subject (the publisher), keeps a list of its dependents (subscribers), and notifies them automatically anytime something interesting happens.
+  Another pattern we reviewed earlier is the Observer (Publish/Subscribe) pattern. This is where the objects in a system may subscribe to other objects and be notified by them when an event of interest occurs.
 </p>
 <p>
-jQuery actually comes with built-in support for a publish/subscribe-like system, which it calls custom events. In earlier versions of the library, access to these custom events was possible using <code>.bind()</code> (subscribe), <code>.trigger()</code> (publish) and <code>.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>.on()</code>, <code>.trigger()</code> and <code>.off()</code>.</p>
+jQuery core has come with built-in support for a publish/subscribe-like system for a few years now, which it refers to as <em>custom events</em>.</p> 
+
+<p>In earlier versions of the library, access to these custom events was possible using <code>jQuery.bind()</code> (subscribe), <code>jQuery.trigger()</code> (publish) and <code>jQuery.unbind()</code> (unsubscribe), but in recent versions this can be done using <code>jQuery.on()</code>, <code>jQuery.trigger()</code> and <code>jQuery.off()</code>.</p>
 <p>
   Below we can see an example of this being used in practice:
 </p>
@@ -6207,7 +6325,58 @@ $( document ).trigger( "topicName" );
 $( document ).off( "topicName" );
   </pre>
 </p>
-<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which gives you access to <code>$.publish()</code>, <code>$.subscribe</code>, and <code>$.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
+
+<p>Calls to <code>jQuery.on()</code> and <code>jQuery.off()</code> eventually go through the jQuery events system. Similar to Ajax, as the implementation for this is relatively long, we can instead look at where and how the actual event handlers for custom events are attached:</p>
+
+
+<pre class="brush: js">
+jQuery.event = {
+
+  add: function( elem, types, handler, data, selector ) {
+
+    var elemData, eventHandle, events,
+      t, tns, type, namespaces, handleObj,
+      handleObjIn, quick, handlers, special;
+
+    ...
+
+    // Init the element's event structure and main handler, 
+    //if this is the first
+    events = elemData.events;
+    if ( !events ) {
+      elemData.events = events = {};
+    }
+    ...
+
+    // Handle multiple events separated by a space
+    // jQuery(...).bind("mouseover mouseout", fn);
+    types = jQuery.trim( hoverHack(types) ).split( " " );
+    for ( t = 0; t < types.length; t++ ) {
+
+      ...
+
+      // Init the event handler queue if we're the first
+      handlers = events[ type ];
+      if ( !handlers ) {
+        handlers = events[ type ] = [];
+        handlers.delegateCount = 0;
+
+        // Only use addEventListener/attachEvent if the special 
+        // events handler returns false
+        if ( !special.setup || special.setup.call( elem, data, 
+        //namespaces, eventHandle ) === false ) {
+          // Bind the global event handler to the element
+          if ( elem.addEventListener ) {
+            elem.addEventListener( type, eventHandle, false );
+
+          } else if ( elem.attachEvent ) {
+            elem.attachEvent( "on" + type, eventHandle );
+          }
+        }
+      }
+</pre>
+
+<p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which provides us access to <code>jQuery.publish()</code>, <code>jQuery.subscribe</code>, and <code>jQuery.unsubscribe</code> methods. I've previously linked to them earlier in the book, but you can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
 (function( $ ) {
@@ -6229,7 +6398,7 @@ $( document ).off( "topicName" );
 }( jQuery ));
 </pre>
 
-<p>Finally, in recent versions of jQuery, a multi-purpose callbacks object (<code>$.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
+<p>In recent versions of jQuery, a multi-purpose callbacks object (<code>jQuery.Callbacks</code>) was made available to enable users to write new solutions based on callback lists. One such solution to write using this feature is another Publish/Subscribe system. An implementation of this is the following:</p>
 <pre  class="brush: js">
 var topics = {};
 
@@ -6277,19 +6446,158 @@ $.Topic( "mailSent" ).publish( "woo! mail!" );
 <p>&nbsp;</p>
 <h2 id="iteratorpatternjquery">The Iterator Pattern</h2>
 <p>
-  <strong>The Iterator Pattern </strong>is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p><p>Iterators encapsulate the internal structure of how that particular iteration occurs - in the case of jQuery's <code>$(el).each()</code> iterator, you are actually able to use the underlying code behind <code>$.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes that"s providing this capability. This is a pattern similar to the facade, except it deals explicitly with iteration.</p>
-<pre  class="brush: js">
+  The Iterator is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p>
 
-$.each(["john","dave","rick","julian"], function( index, value ) { 
+ <p>Iterators encapsulate the internal structure of how that particular iteration occurs. In the case of jQuery's <code>jQuery.fn.each()</code> iterator, we are actually able to use the underlying code behind <code>jQuery.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes providing this capability.</p> 
+
+<p>This is a pattern could be considered a special case of the facade, where we explicitly deal with problems related to iteration.</p>
+
+
+<pre  class="brush: js">
+$.each( ["john","dave","rick","julian"] , function( index, value ) { 
   console.log( index + ": "" + value); 
 });
 
 $( "li" ).each( function ( index ) {
   console.log( index + ": " + $( this ).text());
 });
-  
-  </pre>
+</pre>
+
+
+<p>Here we can see the code for <code>jQuery.fn.each()</code>:</p>
+
+<pre>
+// Execute a callback for every element in the matched set.
+each: function( callback, args ) {
+  return jQuery.each( this, callback, args );
+}
+</pre>
+
+<p>Followed by the code behind <code>jQuery.each()</code> which handles two ways of iterating through objects:</p>
+
+<pre>
+  each: function( object, callback, args ) {
+    var name, i = 0,
+      length = object.length,
+      isObj = length === undefined || jQuery.isFunction( object );
+
+    if ( args ) {
+      if ( isObj ) {
+        for ( name in object ) {
+          if ( callback.apply( object[ name ], args ) === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( ; i < length; ) {
+          if ( callback.apply( object[ i++ ], args ) === false ) {
+            break;
+          }
+        }
+      }
+
+    // A special, fast, case for the most common use of each
+    } else {
+      if ( isObj ) {
+        for ( name in object ) {
+          if ( callback.call( object[ name ], name, object[ name ] ) === false ) {
+            break;
+          }
+        }
+      } else {
+        for ( ; i < length; ) {
+          if ( callback.call( object[ i ], i, object[ i++ ] ) === false ) {
+            break;
+          }
+        }
+      }
+    }
+
+    return object;
+  };
+</pre>
+
 <p>&nbsp;</p>
+<h2 id="lazyinitialisationjquery">Lazy Initialization</h2>
+<p>
+  <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a callback once the DOM is ready.</p>
+
+<pre class="brush: js">
+$( document ).ready( function () {
+
+    // The ajax request won't attempt to execute until
+    // the DOM is ready
+
+    var jqxhr = $.ajax({
+      url: "http://domain.com/api/",
+      data: "display=latest&order=ascending"
+    })
+    .done( function( data ) ){
+        $(".status").html( "content loaded" );
+        console.log( "Data output:" + data );
+    });
+
+});
+
+</pre>
+</p>
+
+<p><code>jQuery.fn.ready()</code> is powered by <code>jQuery.bindReady()</code>, seen below:</p>
+
+<pre class="brush: js">
+  bindReady: function() {
+    if ( readyList ) {
+      return;
+    }
+
+    readyList = jQuery.Callbacks( "once memory" );
+
+    // Catch cases where $(document).ready() is called after the
+    // browser event has already occurred.
+    if ( document.readyState === "complete" ) {
+      // Handle it asynchronously to allow scripts the opportunity to delay ready
+      return setTimeout( jQuery.ready, 1 );
+    }
+
+    // Mozilla, Opera and webkit support this event
+    if ( document.addEventListener ) {
+      // Use the handy event callback
+      document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+
+      // A fallback to window.onload, that will always work
+      window.addEventListener( "load", jQuery.ready, false );
+
+    // If IE event model is used
+    } else if ( document.attachEvent ) {
+      // ensure firing before onload,
+      // maybe late but safe also for iframes
+      document.attachEvent( "onreadystatechange", DOMContentLoaded );
+
+      // A fallback to window.onload, that will always work
+      window.attachEvent( "onload", jQuery.ready );
+
+      // If IE and not a frame
+      // continually check to see if the document is ready
+      var toplevel = false;
+
+      try {
+        toplevel = window.frameElement == null;
+      } catch(e) {}
+
+      if ( document.documentElement.doScroll && toplevel ) {
+        doScrollCheck();
+      }
+    }
+  },
+</pre>
+
+<p>Whilst not directly used in jQuery core, some developers may also be familiar with the concept of LazyLoading via plugins such as <a href="http://www.appelsiini.net/projects/lazyload">this</a>.</p> 
+
+<p>LazyLoading is effectively the same as Lazy initialization and is a technique whereby additional data on a page is loaded when needed (e.g. when a user has scrolled to the end of the page). In recent years this pattern has become quite prominent and can be currently be found in both the Twitter and Facebook UIs.</p>
+
+<p>&nbsp;</p>
+
+
 <h2 id="strategypatternjquery">The Strategy Pattern</h2>
 <p>
   <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.</p>
@@ -6426,7 +6734,7 @@ function clone( obj ) {
 
 
 <p>&nbsp;</p>
-<h1 id="jquerypluginpatterns">Bonus: jQuery Plugin Design Patterns</h1>
+<h1 id="jquerypluginpatterns">jQuery Plugin Design Patterns</h1>
 
 
 <p>While well-known JavaScript design patterns can be extremely useful, another side of development could benefit from its own set of design patterns are jQuery plugins. The official jQuery <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring guide</a> offers a great starting point for getting into writing plugins and widgets, but let’s take it further.</p>
