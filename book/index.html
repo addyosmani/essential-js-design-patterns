@@ -132,13 +132,13 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 
         <li><a href="#designpatternsjquery">Design Patterns With jQuery</a>
         <ul>
-          <li class="subitem"><a href="#modulepatternjquery">Module Pattern</a>
-          <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
+          
           <li class="subitem"><a href="#compositepatternjquery">Composite Pattern</a></li>
-          <li class="subitem"><a href="#wrapperpatternjquery">Wrapper Pattern</a></li>
+          <li class="subitem"><a href="#wrapperpatternjquery">Adapter Pattern</a></li>
           <li class="subitem"><a href="#facadepatternjquery">Facade Pattern</a></li>
           <li class="subitem"><a href="#observerpatternjquery">Observer Pattern</a></li>
           <li class="subitem"><a href="#iteratorpatternjquery">Iterator Pattern</a></li>
+          <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
           <li class="subitem"><a href="#strategypatternjquery">Strategy Pattern</a></li>
           <li class="subitem"><a href="#proxypatternjquery">Proxy Pattern</a></li>
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
@@ -6600,7 +6600,11 @@ $( document ).ready( function () {
 
 <h2 id="strategypatternjquery">The Strategy Pattern</h2>
 <p>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p><p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.</p>
+  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p>
+
+  <p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.</p>
+
+
 <pre  class="brush: js">
 $( "button" ).toggle(function () {
     console.log( "path 1" );
@@ -6611,6 +6615,8 @@ function () {
   </pre>
 </p>
 <p>&nbsp;</p>
+
+
 <h2 id="proxypatternjquery">The Proxy Pattern</h2>
 <p>
   <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate, etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.
@@ -6648,6 +6654,10 @@ $( "button" ).on( "click", function () {
 </pre>
 
 <p>&nbsp;</p>
+
+
+
+
 <h2 id="builderpatternjquery">The Builder Pattern</h2>
 <p>
   <strong>The Builder Pattern</strong>'s general idea is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below are examples of how jQuery utilizes this pattern to allow you to dynamically create new elements.</p>
@@ -6664,6 +6674,10 @@ $( "&lt;input /&gt;" )
 </pre>
 </p>
 <p>&nbsp;</p>
+
+
+
+
 <h2 id="prototypepatternjquery">The Prototype Pattern</h2>
 <p>
   As we've seen, the <strong>Prototype Pattern</strong> is used when objects are created based on a template of an existing object through cloning. Essentially this pattern is used to avoid creating a new object in a more conventional manner where this process may be expensive or overly complex.</p>
