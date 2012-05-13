@@ -130,19 +130,16 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         </ul>
         </li>
 
-        <li><a href="#designpatternsjquery">Design Patterns With jQuery</a>
+        <li><a href="#designpatternsjquery">Design Patterns In jQuery</a>
         <ul>
-          
           <li class="subitem"><a href="#compositepatternjquery">Composite Pattern</a></li>
           <li class="subitem"><a href="#wrapperpatternjquery">Adapter Pattern</a></li>
           <li class="subitem"><a href="#facadepatternjquery">Facade Pattern</a></li>
           <li class="subitem"><a href="#observerpatternjquery">Observer Pattern</a></li>
           <li class="subitem"><a href="#iteratorpatternjquery">Iterator Pattern</a></li>
-          <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialisation</a></li>
-          <li class="subitem"><a href="#strategypatternjquery">Strategy Pattern</a></li>
+          <li class="subitem"><a href="#lazyinitialisationjquery">Lazy Initialization</a></li>
           <li class="subitem"><a href="#proxypatternjquery">Proxy Pattern</a></li>
           <li class="subitem"><a href="#builderpatternjquery">Builder Pattern</a></li>
-          <li class="subitem"><a href="#prototypepatternjquery">Prototype Pattern</a></li>
         </ul>
       </li>
 
@@ -6598,48 +6595,38 @@ $( document ).ready( function () {
 <p>&nbsp;</p>
 
 
-<h2 id="strategypatternjquery">The Strategy Pattern</h2>
-<p>
-  <strong>The Strategy Pattern</strong> is a pattern where a script may select a particular algorithm at runtime. The purpose of this pattern is that it's able to provide a way to clearly define families of algorithms, encapsulate each as an object and make them easily interchangeable. You could say that the biggest benefit this pattern offers is that it allows algorithms to vary independent of the clients that utilize them.</p>
-
-  <p>An example of this is where jQuery's <code>toggle()</code> allows you to bind two or more handlers to the matched elements, to be executed on alternate clicks. The strategy pattern allows for alternative algorithms to be used independent of the client internal to the function.</p>
-
-
-<pre  class="brush: js">
-$( "button" ).toggle(function () {
-    console.log( "path 1" );
-}, 
-function () {
-    console.log( "path 2" );
-});
-  </pre>
-</p>
-<p>&nbsp;</p>
-
 
 <h2 id="proxypatternjquery">The Proxy Pattern</h2>
-<p>
-  <strong>The Proxy Pattern</strong> - a proxy is basically a class that functions as an interface to something else: a file, a resource, an object in memory, something else that is difficult to duplicate, etc. jQuery's <code>.proxy()</code> method takes as input a function and returns a new one that will always have a particular context - it ensures that the value of <code>this</code> in a function is the value you desire. This is parallel to the idea of providing an interface as per the proxy pattern.
-</p>
-<p>
-One example of where this is useful is when you're making use of a timer inside a <code>click</code> handler. Say we have the following handler:
+
+<p>There are times when it is necessary for us to control the access and context behind an object and this is where the Proxy pattern can be useful.</p>
+
+<p>It can help us control when an expensive object should be instantiated, provide advanced ways to reference the object or modify the object to function a particular way in specific contexts. </p>
+
+<p>In jQuery core, a <code>jQuery.proxy()</code> method exists which accepts as input a function and returns a new one which will always have a specific context. This ensures that the value of <code>this</code> within a function is the value we expect.</p>
+
+<p>An example of where this is useful is when we're making use of timers within a <code>click</code> event handler. Imagine we have the following handler prior to adding any timers:</p>
+
 <pre class="brush: js">
 $( "button" ).on( "click", function () {
   // Within this function, "this" refers to the element that was clicked
   $( this ).addClass( "active" );
 });
 </pre>
-<p>However, say we wished to add in a delay before the <code>active</code> class was added. One thought that comes to mind is using <code>setTimeout</code> to achieve this, but There's a slight problem here: whatever function is passed to <code>setTimeout</code> will have a different value for <code>this</code> inside that function (it will refer to <code>window</code> instead).</p>
-</p>
+
+<p>If we wished to add a hard delay before the <code>active</code> class was added, we <em>could</em> use <code>setTimeout()</code> to achieve this. Unfortunately there is a small problem with this solution: whatever function is passed to <code>setTimeout()</code> will have a different value for <code>this</code> within that function. It will instead refer to the <code>window</code> object, which is not what we desire.</p>
+
 <pre class="brush: js">
 $( "button" ).on( "click", function () {
   setTimeout(function () {
     // "this" doesn't refer to our element!
+    // It refers to window
     $( this ).addClass( "active" );
   });
 });
 </pre>
-<p>To solve this problem, we can use <code>$.proxy()</code>. By calling it with the function and value we would like assigned to <code>this</code> it will actually return a function that retains the value we desire. Here's how this would look:</p>
+
+<p>To work around this problem, we can use <code>jQuery.proxy()</code> to implement a type of proxy pattern. By calling it with the function and value we would like assigned to <code>this</code> it will actually return a function that retains the value we desire within the correct context. Here's how this would look:</p>
+
 <pre class="brush: js">
 $( "button" ).on( "click", function () {
 
@@ -6653,14 +6640,50 @@ $( "button" ).on( "click", function () {
 });
 </pre>
 
-<p>&nbsp;</p>
+<p>jQuery's implementation of <code>jQuery.proxy()</code> can be found below:</p>
 
+<pre class="brush: js">
+  // Bind a function to a context, optionally partially applying any
+  // arguments.
+  proxy: function( fn, context ) {
+    if ( typeof context === "string" ) {
+      var tmp = fn[ context ];
+      context = fn;
+      fn = tmp;
+    }
+
+    // Quick check to determine if target is callable, in the spec
+    // this throws a TypeError, but we will just return undefined.
+    if ( !jQuery.isFunction( fn ) ) {
+      return undefined;
+    }
+
+    // Simulated bind
+    var args = slice.call( arguments, 2 ),
+      proxy = function() {
+        return fn.apply( context, args.concat( slice.call( arguments ) ) );
+      };
+
+    // Set the guid of unique handler to the same of original handler, so it can be removed
+    proxy.guid = fn.guid = fn.guid || proxy.guid || jQuery.guid++;
+
+    return proxy;
+  }
+</pre>
 
 
 
 <h2 id="builderpatternjquery">The Builder Pattern</h2>
-<p>
-  <strong>The Builder Pattern</strong>'s general idea is that it abstracts the steps involved in creating objects so that different implementations of these steps have the ability to construct different representations of objects. Below are examples of how jQuery utilizes this pattern to allow you to dynamically create new elements.</p>
+
+<p>When working with the DOM, we often want to construct new elements dynamically - a process which can increase in complexity depending on the final markup, attributes and properties we wish our constructed elements to contain.</p>
+
+<p>Complex elements require special care when being defined, especially if we want the flexibility to either literally define the final markup for our elements (which can get messy) or take a more readable object-oriented route instead. Having a mechanism for building our complex DOM objects that is independent from the objects themselves gives us this flexibility and that is exactly what the Builder pattern provides.</p>
+
+<p>Builders allow us to construct complex objects by only specifying the type and content of the object, sheilding us from the process of creating or representing the object explicitly.</p> 
+
+<p>The jQuery dollar sign allows us to do just this as it provides a number of different means for dynamically building new jQuery (and DOM) objects, by either passing in the complete markup for an element, partial markup and content or using the jQuery for construction:</p>
+
+
 <pre  class="brush: js">
 $( "&lt;div class= "foo"&gt;bar&lt;/div&gt;" );
 
@@ -6675,75 +6698,34 @@ $( "&lt;input /&gt;" )
 </p>
 <p>&nbsp;</p>
 
+<p>Below is a snippet from jQuery core's internal <code>jQuery.prototype</code> method which assists with the construction of jQuery objects from markup passed to the <code>jQuery()</code> selector. Regardless of whether or not <code>document.createElement</code> is used to create a new element, a reference to the element (found or created) is injected into the returned object so further methods such as <code>.attr()</code> can be easily used on it right after.</p>
 
+<pre class="brush: js">
+  // HANDLE: $(html) -> $(array)
+    if ( match[1] ) {
+      context = context instanceof jQuery ? context[0] : context;
+      doc = ( context ? context.ownerDocument || context : document );
 
+      // If a single string is passed in and it's a single tag
+      // just do a createElement and skip the rest
+      ret = rsingleTag.exec( selector );
 
-<h2 id="prototypepatternjquery">The Prototype Pattern</h2>
-<p>
-  As we've seen, the <strong>Prototype Pattern</strong> is used when objects are created based on a template of an existing object through cloning. Essentially this pattern is used to avoid creating a new object in a more conventional manner where this process may be expensive or overly complex.</p>
-</p>
-<p>
-In terms of the jQuery library, your first thought when cloning is mentioned might be the <code>.clone()</code> method. Unfortunately this only clones DOM elements but if we want to clone JavaScript objects, this can be done using the <code>$.extend()</code> method as follows:
-</p>
-<p>
-<pre  class="brush: js">  
-var myOldObject = {};
+      if ( ret ) {
+        if ( jQuery.isPlainObject( context ) ) {
+          selector = [ document.createElement( ret[1] ) ];
+          jQuery.fn.attr.call( selector, context, true );
 
-// Create a shallow copy
-var myNewObject = jQuery.extend( {}, myOldObject );
+        } else {
+          selector = [ doc.createElement( ret[1] ) ];
+        }
 
-// Create a deep copy
-var myOtherNewObject = jQuery.extend( true, {}, myOldObject );
-</pre>
-</p>
-<p>
-This pattern has been used many times in jQuery core (as well as in jQuery plugins) quite successfully. For those wondering what deep cloning might look like in JavaScript without the use of a library, <a href="https://github.com/rwldrn">Rick Waldron</a> has an implementation you can use below (and tests available <a href="http://jsfiddle.net/rwaldron/4SEGz/">here</a>).
-</p>
-
-<pre  class="brush: js">
-function clone( obj ) {
-  var val, 
-      length,
-      temp = [];
-
-  if ( Array.isArray(obj) ) {
-    for ( var i = 0, length = obj.length; i < length; i++ ) {
-      // Store reference to this array item's value
-      val = obj[i];
-
-      // If array item is an object (including arrays), derive new value by cloning
-      if ( typeof val === "object" ) {
-        val = clone( val );
-      }
-      temp[ i ] = val;
-    }
-    return temp;
-  }
-
-  // Create a new object whose prototype is a new, empty object,
-  // Using the second properties object argument to copy the source properties
-  return Object.create({}, ( function( src ) {
-    // Initialize a cache for non-inherited properties
-    var props = {};
-
-    Object.getOwnPropertyNames( src ).forEach(function( name ) {
-      // Store short reference to property descriptor
-      var descriptor = Object.getOwnPropertyDescriptor( src, name );
-
-      // Recurse on properties whose value is an object or array
-      if ( typeof src[ name ] === "object" ) {
-        descriptor.value = clone( src[name] );
+      } else {
+        ret = jQuery.buildFragment( [ match[1] ], [ doc ] );
+        selector = ( ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment ).childNodes;
       }
 
-      props[name] = descriptor;
-
-    });
-    return props;
-  }( obj )));
-}   
+      return jQuery.merge( this, selector );
 </pre>
-
-<p>&nbsp;</p>
 
 
 
