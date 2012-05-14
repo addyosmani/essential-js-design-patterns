@@ -55,9 +55,9 @@
 <p>
 <ul>
 
-<li>Luke Smith (<a href="http://http://lucassmith.name//">http://lucassmith.name</a>, <a href="http://twitter.com/ls_n">@ls_n</a>)</li>
 <li>Nicholas Zakas (<a href="http://nczonline.net/">http://nczonline.net</a>, <a href="http://twitter.com/slicknet">@slicknet</a>)</li>
 <li>Andrée Hansson (<a href="http://andreehansson.se/">http://andreehansson.se</a>, <a href="http://twitter.com/peolanha">@peolanha</a>)</li>
+<li>Luke Smith (<a href="http://http://lucassmith.name//">http://lucassmith.name</a>, <a href="http://twitter.com/ls_n">@ls_n</a>)</li>
 <li>Alex Sexton (<a href="http://alexsexton.com">http://alexsexton.com</a>, <a href="http://twitter.com/slexaxton">@slexaxton</a>)</li>
 </ul>
 </p>
@@ -2045,7 +2045,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 </pre>
 
 <p>
-The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven"t been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
+The Observer pattern is useful for decoupling a number of different scenarios in application design and if you haven't been using it, I recommend picking up one of the pre-written implementations mentioned today and just giving it a try out. It's one of the easier design patterns to get started with but also one of the most powerful.</p>
 <p>&nbsp;</p>
 
 
@@ -6733,27 +6733,30 @@ $( "&lt;input /&gt;" )
 <h1 id="jquerypluginpatterns">jQuery Plugin Design Patterns</h1>
 
 
-<p>While well-known JavaScript design patterns can be extremely useful, another side of development could benefit from its own set of design patterns are jQuery plugins. The official jQuery <a href="http://docs.jquery.com/Plugins/Authoring">plugin authoring guide</a> offers a great starting point for getting into writing plugins and widgets, but let’s take it further.</p>
+<p>jQuery plugin development has evolved over the past few years. We no longer have just one way to write plugins, but many. In reality, certain plugin design patterns might work better for a particular problem or component than others.</p>
 
-<p>Plugin development has evolved over the past few years. We no longer have just one way to write plugins, but many. In reality, certain patterns might work better for a particular problem or component than others.</p>
+<p>Some developers may wish to use the jQuery UI <a href="http://ajpiano.com/widgetfactory/">widget factory</a>; it’s great for complex, flexible UI components. Some may not.</p> 
 
-<p>Some developers may wish to use the jQuery UI <a href="http://ajpiano.com/widgetfactory/">widget factory</a>; it’s great for complex, flexible UI components. Some may not. Some might like to structure their plugins more like modules (similar to the module pattern) or use a more formal module format such as <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD (asynchronous module definition)</a>. Some might want their plugins to harness the power of prototypal inheritance. Some might want to use custom events or pub/sub to communicate from plugins to the rest of their app. And so on.</p>
+<p>Some might like to structure their plugins more like modules (similar to the module pattern) or use a more modern module format such as <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>.</p> 
+
+<p>Some might want their plugins to harness the power of prototypal inheritance. Others may wish to use custom events or Publish/Subscribe to communicate from plugins to the rest of their app. And so on.</p>
 
 <p>I began to think about plugin patterns after noticing a number of efforts to create a one-size-fits-all jQuery plugin boilerplate. While such a boilerplate is a great idea in theory, the reality is that we rarely write plugins in one fixed way, using a single pattern all the time.</p>
 
-<p>Let’s assume that you’ve tried your hand at writing your own jQuery plugins at some point and you’re comfortable putting together something that works. It’s functional. It does what it needs to do, but perhaps you feel it could be structured better. Maybe it could be more flexible or could solve more issues. If this sounds familiar and you aren’t sure of the differences between many of the different jQuery plugin patterns, then you might find what I have to say helpful.</p>
+<p>Let us assume that you’ve tried your hand at writing your own jQuery plugins at some point and you’re comfortable putting together something that works. It’s functional. It does what it needs to do, but perhaps you feel it could be structured better. Maybe it could be more flexible or could solve more issues. If this sounds familiar and you aren’t sure of the differences between many of the different jQuery plugin patterns, then you might find this chapter useful.</p>
 
-<p>My advice won’t provide solutions to every possible pattern, but it will cover popular patterns that developers use in the wild.</p>
 
-<p><strong>Note:</strong> This section is targeted at intermediate to advanced developers. If you don’t feel you’re ready for this just yet, I’m happy to recommend the official jQuery <a href="http://docs.jquery.com/Plugins/Authoring">Plugins/Authoring</a> guide, Ben Alman’s <a href="http://msdn.microsoft.com/en-us/scriptjunkie/ff696759">plugin style guide</a> and Remy Sharp’s “<a href="http://remysharp.com/2010/06/03/signs-of-a-poorly-written-jquery-plugin/">Signs of a Poorly Written jQuery Plugin</a>.”</p>
+<p><strong>Note:</strong> This chapter is targeted at intermediate to advanced developers, although we will briefly review some jQuery plugin fundamentals to begin.
+
+<p>If you don’t feel quite ready for this just yet, I’m happy to recommend the official jQuery <a href="http://docs.jquery.com/Plugins/Authoring">Plugins/Authoring</a> guide, Ben Alman’s <a href="http://msdn.microsoft.com/en-us/scriptjunkie/ff696759">plugin style guide</a> and Remy Sharp’s “<a href="http://remysharp.com/2010/06/03/signs-of-a-poorly-written-jquery-plugin/">Signs of a Poorly Written jQuery Plugin</a>.” as reading material prior to starting this section.</p>
 
 <h3>Patterns</h3>
 
-<p>jQuery plugins have very few defined rules, which one of the reasons for the incredible diversity in how they’re implemented. At the most basic level, you can write a plugin simply by adding a new function property to jQuery’s <code>$.fn</code> object, as follows:</p>
+<p>jQuery plugins have few concrete rules, which one of the reasons for the incredible diversity in how they are implemented across the community. At the most basic level, we can write a plugin simply by adding a new function property to jQuery’s <code>jQuery.fn</code> object, as follows:</p>
 
 <pre class="brush: js">
 $.fn.myPluginName = function () {
-    // your plugin logic
+    // our plugin logic
 };
 </pre>
 
@@ -6762,14 +6765,14 @@ $.fn.myPluginName = function () {
 <pre class="brush: js">
 (function( $ ){
   $.fn.myPluginName = function () {
-    // your plugin logic
+    // our plugin logic
   };
 })( jQuery );
 </pre>
 
-<p>Here, we’ve wrapped our plugin logic in an anonymous function. To ensure that our use of the <code>$</code> sign as a shorthand creates no conflicts between jQuery and other JavaScript libraries, we simply pass it to this closure, which maps it to the dollar sign, thus ensuring that it can’t be affected by anything outside of its scope of execution.</p>
+<p>Here, we’ve wrapped our plugin logic in an anonymous function. To ensure that our use of the <code>$</code> sign as a shorthand creates no conflicts between jQuery and other JavaScript libraries, we simply pass it to this closure, which maps it to the dollar sign. This ensures that it can’t be affected by anything outside of its scope of execution.</p>
 
-<p>An alternative way to write this pattern would be to use <code>$.extend</code>, which enables you to define multiple functions at once and which sometimes make more sense semantically:</p>
+<p>An alternative way to write this pattern would be to use <code>jQuery.extend()</code>, which enables us to define multiple functions at once and which sometimes make more sense semantically:</p>
 
 <pre class="brush: js">
 (function( $ ){
@@ -6781,22 +6784,24 @@ $.fn.myPluginName = function () {
 })( jQuery );
 </pre>
 
-<p>We could do a lot more to improve on all of this; and the first complete pattern we’ll be looking at today, the lightweight pattern, covers some best-practices that we can use for basic everyday plugin development and that takes into account common gotchas to look out for.</p>
+<p>We have now reviewed some jQuery plugin fundamentals, but a lot more could be done to take this further. <em>A Lightweight Start</em> is the first complete plugin design pattern we’ll be exploring and it covers some best-practices that we can use for basic everyday plugin development, taking into account common gotchas worth applying.</p>
 
 <h4>Note</h4>
 
-<p>While most of the patterns below will be explained, I recommend reading through the comments in the code, because they will offer more insight into why certain practices are best. </p>
+<p>While most of the patterns below will be explained, I recommend reading through the comments in the code, because they will offer more insight into why certain best practices are applied. </p>
 
 <p>I should also mention that none of this would be possible without the previous work, input and advice of other members of the jQuery community. I’ve listed them inline with each pattern so that you can read up on their individual work if interested.</p>
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>A Lightweight Start</h3>
+<h3>'A Lightweight Start' Pattern</h3>
 
-<p>Let’s begin our look at patterns with something basic that follows best-practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). This lightweight start uses the following:</p>
+<p>Let’s begin our deeper look at plugin patterns with something basic that follows best-practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). <em>A Lightweight Start</em> uses the following:</p>
 
 <ul>
-<li>Common best-practices, such as a semi-colon before the function’s invocation; <code>window, document, undefined</code> passed in as arguments; and adherence to the jQuery core style guidelines.</li>
+<li>Common best-practices such as a semi-colon placed before the functions invocation (we'll go through why in the comments below)</li> 
+
+<li><code>window, document, undefined</code> passed in as arguments.</li>
 
 <li>A basic defaults object.</li>
 
@@ -6805,6 +6810,8 @@ $.fn.myPluginName = function () {
 <li>Extending the options with defaults.</li>
 
 <li>A lightweight wrapper around the constructor, which helps to avoid issues such as multiple instantiations.</li>
+
+<li>Adherence to the jQuery core style guidelines for maximized readability.</li>
 </ul>
 
 <pre class="brush: js">
@@ -6902,23 +6909,18 @@ $("#elem").defaultPluginName({
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>“Complete” Widget Factory</h3>
+<h3>“Complete” Widget Factory Pattern</h3>
 
-<p>While the authoring guide is a great introduction to plugin development, it doesn't offer a great number of conveniences for obscuring away from common plumbing tasks that we have to deal with on a regular basis.</p>
+<p>While the jQuery plugin authoring guide is a great introduction to plugin development, it doesn't help obscure away common plugin plumbing tasks that we have to deal with on a regular basis.</p>
 
-<p>The jQuery UI Widget Factory is a solution to this problem that helps you build complex, stateful plugins based on object-oriented principles. It also eases communication with your plugin’s instance, obfuscating a number of the repetitive tasks that you would have to code when working with basic plugins.</p>
+<p>The jQuery UI Widget Factory is a solution to this problem that helps you build complex, stateful plugins based on object-oriented principles. It also eases communication with our plugins instance, obfuscating a number of the repetitive tasks that we would have to code when working with basic plugins.</p>
 
-<p>In case you haven"t come across these before, stateful plugins keep track of their current state, also allowing you to change properties of the plugin after it has been initialized.</p>
+<p>Stateful plugins help us keep track of their current state, also allowing us to change properties of the plugin after it has been initialized.</p>
 
-<p>One of the great things about the Widget Factory is that the majority of the jQuery UI library actually uses it as a base for its components. This means that if you’re looking for further guidance on structure beyond this template, you won’t have to look beyond the jQuery UI repository.</p>
+<p>One of the great things about the Widget Factory is that the majority of the jQuery UI library actually uses it as a base for its components. This means that if we’re looking for further guidance on structure beyond this pattern, we won’t have to look beyond the jQuery UI repository on GitHub (<a href="https://github.com/jquery/jquery-ui">https://github.com/jquery/jquery-ui</a>).</p>
 
-<p>Back to patterns. This jQuery UI boilerplate does the following:</p>
+<p>This jQuery UI Widget Factory pattern covers almost all of the supported default factory methods, including triggering events. As per the last pattern, comments are included for all of the methods used and further guideance is given in the inline comments.</p>
 
-<ul>
-<li>Covers almost all supported default methods, including triggering events.</li>
-
-<li>Includes comments for all of the methods used, so that you’re never unsure of where logic should fit in your plugin.</li>
-</ul>
 
 <pre class="brush: js">
 /*!
@@ -7034,13 +7036,13 @@ collection.widgetName("methodB");
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
-<h3>Namespacing And Nested Namespacing</h3>
+<h3>Nested Namespacing Plugin Pattern</h3>
 
-<p>Namespacing your code is a way to avoid collisions with other objects and variables in the global namespace. They’re important because you want to safeguard your plugin from breaking in the event that another script on the page uses the same variable or plugin names as yours. As a good citizen of the global namespace, you must also do your best not to prevent other developer's scripts from executing because of the same issues.</p>
+<p>As we've previously covered in the book, namespacing our code is a way to avoid collisions with other objects and variables in the global namespace. They’re important because we want to safeguard our plugin from breaking in the event that another script on the page uses the same variable or plugin names as ours. As a good citizen of the global namespace, we must also do our best not to prevent other developers scripts from executing because of the same issues.</p>
 
-<p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of your namespace, you can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
+<p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of your namespace, we can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
 
-<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should give you everything you need to get started with these concepts.</p>
+<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should us everything you need to get started with these concepts.</p>
 
 <pre class="brush: js">
 /*!
@@ -7120,13 +7122,13 @@ $("#elem").mynamespace_myPluginName({
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>Custom Events For Pub/Sub (With The Widget factory)</h3>
+<h3>Custom Events Plugin Pattern (With The Widget factory)</h3>
 
-<p>You may have used the Observer (Pub/Sub) pattern in the past to develop asynchronous JavaScript web applications. The basic idea here is that elements will publish event notifications when something interesting occurs in your application. Other elements then subscribe to or listen for these events and respond accordingly. This results in the logic for your application being significantly more decoupled (which is always good).</p>
+<p>In the <em>JavaScript Design Patterns</em> section of the book, we discussed the Observer pattern and later went on to cover jQuery's support for custom events, which offer a similar solution for implementing Publish/Subscribe. This same pattern can be used when writing jQuery plugins.</p>
 
-<p>In jQuery, we have this idea that custom events provide a built-in means to implement a publish and subscribe system that’s quite similar to the Observer pattern. So, <code>bind("eventType")</code> is functionally equivalent to performing <code>subscribe("eventType")</code>, and <code>trigger("eventType")</code> is roughly equivalent to <code>publish("eventType")</code>.</p>
+<p>The basic idea here is that objects in a page can publish event notifications when something interesting occurs in our application. Other objects then subscribe to (or listen) for these events and respond accordingly. This results in the logic for our application being significantly more decoupled, as each object no longer needs to directly communicate with another.</p>
 
-<p>Some developers might consider the jQuery event system as having too much overhead to be used as a publish and subscribe system, but it’s been architected to be both reliable and robust for most use cases. In the following jQuery UI widget factory template, we’ll implement a basic custom event-based pub/sub pattern that allows our plugin to subscribe to event notifications from the rest of our application, which publishes them.</p>
+<p>In the following jQuery UI widget factory pattern, we’ll implement a basic custom event-based Publish/Subscribe system that allows our plugin to subscribe to event notifications from the rest of our application, which will be responsible for publishing them.</p>
 
 <pre class="brush: js">
 /*!
@@ -7154,17 +7156,17 @@ $("#elem").mynamespace_myPluginName({
             //self.element.addClass( "my-widget" );
 
             //subscribe to "myEventStart"
-            self.element.bind( "myEventStart", function( e ) {
+            self.element.on( "myEventStart", function( e ) {
                 console.log( "event start" );
             });
 
             //subscribe to "myEventEnd"
-            self.element.bind( "myEventEnd", function( e ) {
+            self.element.on( "myEventEnd", function( e ) {
                 console.log( "event end" );
             });
 
             //unsubscribe to "myEventStart"
-            //self.element.unbind( "myEventStart", function(e){
+            //self.element.off( "myEventStart", function(e){
                 ///console.log( "unsubscribed to this event" ); 
             //});
         },
@@ -7198,11 +7200,15 @@ el.eventStatus().trigger( "myEventStart" );
 <p>&nbsp;</p>
 <h3>Prototypal Inheritance With The DOM-To-Object Bridge Pattern</h3>
 
-<p>In JavaScript, we don’t have the traditional notion of classes that you would find in other classical programming languages, but we do have prototypal inheritance. With prototypal inheritance, an object inherits from another object. And we can apply this concept to jQuery plugin development.</p>
+<p>As covered earlier, in JavaScript, we don’t have the traditional notion of classes that we would find in other classical programming languages, but we do have prototypal inheritance. With prototypal inheritance, an object inherits from another object. We can apply this concept to jQuery plugin development.</p>
 
-<p><a href="http://alexsexton.com/">Alex Sexton</a> and <a href="http://scottgonzalez.com/">Scott Gonzalez</a> have looked at this topic in detail. In sum, they found that for organized modular development, clearly separating the object that defines the logic for a plugin from the plugin-generation process itself can be beneficial. The benefit is that testing your plugin’s code becomes easier, and you can also adjust the way things work behind the scenes without altering the way that any object APIs you’ve implemented are used.</p>
+<p>Yepnope.js author <a href="http://alexsexton.com/">Alex Sexton</a> and jQuery team member <a href="http://scottgonzalez.com/">Scott Gonzalez</a> have looked at this topic in detail. In sum, they discovered that for organized modular development, clearly separating the object that defines the logic for a plugin from the plugin-generation process itself can be beneficial.</p> 
 
-<p>In Sexton’s previous post on this topic, he implements a bridge that enables you to attach your general logic to a particular plugin, which we’ve implemented in the template below. Another advantage of this pattern is that you don’t have to constantly repeat the same plugin initialization code, thus ensuring that the concepts behind DRY development are maintained. Some developers might also find this pattern easier to read than others.</p>
+<p>The benefit is that testing our plugins code becomes significantly easier and we are also able to adjust the way things work behind the scenes without altering the way that any object APIs we implement are used.</p>
+
+<p>In Sexton’s article on this topic, he implemented a bridge that enables us to attach our general logic to a particular plugin, which we’ve implemented in the pattern below.</p>
+
+<p>One of the other advantages of this pattern is that we don’t have to constantly repeat the same plugin initialization code, thus ensuring that the concepts behind DRY development are maintained. Some developers might also find this pattern easier to read than others.</p>
 
 <pre class="brush: js">
 /*!
@@ -7294,23 +7300,25 @@ collection.myMethod( "I am a method");
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>jQuery UI Widget Factory Bridge</h3>
+<h3>jQuery UI Widget Factory Bridge Pattern</h3>
 
-<p>If you liked the idea of generating plugins based on objects in the last design pattern, then you might be interested in a method found in the jQuery UI Widget Factory called <code>$.widget.bridge</code>. This bridge basically serves as a middle layer between a JavaScript object that is created using <code>$.widget</code> and jQuery’s API, providing a more built-in solution to achieving object-based plugin definition. Effectively, we’re able to create stateful plugins using a custom constructor.</p>
+<p>If you liked the idea of generating plugins based on objects in the last design pattern, then you might be interested in a method found in the jQuery UI Widget Factory called <code>$.widget.bridge</code>.</p>
 
-<p>Moreover, <code>$.widget.bridge</code> provides access to a number of other capabilities, including the following:</p>
+<p>This bridge basically serves as a middle layer between a JavaScript object that is created using <code>$.widget</code> and the jQuery core API, providing a more built-in solution to achieving object-based plugin definition. Effectively, we’re able to create stateful plugins using a custom constructor.</p>
+
+<p>Moreover,<code>$.widget.bridge</code> provides access to a number of other capabilities, including the following:</p>
 
 <ul>
-<li>Both public and private methods are handled as one would expect in classical OOP (i.e. public methods are exposed, while calls to private methods are not possible);</li>
+<li>Both public and private methods are handled as one would expect in classical OOP (i.e. public methods are exposed, while calls to private methods are not possible).</li>
 
-<li>Automatic protection against multiple initializations;</li>
+<li>Automatic protection against multiple initializations.</li>
 
-<li>Automatic generation of instances of a passed object, and storage of them within the selection’s internal <code>$.data</code> cache;</li>
+<li>Automatic generation of instances of a passed object, and storage of them within the selection’s internal <code>$.data</code> cache.</li>
 
 <li>Options can be altered post-initialization.</li>
 </ul>
 
-<p>For further information on how to use this pattern, look at the comments in the boilerplate below:</p>
+<p>For further information on how to use this pattern, please see the inline comments below:</p>
 
 <pre class="brush: js">
 /*!
@@ -7421,18 +7429,20 @@ instance.foo("_privateFunction");
 <p>&nbsp;</p>
 <h3>jQuery Mobile Widgets With The Widget factory</h3>
 
-<p>jQuery mobile is a framework that encourages the design of ubiquitous Web applications that work both on popular mobile devices and platforms and on the desktop. Rather than writing unique applications for each device or OS, you simply write the code once and it should ideally run on many of the A-, B- and C-grade browsers out there at the moment.</p>
+<p>jQuery mobile is a jQuery project framework that encourages the design of ubiquitous web applications that work both on popular mobile devices and platforms and on the desktop. Rather than writing unique applications for each device or OS, we simply write the code once and it should ideally run on many of the A-, B- and C-grade browsers out there at the moment.</p>
 
-<p>The fundamentals behind jQuery mobile can also be applied to plugin and widget development, as seen in some of the core jQuery mobile widgets used in the official library suite. What’s interesting here is that even though there are very small, subtle differences in writing a “mobile”-optimized widget, if you’re familiar with using the jQuery UI Widget Factory, you should be able to start writing these right away.</p>
+<p>The fundamentals behind jQuery mobile can also be applied to plugin and widget development.</p> 
+
+<p>What’s interesting in this next pattern is that although there are small, subtle differences in writing a “mobile”-optimized widget, those familiar with using the jQuery UI Widget Factory pattern from earlier should be able to grasp this in next to no time.</p>
 
 <p>The mobile-optimized widget below has a number of interesting differences than the standard UI widget pattern we saw earlier:</p>
 
 <ul>
 <li><code>$.mobile.widget</code> is referenced as an existing widget prototype from which to inherit. For standard widgets, passing through any such prototype is unnecessary for basic development, but using this jQuery-mobile specific widget prototype provides internal access to further “options” formatting.</li>
 
-<li>You’ll notice in <code>_create()</code> a guide on how the official jQuery mobile widgets handle element selection, opting for a role-based approach that better fits the jQM mark-up. This isn’t at all to say that standard selection isn’t recommended, only that this approach might make more sense given the structure of jQM pages.</li>
+<li>In <code>_create()</code>, a guide is provided on how the official jQuery mobile widgets handle element selection, opting for a role-based approach that better fits the jQM mark-up. This isn’t at all to say that standard selection isn’t recommended, only that this approach might make more sense given the structure of jQuery Mobile pages.</li>
 
-<li>Guidelines are also provided in comment form for applying your plugin methods on <code>pagecreate</code> as well as for selecting the plugin application via data roles and data attributes.</li>
+<li>Guidelines are also provided in comment form for applying our plugin methods on <code>pagecreate</code> as well as for selecting the plugin application via data roles and data attributes.</li>
 </ul>
 
 <pre class="brush: js">
@@ -7537,10 +7547,10 @@ var instance = $( "#foo" ).widgetName({
 instance.widgetName( "methodB" );
 </pre></p>
 
-<p>We can also self-initialize this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's "page" plugin dispatches a "create" event when a jQuery Mobile page (found via data-role=page attr) is first initialized.We can listen for that event (called "pagecreate" ) and run our plugin automatically whenever a new page is created.</p>
+<p>We can also self-initialize this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's <em>page</em> plugin dispatches a <em>create</em> event when a jQuery Mobile page (found via the <code>data-role="page"</code> attribute) is first initialized. We can listen for that event (called "pagecreate" ) and run our plugin automatically whenever a new page is created.</p>
 
 <p><pre class="brush: js">
-$(document).bind("pagecreate", function ( e ) {
+$(document).on("pagecreate", function ( e ) {
     // In here, e.target refers to the page that was created 
     // (it's the target of the pagecreate event)
     // So, we can simply find elements on this page that match a 
@@ -7555,23 +7565,25 @@ $(document).bind("pagecreate", function ( e ) {
 });
 </pre></p>
 
-<p>That's it. Now you can simply reference the script containing your widget and pagecreate binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
+<p>We can now simply reference the script containing your widget and <code>pagecreate</code> binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
+
 <h3>RequireJS And The jQuery UI Widget Factory</h3>
 
-<p>RequireJS is a script loader that provides a clean solution for encapsulating application logic inside manageable modules. It’s able to load modules in the correct order (through its order plugin); it simplifies the process of combining scripts via its excellent optimizer; and it provides the means for defining module dependencies on a per-module basis.</p>
+<p>As we covered in the section on <em>Modern Module Design Patterns</em>, RequireJS is an AMD-compatible script loader that provides a clean solution for encapsulating application logic inside manageable modules.</p>
 
-<p>James Burke has written a comprehensive set of tutorials on getting started with RequireJS. But what if you’re already familiar with it and would like to wrap your jQuery UI widgets or plugins in a RequireJS-compatible module wrapper?.</p>
+<p>It’s able to load modules in the correct order (through its order plugin), simplifies the process of combining scripts via its excellent r.js optimizer and provides the means for defining dynamic dependencies on a per-module basis.</p>
 
-<p>In the boilerplate pattern below, we demonstrate how a compatible widget can be defined that does the following:</p>
+<p>In the boilerplate pattern below, we demonstrate how an AMD (and thus RequireJS) compatible jQuery UI widget can be defined that does the following:</p>
 
 <ul>
-<li>Allows the definition of widget module dependencies, building on top of the previous jQuery UI boilerplate presented earlier;</li>
+<li>Allows the definition of widget module dependencies, building on top of the previous jQuery UI Widget Factory pattern presented earlier.</li>
 
-<li>Demonstrates one approach to passing in HTML template assets for creating templated widgets with jQuery (in conjunction with the jQuery tmpl plugin) (View the comments in <code>_create()</code>.)</li>
+<li>Demonstrates one approach to passing in HTML template assets for creating templated widgets (using Underscore.js micro-templating).</li>
 
-<li>Includes a quick tip on adjustments that you can make to your widget module if you wish to later pass it through the RequireJS optimizer</li>
+<li>Includes a quick tip on adjustments that we can make to our widget module if we wish to later pass it through to the RequireJS optimizer.</li>
 </ul>
 
 <pre class="brush: js">
@@ -7592,10 +7604,10 @@ $(document).bind("pagecreate", function ( e ) {
 //    - asset.html 
 // - ao.myWidget.js 
 
-// Then you can construct the widget like so: 
+// Then you can construct the widget as follows: 
 
 // ao.myWidget.js file: 
-define( "ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom.min","jquery.tmpl"], function ( $, assetHtml ) {
+define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jquery-ui.custom.min"], function ( $, assetHtml, _ ) {
 
     // define your widget under a namespace of your choice
     // "ao" is used here as a demonstration 
@@ -7616,8 +7628,12 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom
             // this.options
 
             // this.element.addStuff();
-            // this.element.addStuff();
-            // this.element.tmpl(assetHtml).appendTo(this.content); 
+            // this.element.addStuff(); 
+
+            // We can then use Underscore templating with
+            // with the assetHtml that has been pulled in
+            // var template = _.template( assetHtml );
+            // this.content.append( template({}) );
         },
 
         // Destroy an instantiated plugin and clean up modifications 
@@ -7665,8 +7681,6 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "jquery-ui.custom
             //this._super( "_setOption", key, value );
         }
 
-        //somewhere assetHtml would be used for templating, depending 
-        // on your choice.
     }); 
 }); 
 
@@ -7716,9 +7730,9 @@ function (req, $) {
 <p>&nbsp;</p>
 <h3>Globally And Per-Call Overridable Options (Best Options Pattern)</h3>
 
-<p>For our next pattern, we’ll look at an optimal approach to configuring options and defaults for your plugin. The way you’re probably familiar with defining plugin options is to pass through an object literal of defaults to <code>$.extend</code>, as demonstrated in our basic plugin boilerplate.</p>
+<p>For our next pattern, we’ll look at an optimal approach to configuring options and defaults for a plugin. The way most of us are probably familiar with defining plugin options is to pass through an object literal of defaults to <code>$.extend()</code>, as demonstrated in our basic plugin boilerplate.</p>
 
-<p>If, however, you’re working with a plugin with many customizable options that you would like users to be able to override either globally or on a per-call level, then you can structure things a little differently.</p>
+<p>If, however, we’re working with a plugin with many customizable options that we would like users to be able to override either globally or on a per-call level, then we can structure things a little more optimally.</p>
 
 <p>Instead, by referring to an options object defined within the plugin namespace explicitly (for example, <code>$fn.pluginName.options</code>) and merging this with any options passed through to the plugin when it is initially invoked, users have the option of either passing options through during plugin initialization or overriding options outside of the plugin (as demonstrated here).</p>
 
@@ -7786,21 +7800,21 @@ $("#elem").pluginName({
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h3>A Highly Configurable And Mutable Plugin</h3>
+<h3>A Highly Configurable And Mutable Plugin Pattern</h3>
 
-<p>Like Alex Sexton’s pattern, the following logic for our plugin isn’t nested in a jQuery plugin itself. We instead define our plugin’s logic using a constructor and an object literal defined on its prototype, using jQuery for the actual instantiation of the plugin object.</p>
+<p>In this pattern, similar to Alex Sexton's prototypal inheritance plugin pattern, logic for our plugin isn’t nested in a jQuery plugin itself. We instead define our plugin logic using a constructor and an object literal defined on its prototype. jQuery is then used for the actual instantiation of the plugin object.</p>
 
-<p>Customization is taken to the next level by employing two little tricks, one of which you’ve seen in previous patterns:</p>
+<p>Customization is taken to the next level by employing two little tricks, one of which we’ve seen in previous patterns:</p>
 
 <ul>
-<li>Options can be overridden both globally and per collection of elements;</li>
+<li>Options can be overridden both globally and per collection of elements/</li>
 
 <li>Options can be customized on a <strong>per-element</strong> level through HTML5 data attributes (as shown below). This facilitates plugin behavior that can be applied to a collection of elements but then customized inline without the need to instantiate each element with a different default value. </li>
 </ul>
 
-<p>You don’t see the latter option in the wild too often, but it can be a significantly cleaner solution (as long as you don’t mind the inline approach). If you’re wondering where this could be useful, imagine writing a draggable plugin for a large set of elements. You could go about customizing their options like this:</p>
+<p>We don’t see the latter option in the wild too often, but it can be a significantly cleaner solution (as long as we don’t mind the inline approach). If you’re wondering where this could be useful, imagine writing a draggable plugin for a large set of elements. We could go about customizing their options as follows:</p>
 
-<pre class="brush: js">javascript
+<pre class="brush: js">
 $( ".item-a" ).draggable( {"defaultPosition":"top-left"} );
 $( ".item-b" ).draggable( {"defaultPosition":"bottom-right"} );
 $( ".item-c" ).draggable( {"defaultPosition":"bottom-left"} );
@@ -7809,7 +7823,7 @@ $( ".item-c" ).draggable( {"defaultPosition":"bottom-left"} );
 
 <p>But using our patterns inline approach, the following would be possible:</p>
 
-<pre class="brush: js">javascript
+<pre class="brush: js">
 $( ".items" ).draggable();
 </pre>
 
@@ -7912,13 +7926,15 @@ $("#elem").plugin({
 
 <h3>What Makes A Good Plugin Beyond Patterns?</h3>
 
-<p>At the end of the day, patterns are just one aspect of plugin development. And before we wrap up, here are my criteria for selecting third-party plugins, which will hopefully help developers write them.</p>
+<p>At the end of the day, design patterns are just one aspect of successfully writing maintainable plugins. There are a number of other aspects worth considering and I would like to share my own criteria for selecting third-party plugins to address some of the other aspects. I hope this helps increase the overall quality of your plugin projects:</p>
 
 <p><strong>Quality</strong><br />
-Do your best to adhere to best-practices with both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+Do your best to adhere to best-practices with respect both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
 
 <p><strong>Compatibility</strong><br />
-Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release. New versions of jQuery offer improvements and opportunities for the jQuery project to improve on what the core library offers. With this comes occasional breakages (mainly in major releases) as we move towards a better way of doing things. I’d like to see plugin authors update their code when necessary or, at a minimum, test their plugins with new versions to make sure everything works as expected.</p>
+Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release.</p> 
+
+<p>New versions of jQuery offer improvements and opportunities for the jQuery project to improve on what the core library offers. With this comes occasional breakages (mainly in major releases) as we move towards a better way of doing things. I’d like to see plugin authors update their code when necessary or, at a minimum, test their plugins with new versions to make sure everything works as expected.</p>
 
 <p><strong>Reliability</strong><br />
 Your plugin should come with its own set of unit tests. Not only do these prove your plugin actually works, but they can also improve the design without breaking it for end users. I consider unit tests essential for any serious jQuery plugin that is meant for a production environment, and they’re not that hard to write. For an excellent guide to automated JavaScript testing with QUnit, you may be interested in “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg749824">Automating JavaScript Testing With QUnit</a>,” by <a href="http://bassistance.de/">Jorn Zaefferer</a>.</p>
@@ -7932,9 +7948,11 @@ If you intend for other developers to use your plugin, ensure that it’s well d
 <p><strong>Likelihood of maintenance</strong><br />
 When releasing a plugin, estimate how much time you’ll have to devote to maintenance and support. We all love to share our plugins with the community, but you need to set expectations for your ability to answer questions, address issues and make improvements. This can be done simply by stating your intentions for maintenance in the <em>README</em> file, and let users decide whether to make fixes themselves.</p>
 
-<p>In this section, we’ve explored several time-saving design patterns and best-practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope that the code comments that discuss the ins and outs of these variations on popular plugins and widgets were useful.</p>
+<h2>Conclusions</h2>
 
-<p>Remember, when selecting a pattern, be practical. Don’t use a plugin pattern just for the sake of it; rather, spend some time understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. Choose the pattern that best suits your needs.</p>
+<p>In this chapter, we explored several time-saving design patterns and best-practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope on the whole these patterns are useful.</p>
+
+<p>Remember, when selecting a pattern, be practical. Don’t use a plugin pattern just for the sake of it; rather, spend some time understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. </p>
 
 
 
