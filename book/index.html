@@ -170,7 +170,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
     <h1 id="whatisapattern">What is a Pattern?</h1>
     <p>A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript web applications. Another way of looking at patterns are as templates for how you solve problems - ones which can be used in quite a few different situations.</p>
 
-    <p>So, why is it important to understand patterns and be familiar with them?. Design patterns have three main benefits: </p>
+    <p>So, why is it important to understand patterns and be familiar with them? Design patterns have three main benefits: </p>
     <ol start="1" type="1">
       <ol>
         <ol>
@@ -214,9 +214,9 @@ Developers using jQuery don"t have to worry about this problem, as it's luckily 
 
 <p>Core internally uses a number of different <strong>design patterns</strong>, the most frequent one being a facade. This provides a simple set of abstracted interfaces (e.g <code>$el.css()</code>, <code>$el.animate()</code>) to several more complex underlying bodies of code.</p>
 
-<p>we're probably all also familiar with jQuery"s <code>$("selector")</code>. This is significantly more easy to use for selecting HTML elements on a page versus having to manually handle opt for <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName</code> and so on. Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! abstractions using patterns can offer real-world value.</p>
+<p>We're probably all also familiar with jQuery"s <code>$("selector")</code>. This is significantly more easy to use for selecting HTML elements on a page versus having to manually handle opt for <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName</code> and so on. Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! Abstractions using patterns can offer real-world value.</p>
 <p>
-we'll be looking at this and more design patterns later on in the book.</p>
+We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
 <h1 id="patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
@@ -233,7 +233,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Solves a particular problem</strong>: Patterns are not supposed      to just capture principles or strategies. They need to capture solutions.      This is one of the most essential ingredients for a good pattern.</li>
   <li><strong>The solution to this problem cannot be obvious</strong>: You      can often find that problem-solving techniques attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
   <li><strong>The      concept described must have been proven</strong>: Design patterns require proof that they function as described and without      this proof the design cannot be seriously considered. If a pattern is      highly speculative in nature, only the brave may attempt to use it.</li>
-  <li><strong>It      must describe a relationship </strong>: In some cases it may      appear that a pattern describes a type of module. Although an      implementation may appear this way, the official description of the      pattern must describe much deeper system structures and mechanisms that      explain its relationship to code.</li>
+  <li><strong>It      must describe a relationship</strong>: In some cases it may      appear that a pattern describes a type of module. Although an      implementation may appear this way, the official description of the      pattern must describe much deeper system structures and mechanisms that      explain its relationship to code.</li>
 </ul>
 <p>
  We would be forgiven for thinking that a proto-pattern which fails to meet guidelines isn't worth learning from, however, this is far from the truth. Many proto-patterns are actually quite good. I&rsquo;m not saying that all proto-patterns are worth looking at, but there are quite a few useful ones in the wild that could assist you with future projects. Use best judgment with the above list in mind and you&rsquo;ll be fine in your selection process. </p>
@@ -242,8 +242,8 @@ The work involved in fully documenting a qualified pattern can be quite daunting
 
 <ol start="1" type="1">
   <li><strong>Fitness of purpose</strong> - how is the pattern considered successful?</li>
-  <li><strong>Usefulness</strong>- why is the pattern considered successful?</li>
-  <li><strong>Applicability</strong> - is the design worthy of being a pattern because it has wider      applicability? If so, this needs to be explained.When reviewing or defining a pattern, it is important to keep the above in mind.</li>
+  <li><strong>Usefulness</strong> - why is the pattern considered successful?</li>
+  <li><strong>Applicability</strong> - is the design worthy of being a pattern because it has wider      applicability? If so, this needs to be explained. When reviewing or defining a pattern, it is important to keep the above in mind.</li>
   </ol>
 <p>&nbsp;</p>
 <h1 id="designpatternstructure">The Structure Of A Design Pattern</h1>
@@ -282,7 +282,7 @@ Writing good patterns is a challenging task. Patterns not only need to provide a
 
 
 <p>
-When looking at a body of code that you think may be using a pattern, you might write down some of the aspects of the code that you believe falls under a particular existing pattern.In many cases of pattern-analysis you&rsquo;ll find that you&rsquo;re just looking at code that follows good principles and design practices that could happen to overlap with the rules for a pattern by accident. Remember - solutions in which neither interactions nor defined rules appear are not patterns. </p>
+When looking at a body of code that you think may be using a pattern, you might write down some of the aspects of the code that you believe falls under a particular existing pattern. In many cases of pattern-analysis you&rsquo;ll find that you&rsquo;re just looking at code that follows good principles and design practices that could happen to overlap with the rules for a pattern by accident. Remember - solutions in which neither interactions nor defined rules appear are not patterns. </p>
 <p>
 If you&rsquo;re interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and books and take in what&rsquo;s meaningful to you - this will help you accomplish the goals you have laid out for yours. Explore structure and semantics - this can be done by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
 <p>
@@ -296,7 +296,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best-practices. </li>
   
   <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behavior  in the user-experience that would not be incurred without the use of a pattern.</li>
-  <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns.If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
+  <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns. If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
   <li><strong>Know the differences between      patterns and design</strong>: A design pattern generally draws from proven best      practice and serves as a model for a designer to create a solution<em>. The      role of the pattern is to give designers guidance to make the best design      choices so they can cater to the needs of their users.</em></li>
   <li><strong>Your pattern needs to have a      strong set of examples:</strong> A good pattern description needs to be followed by      an equally strong set of examples demonstrating the successful application      of your pattern. To show broad usage, examples that exhibit good design      principles are ideal.</li>
 </ul>
@@ -341,11 +341,11 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h2>
   Creational Design Patterns</h2>
 <p>
-  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation you are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em>the creation process.</p>
+  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation you are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em> the creation process.</p>
   <p>Some of the patterns that fall under this category are: Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
 
 <h2>Structural Design Patterns</h2>
-<p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn't need to do the same. They also assist in recasting parts of the system which don"t fit a particular purpose into those that do. </p>
+<p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn't need to do the same. They also assist in recasting parts of the system which don't fit a particular purpose into those that do. </p>
   <p>Patterns that fall under this category include: Decorator, Facade, Flyweight, Adapter and Proxy.</p>
 
 <h2>Behavioral Design Patterns
@@ -453,7 +453,7 @@ console.log( myCar.getInfo() );
   </tr>
   <tr bgcolor="#F9F9F9">
     <td colspan="5"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bridge</em></td>
-    <td colspan="3">Separates an object"s interface from its implementation so the two can vary independently</td>
+    <td colspan="3">Separates an object's interface from its implementation so the two can vary independently</td>
   </tr>
   <tr bgcolor="#F9F9F9">
     <td colspan="5"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Composite</em></td>
@@ -522,7 +522,7 @@ console.log( myCar.getInfo() );
   </tr>
   <tr bgcolor="#F9F9F9">
     <td colspan="5"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;State</em></td>
-    <td colspan="3"> Alter an object"s behavior when its state changes </td>
+    <td colspan="3"> Alter an object's behavior when its state changes </td>
   </tr>
   <tr bgcolor="#F9F9F9">
     <td colspan="5"><em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Strategy</em></td>
@@ -540,7 +540,7 @@ console.log( myCar.getInfo() );
 
 <p>In this section, we will explore JavaScript implementations of a number of both classic and modern design patterns.</p>
 
-<p>Developers commonly wonder whether there is an <em>ideal</em> pattern or set of patterns they should be using in their workflow. There isn't a true single answer to this question; each script and web application we work on is likely to have it's own individual needs and we need to think about where we feel a pattern can offer real value to an implementation.</p> 
+<p>Developers commonly wonder whether there is an <em>ideal</em> pattern or set of patterns they should be using in their workflow. There isn't a true single answer to this question; each script and web application we work on is likely to have its own individual needs and we need to think about where we feel a pattern can offer real value to an implementation.</p> 
 
 <p>For example, some projects may benefit from the decoupling benefits offered by the Observer pattern (which reduces how dependent parts of an application are on one another) whilst others may simply be too small for decoupling to be a concern at all.</p>
 
@@ -962,7 +962,7 @@ var myObjectLiteral = {
 </pre>
 
 <p>
-Object literals don"t require instantiation using the <code>new</code> operator but shouldn"t be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Outside of an object, new members may be added to it using assignment as follows <code>myModule.property = "someValue";</code>
+Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Outside of an object, new members may be added to it using assignment as follows <code>myModule.property = "someValue";</code>
 </p>
 
 <p>Below we can see a more complete example of a module defined using object literal syntax:</p>
@@ -1221,8 +1221,8 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 
 <h4>Advantages</h4>
 
-<p>we've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
-<p>Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class"s private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
+<p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
 <h4>Disadvantages</h4>
 
@@ -1236,7 +1236,7 @@ How about the module pattern implemented in specific toolkits or frameworks?
 <p>
 <strong>Dojo</strong>
 <p>
-Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as its first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called "child" within an object "parent" defined inside "myObj". Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don"t already exist.</p>
+Dojo provides a convenience method for working with objects called <code>dojo.setObject()</code>. This takes as its first argument a dot-separated string such as <code>myObj.parent.child</code> which refers to a property called "child" within an object "parent" defined inside "myObj". Using <code>setObject()</code> allows us to set the value of children, creating any of the intermediate objects in the rest of the path passed if they don't already exist.</p>
 
 <p>For example, if we wanted to declare <code>basket.core</code> as an object of the <code>store</code> namespace, this could be achieved as follows using the traditional way:
 <pre class="brush: js">
@@ -1454,7 +1454,7 @@ myRevealingModule.get();
 </pre></p>
 <p><strong>Disadvantages</strong></p>
 <p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
-<p>it's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
+<p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
 <p>&nbsp;</p>
 
 
@@ -1557,7 +1557,7 @@ For example, publishers may make an assumption that one or more subscribers are 
 <h3>Implementations</h3>
 
 <p>
-The Observer is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as it's main interaction API for scripting.</p>
+The Observer is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as its main interaction API for scripting.</p>
 
 <p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
 
@@ -2501,7 +2501,7 @@ function iAmClearlyCrazy( data ) {
 <p>The largest benefit of the Mediator pattern is that it reduces the communication channels needed between objects or components in a system from many to many to just many to one. Adding new publishers and subscribers is relatively easy due to the level of decoupling present.</p>
 
 <p>
-Perhaps the biggest downside of using the pattern is that it can introduce a single point of failure. Placing a Mediator between modules can also cause a performance hit as they are always communicating indirectly.Because of the nature of loose coupling, it's difficult to establish how a system might react by only looking at the broadcasts.</p>
+Perhaps the biggest downside of using the pattern is that it can introduce a single point of failure. Placing a Mediator between modules can also cause a performance hit as they are always communicating indirectly. Because of the nature of loose coupling, it's difficult to establish how a system might react by only looking at the broadcasts.</p>
 
 <p>That said, it's useful to remind ourselves that decoupled systems have a number of other benefits - if our modules communicated with each other directly, changes to modules (e.g another module throwing an exception) could easily have a domino effect on the rest of your application. This problem is less of a concern with decoupled systems.</p>
 
@@ -3255,7 +3255,7 @@ mySportsCar.driveSideways();
 
 <p>Mixins assist in decreasing functional repetition and increasing function re-use in a system. Where an application is likely to require shared behaviour across object instances, we can easily avoid any duplication by maintaining this shared functionality in a Mixin and thus focusing on implementing only the functionality in our system which is truly distinct.</p>
 
-<p>That said, the downsides to Mixins are a little more debatable. Some developers feel that injecting functionality into a object prototype is a bad idea as it leads to both prototype pollution and a level of uncertainly regarding the origin of our functions. In large systems this may well be the case.</p>
+<p>That said, the downsides to Mixins are a little more debatable. Some developers feel that injecting functionality into an object prototype is a bad idea as it leads to both prototype pollution and a level of uncertainly regarding the origin of our functions. In large systems this may well be the case.</p>
 
 <p>I would argue that strong documentation can assist in minimizing the amount of confusion regarding the source of mixed in functions, but as with every pattern, if care is taken during implementation you should be okay.</p>
 
@@ -3275,7 +3275,7 @@ mySportsCar.driveSideways();
 
 <p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just relying on prototypal inheritance, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than sub-classing, we add (decorate) properties or methods to a base object so it's a little more streamlined.</p>
 
-<p>Adding new attributes to objects in JavaScript is a very straight-forward process so with this in mind, a very very simplistic decorator may be implemented as follows:</p>
+<p>Adding new attributes to objects in JavaScript is a very straight-forward process so with this in mind, a very simplistic decorator may be implemented as follows:</p>
 
 <h3>Example 1: Decorating Constructors With New Functionality</h3>
 
@@ -3391,11 +3391,11 @@ console.log( mb.screenSize() );
 
 <h2>Pseudo-classical Decorators</h2>
 
-<p>We're now going to examine a variation of the Decorator first presented in a JavaScript form in<em>Pro JavaScript Design Patterns</em> (PJDP) by Dustin Diaz and Ross Harmes.</p>
+<p>We're now going to examine a variation of the Decorator first presented in a JavaScript form in <em>Pro JavaScript Design Patterns</em> (PJDP) by Dustin Diaz and Ross Harmes.</p>
 
 <p>Unlike some of the examples from earlier, Diaz and Harmes stick more closely to how decorators are implemented in other programming languages (such as Java or C++) using the concept of an "interface", which we will define in more detail shortly.</p>
 
-<p><strong>Note:</strong> This particular variation of the Decorator pattern is provided for reference purposes. If you find it overly complex for your applications needs, I recommend sticking to one the simplier implementations covered earlier, but I would still read the section. If you haven't yet grasped how Decorators are different from subclassing, it may help!.</p>
+<p><strong>Note:</strong> This particular variation of the Decorator pattern is provided for reference purposes. If you find it overly complex for your applications needs, I recommend sticking to one the simpler implementations covered earlier, but I would still read the section. If you haven't yet grasped how Decorators are different from subclassing, it may help!</p>
 
 <h3>Interfaces</h3>
 
@@ -3461,7 +3461,7 @@ console.log( todoItem.methods.placeOrder() );
 // Ordering milk from your local grocery store
 </pre>
 
-<p>In the above, <code>Interface.ensureImplements</code> provides strict functionality checking and code for both this and the <code>Interface</code> constructor can be found<a href="https://gist.github.com/1057989">here</a>.</p>
+<p>In the above, <code>Interface.ensureImplements</code> provides strict functionality checking and code for both this and the <code>Interface</code> constructor can be found <a href="https://gist.github.com/1057989">here</a>.</p>
 
 <p>The biggest problem with interfaces is that, as there isn't built-in support for them in JavaScript, there is a danger of us attempting to emulate a feature of another language that may not be an ideal fit. Lightweight interfaces can be used without a great performance cost however and we will next look at <em>Abstract</em> Decorators using this same concept.</p>
 
@@ -4112,7 +4112,7 @@ This process does add a little complexity to our final solution, however it's a 
 
 <p>One of the best metaphors for describing Flyweights in this context was written by Gary Chisholm and it goes a little like this:</p>
 
-<p><blockquote>Try to think of the flyweight in terms of a pond. A fish opens its mouth (the event), bubbles raise to the surface (the bubbling) a fly sitting on the top flies away when the bubble reaches the surface (the action). In this example you can easily transpose the fish opening its mouth to a button being clicked, the bubbles as the bubbling effect and the fly flying away to some function being run</blockquote></p>
+<p><blockquote>Try to think of the flyweight in terms of a pond. A fish opens its mouth (the event), bubbles rise to the surface (the bubbling) a fly sitting on the top flies away when the bubble reaches the surface (the action). In this example you can easily transpose the fish opening its mouth to a button being clicked, the bubbles as the bubbling effect and the fly flying away to some function being run</blockquote></p>
 
 <p>Bubbling was introduced to handle situations where a single event (e.g a click) may be handled by multiple event handlers defined at different levels of the DOM hierarchy. Where this happens, event bubbling executes event handlers defined for specific elements at the lowest level possible. From there on, the event bubbles up to containing elements before going to those even higher up.</p>
 
@@ -4245,7 +4245,7 @@ $( "div" ).on( "click", function () {
 </pre>
 
 <p>
-Note: Although we may believe that simply caching our jQuery code may offer just as equivalent performance gains, Padolsey claims that $.single() is still worth using and can perform better. That's not to say don"t apply any caching at all, just be mindful that this approach can assist. For further details about $.single, I recommend reading Padolsey's full post.</p>
+Note: Although we may believe that simply caching our jQuery code may offer just as equivalent performance gains, Padolsey claims that $.single() is still worth using and can perform better. That's not to say don't apply any caching at all, just be mindful that this approach can assist. For further details about $.single, I recommend reading Padolsey's full post.</p>
 
 
 
@@ -4278,7 +4278,7 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 <p>Martin Fowler has done an excellent job of writing about the <a href="http://martinfowler.com/eaaDev/uiArchs.html">origins</a> of MVC over the years and if you are interested in some further historical information about Smalltalk-80's MVC, I recommend reading his work.</p>
 
 <h2>MVC For JavaScript Developers</h2>
-<p>We've reviewed the 70's, but let us now return to the here and now. In modern times, the MVC pattern has been applied to a diverse range of programming languages including of most relevance to us: JavaScript. JavaScript now has a number of frameworks boasting support for MVC (or variations on it, which we refer to as the MV* family), allowing developers to easily add structure to their applications without great effort. you've likely come across at least one of these such frameworks, but they include the likes of Backbone, Ember.js and JavaScriptMVC. Given the importance of avoiding "spaghetti" code, a term which describes code that is very difficult to read or maintain due to its lack of structure, it's imperative that the modern JavaScript developer understand what this pattern provides. This allows us to effectively appreciate what these frameworks enable us to do differently.</p>
+<p>We've reviewed the 70's, but let us now return to the here and now. In modern times, the MVC pattern has been applied to a diverse range of programming languages including of most relevance to us: JavaScript. JavaScript now has a number of frameworks boasting support for MVC (or variations on it, which we refer to as the MV* family), allowing developers to easily add structure to their applications without great effort. You've likely come across at least one of these such frameworks, but they include the likes of Backbone, Ember.js and JavaScriptMVC. Given the importance of avoiding "spaghetti" code, a term which describes code that is very difficult to read or maintain due to its lack of structure, it's imperative that the modern JavaScript developer understand what this pattern provides. This allows us to effectively appreciate what these frameworks enable us to do differently.</p>
 <p>We know that MVC is composed of three core components:</p>
 
 <h3>Models</h3>
@@ -4303,7 +4303,7 @@ var Photo = Backbone.Model.extend({
 });
 </pre>
 <p>The built-in capabilities of models vary across frameworks, however it is quite common for them to support validation of attributes, where attributes represent the properties of the model, such as a model identifier. When using models in real-world applications we generally also desire model persistence. Persistence allows us to edit and update models with the knowledge that its most recent state will be saved in either: memory, in a user's localStorage data-store or synchronized with a database.</p>
-<p>In addition, a model may also have multiple views observing it. If say, our photo model contained meta-data such as its location (longitude and latitude), friends that were present in the a photo (a list of identifiers) and a list of tags, a developer may decide to provide a single view to display each of these three facets.</p>
+<p>In addition, a model may also have multiple views observing it. If say, our photo model contained meta-data such as its location (longitude and latitude), friends that were present in the photo (a list of identifiers) and a list of tags, a developer may decide to provide a single view to display each of these three facets.</p>
 <p>It is not uncommon for modern MVC/MV* frameworks to provide a means to group models together (e.g. in Backbone, these groups are referred to as "collections"). Managing models in groups allows us to write application logic based on notifications from the group should any model it contains be changed. This avoids the need to manually observe individual model instances.</p>
 <p>A sample grouping of models into a simplified Backbone collection can be seen below.</p>
 <pre  class="brush: js">
@@ -4342,7 +4342,7 @@ var PhotoGallery = Backbone.Collection.extend({
 
 <p>let's explore views a little further using a vanilla JavaScript sample implementation. Below we can see a function that creates a single Photo view, consuming both a model instance and a controller instance.</p>
 <p>We define a <code>render()</code> utility within our view which is responsible for rendering the contents of the <code>photoModel</code> using a JavaScript templating engine (Underscore templating) and updating the contents of our view, referenced by <code>photoEl</code>.</p>
-<p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of it's subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
+<p>The <code>photoModel</code> then adds our <code>render()</code> callback as one of its subscribers so that through the Observer pattern we can trigger the view to update when the model changes.</p>
 <p>You may wonder where user-interaction comes into play here. When users click on any elements within the view, it's not the view's responsibility to know what to do next. It relies on a controller to make this decision for it. In our sample implementation, this is achieved by adding an event listener to <code>photoEl</code> which will delegate handling the click behavior back to the controller, passing the model information along with it in case it's needed.</p>
 <p>The benefit of this architecture is that each component plays its own separate role in making the application function as needed.</p>
 <pre  class="brush: js">
@@ -4423,9 +4423,9 @@ var buildPhotoView = function ( photoModel, photoController ) {
 <h3>Controllers in another library (Spine.js) vs Backbone.js</h3>
 
 <p><strong>Spine.js</strong></p>
-<p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we will be discussing in this book (Backbone) doesn't have it's <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let's take a look at a sample controller from Spine.js:</p>
+<p>We now know that controllers are traditionally responsible for updating the view when the model changes (and similarly the model when the user updates the view). As the framework we will be discussing in this book (Backbone) doesn't have its <strong>own</strong> explicit controllers, it can be useful for us to review the controller from another MVC framework to appreciate the difference in implementations. For this, let's take a look at a sample controller from Spine.js:</p>
 
-<p>In this example, we're going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user editd the photo meta-data) the corresonding model does too.</p>
+<p>In this example, we're going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user edited the photo meta-data) the corresponding model does too.</p>
 
 <p>Note: We won't be delving heavily into Spine.js at all, but will just take a ten-foot view of what its controllers can do:</p>
 <pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
@@ -4451,12 +4451,12 @@ var PhotosController = Spine.Controller.sub({
 
 </pre>
 <p>In Spine, controllers are considered the glue for an application, adding and responding to DOM events, rendering templates and ensuring that views and models are kept in sync (which makes sense in the context of what we know to be a controller).</p>
-<p>What we're doing in the above example is setting up listeners in the <code>update</code> and <code>destroy</code> events using <code>render()</code> and <code>remove()</code>. When a photo entry gets updated , we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the <code>tmpl()</code> function in the code snippet: in the <code>render()</code> function, we're using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller's current element.</p>
+<p>What we're doing in the above example is setting up listeners in the <code>update</code> and <code>destroy</code> events using <code>render()</code> and <code>remove()</code>. When a photo entry gets updated, we re-render the view to reflect the changes to the meta-data. Similarly, if the photo gets deleted from the gallery, we remove it from the view. In case you were wondering about the <code>tmpl()</code> function in the code snippet: in the <code>render()</code> function, we're using this to render a JavaScript template called #photoTemplate which simply returns a HTML string used to replace the controller's current element.</p>
 
 <p>What this provides us with is a very lightweight, simple way to manage changes between the model and the view.</p>
 <p><strong>Backbone.js</strong></p>
 <p>Later on in this section we're going to revisit the differences between Backbone and traditional MVC, but for now let's focus on controllers.</p>
-<p>In Backbone, one shares the responsibility of a controller with both the <code>Backbone.View</code> and <code>Backbone.Router</code>. Some time ago Backbone did once come with it's own <code>Backbone.Controller</code>, but as the naming for this component didn't make sense for the context in which it was being used, it was later renamed to Router.</p>
+<p>In Backbone, one shares the responsibility of a controller with both the <code>Backbone.View</code> and <code>Backbone.Router</code>. Some time ago Backbone did once come with its own <code>Backbone.Controller</code>, but as the naming for this component didn't make sense for the context in which it was being used, it was later renamed to Router.</p>
 <p>Routers handle a little more of the controller responsibility as it's possible to bind the events there for models and have your view respond to DOM events and rendering. As Tim Branyen (another Bocoup-based Backbone contributor) has also previously pointed out, it's possible to get away with not needing <code>Backbone.Router</code> at all for this, so a way to think about it using the Router paradigm is probably:</p>
 <pre  class="brush: js">
 var PhotoRouter = Backbone.Router.extend({
@@ -4508,13 +4508,13 @@ var PhotoRouter = Backbone.Router.extend({
 
 <p>As MVP views are defined through an interface and the interface is technically the only point of contact between the system and the view (other than a presenter), this pattern also allows developers to write presentation logic without needing to wait for designers to produce layouts and graphics for the application.</p>
 
-<p>Depending on the implementation, MVP may be more easy to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (tHere's quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).</p>
+<p>Depending on the implementation, MVP may be easier to automatically unit test than MVC. The reason often cited for this is that the presenter can be used as a complete mock of the user-interface and so it can be unit tested independent of other components. In my experience this really depends on the languages you are implementing MVP in (tHere's quite a difference between opting for MVP for a JavaScript project over one for say, ASP.net).</p>
 <p>At the end of the day, the underlying concerns you may have with MVC will likely hold true for MVP given that the differences between them are mainly semantic. As long as you are cleanly separating concerns into models, views and controllers (or presenters) you should be achieving most of the same benefits regardless of the pattern you opt for.</p>
 
 <h3>MVC, MVP and Backbone.js</h3>
 <p>There are very few, if any architectural JavaScript frameworks that claim to implement the MVC or MVC patterns in their classical form as many JavaScript developers don't view MVC and MVP as being mutually exclusive (we are actually more likely to see MVP strictly implemented when looking at web frameworks such as ASP.net or GWT). This is because it's possible to have additional presenter/view logic in your application and yet still consider it a flavor of MVC.</p>
 <p>Backbone contributor <a href="http://ireneros.com/">Irene Ros</a> (of Boston-based Bocoup) subscribes to this way of thinking as when she separates views out into their own distinct components, she needs something to actually assemble them for her. This could either be a controller route (such as a <code>Backbone.Router</code>, covered later in the book) or a callback in response to data being fetched.</p>
-<p>That said, some developers do however feel that Backbone.js better fits the description of MVP than it does MVC . Their view is that:</p>
+<p>That said, some developers do however feel that Backbone.js better fits the description of MVP than it does MVC. Their view is that:</p>
 <ul>
   <li>The presenter in MVP better describes the <code>Backbone.View</code> (the layer between View templates and the data bound to it) than a controller does</li>
   <li>The model fits <code>Backbone.Model</code> (it isn't greatly different to the models in MVC at all)</li>
@@ -4603,7 +4603,7 @@ var PhotoView = Backbone.View.extend({
 <p>A passive View has no real knowledge of the models in our application and is manipulated by a controller. MVVM&rsquo;s active View contains the data-bindings, events and behaviors which require an understanding of the Model and ViewModel. Although these behaviors can be mapped to properties, the View is still responsible for handling events to the ViewModel.</p>
 <p>It&rsquo;s important to remember the View isn&rsquo;t responsible here for handling state - it keeps this in sync with the ViewModel.</p>
 <p>A KnockoutJS View is simply a HTML document with declarative bindings to link it to the ViewModel. KnockoutJS Views display information from the ViewModel, pass commands to it (e.g a user clicking on an element) and update as the state of the ViewModel changes. Templates generating markup using data from the ViewModel can however also be used for this purpose.</p>
-<p>To give a brief initial example, we can look to the JavaScript MVVM framework KnockoutJS for how it allows the definition of a ViewModel and it&rsquo;s related bindings in markup:</p>
+<p>To give a brief initial example, we can look to the JavaScript MVVM framework KnockoutJS for how it allows the definition of a ViewModel and its related bindings in markup:</p>
 <p>ViewModel:</p>
 <pre class="brush: js">
 var aViewModel = {
@@ -4618,7 +4618,7 @@ var aViewModel = {
 &lt;/div&gt;
 </pre>
 <p>Our input text-box (source) obtains it's initial value from <code>contactName</code>, automatically updating this value whenever contactName changes. As the data binding is two-way, typing into the text-box will update <code>contactName</code> accordingly so the values are always in sync.</p>
-<p>Although implementation specific to KnockoutJS, the <code>&lt;div&gt;</code> containing the "You have a really long name! text also contains simple validation (once again in the form of data bindings). If the input exceeds 10 characters, it will display, otherwise it will remain hidden.</p>
+<p>Although implementation specific to KnockoutJS, the <code>&lt;div&gt;</code> containing the "You have a really long name!" text also contains simple validation (once again in the form of data bindings). If the input exceeds 10 characters, it will display, otherwise it will remain hidden.</p>
 <p>Moving on to a more advanced example, we can return to our Todo application. A trimmed down KnockoutJS View for this, including all the necessary data-bindings may look as follows.</p>
 <pre   class="brush: js">&lt;div id="todoapp"&gt;
     &lt;header&gt;
@@ -4664,8 +4664,8 @@ var aViewModel = {
 <p>&nbsp;</p>
 <h3>ViewModel</h3>
 <p>The ViewModel can be considered a specialized Controller that acts as a data converter. It changes Model information into View information, passing commands from the View to the Model.</p>
-<p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user's view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the address to it's display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
-<p>In this sense, the ViewModel might be looked upon as more of a Model than a View but it does handle most of the View's display logic.The ViewModel may also expose methods for helping to maintain the View's state, update the model based on the action's on a View and trigger events on the View.</p>
+<p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user's view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the address to its display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
+<p>In this sense, the ViewModel might be looked upon as more of a Model than a View but it does handle most of the View's display logic. The ViewModel may also expose methods for helping to maintain the View's state, update the model based on the action's on a View and trigger events on the View.</p>
 <p>In summary, the ViewModel sits behind our UI layer. It exposes data needed by a View (from a Model) and can be viewed as the source our Views go to for both data and actions.</p>
 <p>KnockoutJS interprets the ViewModel as the representation of data and operations that can be performed on a UI. This isn't the UI itself nor the data model that persists, but rather a layer that can also hold the yet to be saved data a user is working with. Knockout's ViewModels are implemented JavaScript objects with no knowledge of HTML markup. This abstract approach to their implementation allows them to stay simple, meaning more complex behavior can be more easily managed on-top as needed.</p>
 <p>A partial KnockoutJS ViewModel for our Todo application could thus look as follows:</p>
@@ -4760,7 +4760,7 @@ myObservableArray.push( &lsquo;A new todo item&rsquo; );
   <li>In larger applications, it can be more difficult to design the ViewModel up front to get the necessary amount of generalization</li>
 </ul>
 <h2>MVVM With Looser Data-Bindings</h2>
-<p>It&rsquo;s not uncommon for JavaScript developers from an MVC or MVP background to review MVVM and complain about it&rsquo;s true separation of concerns. Namely, the quantity of inline data-bindings maintained in the HTML markup of a View.</p>
+<p>It&rsquo;s not uncommon for JavaScript developers from an MVC or MVP background to review MVVM and complain about its true separation of concerns. Namely, the quantity of inline data-bindings maintained in the HTML markup of a View.</p>
 <p>I must admit that when I first reviewed implementations of MVVM (e.g KnockoutJS, Knockback), I was surprised that any developer would want to return to the days of old where we mixed logic (JavaScript) with our markup and found it quickly unmaintainable. The reality however is that MVVM does this for a number of good reasons (which we&rsquo;ve covered), including facilitating designers to more easily bind to logic from their markup.</p>
 <p>For the purists among us, you&rsquo;ll be happy to know that we can now also greatly reduce how reliant we are on data-bindings thanks to a feature known as custom binding providers, introduced in KnockoutJS 1.3 and available in all versions since.</p>
 <p>KnockoutJS by default has a data-binding provider which searches for any elements with <code>data-bind</code> attributes on them such as in the below example.</p>
@@ -4771,7 +4771,7 @@ myObservableArray.push( &lsquo;A new todo item&rsquo; );
 <p>A binding provider is primarily interested in two things:</p>
 <ul>
   <li>When given a DOM node, does it contain any data-bindings?</li>
-  <li>If the node passed this first question, what does the binding object look like in the current data context?.</li>
+  <li>If the node passed this first question, what does the binding object look like in the current data context?</li>
 </ul>
 <p>Binding providers implement two functions:</p>
 <ul>
@@ -4937,7 +4937,7 @@ ko.applyBindings( viewModel );
     <p>Both libraries are designed with different goals in mind and its often not as simple as just choosing MVC or MVVM</p>
   </li>
   <li>
-    <p>If data-binding and two-way communication are are your main concerns, KnockoutJS is definitely the way to go.Practically any attribute or value stored in DOM nodes can be mapped to JavaScript objects with this approach.</p>
+    <p>If data-binding and two-way communication are your main concerns, KnockoutJS is definitely the way to go.Practically any attribute or value stored in DOM nodes can be mapped to JavaScript objects with this approach.</p>
   </li>
   <li>
     <p>Backbone excels with its ease of integration with RESTful services, whilst KnockoutJS Models are simply JavaScript objects and code needed for updating the Model must be written by the developer.</p>
@@ -5557,7 +5557,7 @@ exports.helloWorld = function(){
 <p>&nbsp;</p>
 <h4>Is CommonJS Suitable For The Browser?</h4>
 
-<p>There are developers that feel CommonJS is better suited to server-side development which is one reason There's currently a level of <strong>disagreement</strong> over which format should and will be used as the de facto standard in the pre-Harmony age moving forward. Some of the arguments against CommonJS include a note that many CommonJS APIs address server-oriented features which one would simply not be able to implement at a browser-level in JavaScript - for example, <em>io</em>, <em>system</em> and <em>js</em> could be considered unimplementable by the nature of their functionality.</p>
+<p>There are developers that feel CommonJS is better suited to server-side development which is one reason there's currently a level of <strong>disagreement</strong> over which format should and will be used as the de facto standard in the pre-Harmony age moving forward. Some of the arguments against CommonJS include a note that many CommonJS APIs address server-oriented features which one would simply not be able to implement at a browser-level in JavaScript - for example, <em>io</em>, <em>system</em> and <em>js</em> could be considered unimplementable by the nature of their functionality.</p>
 
 <p>That said, it's useful to know how to structure CommonJS modules regardless so that we can better appreciate how they fit in when defining modules which may be used everywhere. Modules which have applications on both the client and server include validation, conversion and templating engines. The way some developers are approaching choosing which format to use is opting for CommonJS when a module can be used in a server-side environment and using AMD if this is not the case. </p>
 
@@ -5565,7 +5565,7 @@ exports.helloWorld = function(){
 
 <p>Although it's beyond the scope of this section, you may have also noticed that there were different types of "require" methods mentioned when discussing AMD and CommonJS. </p>
 
-<p>The concern with a similar naming convention is of course confusion and the community are currently split on the merits of a global require function. John Hann's suggestion here is that rather than calling it "require", which would probably fail to achieve the goal of informing users about the different between a global and inner require, it may make more sense to rename the global loader method something else (e.g. the name of the library). it's for this reason that a loader like curl.js uses <code>curl()</code> as opposed to <code>require</code>. </p>
+<p>The concern with a similar naming convention is of course confusion and the community are currently split on the merits of a global require function. John Hann's suggestion here is that rather than calling it "require", which would probably fail to achieve the goal of informing users about the different between a global and inner require, it may make more sense to rename the global loader method something else (e.g. the name of the library). It's for this reason that a loader like curl.js uses <code>curl()</code> as opposed to <code>require</code>. </p>
 
 <p></p>
 
@@ -5629,7 +5629,7 @@ define( function ( require, exports, module ){
 
 <h4>Using CommonJS, AMD or browser globals to create a module</h4>
 
-<p>Define a module <code>commonJsStrict</code>, which depends on another module called <code>b</code>. The name of the module is implied by the file name and it's best practice for the file name and the exported global to have the same name.</p>
+<p>Define a module <code>commonJsStrict</code>, which depends on another module called <code>b</code>. The name of the module is implied by the file name and its best practice for the file name and the exported global to have the same name.</p>
 
 <p>If the module <code>b</code> also uses the same type of boilerplate in the browser, it will create a global <code>.b</code> that is used. If we don't wish to support the browser global patch, we can remove the <code>root</code> and the passing <code>this</code> as the first argument to the top function.</p>
 
@@ -6679,7 +6679,7 @@ $( "button" ).on( "click", function () {
 
 <p>Complex elements require special care when being defined, especially if we want the flexibility to either literally define the final markup for our elements (which can get messy) or take a more readable object-oriented route instead. Having a mechanism for building our complex DOM objects that is independent from the objects themselves gives us this flexibility and that is exactly what the Builder pattern provides.</p>
 
-<p>Builders allow us to construct complex objects by only specifying the type and content of the object, sheilding us from the process of creating or representing the object explicitly.</p> 
+<p>Builders allow us to construct complex objects by only specifying the type and content of the object, shielding us from the process of creating or representing the object explicitly.</p> 
 
 <p>The jQuery dollar sign allows us to do just this as it provides a number of different means for dynamically building new jQuery (and DOM) objects, by either passing in the complete markup for an element, partial markup and content or using the jQuery for construction:</p>
 
@@ -7547,7 +7547,7 @@ var instance = $( "#foo" ).widgetName({
 instance.widgetName( "methodB" );
 </pre></p>
 
-<p>We can also self-initialize this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's <em>page</em> plugin dispatches a <em>create</em> event when a jQuery Mobile page (found via the <code>data-role="page"</code> attribute) is first initialized. We can listen for that event (called "pagecreate" ) and run our plugin automatically whenever a new page is created.</p>
+<p>We can also self-initialize this widget whenever a new page in jQuery Mobile is created. jQuery Mobile's <em>page</em> plugin dispatches a <em>create</em> event when a jQuery Mobile page (found via the <code>data-role="page"</code> attribute) is first initialized. We can listen for that event (called "pagecreate") and run our plugin automatically whenever a new page is created.</p>
 
 <p><pre class="brush: js">
 $(document).on("pagecreate", function ( e ) {
@@ -7959,13 +7959,13 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
 
 <h2 id="detailnamespacing">Namespacing Patterns</h2>
 
-<p>In this section, we're going to explore patterns for namespacing in JavaScript. Namespaces can be considered a logical grouping of units of code under a unique identifier. The identifier can be referenced in many namespaces and each identifier can itself contain a hierarchy of it's own nested (or sub) namespaces.</p>
+<p>In this section, we're going to explore patterns for namespacing in JavaScript. Namespaces can be considered a logical grouping of units of code under a unique identifier. The identifier can be referenced in many namespaces and each identifier can itself contain a hierarchy of its own nested (or sub) namespaces.</p>
 
 <p>In application development, we employ namespaces for a number of important reasons. In JavaScript, they help us avoid <b>collisions</b> with other objects or variables in the global namespace. They're also extremely useful for helping organize blocks of functionality in a code-base so that it can be more easily referenced and used.</p>
 
-<p>Namespacing any serious script or application is critical as it's important to safeguard our code from breaking in the event of another script on the page using the <b>same</b> variable or method names we are. With the number of <b>third-party</b> tags regularly injected into pages these days, this can be a common problem we all need to tackle at some point in our careers. As a well-behaved "citizen" of the global namespace, it's also imperative thatwe best to similarly not prevent other developer's scripts executing due to the same issues.</p>
+<p>Namespacing any serious script or application is critical as it's important to safeguard our code from breaking in the event of another script on the page using the <b>same</b> variable or method names we are. With the number of <b>third-party</b> tags regularly injected into pages these days, this can be a common problem we all need to tackle at some point in our careers. As a well-behaved "citizen" of the global namespace, it's also imperative that we best to similarly not prevent other developer's scripts executing due to the same issues.</p>
 
-<p>Whilst JavaScript doesnt really have built-in support for namespaces like other languages, it does have objects and closures which can be used to achieve a similar effect.</p>
+<p>Whilst JavaScript doesn't really have built-in support for namespaces like other languages, it does have objects and closures which can be used to achieve a similar effect.</p>
 
 <p><a name="beginners"></a></p>
 
@@ -7978,7 +7978,7 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
   <li>Immediately-invoked Function Expressions</li>
   <li>Namespace injection</li>
 </ol>
-<h3>1.Single global variables</h3>
+<h3>1. Single global variables</h3>
 <p>One popular pattern for namespacing in JavaScript is opting for a single global variable as our primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
 <pre  class="brush: js">
 var myApplication =  (function () { 
@@ -8002,7 +8002,7 @@ function myApplication_myMethod(){
   //...
 }
 </pre>
-<p>This is effective from the perspective of decreasing the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect</p>. 
+<p>This is effective from the perspective of decreasing the chances of a particular variable existing in the global scope, but remember that a uniquely named object can have the same effect.</p>
 
 <p>This aside, the biggest issue with the pattern is that it can result in a large number of global objects once our application starts to grow. There is also quite a heavy reliance on our prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
 
@@ -8335,7 +8335,7 @@ creator.call( ns2 , 5000 );
 
 <h2>Advanced namespacing patterns</h2>
 
-<p>We'll now explore some advanced patterns and utilities that I have found invaluable when woring on larger applications -  some of which have required a re-think of traditional approaches to application namespacing. I'll note that I am not advocating any of the following as <em>the</em> way to namespace, but rather ways that I have found work in practice.</p>
+<p>We'll now explore some advanced patterns and utilities that I have found invaluable when working on larger applications -  some of which have required a re-think of traditional approaches to application namespacing. I'll note that I am not advocating any of the following as <em>the</em> way to namespace, but rather ways that I have found work in practice.</p>
 
 <h3>Automating nested namespacing</h3>
 <p>As we've reviewed, nested namespaces can provide an organized hierarchy of structure for a unit of code. An example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. This can also be expanded using the object literal pattern to be:</p>
