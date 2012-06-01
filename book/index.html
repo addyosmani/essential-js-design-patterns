@@ -580,7 +580,7 @@ var newObject = {};
 var newObject = Object.create( null ); 
 
 // or
-var newObject = new Object();
+var newObject = new Object();
 
 </pre></p>
 
@@ -873,11 +873,11 @@ Singleton.getInstance().publicMethod();
 <p>
 <pre  class="brush: js">
 
-var SingletonTester = (function () {
+var SingletonTester = (function () {
 
   // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};  
-  function Singleton( options )  {
+  // e.g var options = { name: "test", pointX: 5};  
+  function Singleton( options )  {
 
     // set options to the options supplied or an empty object if none are 
     // provided
@@ -888,40 +888,40 @@ var SingletonTester = (function () {
 
     this.pointX = args.pointX || 6;
 
-    this.pointY = args.pointY || 10;  
+    this.pointY = args.pointY || 10;  
 
-  } 
+  } 
 
-  // this is our instance holder  
-  var instance;
+  // this is our instance holder  
+  var instance;
 
   // this is an emulation of static variables and methods
-  var _static  = {   
+  var _static  = {   
 
-    name:  "SingletonTester",
+    name:  "SingletonTester",
 
     // This is a method for getting an instance
     // It returns a singleton instance of a singleton object
-    getInstance:  function( options ) {    
-      if( instance  ===  undefined )  {     
-        instance = new Singleton( options );    
-      }    
+    getInstance:  function( options ) {    
+      if( instance  ===  undefined )  {     
+        instance = new Singleton( options );    
+      }    
 
-      return  instance;  
-       
-    }  
-  };  
-  return  _static;
+      return  instance;  
+       
+    }  
+  };  
+  return  _static;
 
 })();
 
-var singletonTest  =  SingletonTester.getInstance({
-  pointX:  5
+var singletonTest  =  SingletonTester.getInstance({
+  pointX:  5
 });
 
 // Log the output of pointX just to verify it is correct
 // Outputs: 5
-console.log( singletonTest.pointX );  
+console.log( singletonTest.pointX );  
 
 </pre></p>
 <p>&nbsp;</p>
@@ -1422,28 +1422,28 @@ var myLibrary = library(function () {
 <p>
 <pre  class="brush: js">
 
- var myRevealingModule = (function () { 
+ var myRevealingModule = (function () { 
     
     var name, age;
 
-    name = "John Smith";
-    age = 40;
+    name = "John Smith";
+    age = 40;
 
-    function updatePerson(){
-      name = "John Smith Updated";
-    }
+    function updatePerson(){
+      name = "John Smith Updated";
+    }
 
-    function setPerson () {
-       name = "John Smith Set";
-    }
+    function setPerson () {
+       name = "John Smith Set";
+    }
 
-    function getPerson () {
-       return name;
-    }
-    return {
-        set: setPerson,
-        get: getPerson
-    };
+    function getPerson () {
+       return name;
+    }
+    return {
+        set: setPerson,
+        get: getPerson
+    };
 
 }());
 
@@ -1677,7 +1677,7 @@ var pubsub = {};
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
-                    if ( topics[m][i].token === toke n) {
+                    if ( topics[m][i].token === token) {
                         topics[m].splice( i, 1 );
                         return token;
                     }
@@ -1762,7 +1762,7 @@ getCurrentTime = function (){
          m = date.getMonth() + 1,
          d = date.getDate(),
          y = date.getFullYear(),
-         t = date.toLocaleTimeString().toLowerCase(),
+         t = date.toLocaleTimeString().toLowerCase();
          
         return (m + "/" + d + "/" + y + " " + t);
 }
@@ -8214,7 +8214,7 @@ console.log( namespace );
     // global namespace - if not, assign window.namespace an 
     // object literal
 
-}( window.namespace = window.namespace || {} );
+})( window.namespace = window.namespace || {} );
 
 
 // we can then test our properties and methods as follows
@@ -8243,7 +8243,7 @@ console.log( namespace.foobar2 );
         console.log( namespace.bar );
         speak( "goodbye" );
     }    
-}( window.namespace = window.namespace || {});
+})( window.namespace = window.namespace || {});
 </pre>
 <p>namespace.sayGoodbye(); //goodbye</p>
 <p>That's it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor's post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
@@ -8565,7 +8565,7 @@ console.log("test", myApp);
 
 <p>&nbsp;</p>
 <h1 id="conclusions">Conclusions</h1>
-<p><span id="internal-source-marker_0.14080225546628167">                </span>
+<p><span id="internal-source-marker_0.14080225546628167">                </span>
   That's it for this introduction to the world of design patterns in JavaScript and jQuery - I hope you've found it beneficial. The contents of this book should hopefully provide sufficient information to get started using the patterns we covered in your own scripts, plugins and web applications.</p>
 
   <p>
@@ -8649,3 +8649,4 @@ $(function() {
 </script>
 </body>
 </html>
+
