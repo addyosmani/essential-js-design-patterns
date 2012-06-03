@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 3rd June 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 4th June 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -1300,7 +1300,7 @@ Ext.namespace("myNameSpace");
 // create application
 myNameSpace.app = function () {
 
-  // do NOT access DOM from here; elements don"t exist yet
+  // do NOT access DOM from here; elements don't exist yet
   // private variables
 
   var btn1,
@@ -5431,7 +5431,7 @@ define(["jquery"] , function ( $ ) {
 
 <p>Having used AMD for a number of projects, my conclusions are that it ticks a lot of the checkboxes developers creating serious applications might desire from a better module format. It avoids the need to worry about globals, supports named modules, doesn't require server transformation to function and is a pleasure to use for dependency management.</p>
 
-<p>It's also an excellent addition for modular development using Backbone.js, ember.js or any number of other structural frameworks for keeping applications organized. I believe this holds true regardless of whether a patched build of such libraries is needed.</p>
+<p>It's also an excellent addition for modular development using Backbone.js, ember.js or any number of other structural frameworks for keeping applications organized. </p>
 
 <p>As AMD has been heavily discussed for almost two years within the Dojo and CommonJS worlds, we know it's had time to mature and evolve. We also know it's been battle-tested in the wild by by a number of large companies to build non-trivial applications (IBM, BBC iPlayer) and so, if it didn't work, chances are they would have abandoned it by now, but haven't.</p>
 
@@ -6871,7 +6871,7 @@ $.fn.myPluginName = function () {
         // jQuery has an extend method that merges the 
         // contents of two or more objects, storing the 
         // result in the first object. The first object 
-        // is generally empty because we don"t want to alter 
+        // is generally empty because we don't want to alter 
         // the default options for future instances of the plugin
         this.options = $.extend( {}, defaults, options) ;
         
@@ -6983,7 +6983,7 @@ $("#elem").defaultPluginName({
             // For UI 1.8, destroy must be invoked from the 
             // base widget
             $.Widget.prototype.destroy.call( this );
-            // For UI 1.9, define _destroy instead and don"t 
+            // For UI 1.9, define _destroy instead and don't 
             // worry about 
             // calling the base widget
         },
@@ -7511,7 +7511,7 @@ instance.foo("_privateFunction");
             // For UI 1.8, destroy must be invoked from the 
             // base widget
             $.Widget.prototype.destroy.call( this );
-            // For UI 1.9, define _destroy instead and don"t 
+            // For UI 1.9, define _destroy instead and don't 
             // worry about calling the base widget
         },
 
@@ -7660,7 +7660,7 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
             // For UI 1.8, destroy must be invoked from the base 
             // widget
             $.Widget.prototype.destroy.call( this );
-            // For UI 1.9, define _destroy instead and don"t worry 
+            // For UI 1.9, define _destroy instead and don't worry 
             // about calling the base widget
         },
 
