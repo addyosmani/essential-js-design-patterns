@@ -224,21 +224,21 @@ We'll be looking at this and more design patterns later on in the book.</p>
 <p>
 Remember that not every algorithm, best practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally wary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
 <p>
-Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a "thing". This definition is obtuse on purpose as he follows by saying that it is the process should create the "thing". This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
+Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a "thing". This definition is obtuse on purpose as he follows by saying that it is the process should create the "thing". This is a reason why patterns generally focus on addressing a visually identifiable structure i.e we should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
 <p>
-In studying design patterns, you may come across the term "proto-pattern" quite frequently. What is this? Well, a pattern that has not yet been known to pass the "pattern"-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to its very young age.</p>
+In studying design patterns, it's not irregular to come across the term "proto-pattern". What is this? Well, a pattern that has not yet been known to pass the "pattern"-ity tests is usually referred to as a proto-pattern. Proto-patterns may result from the work of someone that has established a particular solution that is worthy of sharing with the community, but may not have yet had the opportunity to have been vetted heavily due to its very young age.</p>
 <p>
 Alternatively, the individual(s) sharing the pattern may not have the time or interest of going through the "pattern"-ity process and might release a short description of their proto-pattern instead. Brief descriptions or snippets of this type of pattern are known as patlets.</p>
 <p>
 The work involved in fully documenting a qualified pattern can be quite daunting. Looking back at some of the earliest work in the field of design patterns, a pattern may be considered "good" if it does the following: </p>
 <ul type="disc">
   <li><strong>Solves a particular problem</strong>: Patterns are not supposed      to just capture principles or strategies. They need to capture solutions.      This is one of the most essential ingredients for a good pattern.</li>
-  <li><strong>The solution to this problem cannot be obvious</strong>: You      can often find that problem-solving techniques attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
+  <li><strong>The solution to this problem cannot be obvious</strong>: We      can find that problem-solving techniques often attempt to derive from      well-known first principles. The best design patterns usually provide      solutions to problems indirectly - this is considered a necessary approach      for the most challenging problems related to design.</li>
   <li><strong>The      concept described must have been proven</strong>: Design patterns require proof that they function as described and without      this proof the design cannot be seriously considered. If a pattern is      highly speculative in nature, only the brave may attempt to use it.</li>
   <li><strong>It      must describe a relationship</strong>: In some cases it may      appear that a pattern describes a type of module. Although an      implementation may appear this way, the official description of the      pattern must describe much deeper system structures and mechanisms that      explain its relationship to code.</li>
 </ul>
 <p>
- We would be forgiven for thinking that a proto-pattern which fails to meet guidelines isn't worth learning from, however, this is far from the truth. Many proto-patterns are actually quite good. I&rsquo;m not saying that all proto-patterns are worth looking at, but there are quite a few useful ones in the wild that could assist you with future projects. Use best judgment with the above list in mind and you&rsquo;ll be fine in your selection process. </p>
+ We would be forgiven for thinking that a proto-pattern which fails to meet guidelines isn't worth learning from, however, this is far from the truth. Many proto-patterns are actually quite good. I&rsquo;m not saying that all proto-patterns are worth looking at, but there are quite a few useful ones in the wild that could assist us with future projects. Use best judgment with the above list in mind and you&rsquo;ll be fine in your selection process. </p>
   <p>
   One of the additional requirements for a pattern to be valid is that they display some recurring phenomenon. This is often something that can be qualified in at least three key areas, referred to as the <em>rule of three</em>. To show recurrence using this rule, one must demonstrate: </p>
 
@@ -275,32 +275,40 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Discussions</strong> – the team or author&rsquo;s thoughts on the exciting benefits of the pattern </li>
 </ul>
 
-<p>Design patterns are quite a powerful approach to getting all of the developers in an organization or team on the same page when creating or maintaining solutions. If you or your company ever consider working on your own pattern, remember that although they may have a heavy initial cost in the planning and write-up phases, the value returned from that investment can be quite worth it. Always research thoroughly before working on new patterns however, as you may find it more beneficial to use or build on top of existing proven patterns than starting afresh.</p>
+<p>Design patterns are quite a powerful approach to getting all of the developers in an organization or team on the same page when creating or maintaining solutions. If considering working on a pattern of your own, remember that although they may have a heavy initial cost in the planning and write-up phases, the value returned from that investment can be quite worth it. Always research thoroughly before working on new patterns however, as you may find it more beneficial to use or build on top of existing proven patterns than starting afresh.</p>
 <p>&nbsp;</p>
 <h1 id="writingdesignpatterns">Writing Design Patterns</h1>
-<p>Although this book is aimed at those new to design patterns, a fundamental understanding of how a design pattern is written can offer you a number of useful benefits. For starters, you can gain a deeper appreciation for the reasoning behind a pattern being needed. You can also learn how to tell if a pattern (or proto-pattern) is up to scratch when reviewing it for your own needs.</p>
+<p>Although this book is aimed at those new to design patterns, a fundamental understanding of how a design pattern is written can offer a number of useful benefits. For starters, we can gain a deeper appreciation for the reasoning behind why a pattern is needed. We can also learn how to tell if a pattern (or proto-pattern) is up to scratch when reviewing it for our own needs.</p>
 <p>
-Writing good patterns is a challenging task. Patterns not only need to provide a substantial quantity of reference material for end-users (such as the items found in the <em>structure</em> section above), but they also need to be able to defend why they are necessary. If you&rsquo;ve already read the previous section on "what' a pattern is, you may think that this in itself should help you identify patterns when you see them in the wild. This is actually quite the opposite - you can&rsquo;t always tell if a piece of code you&rsquo;re inspecting follows a pattern.</p>
+Writing good patterns is a challenging task. Patterns not only need to (ideally) provide a substantial quantity of reference material for end-users, but they also need to be able to defend why they are necessary. 
+</p>
 
+<p>Having read the previous section on <em>what</em> a pattern is, we may think that this in itself is enough to help us identify patterns we see in the wild. This is actually not completely true. It's not always clear if a piece of code we're looking at is following a set pattern or just accidentally happens to appear like it does.</p>
 
 <p>
-When looking at a body of code that you think may be using a pattern, you might write down some of the aspects of the code that you believe falls under a particular existing pattern. In many cases of pattern-analysis you&rsquo;ll find that you&rsquo;re just looking at code that follows good principles and design practices that could happen to overlap with the rules for a pattern by accident. Remember - solutions in which neither interactions nor defined rules appear are not patterns. </p>
+When we're looking at a body of code we think may be using a pattern, we should consider writing down some of the aspects of the code that we believe falls under a particular existing pattern or set of patterns.</p>
+
+ <p>In many cases of pattern-analysis we can find that we're just looking at code that follows good principles and design practices that could happen to overlap with the rules for a pattern by accident. Remember - solutions in which neither interactions nor defined rules appear are <em>not</em> patterns. </p>
+
 <p>
-If you&rsquo;re interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and books and take in what&rsquo;s meaningful to you - this will help you accomplish the goals you have laid out for yours. Explore structure and semantics - this can be done by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
+If interested in venturing down the path of writing your own design patterns I recommend learning from others who have already been through the process and done it well. Spend time absorbing the information from a number of different design pattern descriptions and take in what&rsquo;s meaningful to you.</p> 
+
+<p>Explore structure and semantics - this can be done by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
+
 <p>
 Once you&rsquo;ve exposed yourself to a wealth of information on pattern literature, you may wish to begin your pattern using an <em>existing</em> format and see if you can brainstorm new ideas for improving it or integrating your ideas in there. &nbsp;An example of someone that did this is in recent years is Christian Heilmann, who took the existing <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
 
 
 <p>
-If you would like to try your hand at writing a design pattern (even if just for the learning experience of going through the process), the tips I have for doing so would be as follows:</p>
+The following are tips I would suggest if interesting in creating a new design pattern:</p>
+
 <ul type="disc">
-  <li><strong>Bear in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
-  <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best practices. </li>
+  <li><strong>How practical is the pattern?</strong>: Ensure the pattern describes proven solutions to recurring problems rather than just speculative solutions which haven&rsquo;t been qualified.</li>
+  <li><strong>Keep best practices in mind:</strong> The design decisions we make should be based on principles we derive from an understanding of best practices. </li>
   
-  <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behavior  in the user-experience that would not be incurred without the use of a pattern.</li>
-  <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns. If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
-  <li><strong>Know the differences between      patterns and design</strong>: A design pattern generally draws from proven best      practice and serves as a model for a designer to create a solution<em>. The      role of the pattern is to give designers guidance to make the best design      choices so they can cater to the needs of their users.</em></li>
-  <li><strong>Your pattern needs to have a      strong set of examples:</strong> A good pattern description needs to be followed by      an equally strong set of examples demonstrating the successful application      of your pattern. To show broad usage, examples that exhibit good design      principles are ideal.</li>
+  <li><strong>Our design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behavior  in the user-experience that would not be incurred without the use of a pattern.</li>
+  <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, we do not need to be the original discoverer of the solutions being documented nor do you have to worry about our design overlapping with minor pieces of other patterns. If the approach is strong enough to have broad useful applicability, it has a chance of being recognized as a valid pattern.</li>
+  <li><strong>Pattern need a strong set of examples:</strong> A good pattern description needs to be followed by      an equally strong set of examples demonstrating the successful application      of our pattern. To show broad usage, examples that exhibit good design      principles are ideal.</li>
 </ul>
 <p>
   Pattern writing is a careful balance between creating a design that is general, specific and above all, useful. Try to ensure that if writing a pattern you cover the widest possible areas of application and you should be fine. &nbsp;I hope that this brief introduction to writing patterns has given you some insights that will assist your learning process for the next sections of this book. </p>
@@ -326,10 +334,10 @@ If you would like to try your hand at writing a design pattern (even if just for
   <li>Passing strings rather      than functions to either setTimeout or setInterval as this triggers the      use of <code>eval()</code> internally.</li>
   <li>Modifying the <code>Object</code> class prototype (this is a particularly bad anti-pattern)</li>
   <li>Using JavaScript in an      inline form as this is inflexible </li>
-  <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it's executed after the page has been loaded it can actually overwrite the page you're on, whilst document.createElement does not. You can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn't work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
+  <li>The use of      document.write where native DOM alternatives such as document.createElement are more appropriate.   document.write has been grossly misused over the years and has quite a few disadvantages including that if it's executed after the page has been loaded it can actually overwrite the page we're on, whilst document.createElement does not. We can see <a href="http://jsfiddle.net/addyosmani/6T9vX/">here</a> for a live example of this in action. It also doesn't work with XHTML which is another reason opting for more DOM-friendly methods such as document.createElement is favorable.</li>
   </ul>
 <p>
-  Knowledge of anti-patterns is critical for success. Once you are able to recognize such anti-patterns, you will be able to refactor your code to negate them so that the overall quality of your solutions improves instantly. </p>
+  Knowledge of anti-patterns is critical for success. Once we are able to recognize such anti-patterns, we're able to refactor our code to negate them so that the overall quality of our solutions improves instantly. </p>
 <p>&nbsp;</p>
 <h1 id="categoriesofdesignpatterns">Categories Of Design Pattern</h1>
 <p>&nbsp;</p>
@@ -343,7 +351,7 @@ If you would like to try your hand at writing a design pattern (even if just for
 <h2>
   Creational Design Patterns</h2>
 <p>
-  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation you are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em> the creation process.</p>
+  <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation we're are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em> the creation process.</p>
   <p>Some of the patterns that fall under this category are: Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
 
 <h2>Structural Design Patterns</h2>
@@ -694,7 +702,7 @@ console.log( driver.topSpeed );
 
 <h3>Basic Constructors</h3>
 
-<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript you would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
+<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript we would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
 
 <p>Inside a constructor, the keyword "this" references the new object that's being created. Revising object creation, a basic constructor may look as follows:</p>
 
@@ -734,7 +742,7 @@ console.log( mondeo.toString() );
 
 <h3>Constructors With Prototypes</h3>
 
-<p>Functions in JavaScript have a property called a prototype. When you call a JavaScript constructor to create an object, all the properties of the constructor's prototype are then made available to the new object. In this fashion, multiple Car objects can be created which access the same prototype. We can thus extend the original example as follows:
+<p>Functions in JavaScript have a property called a prototype. When we call a JavaScript constructor to create an object, all the properties of the constructor's prototype are then made available to the new object. In this fashion, multiple Car objects can be created which access the same prototype. We can thus extend the original example as follows:
 </p>
 
 <p><pre class="brush: js">
@@ -794,7 +802,7 @@ var mySingleton = {
 <p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
 
 <p>
-If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which you wish to make public is quite straight-forward from that point as demonstrated below:</p>
+If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
 
 <pre  class="brush: js">
 
@@ -835,7 +843,7 @@ console.log( single.publicVar );
 </pre>
 </p>
 <p>
-The above example is great, but let's next consider a situation where you only want to instantiate the singleton when it's needed. To save on resources, you can place the instantiation code inside another constructor function as follows:
+The above example is great, but let's next consider a situation where we only wish to instantiate the singleton when it's needed. To save on resources, we can place the instantiation code inside another constructor function as follows:
 <pre  class="brush: js">
 
 var Singleton = (function () {
@@ -1017,23 +1025,23 @@ myModule.myMethod3({
 </pre>
 </p>
 
-<p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://blog.rebeccamurphey.com/2009/10/15/using-objects-to-organize-your-code">depth</a> should you wish to read into object literals further.</p>
+<p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">depth</a> should you wish to read into object literals further.</p>
 
-<p>That said, if you're opting for this technique, you may be equally as interested in the module pattern. It still uses object literals but only as the return value from a scoping function. </p>
+<p>That said, if we're opting for this technique, we may be equally as interested in the module pattern. It still uses object literals but only as the return value from a scoping function. </p>
 
 <h3>The Module Pattern</h3>
 
 <p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
 
 <p>
-In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of your function names conflicting with other functions defined in additional scripts on the page.</p>
+In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of our function names conflicting with other functions defined in additional scripts on the page.</p>
 
 <h4>Privacy</h4>
 <p>
 The module pattern encapsulates "privacy", state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
 
 <p>
-This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface you wish other parts of your application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> - see the section on namespacing patterns for more on this) except that an object is returned rather than a function. </p>
+This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface we wish other parts of our application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> - see the section on namespacing patterns for more on this) except that an object is returned rather than a function. </p>
 
 <p>
 It should be noted that there isn't really an explicitly true sense of "privacy" inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
@@ -1084,7 +1092,7 @@ testModule.resetCounter();
 <p>Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. "testModule").
 </p> 
 
-<p>When working with the module pattern, you may find it useful to define a simple template that you use for getting started with it. Here's one that covers namespacing, public and private variables:
+<p>When working with the module pattern, we may find it useful to define a simple template that we use for getting started with it. Here's one that covers namespacing, public and private variables:
 </p>
 <p>
 <pre  class="brush: js">
@@ -1123,7 +1131,7 @@ var myNamespace = (function () {
 </p>
 
 <p>
-Looking at another example, below we can see a shopping basket implemented using the this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of your application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
+Looking at another example, below we can see a shopping basket implemented using the this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of our application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItem()</code> etc). </p>
 
 <pre  class="brush: js">
 
@@ -1175,7 +1183,7 @@ var basketModule = (function () {
 </pre>
 
 <p>
-Inside the module, you'll notice we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that you can interact with it as follows: 
+Inside the module, you may have noticed that we return an <code>object</code>. This gets automatically assigned to <code>basketModule</code> so that we can interact with it as follows: 
 </p>
 <pre  class="brush: js">
 
@@ -1224,12 +1232,12 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <h4>Advantages</h4>
 
 <p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
-<p>Secondly, it supports private data - so, in the module pattern, public parts of your code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
+<p>Secondly, it supports private data - so, in the module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
 <h4>Disadvantages</h4>
 
-<p>The disadvantages of the module pattern are that as you access both public and private members differently, when you wish to change visibility, you actually have to make changes to each place the member was used.</p>
-<p>You also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of your application.</p>
+<p>The disadvantages of the module pattern are that as we access both public and private members differently, when we wish to change visibility, we actually have to make changes to each place the member was used.</p>
+<p>We also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of our application.</p>
 <p>Other disadvantages include the inability to create automated unit tests for private members and additional complexity when bugs require hot fixes. It's simply not possible to patch privates. Instead, one must override all public methods which interact with the buggy privates. Developers can't easily extend privates either, so it's worth remembering privates are not as flexible as they may initially appear.</p>
 
 <p>
@@ -1414,12 +1422,12 @@ var myLibrary = library(function () {
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
 <p>Now that we're a little more familiar with the Module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
 
-<p>The Revealing Module Pattern came about as Heilmann was frustrated with the fact that if you had to repeat the name of the main object when you wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things you wished to make public. </p>
+<p>The Revealing Module Pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
 
-<p>The result of his efforts were an updated pattern where you would simply define all of your functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions you wished to reveal as public.</p>
+<p>The result of his efforts was an updated pattern where we would simply define all of our functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions we wished to reveal as public.</p>
 
 <p><strong>Advantages</strong></p>
-<p>Once again, you&rsquo;re probably wondering what the benefits of this approach are. The Revealing Module Pattern allows the syntax of your script to be fairly consistent - it also makes it very clear at the end which of your functions and variables may be accessed publicly, something that is quite useful. In addition, you are also able to reveal private functions with more specific names if you wish.</p>
+<p>The Revealing Module Pattern allows the syntax of our scripts to be more consistent. It also makes it very clear at the end of the module which of our functions and variables may be accessed publicly which eases readability.</p>
 <p>An example of how to use the revealing module pattern can be found below:</p>
 <p>
 <pre  class="brush: js">
@@ -1456,6 +1464,7 @@ myRevealingModule.get();
 </pre></p>
 <p><strong>Disadvantages</strong></p>
 <p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
+
 <p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
 <p>&nbsp;</p>
 
