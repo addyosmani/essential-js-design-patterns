@@ -6754,13 +6754,13 @@ $( "&lt;input /&gt;" )
 
 <p>Some developers may wish to use the jQuery UI <a href="http://ajpiano.com/widgetfactory/">widget factory</a>; it’s great for complex, flexible UI components. Some may not.</p> 
 
-<p>Some might like to structure their plugins more like modules (similar to the module pattern) or use a more modern module format such as <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>.</p> 
+<p>Some might like to structure their plugins more like modules (similar to the module pattern) or use a more modern module format such as AMD.</p> 
 
 <p>Some might want their plugins to harness the power of prototypal inheritance. Others may wish to use custom events or Publish/Subscribe to communicate from plugins to the rest of their app. And so on.</p>
 
 <p>I began to think about plugin patterns after noticing a number of efforts to create a one-size-fits-all jQuery plugin boilerplate. While such a boilerplate is a great idea in theory, the reality is that we rarely write plugins in one fixed way, using a single pattern all the time.</p>
 
-<p>Let us assume that you’ve tried your hand at writing your own jQuery plugins at some point and you’re comfortable putting together something that works. It’s functional. It does what it needs to do, but perhaps you feel it could be structured better. Maybe it could be more flexible or could solve more issues. If this sounds familiar and you aren’t sure of the differences between many of the different jQuery plugin patterns, then you might find this chapter useful.</p>
+<p>Let us assume that we’ve tried our hand at writing our own jQuery plugins at some point and we’re comfortable putting together something that works. It’s functional. It does what it needs to do, but perhaps we feel it could be structured better. Maybe it could be more flexible or could be designed to address more of the issues developers commonly run into. If this sounds familiar, then you might find this chapter useful. In it, we're going to explore a number of jQuery plugin patterns that have worked well for other developers in the wild.</p>
 
 
 <p><strong>Note:</strong> This chapter is targeted at intermediate to advanced developers, although we will briefly review some jQuery plugin fundamentals to begin.
@@ -6807,7 +6807,7 @@ $.fn.myPluginName = function () {
 
 <p>While most of the patterns below will be explained, I recommend reading through the comments in the code, because they will offer more insight into why certain best practices are applied. </p>
 
-<p>I should also mention that none of this would be possible without the previous work, input and advice of other members of the jQuery community. I’ve listed them inline with each pattern so that you can read up on their individual work if interested.</p>
+<p>I should also mention that none of this would be possible without the previous work, input and advice of other members of the jQuery community. I’ve listed them inline with each pattern so that one can read up on their individual work if interested.</p>
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -6856,7 +6856,7 @@ $.fn.myPluginName = function () {
     // variables rather than as globals, because this (slightly) 
     // quickens the resolution process and can be more 
     // efficiently minified (especially when both are 
-    // regularly referenced in your plugin).
+    // regularly referenced in our plugin).
 
     // Create the defaults once
     var pluginName = "defaultPluginName",
@@ -6883,7 +6883,7 @@ $.fn.myPluginName = function () {
 
     Plugin.prototype.init = function () {
         // Place initialization logic here
-        // You already have access to the DOM element and
+        // We already have access to the DOM element and
         // the options via the instance, e.g. this.element 
         // and this.options
     };
@@ -6930,7 +6930,7 @@ $("#elem").defaultPluginName({
 
 <p>While the jQuery plugin authoring guide is a great introduction to plugin development, it doesn't help obscure away common plugin plumbing tasks that we have to deal with on a regular basis.</p>
 
-<p>The jQuery UI Widget Factory is a solution to this problem that helps you build complex, stateful plugins based on object-oriented principles. It also eases communication with our plugins instance, obfuscating a number of the repetitive tasks that we would have to code when working with basic plugins.</p>
+<p>The jQuery UI Widget Factory is a solution to this problem that helps us build complex, stateful plugins based on object-oriented principles. It also eases communication with our plugins instance, obfuscating a number of the repetitive tasks that we would have to code when working with basic plugins.</p>
 
 <p>Stateful plugins help us keep track of their current state, also allowing us to change properties of the plugin after it has been initialized.</p>
 
@@ -6950,8 +6950,8 @@ $("#elem").defaultPluginName({
 
 ;(function ( $, window, document, undefined ) {
 
-    // define your widget under a namespace of your choice
-    //  with additional parameters e.g. 
+    // define our widget under a namespace of your choice
+    // with additional parameters e.g. 
     // $.widget( "namespace.widgetname", (optional) - an 
     // existing widget prototype to inherit from, an object 
     // literal to become the widget's prototype ); 
@@ -6969,7 +6969,7 @@ $("#elem").defaultPluginName({
 
             // _create will automatically run the first time 
             // this widget is called. Put the initial widget 
-            // setup code here, then you can access the element 
+            // setup code here, then we can access the element 
             // on which the widget was called via this.element. 
             // The options defined above can be accessed 
             // via this.options this.element.addStuff();
@@ -7057,9 +7057,9 @@ collection.widgetName("methodB");
 
 <p>As we've previously covered in the book, namespacing our code is a way to avoid collisions with other objects and variables in the global namespace. They’re important because we want to safeguard our plugin from breaking in the event that another script on the page uses the same variable or plugin names as ours. As a good citizen of the global namespace, we must also do our best not to prevent other developers scripts from executing because of the same issues.</p>
 
-<p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of your namespace, we can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
+<p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of our namespace, we can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
 
-<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should us everything you need to get started with these concepts.</p>
+<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should us everything we need to get started with these concepts.</p>
 
 <pre class="brush: js">
 /*!
@@ -7092,7 +7092,7 @@ collection.widgetName("methodB");
             base.options = $.extend({}, 
             $.myNamespace.myPluginName.defaultOptions, options);
 
-            // Put your initialization code here
+            // Put our initialization code here
         };
 
         // Sample Function, Uncomment to use
@@ -7236,8 +7236,8 @@ el.eventStatus().trigger( "myEventStart" );
  */
 
 
-// myObject - an object representing a concept that you want 
-// to model (e.g. a car)
+// myObject - an object representing a concept we wish to model
+// (e.g. a car)
 var myObject = {
   init: function( options, elem ) {
     // Mix in the passed-in options with the default options
@@ -7261,7 +7261,7 @@ var myObject = {
     //this.$elem.html( "&lt;h1&gt;"+this.options.name+"&lt;/h1&gt;" );
   },
   myMethod: function( msg ){
-    // You have direct access to the associated and cached
+    // We have direct access to the associated and cached
     // jQuery element
     // this.$elem.append( "&lt;p&gt;"+msg+"&lt;/p&gt;" );
   }
@@ -7367,7 +7367,7 @@ widgetName.prototype = {
     },
 
     // required: initialization logic for the plugin goes into _init
-    // This fires when your instance is first created and when 
+    // This fires when our instance is first created and when 
     // attempting to initialize the widget again (by the bridge)
     // after it has already been initialized.
     _init: function(){
@@ -7380,7 +7380,7 @@ widgetName.prototype = {
     option: function( key, value ){
         
         // optional: get/change options post initialization
-        // ignore if you don"t require them.
+        // ignore if you don't require them.
         
         // signature: $("#foo").bar({ cool:false });
         if( $.isPlainObject( key ) ){
@@ -7424,11 +7424,11 @@ var instance = $( "#foo" ).foo({
    baz: true
 });
 
-// your widget instance exists in the elem's data
+// our widget instance exists in the elem's data
 // Outputs: #elem
 console.log(instance.data( "foo" ).element); 
 
-// bridge allows you to call public methods...
+// bridge allows us to call public methods
 // Outputs: "public method"
 instance.foo("publicFunction"); 
 
@@ -7472,11 +7472,11 @@ instance.foo("_privateFunction");
 
 ;(function ( $, window, document, undefined ) {
 
-    //define a widget under a namespace of your choice
-    //here "mobile" has been used in the first parameter
+    // define a widget under a namespace of our choice
+    // here "mobile" has been used in the first argument
     $.widget( "mobile.widgetName", $.mobile.widget, {
 
-        //Options to be used as defaults
+        // Options to be used as defaults
         options: {
             foo: true,
             bar: false
@@ -7485,14 +7485,14 @@ instance.foo("_privateFunction");
         _create: function() {
             // _create will automatically run the first time this 
             // widget is called. Put the initial widget set-up code 
-            // here, then you can access the element on which 
+            // here, then we can access the element on which 
             // the widget was called via this.element
             // The options defined above can be accessed via 
             // this.options
 
-            //var m = this.element,
-            //p = m.parents( ":jqmData(role="page")" ),
-            //c = p.find( ":jqmData(role="content")" )
+            // var m = this.element,
+            // p = m.parents( ":jqmData(role="page")" ),
+            // c = p.find( ":jqmData(role="content")" )
         },
 
         // Private methods/props start with underscores
@@ -7507,7 +7507,7 @@ instance.foo("_privateFunction");
         // Destroy an instantiated plugin and clean up modifications 
         // the widget has made to the DOM
         destroy: function () {
-            //this.element.removeStuff();
+            // this.element.removeStuff();
             // For UI 1.8, destroy must be invoked from the 
             // base widget
             $.Widget.prototype.destroy.call( this );
@@ -7518,7 +7518,7 @@ instance.foo("_privateFunction");
         methodB: function ( event ) {
             //_trigger dispatches callbacks the plugin user can 
             // subscribe to
-            //signature: _trigger( "callbackName" , [eventObject],
+            // signature: _trigger( "callbackName" , [eventObject],
             //  [uiObject] )
             // e.g. this._trigger( "hover", e /*where e.type == 
             // "mouseenter"*/, { hovered: $(e.target)});
@@ -7533,7 +7533,7 @@ instance.foo("_privateFunction");
             });
         },
 
-        //Respond to any changes the user makes to the option method
+        // Respond to any changes the user makes to the option method
         _setOption: function ( key, value ) {
             switch ( key ) {
             case "someValue":
@@ -7582,7 +7582,7 @@ $(document).on("pagecreate", function ( e ) {
 });
 </pre></p>
 
-<p>We can now simply reference the script containing your widget and <code>pagecreate</code> binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
+<p>We can now simply reference the script containing our widget and <code>pagecreate</code> binding in a page running jQuery Mobile site, and it will automatically run like any other jQuery Mobile plugin.</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
@@ -7612,7 +7612,7 @@ $(document).on("pagecreate", function ( e ) {
  
 // Note from James:
 // 
-// This assumes you are using the RequireJS+jQuery file, and 
+// This assumes we are using the RequireJS+jQuery file, and 
 // that the following files are all in the same directory: 
 //
 // - require-jquery.js 
@@ -7621,12 +7621,12 @@ $(document).on("pagecreate", function ( e ) {
 //    - asset.html 
 // - ao.myWidget.js 
 
-// Then you can construct the widget as follows: 
+// Then we can construct the widget as follows: 
 
 // ao.myWidget.js file: 
 define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jquery-ui.custom.min"], function ( $, assetHtml, _ ) {
 
-    // define your widget under a namespace of your choice
+    // define our widget under a namespace of our choice
     // "ao" is used here as a demonstration 
     $.widget( "ao.myWidget", { 
 
@@ -7639,7 +7639,7 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
 
             // _create will automatically run the first time 
             // this widget is called. Put the initial widget 
-            // set-up code here, then you can access the element 
+            // set-up code here, then we can access the element 
             // on which the widget was called via this.element.
             // The options defined above can be accessed via 
             // this.options
@@ -7667,7 +7667,7 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
         methodB: function ( event ) {
             // _trigger dispatches callbacks the plugin user can 
             // subscribe to
-            //signature: _trigger( "callbackName" , [eventObject], 
+            // signature: _trigger( "callbackName" , [eventObject], 
             // [uiObject] )
             this._trigger( "methodA", event, {
                 key: value
@@ -7680,14 +7680,14 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
             });
         },
 
-        //Respond to any changes the user makes to the option method
+        // Respond to any changes the user makes to the option method
         _setOption: function ( key, value ) {
             switch (key) {
             case "someValue":
-                //this.options.someValue = doSomethingWith( value );
+                // this.options.someValue = doSomethingWith( value );
                 break;
             default:
-                //this.options[ key ] = value;
+                // this.options[ key ] = value;
                 break;
             }
 
@@ -7695,7 +7695,7 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
             // the base widget
             $.Widget.prototype._setOption.apply( this, arguments );
             // For UI 1.9 the _super method can be used instead
-            //this._super( "_setOption", key, value );
+            // this._super( "_setOption", key, value );
         }
 
     }); 
@@ -7829,7 +7829,7 @@ $("#elem").pluginName({
 <li>Options can be customized on a <strong>per-element</strong> level through HTML5 data attributes (as shown below). This facilitates plugin behavior that can be applied to a collection of elements but then customized inline without the need to instantiate each element with a different default value. </li>
 </ul>
 
-<p>We don’t see the latter option in the wild too often, but it can be a significantly cleaner solution (as long as we don’t mind the inline approach). If you’re wondering where this could be useful, imagine writing a draggable plugin for a large set of elements. We could go about customizing their options as follows:</p>
+<p>We don’t see the latter option in the wild too often, but it can be a significantly cleaner solution (as long as we don’t mind the inline approach). If wondering where this could be useful, imagine writing a draggable plugin for a large set of elements. We could go about customizing their options as follows:</p>
 
 <pre class="brush: js">
 $( ".item-a" ).draggable( {"defaultPosition":"top-left"} );
@@ -7849,7 +7849,7 @@ $( ".items" ).draggable();
 &lt;li class="item" data-plugin-options="{"defaultPosition":"bottom-left"}"&gt;&lt;/div&gt;
 </pre>
 
-<p>And so on. You may well have a preference for one of these approaches, but it is another potentially useful pattern to be aware of.</p>
+<p>And so on. We may well have a preference for one of these approaches, but it is just another variation worth being aware of.</p>
 
 <pre class="brush: js">
 /*
@@ -7918,7 +7918,7 @@ $( ".items" ).draggable();
     });
   };
 
-  //optional: window.Plugin = Plugin;
+  // optional: window.Plugin = Plugin;
 
 })( jQuery, window , document );
 </pre>
@@ -7943,35 +7943,36 @@ $("#elem").plugin({
 
 <h3>What Makes A Good Plugin Beyond Patterns?</h3>
 
-<p>At the end of the day, design patterns are just one aspect of successfully writing maintainable plugins. There are a number of other aspects worth considering and I would like to share my own criteria for selecting third-party plugins to address some of the other aspects. I hope this helps increase the overall quality of your plugin projects:</p>
+<p>At the end of the day, design patterns are just one facet to writing maintainable jQuery plugins. There are a number of other factors worth considering and I would like to share my own criteria for selecting third-party plugins to address some of the other concerns. I hope this helps increase the overall quality of your plugin projects:</p>
 
-<p><strong>Quality</strong><br />
-Do your best to adhere to best practices with respect both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+<p><strong>Quality</strong></p>
+<p>Adhere to best practices with respect to both the JavaScript and jQuery that you write. Are efforts being made to lint the plugin code using either jsHint or jsLint? Is the plugin written optimally?</p>
 
-<p><strong>Compatibility</strong><br />
-Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release.</p> 
+<p><strong>Code Style</strong></p>
+<p>Does the plugin follow a consistant code style guide such as the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+
+<p><strong>Compatibility</strong><p/>
+<p>Which versions of jQuery is the plugin compatible with? Has it been tested with the latest jQuery-git builds or latest stable? If the plugin was written before jQuery 1.6, then it might have issues with attributes and properties, because the way they were approached changed in that release.</p> 
 
 <p>New versions of jQuery offer improvements and opportunities for the jQuery project to improve on what the core library offers. With this comes occasional breakages (mainly in major releases) as we move towards a better way of doing things. I’d like to see plugin authors update their code when necessary or, at a minimum, test their plugins with new versions to make sure everything works as expected.</p>
 
-<p><strong>Reliability</strong><br />
-Your plugin should come with its own set of unit tests. Not only do these prove your plugin actually works, but they can also improve the design without breaking it for end users. I consider unit tests essential for any serious jQuery plugin that is meant for a production environment, and they’re not that hard to write. For an excellent guide to automated JavaScript testing with QUnit, you may be interested in “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg749824">Automating JavaScript Testing With QUnit</a>,” by <a href="http://bassistance.de/">Jorn Zaefferer</a>.</p>
+<p><strong>Reliability</strong><p/>
+<p>The plugin should come with its own set of unit tests. Not only do these prove it actually functions as expected, but they can also improve the design without breaking it for end users. I consider unit tests essential for any serious jQuery plugin that is meant for a production environment, and they’re not that hard to write. For an excellent guide to automated JavaScript testing with QUnit, you may be interested in “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg749824">Automating JavaScript Testing With QUnit</a>,” by <a href="http://bassistance.de/">Jörn Zaefferer</a>.</p>
 
-<p><strong>Performance</strong><br />
-If the plugin needs to perform tasks that require a lot of computing power or that heavily manipulates the DOM, then you should follow best practices that minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of your code so that you’re aware of how well it performs in different browsers before releasing the plugin.</p>
+<p><strong>Performance</strong><p/>
+<p>If the plugin needs to perform tasks that require extensive processing or heavily manipulation of the DOM, one should follow best practices for benchmarking to help minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of the code to a) how well it performs in different browsers and b) discover what, if anything, might be optimized further.</p>
 
-<p><strong>Documentation</strong><br />
-If you intend for other developers to use your plugin, ensure that it’s well documented. Document your API. What methods and options does the plugin support? Does it have any gotchas that users need to be aware of? If users cannot figure out how to use your plugin, they’ll likely look for an alternative. Also, do your best to comment the code. This is by far the best gift you could give to other developers. If someone feels they can navigate your code base well enough to fork it or improve it, then you’ve done a good job.</p>
+<p><strong>Documentation</strong><p/>
+<p>If the intension is for other developers to use the plugin, ensure that it’s well documented. Document the API and how the plugin is to be used. What methods and options does the plugin support? Does it have any gotchas that users need to be aware of? If users cannot figure out how to use the plugin, they’ll likely look for an alternative. It is also of great help to comment your plugin code. This is by far the best gift you can offer other developers. If someone feels they can navigate your code base well enough to use it or improve it, then you’ve done a good job.</p>
 
-<p><strong>Likelihood of maintenance</strong><br />
-When releasing a plugin, estimate how much time you’ll have to devote to maintenance and support. We all love to share our plugins with the community, but you need to set expectations for your ability to answer questions, address issues and make improvements. This can be done simply by stating your intentions for maintenance in the <em>README</em> file, and let users decide whether to make fixes themselves.</p>
+<p><strong>Likelihood of maintenance</strong><p/>
+<p>When releasing a plugin, estimate how much time may be required for maintenance and support. We all love to share our plugins with the community, but one needs to set expectations for ones ability to answer questions, address issues and make continuous improvements. This can be done simply by stating the project intentions for maintenance support upfront in the <em>README</em> file.</p>
 
 <h2>Conclusions</h2>
 
-<p>In this chapter, we explored several time-saving design patterns and best practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope on the whole these patterns are useful.</p>
+<p>In this chapter, we explored several time-saving design patterns and best practices that can be employed to improve how jQuery plugins can be written. Some are better suited to certain use cases than others, but I hope on the whole these patterns are useful.</p>
 
-<p>Remember, when selecting a pattern, be practical. Don’t use a plugin pattern just for the sake of it; rather, spend some time understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. </p>
-
-
+<p>Remember, when selecting a pattern, it is important to be practical. Don’t use a plugin pattern just for the sake of it, rather, invest time in understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. </p>
 
 
 <h2 id="detailnamespacing">Namespacing Patterns</h2>
@@ -8066,7 +8067,7 @@ myApplication.utils = {
 <p>The code at the very top of the next sample demonstrates the different ways in which we can check to see if a variable (object namespace) already exists before defining it. We may commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best practice.</p>
 <pre  class="brush: js">
 // This doesn't check for existence of "myApplication" in
-// the global namespace. Bad practice as you can easily
+// the global namespace. Bad practice as we can easily
 // clobber an existing variable/namespace with the same name
 var myApplication = {};
 
@@ -8082,7 +8083,7 @@ var myApplication = {};
 
 
 </pre>
-<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, you may just find yourself using the Revealing Module Pattern, which we covered earlier in the book:</p>
+<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, we may just find ourselves using the Revealing Module Pattern, which we covered earlier in the book:</p>
 <pre  class="brush: js">
 
 var namespace = (function () {
@@ -8095,7 +8096,7 @@ var namespace = (function () {
     return {
 
         // the object literal returned here can have as many 
-        // nested depths as you wish, however as mentioned, 
+        // nested depths as we wish, however as mentioned, 
         // this way of doing things works best for smaller, 
         // limited-scope applications in my personal opinion
         publicMethod1: privateMethod1,
@@ -8113,7 +8114,7 @@ var namespace = (function () {
     }
 })();
 </pre>
-<p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we're able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending your code.</p>
+<p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we're able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending our code.</p>
 <p>A possible downside however is that object literals have the potential to grow into long syntactic constructs. Opting to take advantage of the nested namespace pattern (which also uses the same pattern as its base)</p>
 <p>This pattern has a number of other useful applications too. In addition to namespacing, it's often of benefit to decouple the default configuration for our application into a single area that can be easily modified without the need to search through our entire codebase just to alter them - object literals work great for this purpose. Here's an example of a hypothetical object literal for configuration:</p>
 <pre  class="brush: js">
@@ -8138,7 +8139,7 @@ var myConfig = {
 }
 
 </pre>
-<p>Note that there are really only minor syntactical differences between the object literal pattern and a standard JSON data set. If for any reason you wish to use JSON for storing your configurations instead (e.g. for simpler storage when sending to the back-end), feel free to. For more on the object literal pattern, I recommend reading Rebecca Murphey's excellent <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">article</a> on the topic.</p>
+<p>Note that JSON is a subset of object literal notation and there are really only minor syntactial differences between it and the above (e.g JSON keys must be strings). If for any reason one wishes to use JSON for storing configuration data instead (e.g. for simpler storage when sending to the back-end), feel free to. For more on the object literal pattern, I recommend reading Rebecca Murphey's excellent <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">article</a> on the topic as she covers a few areas we didn't touch upon.</p>
 <h3>4. Nested namespacing</h3>
 <p>An extension of the object literal pattern is nested namespacing. It's another common pattern used that offers a lower risk of collision due to the fact that even if a namespace already exists, it's unlikely the same nested children do.</p>
 <p>Does this look familiar?</p>
@@ -8171,10 +8172,15 @@ myApp["controllers"] = myApp["controllers"] || {};
 </pre>
 <p>Both options are readable, organized and offer a relatively safe way of namespacing our application in a similar fashion to what we may be used to in other languages. The only real caveat however is that it requires our browser's JavaScript engine first locating the myApp object and then digging down until it gets to the function we actually wish to use.</p>
 <p>This can mean an increased amount of work to perform lookups, however developers such as <a href="http://twitter.com/kangax">Juriy Zaytsev</a> have previously tested and found the performance differences between single object namespacing vs the "nested" approach to be quite negligible.</p>
+
 <h3>5. Immediately-invoked Function Expressions (IIFE)s</h3>
-<p>An <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> (which we have also previously looked at) is effectively an unnamed function which is immediately invoked after it's been defined. In JavaScript, because both variables and functions explicitly defined within such a context may only be accessed inside of it, function invocation provides an easy means to achieving privacy.</p>
-<p>This is one of the many reasons why IIFEs are a popular approach to encapsulating application logic to protect it from the global namespace. You have probably come across this pattern before under the name of a self-executing (or self-invoked) anonymous function, however I personally prefer Ben Alman's naming convention for this particular pattern as I believe it to be both more descriptive and more accurate.</p>
-<p>The simplest version of an IIFE could be the following:</p>
+
+<p>Earlier in the book, we briefly covered the concept of an <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> (immediately-invoked function expression) which is effectively an unnamed function, immediately invoked after it's been defined. If it sounds familiar it's because you may have previous come across it referred to as a self-executing (or self-invoked) anonymous function, however I personally feel Ben Alman's IIFE naming is more accurate. In JavaScript, because both variables and functions explicitly defined within such a context may only be accessed inside of it, function invocation provides an easy means to achieving privacy.</p>
+
+<p>IIFEs are a popular approach to encapsulating application logic to protect it from the global namespace but also have their use in the world of namespacing.</p>
+
+<p>Examples of IIFEs can be found below:</p>
+
 <pre  class="brush: js">
 // an (anonymous) immediately-invoked function expression
 (function () { /*...*/})();
@@ -8262,9 +8268,12 @@ console.log( namespace.foobar2 );
     }    
 }( window.namespace = window.namespace || {});
 </pre>
-<p>namespace.sayGoodbye(); //goodbye</p>
-<p>That's it for IIFEs for the time-being. If you would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> and Elijah Manor's post on <a href="enterprisejquery.com/2010/10/how-good-c-habits-can-encourage-bad-javascript-habits-part-1/">namespace patterns from C#</a>.</p>
+<p>namespace.sayGoodbye(); // goodbye</p>
+
+<p>If would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> for more information.</p>
+
 <h3>6. Namespace injection</h3>
+
 <p>Namespace injection is another variation on the IIFE where we "inject" the methods and properties for a specific namespace from within a function wrapper using <i>this</i> as a namespace proxy. The benefit this pattern offers is easy application of functional behaviour to multiple objects or namespaces and can come in useful when applying a set of base methods to be built on later (e.g. getters and setters).</p>
 <p>The disadvantages of this pattern are that there may be easier or more optimal approaches to achieving this goal (e.g. deep object extension / merging) which I cover earlier in the section.</p>
 <p>Below we can see an example of this pattern in action, where we use it to populate the behaviour for two namespaces: one initially defined (utils) and another which we dynamically create as a part of the functionality assignment for utils (a new namespace called <i>tools</i>).</p>
@@ -8347,8 +8356,7 @@ creator.call( ns2 , 5000 );
 // of 5000
 
 </pre>
-<p>As mentioned, this type of pattern is useful for assigning a similar base set of functionality to multiple modules or namespaces, but I'd really only suggest using it where explicitly declaring your functionality within an object/closure for direct access doesn't make sense.</p>
-
+<p>As mentioned, this type of pattern is useful for assigning a similar base set of functionality to multiple modules or namespaces. I would however only really suggest using it where explicitly declaring functionality within an object/closure for direct access doesn't make sense.</p>
 
 <h2>Advanced namespacing patterns</h2>
 
@@ -8448,11 +8456,15 @@ drawing.plot( 98, 50,60 );
 // namespaces vs. a local reference to the namespace
 </pre>
 <p>Working with a local variable here is almost always faster than working with a top-level global (e.g.myApp). It's also both more convenient and more performant than accessing nested properties/sub-namespaces on every subsequent line and can improve readability in more complex applications.</p>
-<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of our function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One of the benefits this offers is a decrease in locating dependencies and resolving them, should we have an extendable architecture that dynamically loads modules into your namespace when required.</p>
+
+<p>Stoyan recommends declaring localized namespaces required by a function or module at the top of our function scope (using the single-variable pattern) and calls this a dependancy declaration pattern. One of the benefits this offers is a decrease in locating dependencies and resolving them, should we have an extendable architecture that dynamically loads modules into our namespace when required.</p>
+
 <p>In my opinion this pattern works best when working at a modular level, localizing a namespace to be used by a group of methods. Localizing namespaces on a per-function level, especially where there is significant overlap between namespace dependencies would be something I would recommend avoiding where possible. Instead, define it further up and just have them all access the same reference.</p>
+
 <h3>Deep object extension</h3>
 <p>An alternative approach to automatic namespacing is deep object extension. Namespaces defined using object literal notation may be easily extended (or merged) with other objects (or namespaces) such that the properties and functions of both namespaces can be accessible under the same namespace post-merge.</p>
-<p>This is something that's been made fairly easy to accomplish with modern JavaScript frameworks (e.g. see jQuery's <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if you're looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
+
+<p>This is something that's been made fairly easy to accomplish with modern JavaScript frameworks (e.g. see jQuery's <a href="http://api.jquery.com/jQuery.extend/">$.extend</a>), however, if looking to extend object (namespaces) using vanilla JS, the following routine may be of assistance.</p>
 
 <pre  class="brush: js">
 // extend.js
@@ -8540,7 +8552,7 @@ console.log( "test 4", myNS);
 console.groupEnd();
 
 </pre>
-<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. You may find the Underscore.js <code>extend</code> method a simpler, more cross-browser implementation to start with <a href="http://documentcloud.github.com/underscore/docs/underscore.html#section-67">http://documentcloud.github.com/underscore/docs/underscore.html#section-67</a>. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: <a href="https://gist.github.com/1123784">https://gist.github.com/1123784</a>.</p>
+<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. One may find the Underscore.js <code>extend()</code> method a simpler, more cross-browser implementation to start with <a href="http://documentcloud.github.com/underscore/docs/underscore.html#section-67">http://documentcloud.github.com/underscore/docs/underscore.html#section-67</a>. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: <a href="https://github.com/addyosmani/jquery.parts">https://github.com/addyosmani/jquery.parts</a>.</p>
 
 <p>For developers that are going to use jQuery in their application, one can achieve the exact same object namespace extensibility with <code>$.extend</code> as follows:</p>
 <pre  class="brush: js">// top-level namespace
@@ -8577,20 +8589,19 @@ console.log("test", myApp);
 
 <p>IIFEs and single global variables may work fine for applications in the small to medium range, however, larger codebases requiring both namespaces and deep sub-namespaces require a succinct solution that promotes readability and scales. I feel this pattern achieves all of these objectives well.</p>
 
-<p>I would also recommend trying out some of the suggested advanced utility methods for namespace extension as they really can save you time in the long-run.</p>
+<p>I would also recommend trying out some of the suggested advanced utility methods for namespace extension as they really can save us time in the long-run.</p>
 
 
 <p>&nbsp;</p>
 <h1 id="conclusions">Conclusions</h1>
-<p><span id="internal-source-marker_0.14080225546628167">                </span>
-  That's it for this introduction to the world of design patterns in JavaScript and jQuery - I hope you've found it beneficial. The contents of this book should hopefully provide sufficient information to get started using the patterns we covered in your own scripts, plugins and web applications.</p>
+<p>That's it for this introductory adventure into the world of design patterns in JavaScript and jQuery - I hope you've found it beneficial.</p>
 
   <p>
-  Design patterns make it easy for us to build on the shoulders of developers who have defined solutions to challenging problems and architectures over a number of decades.</p> 
+  Design patterns make it easy for us to build on the shoulders of developers who have defined solutions to challenging problems and architectures over a number of decades. The contents of this book should hopefully provide sufficient information to get started using the patterns we covered in your own scripts, plugins and web applications.</p> 
 
-  <p>It's important for us to be aware of these patterns but it's also essential to know how and when to use them. Study the pros and cons of particular patterns before employing them, take the time out to experiment with them and make judgements based on their true value to your application.</p>
+  <p>It's important for us to be aware of these patterns but it's also essential to know how and when to use them. Study the pros and cons of each pattern before employing them. Take the time out to experiment with patterns to fully appreciate what they offer and make usage judgements based on a pattern's true value to your application.</p>
   
-<p>If I&rsquo;ve encouraged your interest in this area further and you would like to learn more about design patterns, there are a number of excellent titles on this area available for generic software development but also those that cover specific languages.</p>
+<p>If I&rsquo;ve encouraged your interest in this area further and you would like to learn more about design patterns, there are a number of excellent titles on this area available for generic software development and of course, JavaScript.</p>
 
 <p>I am happy to recommend:</p>
 <ol>
