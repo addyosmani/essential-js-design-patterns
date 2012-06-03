@@ -197,7 +197,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 To understand how useful patterns can be, let's review a very simple element selection problem that the jQuery library solves for us everyday. </p>
 
 <p>
-If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to query for the list we need?. Well, there are a few different ways this problem could be tackled:</p>
+If we imagine that we have a script where for each DOM element on a page with class "foo" we want to increment a counter, what's the simplest efficient way to query for the list we need? Well, there are a few different ways this problem could be tackled:</p>
 <p>
   <ol>
     <li>Select all of the elements in the page and then store them. Next, filter this list and use regular expressions (or another means) to only store those with the class "foo".</li> 
@@ -208,7 +208,7 @@ Use a modern native browser feature such as <code>querySelectorAll()</code> to s
 </p>
 
 <p>
-So, which of these is the fastest?. You might be interested to know that it's actually number 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
+So, which of these is the fastest? You might be interested to know that it's actually number 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where 3. isn't supported.</p>
 <p>
 Developers using jQuery don"t have to worry about this problem, as it's luckily abstracted away for us. The library opts for the most optimal approach to selecting elements depending on what your browser supports.</p>
 
@@ -269,7 +269,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Examples</strong> – an implementation of the pattern in a minimal form </li>
   <li><strong>Co-requisites</strong> – what other patterns may be needed to support use of the pattern being described? </li>
   <li><strong>Relations</strong> – what patterns does this pattern resemble? does it closely mimic any others? </li>
-  <li><strong>Known usage</strong> – is the pattern being used in the <em>wild</em>?. If so, where and how? </li>
+  <li><strong>Known usage</strong> – is the pattern being used in the <em>wild</em>? If so, where and how? </li>
   <li><strong>Discussions</strong> – the team or author&rsquo;s thoughts on the exciting benefits of the pattern </li>
 </ul>
 
@@ -868,7 +868,7 @@ Singleton.getInstance().publicMethod();
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>So, where else is the singleton pattern useful in practice?. Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here"s one last example of the singleton pattern being used in this context:</p>
+<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here"s one last example of the singleton pattern being used in this context:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -4599,7 +4599,7 @@ var PhotoView = Backbone.View.extend({
 </pre>
 <p>Note: You may notice in the above snippet that we are calling a method <code>observables()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to synchronize Models and ViewModels when the value of a Model attribute is modified.</p>
 <h3>View</h3>
-<p>As with MVC, the View is the only part of the application of users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, MVVM View is considered active rather than passive, but what does this mean?.</p>
+<p>As with MVC, the View is the only part of the application of users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, MVVM View is considered active rather than passive, but what does this mean?</p>
 <p>A passive View has no real knowledge of the models in our application and is manipulated by a controller. MVVM&rsquo;s active View contains the data-bindings, events and behaviors which require an understanding of the Model and ViewModel. Although these behaviors can be mapped to properties, the View is still responsible for handling events to the ViewModel.</p>
 <p>It&rsquo;s important to remember the View isn&rsquo;t responsible here for handling state - it keeps this in sync with the ViewModel.</p>
 <p>A KnockoutJS View is simply a HTML document with declarative bindings to link it to the ViewModel. KnockoutJS Views display information from the ViewModel, pass commands to it (e.g a user clicking on an element) and update as the state of the ViewModel changes. Templates generating markup using data from the ViewModel can however also be used for this purpose.</p>
@@ -4797,7 +4797,7 @@ function nodeHasBindings( node ) {
     return node.getAttribute ? node.getAttribute("data-class") : false;
 };
 </pre>
-<p>Next, we need a sensible <code>getBindings()</code> function. As we&rsquo;re sticking with the idea of CSS classes, why not also consider supporting space-separated classes to allow us to share binding specs between different elements?.</p>
+<p>Next, we need a sensible <code>getBindings()</code> function. As we&rsquo;re sticking with the idea of CSS classes, why not also consider supporting space-separated classes to allow us to share binding specs between different elements?</p>
 <p>Let&rsquo;s first review what our bindings will look like. We create an object to hold them where our property names need to match the keys we wish to use in our data-classes.</p>
 <p>Note: There isn&rsquo;t a great deal of work required to convert a KnockoutJS application from using traditional data-bindings over to unobstrusive bindings with custom binding providers. We simply pull our all of our data-bind attributes, replace them with data-class attributes and place our bindings in a binding object as per below:</p>
 <pre   class="brush: js">
@@ -8512,7 +8512,7 @@ console.log( "test 3", myNS );
 
 
 // 4. what if we wanted easier access to a specific namespace without having
-// to type the whole namespace out each time?.
+// to type the whole namespace out each time?
 
 var shorterAccess1 = myNS.hello.world;
 shorterAccess1.test3 = "hello again";
