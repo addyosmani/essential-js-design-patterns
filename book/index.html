@@ -220,7 +220,7 @@ We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
 <h1 id="patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
-Remember that not every algorithm, best-practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally wary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
+Remember that not every algorithm, best practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally wary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
 <p>
 Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a "thing". This definition is obtuse on purpose as he follows by saying that it is the process should create the "thing". This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
 <p>
@@ -293,7 +293,7 @@ Once you&rsquo;ve exposed yourself to a wealth of information on pattern literat
 If you would like to try your hand at writing a design pattern (even if just for the learning experience of going through the process), the tips I have for doing so would be as follows:</p>
 <ul type="disc">
   <li><strong>Bear in mind practicability</strong>: Ensure that      your pattern describes proven solutions to recurring problems rather than      just speculative solutions which haven&rsquo;t been qualified.</li>
-  <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best-practices. </li>
+  <li><strong>Ensure that you draw upon best      practices:</strong> The design decisions you make should be based on principles you      derive from an understanding of best practices. </li>
   
   <li><strong>Your design patterns should be transparent to the user</strong>: Design patterns should be entirely transparent to any type of user-experience. They are primarily there to serve the developers using them and should not force changes to behavior  in the user-experience that would not be incurred without the use of a pattern.</li>
   <li><strong>Remember that originality is <em>not</em> key in pattern design</strong>: When writing a pattern, you do not need to be the original discoverer of the solutions being documented nor do you have to worry about your design overlapping with minor pieces of other patterns. If your design is strong enough to have broad useful applicability, it has a chance of being recognized as a proper pattern</li>
@@ -304,7 +304,7 @@ If you would like to try your hand at writing a design pattern (even if just for
   Pattern writing is a careful balance between creating a design that is general, specific and above all, useful. Try to ensure that if writing a pattern you cover the widest possible areas of application and you should be fine. &nbsp;I hope that this brief introduction to writing patterns has given you some insights that will assist your learning process for the next sections of this book. </p>
 <p>&nbsp;</p>
 <h1 id="antipatterns">Anti-Patterns</h1>
-<p>If we consider that a pattern represents a best-practice, an anti-pattern represents a lesson that has been learned. The term anti-patterns was coined in 1995 by Andrew Koenig in the November C++ Report that year, inspired by the GoF's book <em>Design Patterns</em>. In Koenig&rsquo;s report, there are two notions of anti-patterns that are presented. Anti-Patterns: </p>
+<p>If we consider that a pattern represents a best practice, an anti-pattern represents a lesson that has been learned. The term anti-patterns was coined in 1995 by Andrew Koenig in the November C++ Report that year, inspired by the GoF's book <em>Design Patterns</em>. In Koenig&rsquo;s report, there are two notions of anti-patterns that are presented. Anti-Patterns: </p>
 <ul type="disc">
   <li>Describe a<em> bad</em> solution to a particular problem which resulted in a bad situation      occurring </li>
   <li>Describe <em>how</em> to get out of said situation and how to go from there to a good solution </li>
@@ -6784,7 +6784,7 @@ $.fn.myPluginName = function () {
 })( jQuery );
 </pre>
 
-<p>We have now reviewed some jQuery plugin fundamentals, but a lot more could be done to take this further. <em>A Lightweight Start</em> is the first complete plugin design pattern we’ll be exploring and it covers some best-practices that we can use for basic everyday plugin development, taking into account common gotchas worth applying.</p>
+<p>We have now reviewed some jQuery plugin fundamentals, but a lot more could be done to take this further. <em>A Lightweight Start</em> is the first complete plugin design pattern we’ll be exploring and it covers some best practices that we can use for basic everyday plugin development, taking into account common gotchas worth applying.</p>
 
 <h4>Note</h4>
 
@@ -6796,10 +6796,10 @@ $.fn.myPluginName = function () {
 <p>&nbsp;</p>
 <h3>'A Lightweight Start' Pattern</h3>
 
-<p>Let’s begin our deeper look at plugin patterns with something basic that follows best-practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). <em>A Lightweight Start</em> uses the following:</p>
+<p>Let’s begin our deeper look at plugin patterns with something basic that follows best practices (including those in the jQuery plugin-authoring guide). This pattern is ideal for developers who are either new to plugin development or who just want to achieve something simple (such as a utility plugin). <em>A Lightweight Start</em> uses the following:</p>
 
 <ul>
-<li>Common best-practices such as a semi-colon placed before the functions invocation (we'll go through why in the comments below)</li> 
+<li>Common best practices such as a semi-colon placed before the functions invocation (we'll go through why in the comments below)</li> 
 
 <li><code>window, document, undefined</code> passed in as arguments.</li>
 
@@ -7749,7 +7749,7 @@ function (req, $) {
 
     $.fn.pluginName = function ( options ) {
 
-        // Here's a best-practice for overriding "defaults"
+        // Here's a best practice for overriding "defaults"
         // with specified options. Note how, rather than a 
         // regular defaults object being passed as the second
         // parameter, we instead refer to $.fn.pluginName.options 
@@ -7929,7 +7929,7 @@ $("#elem").plugin({
 <p>At the end of the day, design patterns are just one aspect of successfully writing maintainable plugins. There are a number of other aspects worth considering and I would like to share my own criteria for selecting third-party plugins to address some of the other aspects. I hope this helps increase the overall quality of your plugin projects:</p>
 
 <p><strong>Quality</strong><br />
-Do your best to adhere to best-practices with respect both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
+Do your best to adhere to best practices with respect both the JavaScript and jQuery that you write. Are your solutions optimal? Do they follow the <a href="http://docs.jquery.com/JQuery_Core_Style_Guidelines">jQuery Core Style Guidelines</a>? If not, is your code at least relatively clean and readable?</p>
 
 <p><strong>Compatibility</strong><br />
 Which versions of jQuery is your plugin compatible with? Have you tested it with the latest builds? If the plugin was written before jQuery 1.6, then it might have issues with attributes, because the way we approach them changed with that release.</p> 
@@ -7940,7 +7940,7 @@ Which versions of jQuery is your plugin compatible with? Have you tested it with
 Your plugin should come with its own set of unit tests. Not only do these prove your plugin actually works, but they can also improve the design without breaking it for end users. I consider unit tests essential for any serious jQuery plugin that is meant for a production environment, and they’re not that hard to write. For an excellent guide to automated JavaScript testing with QUnit, you may be interested in “<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg749824">Automating JavaScript Testing With QUnit</a>,” by <a href="http://bassistance.de/">Jorn Zaefferer</a>.</p>
 
 <p><strong>Performance</strong><br />
-If the plugin needs to perform tasks that require a lot of computing power or that heavily manipulates the DOM, then you should follow best-practices that minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of your code so that you’re aware of how well it performs in different browsers before releasing the plugin.</p>
+If the plugin needs to perform tasks that require a lot of computing power or that heavily manipulates the DOM, then you should follow best practices that minimize this. Use <a href="http://jsperf.com">jsPerf.com</a> to test segments of your code so that you’re aware of how well it performs in different browsers before releasing the plugin.</p>
 
 <p><strong>Documentation</strong><br />
 If you intend for other developers to use your plugin, ensure that it’s well documented. Document your API. What methods and options does the plugin support? Does it have any gotchas that users need to be aware of? If users cannot figure out how to use your plugin, they’ll likely look for an alternative. Also, do your best to comment the code. This is by far the best gift you could give to other developers. If someone feels they can navigate your code base well enough to fork it or improve it, then you’ve done a good job.</p>
@@ -7950,7 +7950,7 @@ When releasing a plugin, estimate how much time you’ll have to devote to maint
 
 <h2>Conclusions</h2>
 
-<p>In this chapter, we explored several time-saving design patterns and best-practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope on the whole these patterns are useful.</p>
+<p>In this chapter, we explored several time-saving design patterns and best practices that can be employed to improve your plugin development process. Some are better suited to certain use cases than others, but I hope on the whole these patterns are useful.</p>
 
 <p>Remember, when selecting a pattern, be practical. Don’t use a plugin pattern just for the sake of it; rather, spend some time understanding the underlying structure, and establish how well it solves your problem or fits the component you’re trying to build. </p>
 
@@ -8046,7 +8046,7 @@ myApplication.utils = {
 </pre>
 <p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
 
-<p>The code at the very top of the next sample demonstrates the different ways in which we can check to see if a variable (object namespace) already exists before defining it. We may commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best-practice.</p>
+<p>The code at the very top of the next sample demonstrates the different ways in which we can check to see if a variable (object namespace) already exists before defining it. We may commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best practice.</p>
 <pre  class="brush: js">
 // This doesn't check for existence of "myApplication" in
 // the global namespace. Bad practice as you can easily
