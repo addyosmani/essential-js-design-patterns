@@ -176,7 +176,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         <ol>
           <li><strong>Patterns are proven      solutions:</strong> They provide solid approaches to solving issues      in software development using proven solutions that reflect the experience      and insights the developers that helped define and improve them bring to      the pattern.</li>
           <li><strong>Patterns can be easily      reused: </strong>A pattern usually reflects an out of the box      solution that can be adapted to suit your own needs. This feature makes      them quite robust.</li>
-          <li><strong>Patterns can be      expressive: </strong>When you look at a pattern there&rsquo;s generally a set structure and &lsquo;vocabulary&rsquo; to the solution presented that can help      express rather large solutions quite elegantly.</li>
+          <li><strong>Patterns can be      expressive: </strong>When you look at a pattern there&rsquo;s generally a set structure and <em>vocabulary</em> to the solution presented that can help  express rather large solutions quite elegantly.</li>
         </ol>
       </ol>
     </ol>
@@ -220,7 +220,7 @@ We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
 <h1 id="patternity">"Pattern"-ity Testing, Proto-Patterns &amp; The Rule Of Three</h1>
 <p>
-Remember that not every algorithm, best-practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally weary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
+Remember that not every algorithm, best-practice or solution represents what might be considered a complete pattern. There may be a few key ingredients here that are missing and the pattern community is generally wary of something claiming to be one unless it has been heavily vetted. Even if something is presented to us which <strong>appears</strong> to meet the criteria for a pattern, it should not be considered one until it has undergone suitable periods of scrutiny and testing by others.</p>
 <p>
 Looking back upon the work by Alexander once more, he claims that a pattern should both be a process and a "thing". This definition is obtuse on purpose as he follows by saying that it is the process should create the "thing". This is a reason why patterns generally focus on addressing a visually identifiable structure i.e you should be able to visually depict (or draw) a picture representing the structure that placing the pattern into practice results in. </p>
 <p>
@@ -269,7 +269,7 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Examples</strong> – an implementation of the pattern in a minimal form </li>
   <li><strong>Co-requisites</strong> – what other patterns may be needed to support use of the pattern being described? </li>
   <li><strong>Relations</strong> – what patterns does this pattern resemble? does it closely mimic any others? </li>
-  <li><strong>Known usage</strong> – is the pattern being used in the &lsquo;wild&rsquo;?. If so, where and how? </li>
+  <li><strong>Known usage</strong> – is the pattern being used in the <em>wild</em>?. If so, where and how? </li>
   <li><strong>Discussions</strong> – the team or author&rsquo;s thoughts on the exciting benefits of the pattern </li>
 </ul>
 
@@ -2849,7 +2849,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
 
-<p>Imagine that we have a UI factory where we are asked to create a type of UI component. Rather than creating this component directly using the <code>new</code> operator or via another creational constructor, we ask a Factory object for a new component instead. We inform the Factory what type of object is required (e.g 'Button', 'Panel') and it instantiates this, returning it to us for use.</p>
+<p>Imagine that we have a UI factory where we are asked to create a type of UI component. Rather than creating this component directly using the <code>new</code> operator or via another creational constructor, we ask a Factory object for a new component instead. We inform the Factory what type of object is required (e.g "Button", "Panel") and it instantiates this, returning it to us for use.</p>
 
 <p>This is particularly useful if the object creation process is re latively complex, e.g. if it strongly depends on dynamic factors or application configuration.</p>
 
@@ -3740,15 +3740,15 @@ We use a manager to handle the extrinsic states. How this is implemented can var
   </ul>
 </p>
 
-<h3>Monkey-patching 'implements'</h3>
+<h3>Duck punching "implements"</h3>
 
-<p>Note: As this uses a Java keyword (<code>implements</code>) for implementing interfaces that isn't found in JavaScript, let's first write a simulation for this.</p>
+<p>Duck punching allows us to extend the cabilities of a language or solution without necessarily needing to modify the runtime source. As this next solution requires the use of a Java keyword (<code>implements</code>) for implementing interfaces and isn't found in JavaScript natively, let's first duck punch it.</p>
 
-<p><code>Function.prototype.implementsFor</code> works on an object constructor will accept a parent class (function) or object and either inherit from this using normal inheritance (for functions) or virtual inheritance (for objects).</p>
+<p><code>Function.prototype.implementsFor</code> works on an object constructor and will accept a parent class (function) or object and either inherit from this using normal inheritance (for functions) or virtual inheritance (for objects).</p>
 
 <pre class="brush: js">
 
-// Simulate pure virtual inheritance/'implement' keyword for JS
+// Simulate pure virtual inheritance/"implement" keyword for JS
 Function.prototype.implementsFor = function( parentClassOrObject ){ 
     if ( parentClassOrObject.constructor === Function ) 
     { 
