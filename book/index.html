@@ -163,7 +163,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
     <p>Some 30 years ago, software engineers began to incorporate the principles Alexander had written about into the first documentation about design patterns, which was to be a guide for novice developers looking to improve their coding skills. It's important to note that the concepts behind design patterns have actually been around in the programming industry since its inception, albeit in a less formalized form. </p>
 
     <p>One of the first and arguably most iconic formal works published on design patterns in software engineering was a book in 1995 called <em>Design Patterns: Elements Of Reusable Object-Oriented Software</em>. This was written by <a href="http://en.wikipedia.org/wiki/Erich_Gamma">Erich Gamma</a>,<a href="http://en.wikipedia.org/w/index.php?title=Richard_Helm&action=edit&redlink=1"> Richard Helm</a>,<a href="http://en.wikipedia.org/wiki/Ralph_Johnson"> Ralph Johnson</a> and<a href="http://en.wikipedia.org/wiki/John_Vlissides"> John Vlissides</a> - a group that became known as the Gang of Four (or GoF for short). </p>
-    <p>The GoF"s publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section "Categories of Design Patterns".</p>
+    <p>The GoF's publication is considered quite instrumental to pushing the concept of design patterns further in our field as it describes a  number of development techniques and pitfalls as well as providing  twenty-three core Object-Oriented design patterns frequently used around the world today. We will be covering  these patterns in more detail in the section "Categories of Design Patterns".</p>
     <p>In this book, we will take a look at a number of popular JavaScript design patterns and explore why certain patterns may be more suitable for your projects than others. Remember that patterns can be applied not just to vanilla JavaScript (i.e standard JavaScript code), but also to abstracted libraries such as <a href="http://jquery.com">jQuery</a> or <a href="http://dojotoolkit.org">dojo</a> as well. Before we begin, let&rsquo;s look at the exact definition of a "pattern" in software design.</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
@@ -371,7 +371,7 @@ function Car( model ) {
 
   this.model = model;
   this.color = "silver";
-  this.year = "2012";
+  this.year  = "2012";
 
   this.getInfo = function () {
     return this.model + " " + this.year;
@@ -621,7 +621,7 @@ var key = newObject["someKey"];
 
 // Set properties 
 Object.defineProperty( newObject, "someKey", {
-    value: "for more control of the property"s behavior",
+    value: "for more control of the property's behavior",
     writable: true,
     enumerable: true,
     configurable: true
@@ -870,7 +870,7 @@ Singleton.getInstance().publicMethod();
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here"s one last example of the singleton pattern being used in this context:</p>
+<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one last example of the singleton pattern being used in this context:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -1081,7 +1081,7 @@ testModule.resetCounter();
 </pre>
 </p>
 
-<p>Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module"s closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. "testModule").
+<p>Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. "testModule").
 </p> 
 
 <p>When working with the module pattern, you may find it useful to define a simple template that you use for getting started with it. Here's one that covers namespacing, public and private variables:
@@ -1612,7 +1612,7 @@ jQuery developers in particular have quite a few other options and can opt to us
 
 <ul>
 <li>Ben Alman's Pub/Sub gist <a href="https://gist.github.com/661855">https://gist.github.com/661855</a> (recommended)</li>
-<li>Rick Waldron"s jQuery-core style take on the above <a href="https://gist.github.com/705311">https://gist.github.com/705311</a></li>
+<li>Rick Waldron's jQuery-core style take on the above <a href="https://gist.github.com/705311">https://gist.github.com/705311</a></li>
 <li>Peter Higgins" plugin <a href="http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js">http://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js</a>.</li>
 <li>AppendTo's Pub/Sub in AmplifyJS <a href="http://amplifyjs.com">http://amplifyjs.com</a></li>
 <li>Ben Truyman's gist <a href="https://gist.github.com/826794">https://gist.github.com/826794</a></li>
@@ -4047,7 +4047,7 @@ var BookFactory = (function () {
 <h2>Managing the extrinsic states</h2>
 
 <p>
-Next, we need to store the states that were removed from the Book objects somewhere - luckily a manager (which we'll be defining as a Singleton) can be used to encapsulate them. Combinations of a Book object and the library member that"s checked them out will be called Book records. Our manager will be storing both and will also include checkout related logic we stripped out during our flyweight optimization of the Book class.
+Next, we need to store the states that were removed from the Book objects somewhere - luckily a manager (which we'll be defining as a Singleton) can be used to encapsulate them. Combinations of a Book object and the library member that's checked them out will be called Book records. Our manager will be storing both and will also include checkout related logic we stripped out during our flyweight optimization of the Book class.
 </p>
 
 <pre class="brush: js">
@@ -6175,7 +6175,7 @@ set: function( elem, value ) {
 
 <p>Facades can be frequently found across the jQuery library and provide developers easy access to implementations for handling DOM manipulation, animation and of particular interest, cross-browser Ajax.</p>
 
-<p>The following are facades for jQuery"s <code>$.ajax()</code>:</p>
+<p>The following are facades for jQuery's <code>$.ajax()</code>:</p>
   
 <pre  class="brush: js">
 $.get( url, data, callback, dataType );
@@ -7233,7 +7233,7 @@ var myObject = {
     this.elem  = elem;
     this.$elem = $( elem );
 
-    // Build the DOM"s initial structure
+    // Build the DOM's initial structure
     this._build();
 
     // return this so that we can chain and use the bridge with less code.
