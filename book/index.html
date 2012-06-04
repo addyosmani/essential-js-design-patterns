@@ -1236,7 +1236,8 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <strong>Import mixins</strong>
 <p>This variation of the pattern demonstrates how globals (e.g jQuery, Underscore) can be passed in as arguments to our module's anonymous function. This effectively allows us to <em>import</em> them and locally alias them as we wish.</p>
 
-<pre>
+<pre class="brush: js">
+// Global module
 var myModule = (function ( jQ, _ ) {
   
     function privateMethod1(){
@@ -1262,7 +1263,7 @@ myModule.publicMethod();
 <strong>Exports</strong>
 <p>This next variation allows us to declare globals without consuming them and could similarly support the concept of global imports seen in the last example.</p>
 
-<pre>
+<pre class="brush: js">
 // Global module
 var myModule = (function () {
 
@@ -1286,7 +1287,7 @@ var myModule = (function () {
 
 
 <p>
-How about the module pattern implemented in specific toolkits or frameworks?
+Toolkit and Framework-specific module pattern implementations
 </p>
 <p>
 <strong>Dojo</strong>
