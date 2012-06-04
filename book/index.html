@@ -99,8 +99,7 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         <li><a href="#designpatternsjavascript">JavaScript Design Patterns
           </a>
           <ul>
-            <li class="subitem"><a href="#creationalpatternjavascript">Creational Pattern</a></li>
-            <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
+            <li class="subitem"><a href="#constructorpatternjavascript">The Constructor Pattern</a></li>
             <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
             <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
             <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
@@ -559,7 +558,7 @@ console.log( myCar.getInfo() );
 <p>&nbsp;</p>
 <p><strong>The patterns we will be exploring in this section are the:</strong></p>
 <ul>
-    <li class="subitem"><a href="#creationalpatternjavascript">Creational Pattern</a></li>
+
     <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
     <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
     <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
@@ -575,10 +574,17 @@ console.log( myCar.getInfo() );
     <li class="subitem"><a href="#">Flyweight Pattern</a></li>
 
 </ul>
-<p>&nbsp;</p>
-<h2 id="creationalpatternjavascript">The Creational Pattern</h2>
 
-<p>The Creational pattern forms the basis for a number of other design patterns and could be considered the simplest pattern of them all. It is concerned with the idea of <em>creating</em> new things, specifically new objects. In JavaScript, the three common ways to create new objects are as follows:</p>
+<p>&nbsp;</p>
+<h2 id="constructorpatternjavascript">The Constructor Pattern</h2>
+
+<p>In classical object-oriented programming languages, a constructor is a special method used to initialize a newly created object once memory has been allocated for it. In JavaScript, as almost everything is an object, we're most often interested in <em>object</em> constructors.</p>
+
+<p>Object constructors are used to create specific types of objects - both preparing the object for use and accepting arguments which a constructor can use to set the values of member properties and methods when the object is first created. </p>
+
+<h3>Object creation patterns</h3>
+
+<p>The three common ways to create new objects in JavaScript are as follows:</p>
 
 <p><pre  class="brush: js">
 
@@ -693,19 +699,12 @@ console.log( driver.dateOfBirth );
 console.log( driver.topSpeed ); 
 </pre></p>
 
-<p>&nbsp;</p>
-<h2 id="constructorpatternjavascript">The Constructor Pattern</h2>
-<p>Many of us probably know what a <em>constructor</em> is, however beginners may find it useful to review a definition of this concept before we continue.</p>
-
-<p>Constructors are a paradigm that can be found in the majority of programming languages, including JavaScript. They're used to create specific types of objects - both preparing the object for use and accepting parameters which constructor can use to set the values of member variables when the object is first created. We've actually already seen some constructors - remember the first code sample under the <em>Creational</em> pattern?</p>
-
-<p>In addition, it's also possible able to define custom constructors that specify properties and methods for our own types of objects.</p>
 
 <h3>Basic Constructors</h3>
 
-<p>In JavaScript, constructor functions are generally considered a reasonable way to implement instances. As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript we would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
+<p>As we saw earlier, JavaScript doesn't support the concept of classes but it does support special constructor functions that work with objects. By simply prefixing a call to a constructor function with the keyword "new", we can tell JavaScript we would like function to behave like a constructor and instantiate a new object with the members defined by that function.</p>
 
-<p>Inside a constructor, the keyword "this" references the new object that's being created. Revising object creation, a basic constructor may look as follows:</p>
+<p>Inside a constructor, the keyword <em>this</em> references the new object that's being created. Revisiting object creation, a basic constructor may look as follows:</p>
 
 <p><pre  class="brush: js">
 
