@@ -975,7 +975,7 @@ var myObjectLiteral = {
 Object literals don't require instantiation using the <code>new</code> operator but shouldn't be used at the start of a statement as the opening <code>{</code> may be interpreted as the beginning of a block. Outside of an object, new members may be added to it using assignment as follows <code>myModule.property = "someValue";</code>
 </p>
 
-<p>Below we can see a more complete example of a module defined using object literal syntax:</p>
+<p>Below we can see a more complete example of a module defined using object literal notation:</p>
 
 <p>
 <pre  class="brush: js">
@@ -1229,16 +1229,61 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <p>&nbsp;</p>
 
 
-<h4>Advantages</h4>
 
-<p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
-<p>Secondly, it supports private data - so, in the module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
-<h4>Disadvantages</h4>
+<h4>Module Pattern Variations</h4>
 
-<p>The disadvantages of the module pattern are that as we access both public and private members differently, when we wish to change visibility, we actually have to make changes to each place the member was used.</p>
-<p>We also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of our application.</p>
-<p>Other disadvantages include the inability to create automated unit tests for private members and additional complexity when bugs require hot fixes. It's simply not possible to patch privates. Instead, one must override all public methods which interact with the buggy privates. Developers can't easily extend privates either, so it's worth remembering privates are not as flexible as they may initially appear.</p>
+<strong>Import mixins</strong>
+<p>This variation of the pattern demonstrates how globals (e.g jQuery, Underscore) can be passed in as arguments to our module's anonymous function. This effectively allows us to <em>import</em> them and locally alias them as we wish.</p>
+
+<pre>
+var myModule = (function ( jQ, _ ) {
+  
+    function privateMethod1(){
+        jQ(".container").html("test");
+    };
+
+    function privateMethod2(){
+      console.log( _.min([10, 5, 100, 2, 1000]) );
+    };
+    
+    return{
+        publicMethod: function(){
+            privateMethod1();                
+        }            
+    }
+   
+// Pull in jQuery and Underscore
+}( jQuery, _ ));
+
+myModule.publicMethod();    
+</pre>
+
+<strong>Exports</strong>
+<p>This next variation allows us to declare globals without consuming them and could similarly support the concept of global imports seen in the last example.</p>
+
+<pre>
+// Global module
+var myModule = (function () {
+
+    // Module object 
+  var module = {},
+    privateVariable = "Hello World";
+  
+  function privateMethod() {
+    // ...
+  };
+
+  module.publicProperty = "Foobar";
+  module.publicMethod = function () {
+    console.log( privateVariable );
+  };
+  
+  return module;
+
+}());
+</pre>
+
 
 <p>
 How about the module pattern implemented in specific toolkits or frameworks?
@@ -1415,7 +1460,18 @@ var myLibrary = library(function () {
 
 </pre>
 
-<p>For further reading on this version of the module pattern, see Ben Cherry's article on it <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">here</a>.</p>
+<h4>Advantages</h4>
+
+<p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>Secondly, it supports private data - so, in the module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
+
+<h4>Disadvantages</h4>
+
+<p>The disadvantages of the module pattern are that as we access both public and private members differently, when we wish to change visibility, we actually have to make changes to each place the member was used.</p>
+<p>We also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of our application.</p>
+<p>Other disadvantages include the inability to create automated unit tests for private members and additional complexity when bugs require hot fixes. It's simply not possible to patch privates. Instead, one must override all public methods which interact with the buggy privates. Developers can't easily extend privates either, so it's worth remembering privates are not as flexible as they may initially appear.</p>
+
+<p>For further reading on the module pattern, see Ben Cherry's excellent in-depth <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">article</a> on it.</p>
 
 <p>&nbsp;</p>
 
