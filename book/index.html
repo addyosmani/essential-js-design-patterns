@@ -1418,7 +1418,7 @@ myRevealingModule.start();
 
 <h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
 
-<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist.In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
+<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
 
 <p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
 
@@ -2185,7 +2185,9 @@ The dictionary refers to a mediator as <i>a neutral party that assists in negoti
 <p>
 A real-world analogy could be a typical airport traffic control system. A tower (Mediator) handles what planes can take off and land because all communications (notifications being listened out for or broadcast) are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a Mediator plays in software design.</p>
 
-<p>In implementation terms, the Mediator pattern is essentially a shared subject in the Observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact. It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
+<p>In implementation terms, the Mediator pattern is essentially a shared subject in the Observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact.</p>
+
+<p>It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
 
 <p>Another analogy would be DOM event bubbling and event delegation. If all subscriptions in a system are made against the document rather than individual nodes, the document effectively serves as a Mediator. Instead of binding to the events of the individual nodes, a higher level object is given the responsibility of notifying subscribers about interaction events.</p>
 
@@ -2663,11 +2665,15 @@ The Mediator centralizes communication between modules where it's explicitly ref
 
 <p>We can think of the prototype pattern as being based on prototypal inheritance where we create objects which act as prototypes for other objects. The prototype object itself is effectively used as a blueprint for each object the constructor creates. If the prototype of the constructor function used contains a property called <code>name</code> for example (as per the code sample lower down), then each object created by that same constructor will also have this same property.</p>
 
-<p>Looking at the definitions for this pattern in existing (non-JavaScript literature), we <strong>may</strong> find references to classes once again. The reality is that prototypal inheritance avoids using classes altogether. There isn't a "definition" object nor a core object in theory. we're simply creating copies of existing functional objects.</p>
+<p>Reviewing the definitions for this pattern in existing (non-JavaScript literature), we <strong>may</strong> find references to classes once again. The reality is that prototypal inheritance avoids using classes altogether. There isn't a "definition" object nor a core object in theory. we're simply creating copies of existing functional objects.</p>
 
-<p>One of the benefits of using the prototype pattern is that we're working with the strengths JavaScript has to offer natively rather than attempting to imitate features of other languages. With other design patterns, this isn't always the case. Not only is the pattern an easy way to implement inheritance, but it can also come with a performance boost as well: when defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
+<p>One of the benefits of using the prototype pattern is that we're working with the prototypal strengths JavaScript has to offer natively rather than attempting to imitate features of other languages. With other design patterns, this isn't always the case.</p>
 
-<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> (which we previously looked at earlier in this section). To remind ourselves, <code>Object.create</code> creates an object which has a specified prototype and optionally contains specified properties as well (e.g <code>Object.create( prototype, optionalDescriptorObjects )</code>). We can also see this being demonstrated in the example below:</p>
+<p>Not only is the pattern an easy way to implement inheritance, but it can also come with a performance boost as well: when defining a function in an object, they're all created by reference (so all child objects point to the same function) instead of creating their own individual copies. </p>
+
+<p>For those interested, real prototypal inheritance, as defined in the ECMAScript 5 standard, requires the use of <code>Object.create</code> (which we previously looked at earlier in this section). To remind ourselves, <code>Object.create</code> creates an object which has a specified prototype and optionally contains specified properties as well (e.g <code>Object.create( prototype, optionalDescriptorObjects )</code>).</p>
+
+<p>We can see this demonstrated in the example below:</p>
 
 <pre  class="brush: js">
 
@@ -2692,7 +2698,7 @@ var yourCar = Object.create( myCar );
 console.log( your.name );
 </pre></p>
 <p>
-<code>Object.create</code> also allows is to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. We saw earlier that <code>Object.create</code> allows us to initialise object properties using the second supplied argument. For example:
+<code>Object.create</code> also allowsus to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. We saw earlier that <code>Object.create</code> allows us to initialise object properties using the second supplied argument. For example:
 </p>
 <p>
 <pre  class="brush: js">
