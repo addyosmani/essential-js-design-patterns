@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
   
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012. Last updated 4th June 2012.
+      Copyright &copy; Addy Osmani 2012. Last updated 5th June 2012.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It will be released via <a href="http://oreilly.com">O'Reilly</a> during Summer 2012 and will remain available for both free online and as a physical copy or eBook purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -2785,11 +2785,12 @@ var beget = (function () {
 
 <p>&nbsp;</p>
 <h2 id="commandpatternjavascript">The Command Pattern</h2>
-<p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives us the ability to both parameterize and pass method calls around that can be executed at our discretion. In addition, it enables us to decouple objects invoking the action from the objects which implement them, giving us a greater degree of overall flexibility in swapping out concrete "classes" (objects).</p>
+
+<p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives us the ability to both parameterize and pass method calls around that can be executed at our discretion. In addition, it enables us to decouple objects invoking the action from the objects which implement them, giving us a greater degree of overall flexibility in swapping out concrete <em>classes</em> (objects).</p>
 
 <p><em>Concrete</em> classes are best explained in terms of class-based programming languages and are related to the idea of abstract classes. An <em>abstract</em> class defines an interface, but doesn't necessarily provide implementations for all of its member functions. It acts as a base class from which others are derived. A derived class which implements the missing functionality is called a <em>concrete</em> class. </p>
 
-<p>The main idea behind the Command pattern is that it provides us a means to separate the responsibilities of issuing commands from anything executing commands, delegating this responsibility to different objects instead.</p>
+<p>The general idea behind the Command pattern is that it provides us a means to separate the responsibilities of issuing commands from anything executing commands, delegating this responsibility to different objects instead.</p>
 
 <p>Implementation wise, simple command objects bind together both an action and the object wishing to invoke the action. They consistently include an execution operation (such as <code>run()</code> or <code>execute()</code>). All Command objects with the same interface can easily be swapped as needed and this is considered one of the larger benefits of the pattern.</p>
 
@@ -2983,9 +2984,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>Examples of this pattern can be found in UI libraries such as ExtJS where the methods for creating objects or components may be further subclassed.</p>
 
-<p>The following is an example of how to use the Factory Pattern, where we present a simple Constructor pattern example and see what this would look like were we to optimize it using the Factory Pattern:</p>
-
-<p>The following is an example that builds upon our previous snippets using the Constructor pattern logic to define cars. It demonstrates how a Vehicle <em>Factory</em>  may be implemented using Factory pattern:</p>
+<p>The following is an example that builds upon our previous snippets using the Constructor pattern logic to define cars. It demonstrates how a Vehicle <em>Factory</em>  may be implemented using the Factory pattern:</p>
 
 <p>&nbsp;</p>
 <p>
