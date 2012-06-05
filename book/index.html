@@ -2986,7 +2986,6 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>The following is an example that builds upon our previous snippets using the Constructor pattern logic to define cars. It demonstrates how a Vehicle <em>Factory</em>  may be implemented using the Factory pattern:</p>
 
-<p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
 
@@ -3177,9 +3176,9 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 
 <h2>Sub-classing</h2>
 
-<p>For developers unfamiliar with sub-classing, here is a beginners primer on them before we dive further into Mixins and Decorators: sub-classing is a term that refers to inheriting properties for a new object from a base or "superclass" object.</p>
+<p>For developers unfamiliar with sub-classing, we will go through a brief beginners primer on them before diving into Mixins and Decorators further.</p>
 
-<p>In traditional object-oriented programming, a class <code>B</code> is able to extend another class <code>A</code>. Here we consider <code>A</code> a superclass and <code>B</code> a subclass of <code>A</code>. As such, all instances of <code>B</code> inherit the methods from <code>A</code>. <code>B</code> is however still able to define its own methods, including those that override methods originally defined by <code>A</code>.</p>
+<p><em>Sub-classing</em> is a term that refers to inheriting properties for a new object from a base or <em>superclass</em> object. In traditional object-oriented programming, a class <code>B</code> is able to extend another class <code>A</code>. Here we consider <code>A</code> a superclass and <code>B</code> a subclass of <code>A</code>. As such, all instances of <code>B</code> inherit the methods from <code>A</code>. <code>B</code> is however still able to define its own methods, including those that override methods originally defined by <code>A</code>.</p>
 
 <p>Should <code>B</code> need to invoke a method in <code>A</code> that has been overridden, we refer to this as method chaining. Should <code>B</code> need to invoke the constructor <code>A</code> (the superclass), we call this constructor chaining.</p>
 
@@ -3223,11 +3222,13 @@ console.log( superman );
 
 <p>The <code>Superhero</code> constructor creats an object which descends from <code>Person</code>. Objects of this type have attributes of the objects that are above it in the chain and if we had set default values in the <code>Person</code> object, <code>Superhero</code> is capable of overriding any inherited values with values specific to it's object.</p>
 
-<p>In JavaScript, we can look at inheriting from Mixins are a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but can even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use and that's where Mixins come in.</p>
+<h2>Mixins</h2>
+
+<p>In JavaScript, we can look at inheriting from Mixins as a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but can even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use.</p>
 
 <p>Mixins allow objects to borrow (or inherit) functionality from them with a minimal amount of complexity. As the pattern works well with JavaScripts object prototypes, it gives us a fairly flexible way to share functionality from not just one Mixin, but effectively many through multiple inheritance.</p>
 
-<p>Mixins can be viewed as objects with attributes and methods that can be easily shared across a number of other object prototypes. Imagine that we define a Mixin containing utility functions in a standard object literal as follows:</p>
+<p>They can be viewed as objects with attributes and methods that can be easily shared across a number of other object prototypes. Imagine that we define a Mixin containing utility functions in a standard object literal as follows:</p>
 
 <pre class="brush: js">
 var myMixins = {
@@ -3282,7 +3283,7 @@ myAnimator.stop();
 
 <p>In the next example, we have two constructors: a Car and a Mixin. What we're going to do is augment (another way of saying extend) the Car so that it can inherit specific methods defined in the Mixin, namely <code>driveForward()</code> and <code>driveBackward()</code>. This time we won't be using Underscore.js.</p>
 
-<p>Instead, this snippet will demonstrate how to augment a constructor to include functionality without the need to duplicate this process for every constructor function we may have.</p>
+<p>Instead, this example will demonstrate how to augment a constructor to include functionality without the need to duplicate this process for every constructor function we may have.</p>
 
 <p>
 <pre  class="brush: js">
