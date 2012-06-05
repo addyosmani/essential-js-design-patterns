@@ -209,13 +209,13 @@ Use a modern native browser feature such as <code>querySelectorAll()</code> to s
 <p>
 So, which of these options is the fastest? It's actually option 3. by a factor of 8-10 times the <a href="http://jsperf.com/getelementsbyclassname-vs-queryselectorall/5">alternatives</a>. In a real-world application however, 3. will not work in versions of Internet Explorer below 9 and thus it's necessary to use 1. where both 2. and 3. aren't supported.</p>
 <p>
-Developers using jQuery don't have to worry about this problem however, as it's luckily abstracted away for us using the <em>facade</em> pattern. As we'll review in more detail later, this pattern provides a simple set of abstracted interfaces (e.g <code>$el.css()</code>, <code>$el.animate()</code>) to several more complex underlying bodies of code. As we've seen, this means less time having to be concerned about implementation level details.</p>
+Developers using jQuery don't have to worry about this problem however, as it's luckily abstracted away for us using the <em>Facade</em> pattern. As we'll review in more detail later, this pattern provides a simple set of abstracted interfaces (e.g <code>$el.css()</code>, <code>$el.animate()</code>) to several more complex underlying bodies of code. As we've seen, this means less time having to be concerned about implementation level details.</p>
 
 <p>Behind the scenes, the library simply opts for the most optimal approach to selecting elements depending on what our current browser supports and we just consume the abstraction layer.</p>
 
 <p>We're probably all also familiar with jQuery's <code>$("selector")</code>. This is significantly more easy to use for selecting HTML elements on a page versus having to manually handle opt for <code>getElementById()</code>, <code>getElementsByClassName()</code>, <code>getElementByTagName</code> and so on.</p> 
 
-<p>Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! Abstractions using patterns can offer real-world value.</p>
+<p>Although we know that <code>querySelectorAll()</code> attempts to solve this problem, compare the effort involved in using jQuery's Facade interfaces vs. selecting the most optimal selection paths ourselves. There's no contest! Abstractions using patterns can offer real-world value.</p>
 <p>
 We'll be looking at this and more design patterns later on in the book.</p>
 <p>&nbsp;</p>
@@ -297,7 +297,7 @@ If interested in venturing down the path of writing your own design patterns I r
 <p>
 Once we've exposed ourselves to a wealth of information on pattern literature, we may wish to begin writing our pattern using an <em>existing</em> format and see if we can brainstorm new ideas for improving it or integrating our ideas in there.</p>
 
-<p>An example of a developer that did this is in recent years is Christian Heilmann, who took the existing <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
+<p>An example of a developer that did this is in recent years is Christian Heilmann, who took the existing <em>Module</em> pattern and made some fundamentally useful changes to it to create the <em>Revealing Module</em> pattern (this is one of the patterns covered later in this book). </p>
 
 
 <p>
@@ -796,7 +796,7 @@ Modules are an integral piece of any robust application's architecture and typic
 
 <p>We will be exploring the latter three of these options later on in the book in the section <em>Modern Modular JavaScript Design Patterns</em>.</p>
 
-<p>The module pattern is based in part on object literals and so it makes sense to refresh our knowledge of them first.</p>
+<p>The Module pattern is based in part on object literals and so it makes sense to refresh our knowledge of them first.</p>
 
 <h3>Object Literals</h3>
 
@@ -870,35 +870,35 @@ myModule.myMethod3({
 
 <p>Using object literals can assist in encapsulating and organizing your code and Rebecca Murphey has previously written about this topic in <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">depth</a> should you wish to read into object literals further.</p>
 
-<p>That said, if we're opting for this technique, we may be equally as interested in the module pattern. It still uses object literals but only as the return value from a scoping function. </p>
+<p>That said, if we're opting for this technique, we may be equally as interested in the Module pattern. It still uses object literals but only as the return value from a scoping function. </p>
 
 <h3>The Module Pattern</h3>
 
-<p>The module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
+<p>The Module pattern was originally defined as a way to provide both private and public encapsulation for classes in conventional software engineering.</p>
 
 <p>
-In JavaScript, the module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of our function names conflicting with other functions defined in additional scripts on the page.</p>
+In JavaScript, the Module pattern is used to further <em>emulate</em> the concept of classes in such a way that we're able to include both public/private methods and variables inside a single object, thus shielding particular parts from the global scope. What this results in is a reduction in the likelihood of our function names conflicting with other functions defined in additional scripts on the page.</p>
 
 <h4>Privacy</h4>
 <p>
-The module pattern encapsulates "privacy", state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
+The Module pattern encapsulates "privacy", state and organization using closures. It provides a way of wrapping a mix of public and private methods and variables, protecting pieces from leaking into the global scope and accidentally colliding with another developer's interface. With this pattern, only a public API is returned, keeping everything else within the closure private. </p>
 
 <p>
 This gives us a clean solution for shielding logic doing the heavy lifting whilst only exposing an interface we wish other parts of our application to use. The pattern is quite similar to an immediately-invoked functional expression (<a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE</a> - see the section on namespacing patterns for more on this) except that an object is returned rather than a function. </p>
 
 <p>
-It should be noted that there isn't really an explicitly true sense of "privacy" inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
+It should be noted that there isn't really an explicitly true sense of "privacy" inside JavaScript because unlike some traditional languages, it doesn't have access modifiers. Variables can't technically be declared as being public nor private and so we use function scope to simulate this concept. Within the Module pattern, variables or methods declared are only available inside the module itself thanks to closure. Variables or methods defined within the returning object however are available to everyone.
 </p>
 
 <h4>History</h4>
 
 <p>
-From a historical perspective, the module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures. Another piece of trivia is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the module pattern was a strong influence for YUI when creating their components.
+From a historical perspective, the Module pattern was originally developed by a number of people including <a href="http://groups.google.com/group/comp.lang.javascript/msg/9f58bd11bd67d937">Richard Cornford</a> in 2003. It was later popularized by Douglas Crockford in his lectures. Another piece of trivia is that if you've ever played with Yahoo's YUI library, some of its features may appear quite familiar and the reason for this is that the Module pattern was a strong influence for YUI when creating their components.
 </p>
 
 <h4>Examples</h4>
 
-<p> Let's begin looking at an implementation of the module pattern by creating a module which is self-contained.</p>
+<p> Let's begin looking at an implementation of the Module pattern by creating a module which is self-contained.</p>
 <p>
 <pre  class="brush: js">
 
@@ -935,7 +935,7 @@ testModule.resetCounter();
 <p>Here, other parts of the code are unable to directly read the value of our <code>incrementCounter()</code> or <code>resetCounter()</code>. The counter variable is actually fully shielded from our global scope so it acts just like a private variable would - its existence is limited to within the module's closure so that the only code able to access its scope are our two functions. Our methods are effectively namespaced so in the test section of our code, we need to prefix any calls with the name of the module (e.g. "testModule").
 </p> 
 
-<p>When working with the module pattern, we may find it useful to define a simple template that we use for getting started with it. Here's one that covers namespacing, public and private variables:
+<p>When working with the Module pattern, we may find it useful to define a simple template that we use for getting started with it. Here's one that covers namespacing, public and private variables:
 </p>
 <p>
 <pre  class="brush: js">
@@ -1130,7 +1130,7 @@ var myModule = (function () {
 
 
 <p>
-Toolkit and Framework-specific module pattern implementations
+Toolkit And Framework-specific Module Pattern Implementations
 </p>
 <p>
 <strong>Dojo</strong>
@@ -1180,8 +1180,8 @@ require(["dojo/_base/customStore"], function( store ){
 <p>For more information on <code>dojo.setObject()</code>, see the official <a href="http://dojotoolkit.org/reference-guide/1.7/dojo/setObject.html">documentation</a>.</p>
 
 <p><strong>ExtJS</strong></p>
-<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the module pattern with the framework.</p> 
-<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the module pattern is implemented in vanilla JavaScript: </p>
+<p>For those using Sencha's ExtJS, you're in for some luck as the official documentation incorporates <a href="http://www.sencha.com/learn/legacy/Tutorial:Application_Layout_for_Beginners">examples</a> that do demonstrate how to correctly use the Module pattern with the framework.</p> 
+<p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the Module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
 Ext.namespace("myNameSpace");
@@ -1237,7 +1237,7 @@ YUI
 </strong>
 </p>
 <p>
-Similarly, we can also implement the module pattern when building applications using YUI3. The following example is heavily based on the original YUI module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
+Similarly, we can also implement the Module pattern when building applications using YUI3. The following example is heavily based on the original YUI Module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
 </p>
 <pre  class="brush: js">
 Y.namespace( 'store.basket") = (function () {
@@ -1276,7 +1276,7 @@ jQuery
 </strong>
 </p>
 <p>
-There are a number of ways in which jQuery code unspecific to plugins can be wrapped inside the module pattern. Ben Cherry previously suggested an implementation where a function wrapper is used around module definitions in the event of there being a number of commonalities between modules. </p>
+There are a number of ways in which jQuery code unspecific to plugins can be wrapped inside the Module pattern. Ben Cherry previously suggested an implementation where a function wrapper is used around module definitions in the event of there being a number of commonalities between modules. </p>
 <p>
 In the following example, a <code>library</code> function is defined which declares a new library and automatically binds up the <code>init</code> function to <code>document.ready</code> when new libraries (ie. modules) are created.</p>
 
@@ -1306,29 +1306,29 @@ var myLibrary = library(function () {
 
 <h4>Advantages</h4>
 
-<p>We've seen why the singleton pattern can be useful, but why is the module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
-<p>Secondly, it supports private data - so, in the module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
+<p>We've seen why the Singleton pattern can be useful, but why is the Module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>Secondly, it supports private data - so, in the Module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
 <h4>Disadvantages</h4>
 
-<p>The disadvantages of the module pattern are that as we access both public and private members differently, when we wish to change visibility, we actually have to make changes to each place the member was used.</p>
-<p>We also can't access private members in methods that are added to the object at a later point. That said, in many cases the module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of our application.</p>
+<p>The disadvantages of the Module pattern are that as we access both public and private members differently, when we wish to change visibility, we actually have to make changes to each place the member was used.</p>
+<p>We also can't access private members in methods that are added to the object at a later point. That said, in many cases the Module pattern is still quite useful and when used correctly, certainly has the potential to improve the structure of our application.</p>
 <p>Other disadvantages include the inability to create automated unit tests for private members and additional complexity when bugs require hot fixes. It's simply not possible to patch privates. Instead, one must override all public methods which interact with the buggy privates. Developers can't easily extend privates either, so it's worth remembering privates are not as flexible as they may initially appear.</p>
 
-<p>For further reading on the module pattern, see Ben Cherry's excellent in-depth <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">article</a> on it.</p>
+<p>For further reading on the Module pattern, see Ben Cherry's excellent in-depth <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">article</a> on it.</p>
 
 <p>&nbsp;</p>
 
 
 
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
-<p>Now that we're a little more familiar with the module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s revealing module pattern (RMP).</p>
+<p>Now that we're a little more familiar with the module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
 
-<p>The revealing module pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
+<p>The Revealing Module pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
 
 <p>The result of his efforts was an updated pattern where we would simply define all of our functions and variables in the private scope and return an anonymous object with pointers to the private functionality we wished to reveal as public.</p>
 
-<p>An example of how to use the revealing module pattern can be found below:</p>
+<p>An example of how to use the Revealing Module pattern can be found below:</p>
 <p>
 <pre  class="brush: js">
 
@@ -1411,19 +1411,19 @@ myRevealingModule.start();
 
 <p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above.</p>
 
-<p>As a result of this, modules created with the revealing module pattern may be more fragile than those created with the original module pattern, so care should be taken during usage.</p>
+<p>As a result of this, modules created with the Revealing Module pattern may be more fragile than those created with the original Module pattern, so care should be taken during usage.</p>
 <p>&nbsp;</p>
 
 
 
 <h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
 
-<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
+<p>Clasically, the Singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.The Singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
 
-<p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
+<p>In JavaScript, Singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
 
 <p>
-They can take on a number of different forms, but in its most basic, a singleton could be implemented as an object literal grouped together with its related functions and properties as follows:
+They can take on a number of different forms, but in its most basic, a Singleton could be implemented as an object literal grouped together with its related functions and properties as follows:
 <p>
 <pre  class="brush: js">
 
@@ -1442,7 +1442,7 @@ var mySingleton = {
 </pre>
 </p>
 
-<p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
+<p>The Singleton doesn't provide a way for code that doesn't know about a previous reference to it to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
 
 <p>
 If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
@@ -1521,7 +1521,7 @@ Singleton.getInstance().publicMethod();
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one last example of the singleton pattern being used in this context:</p>
+<p>So, where else is the Singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one final example of the Singleton pattern being used in this context:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -1642,7 +1642,7 @@ publish( "inbox/newMessage", [{
  The general idea here is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they instead subscribe to a specific task or activity of another object and are notified when it occurs.</p>
 
 <p>
-It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
+It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the Observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
 
 <p>
 <i>"One or more observers are interested in the state of a subject and register their interest with the subject by attaching themselves. When something changes in our subject that the observer may be interested in, a notify message is sent which calls the update method in each observer. When the observer is no longer interested in the subject's state, they can simply detach themselves."</i>
@@ -1651,7 +1651,7 @@ It's often useful to refer back to published definitions of design patterns that
 <p>
 Unlimited numbers of objects may observe topics in the subject by registering themselves. Once registered to particular events, the subject will notify all observers when the topic has been fired.</p>
 
-<p>Further motivation behind using the observer pattern is where we need to maintain consistency between related objects without making classes tightly coupled. For example, when an object needs to be able to notify other objects without making assumptions regarding those objects. Another use case is where abstractions have more than one aspect, where one depends on the other. The encapsulation of these aspects in separate objects allows the variation and re-use of the objects independently. </p>
+<p>Further motivation behind using the Observer pattern is where we need to maintain consistency between related objects without making classes tightly coupled. For example, when an object needs to be able to notify other objects without making assumptions regarding those objects. Another use case is where abstractions have more than one aspect, where one depends on the other. The encapsulation of these aspects in separate objects allows the variation and re-use of the objects independently. </p>
 
 
 <h3>Advantages</h3>
@@ -3730,11 +3730,11 @@ myMacbookPro = new CaseDecorator( myMacbookPro );
 console.log( myMacbookPro.getPrice() );
 </pre>
 
-<p>As decorators are able to modify objects dynamically, they're a perfect pattern for changing existing systems. Occasionally, it's just simpler to create Decorators around an object versus the trouble of maintaining individual sub-classes for each object type. This makes maintaining applications that may require a large number of sub-classed objects significantly more straight-forward.</p>
+<p>As decorators are able to modify objects dynamically, they're a perfect pattern for changing existing systems. Occasionally, it's just simpler to create decorators around an object versus the trouble of maintaining individual sub-classes for each object type. This makes maintaining applications that may require a large number of sub-classed objects significantly more straight-forward.</p>
 
 <h2>Decorators With jQuery</h2>
 
-<p>As with other patterns we've covered, there are also examples of the decorator pattern that can be implemented with jQuery. <code>jQuery.extend()</code> allows us to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
+<p>As with other patterns we've covered, there are also examples of the Decorator pattern that can be implemented with jQuery. <code>jQuery.extend()</code> allows us to extend (or merge) two or more objects (and their properties) together into a single object either at run-time or dynamically at a later point.</p>
 
 <p>In this scenario, a target object can be decorated with new functionality without necessarily breaking or overriding existing methods in the source/superclass object (although this can be done).</p>
 
