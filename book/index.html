@@ -1420,7 +1420,7 @@ myRevealingModule.start();
 
 <p>Clasically, the Singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.The Singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
 
-<p>In JavaScript, Singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
+<p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
 
 <p>
 They can take on a number of different forms, but in its most basic, a Singleton could be implemented as an object literal grouped together with its related functions and properties as follows:
@@ -1442,10 +1442,10 @@ var mySingleton = {
 </pre>
 </p>
 
-<p>The Singleton doesn't provide a way for code that doesn't know about a previous reference to it to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
+<p>The Singleton doesn't provide a way for code that is unaware of a previous reference to it to easily retrieve it. This is because it is neither the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
 
 <p>
-If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
+If we wish to extend the previous example further, we can add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
 
 <pre  class="brush: js">
 
@@ -1521,7 +1521,7 @@ Singleton.getInstance().publicMethod();
 </pre>
 </p>
 <p>&nbsp;</p>
-<p>So, where else is the Singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one final example of the Singleton pattern being used in this context:</p>
+<p>In practice, the Singleton pattern is useful when exactly one object is needed to coordinate others across a system. Here is a final example with the pattern being used in this context:</p>
 <p>&nbsp;</p>
 <p>
 <pre  class="brush: js">
@@ -1532,29 +1532,29 @@ var SingletonTester = (function () {
   // e.g var options = { name: "test", pointX: 5};  
   function Singleton( options )  {
 
-    // set options to the options supplied or an empty object if none are 
-    // provided
+    // set options to the options supplied 
+    // or an empty object if none are provided
     options = options || {};
 
     // set some properties for our singleton
     this.name = "SingletonTester";
 
-    this.pointX = args.pointX || 6;
+    this.pointX = options.pointX || 6;
 
-    this.pointY = args.pointY || 10;  
+    this.pointY = options.pointY || 10;  
 
-  } 
+  }; 
 
-  // this is our instance holder  
+  // our instance holder  
   var instance;
 
-  // this is an emulation of static variables and methods
+  // an emulation of static variables and methods
   var _static  = {   
 
     name:  "SingletonTester",
 
-    // This is a method for getting an instance
-    // It returns a singleton instance of a singleton object
+    // Method for getting an instance. It returns 
+    // a singleton instance of a singleton object
     getInstance:  function( options ) {    
       if( instance  ===  undefined )  {     
         instance = new Singleton( options );    
@@ -1564,6 +1564,7 @@ var SingletonTester = (function () {
        
     }  
   };  
+
   return  _static;
 
 })();
@@ -1598,15 +1599,16 @@ It's often useful to refer back to published definitions of design patterns that
 <p>We can now expand on what we've learned to implement the Observer pattern with the following components:</p>
 
 <ul>
-  <li>Subject: maintains a list of observers, facilitates adding or removing observers</li>
-  <li>Observer: provides a update interface for objects that need to be notified of a Subject's changes of state</li>
-  <li>ConcreteSubject: broadcasts notifications to observers on changes of state, stores the state of ConcreteObservers</li>
-  <li>ConcreteObserver: stores a reference to the ConcreteSubject, implements an update interface for the Observer to ensure state is consistent with the Subject's</li>
+  <li><strong>Subject</strong>: maintains a list of observers, facilitates adding or removing observers</li>
+  <li><strong>Observer</strong>: provides a update interface for objects that need to be notified of a Subject's changes of state</li>
+  <li><strong>ConcreteSubject</strong>: broadcasts notifications to observers on changes of state, stores the state of ConcreteObservers</li>
+  <li><strong>ConcreteObserver</strong>: stores a reference to the ConcreteSubject, implements an update interface for the Observer to ensure state is consistent with the Subject's</li>
 </ul>
 
 <p>First, let's model the list of dependant Observers a subject may have:</p>
 
-<pre>
+<p>
+<pre  class="brush: js">
 
 function ObserverList(){
   this.observerList = [];
@@ -1675,11 +1677,12 @@ function extend( obj, extension ){
 };  
 
 </pre>
-
+</p>
 
 <p>Next, let's model the Subject and the ability to add, remove or notify observers on the observer list.</p>
 
-<pre>
+<p>
+<pre  class="brush: js">
 
 function Subject(){
   this.observers = new ObserverList();
@@ -1700,10 +1703,12 @@ Subject.prototype.Notify = function( context ){
   };
 };
 </pre>
+</p>
 
 <p>We then define a skeleton for creating new Observers. The <code>Update</code> functionality here will be overwritten later with custom behaviour. </p>
 
-<pre>
+<p>
+<pre  class="brush: js">
 
 // The Observer
 function Observer(){
@@ -1713,6 +1718,7 @@ function Observer(){
 };
 
 </pre>
+</p>
 
 <p>In our sample application using the above Observer components, we now define:</p>
 
@@ -1725,17 +1731,18 @@ function Observer(){
 <p>We then define ConcreteSubject and ConcreteObserver handlers for both adding new observers to the page and implementing the updating interface. See below for inline comments on what these components do in the context of our example.</p>
 
 <p><strong>HTML:</strong></p>
-<pre>
+<p>
+<pre  class="brush: js">
 
 &lt;button id=&quot;addNewObserver&quot;&gt;Add New Observer checkbox&lt;/button&gt;
 &lt;input id=&quot;mainCheckbox&quot; type=&quot;checkbox&quot;/&gt;
 &lt;div id=&quot;observersContainer&quot;&gt;&lt;/div&gt;
 
 </pre>
-
+</p>
 <p><strong>Sample script:</strong></p>
-
-<pre>
+<p>
+<pre  class="brush: js">
 
 // References to our DOM elements
 
@@ -1780,6 +1787,7 @@ function AddNewObserver(){
 }
 
 </pre>
+</p>
 
 <p>In this example, we looked at how to implement and utilize the Observer pattern, covering the concepts of a Subject, Observer, ConcreteSubject and ConcreteObserver.</p>
 
@@ -1937,8 +1945,8 @@ So that we are able to get an appreciation for how many of the vanilla JavaScrip
 I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the classic Observer pattern.</p>
 
 
-<h4>An Publish/Subscribe implementation</h4>
-
+<h4>A Publish/Subscribe Implementation</h4>
+<p>
 <pre  class="brush: js">
 var pubsub = {};
 
@@ -2002,9 +2010,9 @@ var pubsub = {};
     };
 }( pubsub ));
 </pre>
+</p>
 
-
-<h4>Example: Using our implementation</h4>
+<h4>Example: Using Our Implementation</h4>
 
 <p>We can now use the implementation to publish and subscribe to events of interest as follows:</p>
 <p>
