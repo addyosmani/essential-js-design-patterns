@@ -99,10 +99,10 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
         <li><a href="#designpatternsjavascript">JavaScript Design Patterns
           </a>
           <ul>
-            <li class="subitem"><a href="#constructorpatternjavascript">The Constructor Pattern</a></li>
-            <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
+            <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
             <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
             <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
+            <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
             <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
              <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
             <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
@@ -295,7 +295,9 @@ If interested in venturing down the path of writing your own design patterns I r
 <p>Explore structure and semantics - this can be done by examining the interactions and context of the patterns you are interested in so you can identify the principles that assist in organizing those patterns together in useful configurations.</p>
 
 <p>
-Once you&rsquo;ve exposed yourself to a wealth of information on pattern literature, you may wish to begin your pattern using an <em>existing</em> format and see if you can brainstorm new ideas for improving it or integrating your ideas in there. &nbsp;An example of someone that did this is in recent years is Christian Heilmann, who took the existing <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
+Once we've exposed ourselves to a wealth of information on pattern literature, we may wish to begin writing our pattern using an <em>existing</em> format and see if we can brainstorm new ideas for improving it or integrating our ideas in there.</p>
+
+<p>An example of a developer that did this is in recent years is Christian Heilmann, who took the existing <em>module</em> pattern and made some fundamentally useful changes to it to create the <em>revealing module</em> pattern (this is one of the patterns covered later in this book). </p>
 
 
 <p>
@@ -560,9 +562,9 @@ console.log( myCar.getInfo() );
 <ul>
 
     <li class="subitem"><a href="#constructorpatternjavascript">Constructor Pattern</a></li>
-    <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
     <li class="subitem"><a href="#modulepatternjavascript">Module Pattern</a></li>
     <li class="subitem"><a href="#revealingmodulepatternjavascript">Revealing Module Pattern</a></li>
+    <li class="subitem"><a href="#singletonpatternjavascript">Singleton Pattern</a></li>
     <li class="subitem"><a href="#observerpatternjavascript">Observer Pattern</a></li>
      <li class="subitem"><a href="#mediatorpatternjavascript">Mediator Pattern</a></li>
     <li class="subitem"><a href="#prototypepatternjavascript">Prototype Pattern</a></li>
@@ -774,167 +776,8 @@ console.log( mondeo.toString() );
 
 <p>Above, a single instance of toString() will now be shared between all of the Car objects.</p>
 
-<h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
-<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.</p>
-
-<p>The singleton pattern is thus known because it restricts instantiation of a class to a single object. With JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
-
-<p>
-Singletons in JavaScript can take on a number of different forms, but in its simplest form, a singleton could be an object literal grouped together with its related methods and properties as follows:
-<p>
-<pre  class="brush: js">
-
-var mySingleton = {
-
-  property1: "something",
-
-  property2: "something else",
-
-  method1: function () {
-    console.log( "Hey Nicholas!" );
-  }
-
-};
-
-</pre>
-</p>
-
-<p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
-
-<p>
-If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
-
-<pre  class="brush: js">
-
-var mySingleton = function () {
-
-    // here are our private methods and variables
-    var privateVariable = "something private";
-
-    function showPrivate() {
-      console.log( privateVariable );
-    }
-
-    // public variables and methods (which can access 
-    // private variables and methods )
-    return {
-
-      publicMethod: function () {
-        showPrivate();
-      },
-
-      publicVar: "the public can see this!"
-
-    };
-  };
-
-// Usage:
-
-// Create a new singleton
-var single = mySingleton();
-
-// Execute our public method which accesses
-// a private one. 
-// Outputs: "something private"
-single.publicMethod(); 
-
-// Outputs: "the public can see this!"
-console.log( single.publicVar ); 
-</pre>
-</p>
-<p>
-The above example is great, but let's next consider a situation where we only wish to instantiate the singleton when it's needed. To save on resources, we can place the instantiation code inside another constructor function as follows:
-<pre  class="brush: js">
-
-var Singleton = (function () {
-  var instantiated;
-
-  function init() {
-
-    // singleton 
-
-    return {
-      publicMethod: function () {
-        console.log( "Hey Alex!" );
-      },
-
-      publicProperty: "test"
-    };
-  }
-
-  return {
-    getInstance: function () {
-      if ( !instantiated ) {
-        instantiated = init();
-      }
-      return instantiated;
-    }
-  };
-})();
-
-// calling public methods is then as easy as:
-Singleton.getInstance().publicMethod();
-
-</pre>
-</p>
 <p>&nbsp;</p>
-<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one last example of the singleton pattern being used in this context:</p>
-<p>&nbsp;</p>
-<p>
-<pre  class="brush: js">
 
-var SingletonTester = (function () {
-
-  // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};  
-  function Singleton( options )  {
-
-    // set options to the options supplied or an empty object if none are 
-    // provided
-    options = options || {};
-
-    // set some properties for our singleton
-    this.name = "SingletonTester";
-
-    this.pointX = args.pointX || 6;
-
-    this.pointY = args.pointY || 10;  
-
-  } 
-
-  // this is our instance holder  
-  var instance;
-
-  // this is an emulation of static variables and methods
-  var _static  = {   
-
-    name:  "SingletonTester",
-
-    // This is a method for getting an instance
-    // It returns a singleton instance of a singleton object
-    getInstance:  function( options ) {    
-      if( instance  ===  undefined )  {     
-        instance = new Singleton( options );    
-      }    
-
-      return  instance;  
-       
-    }  
-  };  
-  return  _static;
-
-})();
-
-var singletonTest  =  SingletonTester.getInstance({
-  pointX:  5
-});
-
-// Log the output of pointX just to verify it is correct
-// Outputs: 5
-console.log( singletonTest.pointX );  
-
-</pre></p>
-<p>&nbsp;</p>
 <h2 id="modulepatternjavascript">The Module Pattern</h2>
 
 <h2 id="detailmodule">Modules</h2>
@@ -1476,53 +1319,265 @@ var myLibrary = library(function () {
 
 <p>&nbsp;</p>
 
+
+
 <h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
-<p>Now that we're a little more familiar with the Module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
+<p>Now that we're a little more familiar with the module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s revealing module pattern (RMP).</p>
 
-<p>The Revealing Module Pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
+<p>The revealing module pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
 
-<p>The result of his efforts was an updated pattern where we would simply define all of our functions and variables in the private scope and return an anonymous object at the end of the module along with pointers to both the private variables and functions we wished to reveal as public.</p>
+<p>The result of his efforts was an updated pattern where we would simply define all of our functions and variables in the private scope and return an anonymous object with pointers to the private functionality we wished to reveal as public.</p>
 
-<p><strong>Advantages</strong></p>
-<p>The Revealing Module Pattern allows the syntax of our scripts to be more consistent. It also makes it very clear at the end of the module which of our functions and variables may be accessed publicly which eases readability.</p>
 <p>An example of how to use the revealing module pattern can be found below:</p>
 <p>
 <pre  class="brush: js">
 
- var myRevealingModule = (function () { 
-    
-    var name, age;
+var myRevealingModule = function () {
 
-    name = "John Smith";
-    age = 40;
+        var privateVar = "Ben Cherry",
+          publicVar  = "Hey there!";
 
-    function updatePerson(){
-      name = "John Smith Updated";
-    }
+        function privateFunction() {
+            console.log( "Name:" + privateVar );
+        };
+        
+        function publicSetName( strName ) {
+            privateName = strName;
+        };
 
-    function setPerson () {
-       name = "John Smith Set";
-    }
+        function publicGetName() {
+            privateFunction();
+        };
 
-    function getPerson () {
-       return name;
-    }
-    return {
-        set: setPerson,
-        get: getPerson
-    };
 
-}());
+        // Reveal public pointers to  
+        // private functions and properties
 
-// Sample usage:
-myRevealingModule.get();
+        return {
+            setName: publicSetName,
+            greeting: publicVar,
+            getName: publicGetName
+        }
 
+    }();
+
+myRevealingModule.setName( "Paul Kinlan" );
 
 </pre></p>
+
+<p>The pattern can also be used to reveal private functions and properties with a more specific naming scheme if we would prefer:</p>
+
+<p><pre class="brush: js">
+var myRevealingModule = function () {
+
+        var privateCounter = 0;
+
+        function privateFunction() {
+            privateCounter++;
+        };
+
+        function publicFunction() {
+            publicIncrement();
+        };
+
+        function publicIncrement() {
+            privateFunction();
+        };
+
+        function publicGetCount(){
+          return privateCounter;
+        };
+
+        // Reveal public pointers to 
+        // private functions and properties        
+
+       return {
+            start: publicFunction,
+            increment: publicIncrement,
+            count: publicGetCount,
+        }
+
+    }();
+
+myRevealingModule.start();
+  </pre></p>
+
+<p><strong>Advantages</strong></p>
+
+<p>This pattern allows the syntax of our scripts to be more consistent. It also makes it more clear at the end of the module which of our functions and variables may be accessed publicly which eases readability.</p>
+
 <p><strong>Disadvantages</strong></p>
 <p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
 
-<p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above. As a result of this, modules created with the revealing module pattern are inherently more fragile than those created with the original module pattern.</p>
+<p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above.</p>
+
+<p>As a result of this, modules created with the revealing module pattern may be more fragile than those created with the original module pattern, so care should be taken during usage.</p>
+<p>&nbsp;</p>
+
+
+
+<h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
+<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist.</p>
+
+<p>In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
+
+<p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
+
+<p>
+Singletons in JavaScript can take on a number of different forms, but in its simplest form, a singleton could be an object literal grouped together with its related methods and properties as follows:
+<p>
+<pre  class="brush: js">
+
+var mySingleton = {
+
+  property1: "something",
+
+  property2: "something else",
+
+  method1: function () {
+    console.log( "Hey Nicholas!" );
+  }
+
+};
+
+</pre>
+</p>
+
+<p>The singleton doesn't provide a way for code that doesn't know about a previous reference to the singleton to easily retrieve it - it is not the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
+
+<p>
+If we wished to extend the previous example further, we could add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
+
+<pre  class="brush: js">
+
+var mySingleton = function () {
+
+    // here are our private methods and variables
+    var privateVariable = "something private";
+
+    function showPrivate() {
+      console.log( privateVariable );
+    }
+
+    // public variables and methods (which can access 
+    // private variables and methods )
+    return {
+
+      publicMethod: function () {
+        showPrivate();
+      },
+
+      publicVar: "the public can see this!"
+
+    };
+  };
+
+// Usage:
+
+// Create a new singleton
+var single = mySingleton();
+
+// Execute our public method which accesses
+// a private one. 
+// Outputs: "something private"
+single.publicMethod(); 
+
+// Outputs: "the public can see this!"
+console.log( single.publicVar ); 
+</pre>
+</p>
+<p>
+The above example is great, but let's next consider a situation where we only wish to instantiate the singleton when it's needed. To save on resources, we can place the instantiation code inside another constructor function as follows:
+<pre  class="brush: js">
+
+var Singleton = (function () {
+  var instantiated;
+
+  function init() {
+
+    // singleton 
+
+    return {
+      publicMethod: function () {
+        console.log( "Hey Alex!" );
+      },
+
+      publicProperty: "test"
+    };
+  }
+
+  return {
+    getInstance: function () {
+      if ( !instantiated ) {
+        instantiated = init();
+      }
+      return instantiated;
+    }
+  };
+})();
+
+// calling public methods is then as easy as:
+Singleton.getInstance().publicMethod();
+
+</pre>
+</p>
+<p>&nbsp;</p>
+<p>So, where else is the singleton pattern useful in practice? Well, it's quite useful when exactly one object is needed to coordinate patterns across the system.&nbsp; Here's one last example of the singleton pattern being used in this context:</p>
+<p>&nbsp;</p>
+<p>
+<pre  class="brush: js">
+
+var SingletonTester = (function () {
+
+  // options: an object containing configuration options for the singleton
+  // e.g var options = { name: "test", pointX: 5};  
+  function Singleton( options )  {
+
+    // set options to the options supplied or an empty object if none are 
+    // provided
+    options = options || {};
+
+    // set some properties for our singleton
+    this.name = "SingletonTester";
+
+    this.pointX = args.pointX || 6;
+
+    this.pointY = args.pointY || 10;  
+
+  } 
+
+  // this is our instance holder  
+  var instance;
+
+  // this is an emulation of static variables and methods
+  var _static  = {   
+
+    name:  "SingletonTester",
+
+    // This is a method for getting an instance
+    // It returns a singleton instance of a singleton object
+    getInstance:  function( options ) {    
+      if( instance  ===  undefined )  {     
+        instance = new Singleton( options );    
+      }    
+
+      return  instance;  
+       
+    }  
+  };  
+  return  _static;
+
+})();
+
+var singletonTest  =  SingletonTester.getInstance({
+  pointX:  5
+});
+
+// Log the output of pointX just to verify it is correct
+// Outputs: 5
+console.log( singletonTest.pointX );  
+
+</pre></p>
 <p>&nbsp;</p>
 
 
