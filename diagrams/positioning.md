@@ -33,7 +33,13 @@ Placement: After the paragraph
 
 The Observer is a design pattern where an an object (known as a subject) maintains a list of objects depending on it (observers), automatically notifying them of any changes to state.
 
+=========================
 
+Filename: publishsubscribe.png
+Section: The Observer Pattern
+Plaecment: After the paragraph
+
+The Observer pattern requires that the observer (or object) wishing to receive topic notifications must subscribe this interest to the object firing the event (the subject).
 
 =========================
 
