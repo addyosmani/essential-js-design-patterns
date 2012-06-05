@@ -1417,22 +1417,21 @@ myRevealingModule.start();
 
 
 <h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
-<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist.</p>
 
-<p>In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
+<p>Clasically, the singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist.In the event of an instance already existing, it simply returns a reference to that object.The singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
 
 <p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
 
 <p>
-Singletons in JavaScript can take on a number of different forms, but in its simplest form, a singleton could be an object literal grouped together with its related methods and properties as follows:
+They can take on a number of different forms, but in its most basic, a singleton could be implemented as an object literal grouped together with its related functions and properties as follows:
 <p>
 <pre  class="brush: js">
 
 var mySingleton = {
 
-  property1: "something",
+  property1: "Foo",
 
-  property2: "something else",
+  property2: "Bar",
 
   method1: function () {
     console.log( "Hey Nicholas!" );
