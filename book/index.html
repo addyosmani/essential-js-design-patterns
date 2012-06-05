@@ -1582,14 +1582,220 @@ console.log( singletonTest.pointX ); 
 
 <h2 id="observerpatternjavascript">The Observer Pattern</h2>
 
-<p>The Observer pattern is more popularly known these days as the Publish/Subscribe pattern. It is a design pattern which allows an object (known as a subscriber) to watch another object (the publisher), where we provide a means for the subscriber and publisher form a listen and broadcast relationship. </p>
+<p>The Observer is a design pattern where an an object (known as a subject) maintains a list of objects depending on it (observers), automatically notifying them of any changes to state.</p>
 
-<p>Subscribers are able to register (subscribe) to receive topic notifications from the publisher when something interesting happens. When the publisher needs to notify observers about interesting topics, it broadcasts (publishes) a notification of these to each observer (which can include specific data related to the topic).</p>
+<p>When a subject needs to notify observers about something interesting happening, it broadcasts a notification to the observers (which can include specific data related to the topic of the notification).</p>
 
-<p>When subscribers are no longer interested in being notified of topics by the publisher they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection.</p>
+<p>When we no longer wish for a particular observer to be notified of changes by the subject they are registered with, the subject can remove them from the list of observers.</p>
 
 <p>
-Here is an example of how one might use the Observer pattern if provided with a functional implementation powering <code>publish()</code>,<code>subscribe()</code> and <code>unsubscribe()</code> behind the scenes:</p>
+It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the Observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
+
+<p>
+<i>"One or more observers are interested in the state of a subject and register their interest with the subject by attaching themselves. When something changes in our subject that the observer may be interested in, a notify message is sent which calls the update method in each observer. When the observer is no longer interested in the subject's state, they can simply detach themselves."</i>
+</p>
+
+<p>We can now expand on what we've learned to implement the Observer pattern with the following components:</p>
+
+<ul>
+  <li>Subject: maintains a list of observers, facilitates adding or removing observers</li>
+  <li>Observer: provides a update interface for objects that need to be notified of a Subject's changes of state</li>
+  <li>ConcreteSubject: broadcasts notifications to observers on changes of state, stores the state of ConcreteObservers</li>
+  <li>ConcreteObserver: stores a reference to the ConcreteSubject, implements an update interface for the Observer to ensure state is consistent with the Subject's</li>
+</ul>
+
+<p>First, let's model the list of dependant Observers a subject may have:</p>
+
+<pre>
+
+function ObserverList(){
+  this.observerList = [];
+};
+
+ObserverList.prototype.Add = function( obj ){
+  return this.observerList.push( obj );
+};
+
+ObserverList.prototype.Empty = function(){
+  this.observerList = [];
+};
+
+ObserverList.prototype.Count = function(){
+  return this.observerList.length;
+};
+
+
+ObserverList.prototype.Get = function( index ){
+  if( index > -1 && index < this.observerList.length ){
+    return this.observerList[ index ];
+  }
+};
+
+ObserverList.prototype.Insert = function( obj, index ){
+  var pointer = -1;
+
+  if( index === 0 ){
+    this.observerList.unshift( obj );
+    pointer = index;
+  }else if( index === this.observerList.length ){
+    this.observerList.push( obj );
+    pointer = index;
+  };
+
+  return index;
+};
+
+ObserverList.prototype.IndexOf = function( obj, startIndex ){
+  var i = startIndex;
+
+  while( i < this.observerList.length ){
+    if( this.observerList[i] === obj ){
+      pointer = i;
+    };
+  };
+
+  return pointer;
+};
+
+
+ObserverList.prototype.RemoveAt = function( index ){
+  if( index === 0 ){
+    this.observerList.shift();
+  }else if( index === this.observerList.length -1 ){
+    this.observerList.pop();
+  }
+};
+
+
+// Extend an object with an extension
+function extend( obj, extension ){
+  for ( var key in obj ){
+    extension[key] = obj[key];
+  }
+};  
+
+</pre>
+
+
+<p>Next, let's model the Subject and the ability to add, remove or notify observers on the observer list.</p>
+
+<pre>
+
+function Subject(){
+  this.observers = new ObserverList();
+};
+
+Subject.prototype.AddObserver = function( observer ){
+  this.observers.Add( observer );
+};  
+
+Subject.prototype.RemoveObserver = function( observer ){
+  this.observers.RemoveIndexAt( this.observers.IndexOf( observer, 0 ) );
+};  
+
+Subject.prototype.Notify = function( context ){
+  var observerCount = this.observers.Count();
+  for(var i=0; i < observerCount; i++){
+    this.observers.Get(i).Update( context );
+  };
+};
+</pre>
+
+<p>We then define a skeleton for creating new Observers. The <code>Update</code> functionality here will be overwritten later with custom behaviour. </p>
+
+<pre>
+
+// The Observer
+function Observer(){
+  this.Update = function(){
+    // ...
+  };
+};
+
+</pre>
+
+<p>In our sample application using the above Observer components, we now define:</p>
+
+<ul>
+  <li>A button for adding new observable checkboxes to the page</li>
+  <li>A control checkbox which will act as a subject, notifying other checkboxes they should be checked</li>
+  <li>A container for the new checkboxes being added</li>
+</ul>
+
+<p>We then define ConcreteSubject and ConcreteObserver handlers for both adding new observers to the page and implementing the updating interface. See below for inline comments on what these components do in the context of our example.</p>
+
+<p><strong>HTML:</strong></p>
+<pre>
+
+&lt;button id=&quot;addNewObserver&quot;&gt;Add New Observer checkbox&lt;/button&gt;
+&lt;input id=&quot;mainCheckbox&quot; type=&quot;checkbox&quot;/&gt;
+&lt;div id=&quot;observersContainer&quot;&gt;&lt;/div&gt;
+
+</pre>
+
+<p><strong>Sample script:</strong></p>
+
+<pre>
+
+// References to our DOM elements
+
+var controlCheckbox = document.getElementById( "mainCheckbox" ),
+  addBtn = document.getElementById( "addNewObserver" ),
+  container = document.getElementById( "observersContainer" );
+
+
+// Concrete Subject
+
+// Extend the controlling checkbox with the Subject class
+extend( new Subject(), controlCheckbox );
+
+// Clicking the checkbox will trigger notifications to its observers
+controlCheckbox["onclick"] = new Function( "controlCheckbox.Notify(controlCheckbox.checked)" );
+
+
+addBtn["onclick"] = AddNewObserver;
+
+// Concrete Observer
+
+function AddNewObserver(){
+
+  // Create a new checkbox to be added
+  var check  = document.createElement( "input" );
+  check.type = "checkbox";
+
+  // Extend the checkbox with the Observer class
+  extend( new Observer(), check )
+
+  // Override with custom update behaviour
+  check.Update = function( value ){
+    this.checked = value;
+  }
+
+  // Add the new observer to our list of observers
+  // for our main subject
+  controlCheckbox.AddObserver( check );
+
+  // Append the item to the container
+  container.appendChild( check );
+}
+
+</pre>
+
+<p>In this example, we looked at how to implement and utilize the Observer pattern, covering the concepts of a Subject, Observer, ConcreteSubject and ConcreteObserver.</p>
+
+
+<h3>Differences Between The Observer And Publish/Subscribe Pattern</h3>
+
+ <p>Whilst the Observer pattern is useful to be aware of, quite often in the JavaScript world, we'll find it commonly implemented using a variation known as the Publish/Subscribe pattern. Whilst very similar, there are differences between these patterns worth noting.</p>
+
+<p>The Observer pattern requires that the observer (or object) wishing to receive topic notifications must subscribe this interest to the object firing the event (the subject).</p>
+
+<p>The Publish/Subscribe pattern however uses a topic/event channel which sits between the objects wishing to receive notifications (subscribers) and the object firing the event (the publisher). This event system allows code to define application specific events which can pass custom arguments containing values needed by the subscriber. The idea here is to avoid dependencies between the subscriber and publisher.</p>
+
+<p>This differs from the Observer pattern as it allows any subscriber implementing an appropriate event handler to register for and receive topic notifications broadcast by the publisher.</p>
+
+<p>
+Here is an example of how one might use the Publish/Subscribe if provided with a functional implementation powering <code>publish()</code>,<code>subscribe()</code> and <code>unsubscribe()</code> behind the scenes:</p>
 
 <pre class="brush: js">
 
@@ -1607,7 +1813,7 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
   // Log the topic for debugging purposes
   console.log( "A new message was received: ", topic );
 
-  // Use the data that was passed from our publisher
+  // Use the data that was passed from our sibject
   // to display a message preview to the user
   $( "messageSender" ).html( data.sender );
   $( "messagePreview" ).html( data.body );
@@ -1618,7 +1824,7 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 // a different task. Note how nothing different has to be
 // done to the publisher in order for this to be possible.
 
-var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
+var subscriber2 = subscrube( "inbox/newMessage", function( topic, data ) {
 
   // Increment our counter of the number of new messages
   // received via the publisher
@@ -1637,53 +1843,39 @@ publish( "inbox/newMessage", [{
 // unsubscribe( subscriber2 );
 </pre>
 
-
 <p>
  The general idea here is the promotion of loose coupling. Rather than single objects calling on the methods of other objects directly, they instead subscribe to a specific task or activity of another object and are notified when it occurs.</p>
-
-<p>
-It's often useful to refer back to published definitions of design patterns that are language agnostic to get a broader sense of their usage and advantages over time. The definition of the Observer pattern provided in the GoF book, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, is:</p>
-
-<p>
-<i>"One or more observers are interested in the state of a subject and register their interest with the subject by attaching themselves. When something changes in our subject that the observer may be interested in, a notify message is sent which calls the update method in each observer. When the observer is no longer interested in the subject's state, they can simply detach themselves."</i>
-</p>
-
-<p>
-Unlimited numbers of objects may observe topics in the subject by registering themselves. Once registered to particular events, the subject will notify all observers when the topic has been fired.</p>
-
-<p>Further motivation behind using the Observer pattern is where we need to maintain consistency between related objects without making classes tightly coupled. For example, when an object needs to be able to notify other objects without making assumptions regarding those objects. Another use case is where abstractions have more than one aspect, where one depends on the other. The encapsulation of these aspects in separate objects allows the variation and re-use of the objects independently. </p>
-
 
 <h3>Advantages</h3>
 
 <p>
-Arguably, the largest benefit of using the Observers is the ability to break down our applications into smaller, more loosely coupled modules, which can also improve general manageability.
-</p>
-<p>
-It is also a pattern that encourages us to think hard about the relationships between different parts of our application, identifying what layers need to observe or listen for behavior and which need to  push notifications regarding behavior occurring to other parts of our apps.</p>
+The Observer and Publish/Subscribe patterns encourage us to think hard about the relationships between different parts of our application. They also help us identify what layers containing direct relationships which could instead be replaced with sets of subjects and observers. This effectively could be used to break down an application into smaller, more loosely coupled blocks to improve code management and potentials for re-use.</p>
 
-<p>Dynamic relationships may exist between publishers and subscribers when using this pattern. This provides a great deal of flexibility which may not be as easy to implement when disparate parts of our application are tightly coupled.</p>
+<p>Further motivation behind using the Observer pattern is where we need to maintain consistency between related objects without making classes tightly coupled. For example, when an object needs to be able to notify other objects without making assumptions regarding those objects. </p>
+
+<p>Dynamic relationships can exist between observers and subjects when using either pattern. This provides a great deal of flexibility which may not be as easy to implement when disparate parts of our application are tightly coupled.</p>
 
 <p>
-Whilst it may not always be the best solution to every problem, it remains one of the best tools for designing decoupled systems and should be considered an important tool in any JavaScript developer's utility belt.</p>
+Whilst it may not always be the best solution to every problem, these patterns remain one of the best tools for designing decoupled systems and should be considered an important tool in any JavaScript developer's utility belt.</p>
 
 <h3>Disadvantages</h3>
 <p>
-Consequently, some of the issues with this pattern actually stem from its main benefit. By decoupling publishers from subscribers, it can sometimes become difficult to obtain guarantees that particular parts of our applications are functioning as we may expect.</p>
+Consequently, some of the issues with these patterns actually stem from their main benefits. In Publish/Subscribe, by decoupling publishers from subscribers, it can sometimes become difficult to obtain guarantees that particular parts of our applications are functioning as we may expect.</p>
 
 <p>
 For example, publishers may make an assumption that one or more subscribers are listening to them. Say that we're using such an assumption to log or output errors regarding some application process. If the subscriber performing the logging crashes (or for some reason fails to function), the publisher won't have a way of seeing this due to the decoupled nature of the system.</p>
 
-<p>Another draw-back of the pattern is that observers are quite ignorant to the existence of each other and are blind to the cost of switching in subject. Due to the dynamic relationship between subjects and observers the update dependency can be difficult to track.</p>
+<p>Another draw-back of the pattern is that subscribers are quite ignorant to the existence of each other and are blind to the cost of switching publishers. Due to the dynamic relationship between subscribers and publishers, the update dependency can be difficult to track.</p>
 
-<h3>Implementations</h3>
+
+<h3>Publish/Subscribe Implementations</h3>
 
 <p>
-The Observer is a design pattern which fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as its main interaction API for scripting.</p>
+Publish/Subscribe fits in very well in JavaScript ecosystems, largely because at the core, ECMAScript implementations are event driven. This is particularly true in browser environments as the DOM uses events as its main interaction API for scripting.</p>
 
 <p>That said, neither ECMAScript nor DOM provide core objects or methods for creating custom events systems in implementation code (with the exception of perhaps the DOM3 CustomEvent, which is bound to the DOM and is thus not generically useful).</p>
 
-<p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing an Observer (Pub/Sub) system with very little effort. Below we can see some examples of this:</p>
+<p>Luckily, popular JavaScript libraries such as dojo, jQuery (custom events) and YUI already have utilities that can assist in easily implementing a Publish/Subscribe system with very little effort. Below we can see some examples of this:</p>
 
 <pre class="brush: js">
 // Publish
@@ -1724,7 +1916,7 @@ el.detach( "/login" );
 </pre>
 
 <p>
-For those wishing to use the Observer pattern with vanilla JavaScript (or another library) <a href="http://amplifyjs.com/">AmplifyJS</a> includes a clean, library-agnostic implementation that can be used with any library or toolkit. Radio.js, PubSubJS or OpenAjaxHub are also similar alternatives worth checking out.</p>
+For those wishing to use the Publish/Subscribe pattern with vanilla JavaScript (or another library) <a href="http://amplifyjs.com/">AmplifyJS</a> includes a clean, library-agnostic implementation that can be used with any library or toolkit. Radio.js (<a href="http://radio.uxder.com/">http://radio.uxder.com/</a>), PubSubJS (<a href="https://github.com/mroderick/PubSubJS">https://github.com/mroderick/PubSubJS</a>) or Pure JS PubSub by Peter Higgins (<a href="https://github.com/phiggins42/bloody-jquery-plugins/blob/55e41df9bf08f42378bb08b93efcb28555b61aeb/pubsub.js">https://github.com/phiggins42/bloody-jquery-plugins/blob/55e41df9bf08f42378bb08b93efcb28555b61aeb/pubsub.js</a>) are also similar alternatives worth checking out.</p>
 
 <p>
 jQuery developers in particular have quite a few other options and can opt to use one of the many well-developed implementations ranging from Peter Higgins's jQuery plugin to Ben Alman's (optimized) Pub/Sub jQuery gist on GitHub. Links to just a few of these can be found below.
@@ -1739,13 +1931,13 @@ jQuery developers in particular have quite a few other options and can opt to us
 </ul>
 
 <p>
-So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a minimalist version of the Observer/Pub/Sub I released on GitHub under a project called <a href="http://github.com/addyosmani/pubsubz">pubsubz</a>. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
+So that we are able to get an appreciation for how many of the vanilla JavaScript implementations of the Observer pattern might work, let's take a walk through of a minimalist version of Publish/Subscribe I released on GitHub under a project called <a href="http://github.com/addyosmani/pubsubz">pubsubz</a>. This demonstrates the core concepts of subscribe, publish as well as the concept of unsubscribing.</p>
 
 <p>
 I've opted to base our examples on this code as it sticks closely to both the method signatures and approach of implementation I would expect to see in a JavaScript version of the classic Observer pattern.</p>
 
 
-<h4>An Observer (Pub/Sub) implementation</h4>
+<h4>An Publish/Subscribe implementation</h4>
 
 <pre  class="brush: js">
 var pubsub = {};
@@ -1939,7 +2131,7 @@ pubsub.publish( "newDataAvailable", {
 <h4>Example: Decoupling applications using Ben Alman's Pub/Sub implementation</h4>
 
 <p>
-In the following movie ratings example, we'll be using Ben Alman's jQuery implementation of Pub/Sub to demonstrate how we can decouple a user interface. Notice how submitting a rating only has the effect of publishing the fact that new user and rating data is available.
+In the following movie ratings example, we'll be using Ben Alman's jQuery implementation of Publish/Subscribe to demonstrate how we can decouple a user interface. Notice how submitting a rating only has the effect of publishing the fact that new user and rating data is available.
 </p>
 
 <p>
@@ -8773,6 +8965,7 @@ console.log("test", myApp);
   <li>JavaScript Advantages - Object Literals <a href="http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal">http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal</a></li>
   <li>JavaScript Class Patterns - Liam McLennan <a href="http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx">http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx</a></li>
   <li>Understanding proxies in jQuery - <a href="http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery">http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery</a></li>
+  <li>Observer Pattern Using JavaScript - <a href="http://www.codeproject.com/Articles/13914/Observer-Design-Pattern-Using-JavaScript">http://www.codeproject.com/Articles/13914/Observer-Design-Pattern-Using-JavaScript</a></li>
   <li>Speaking on the Observer pattern - <a href="http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html">http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html</a></li>
   <li>Singleton examples in JavaScript - Hardcode.nl - <a href="http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm">http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm</a></li>
   <li>Design Patterns by Gamma, Helm supplement - <a href="http://exciton.cs.rice.edu/javaresources/DesignPatterns/">http://exciton.cs.rice.edu/javaresources/DesignPatterns/</a></li>

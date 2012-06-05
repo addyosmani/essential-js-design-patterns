@@ -31,7 +31,8 @@ Filename: observer.png
 Section: The Observer Pattern
 Placement: After the paragraph 
 
-"When subscribers are no longer interested in being notified of topics by the publisher they are registered with, they can unregister (or unsubscribe) themselves. The subject will then in turn remove them from the observer collection."
+The Observer is a design pattern where an an object (known as a subject) maintains a list of objects depending on it (observers), automatically notifying them of any changes to state.
+
 
 
 =========================
