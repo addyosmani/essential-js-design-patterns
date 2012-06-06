@@ -1999,7 +1999,7 @@ var pubsub = {};
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
-                    if ( topics[m][i].token === toke n) {
+                    if ( topics[m][i].token === token) {
                         topics[m].splice( i, 1 );
                         return token;
                     }
@@ -2084,7 +2084,7 @@ getCurrentTime = function (){
          m = date.getMonth() + 1,
          d = date.getDate(),
          y = date.getFullYear(),
-         t = date.toLocaleTimeString().toLowerCase(),
+         t = date.toLocaleTimeString().toLowerCase();
          
         return (m + "/" + d + "/" + y + " " + t);
 }
@@ -8556,7 +8556,7 @@ console.log( namespace );
     // global namespace - if not, assign window.namespace an 
     // object literal
 
-}( window.namespace = window.namespace || {} );
+}( window.namespace = window.namespace || {} ));
 
 
 // we can then test our properties and methods as follows
