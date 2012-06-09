@@ -1407,7 +1407,7 @@ myRevealingModule.start();
 <p>This pattern allows the syntax of our scripts to be more consistent. It also makes it more clear at the end of the module which of our functions and variables may be accessed publicly which eases readability.</p>
 
 <p><strong>Disadvantages</strong></p>
-<p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch if necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
+<p>A disadvantage of this pattern is that if a private function refers to a public function, that public function can't be overridden if a patch is necessary. This is because the private function will continue to refer to the private implementation and the pattern doesn't apply to public members, only to functions.</p>
 
 <p>It's only members with objects as values that can be used because of pass-by-value rules. However, public object members which refer to private variables are also subject to the no-patch rule notes above.</p>
 
