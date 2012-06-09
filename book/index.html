@@ -1806,15 +1806,16 @@ Here is an example of how one might use the Publish/Subscribe if provided with a
 
 <pre class="brush: js">
 
-// A very simple new message handler
+// A very simple new mail handler
 
 // A count of the number of messages received
 var mailCounter = 0;
 
 // Initialize subscribers that will listen out for a topic
 // with the name "inbox/newMessage". This could correspond
-// to a new e-mail (message) being received
+// to a new message being received
 
+// Renders a preview of new messages
 var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
   // Log the topic for debugging purposes
@@ -1822,8 +1823,8 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
   // Use the data that was passed from our subject
   // to display a message preview to the user
-  $( "messageSender" ).html( data.sender );
-  $( "messagePreview" ).html( data.body );
+  $( ".messageSender" ).html( data.sender );
+  $( ".messagePreview" ).html( data.body );
 
 });
 
