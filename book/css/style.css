@@ -1,13 +1,5 @@
 @charset "UTF-8";
-body {
-	font: 1.1em Georgia;
-	line-height:1.4em;
-	background: #fff;
-	margin: 0;
-	padding: 0;
-	color: #000;
-	text-align: left;
-}
+
 
 /* ~~ Element/tag selectors ~~ */
 ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
@@ -21,7 +13,6 @@ h1, h2, h3, h4, h5, h6, p {
 	text-align: left;
 	font-family:Georgia;
 }
-
 
 h1{
 	font-size: 32px;
@@ -101,6 +92,8 @@ header {
 	font-size: 1px;
 	line-height: 0px;
 }
+
+
 .copyright {
 	text-align: left;
 }
@@ -113,10 +106,8 @@ header {
 	font-size: 2.2em;
 }
 
-.bookauthor{
-  font-family:Helvetica,Arial,sans-serif;
-  font-weight:bold;
-  text-align:center;
+.booktitle.author{
+	font-size:24px;
 }
 
 

@@ -1,0 +1,48 @@
+.sausage-set {
+    position: fixed; right: 0; top: 0;
+    width: 15px; height: 100%;
+    border-left: solid 2px #fff;
+    border-right: solid 2px #fff;
+    background-color: #fff;
+    font-family: 'Helvetica Neue', 'Arial', 'sans-serif';
+}
+    .sausage {
+        position: absolute; left: 0;
+        width: 100%; height: 100%;
+        background-color: #f1f1f1;
+        text-decoration: none;
+        -moz-border-radius: 8px;
+        -webkit-border-bottom-left-radius: 8px;
+        -webkit-border-top-left-radius: 8px;
+        -webkit-border-bottom-right-radius: 8px;
+        -webkit-border-top-right-radius: 8px;
+        -moz-box-shadow: inset 0px 1px 2px 4px rgba(0, 0, 0, 0.025);
+        -webkit-box-shadow: inset 0px 1px 2px 4px rgba(0, 0, 0, 0.025);
+        cursor: pointer;
+    }
+    .sausage-hover,
+    .sausage-current {
+        background-color: #f2e4ed;
+        -moz-box-shadow: inset 0px 1px 2px 4px rgba(51, 63, 70, 0.025);
+    }
+        .sausage-span {
+            position: absolute; right: 24px; top: 5px; z-index: 2;
+            display: none;
+            width: 100px;
+            padding: 2px 3px;
+            color: #000;
+            background-color: #fff;
+            border: solid 2px #990066;
+            font-size: 10px; line-height: 12px; font-weight: bold; text-align: center;
+            -moz-border-radius: 7px;
+            -webkit-border-bottom-left-radius: 7px;
+            -webkit-border-top-left-radius: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            -webkit-border-top-right-radius: 7px;
+            -moz-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+            -webkit-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+        }
+        .sausage-hover .sausage-span,
+        .sausage-current .sausage-span {
+            display: block;
+        }
