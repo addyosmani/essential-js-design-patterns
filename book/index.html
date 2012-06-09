@@ -1812,10 +1812,9 @@ Here is an example of how one might use the Publish/Subscribe if provided with a
 var mailCounter = 0;
 
 // Initialize subscribers that will listen out for a topic
-// with the name "inbox/newMessage". This could correspond
-// to a new message being received
+// with the name "inbox/newMessage".
 
-// Renders a preview of new messages
+// Render a preview of new messages
 var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
   // Log the topic for debugging purposes
@@ -1829,14 +1828,14 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 });
 
 // Here's another subscriber using the same data to perform
-// a different task. Note how nothing different has to be
-// done to the publisher in order for this to be possible.
+// a different task.
+
+// Update the counter displaying the number of new
+// messages received via the publisher
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  // Increment our counter of the number of new messages
-  // received via the publisher
-  mailCounter++;
+  $('.newMessageCounter').html( mailCounter++ );
 
 });
 
