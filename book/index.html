@@ -1335,14 +1335,14 @@ var myLibrary = library(function () {
 var myRevealingModule = function () {
 
         var privateVar = "Ben Cherry",
-          publicVar  = "Hey there!";
+            publicVar  = "Hey there!";
 
         function privateFunction() {
             console.log( "Name:" + privateVar );
         };
         
         function publicSetName( strName ) {
-            privateName = strName;
+            privateVar = strName;
         };
 
         function publicGetName() {
