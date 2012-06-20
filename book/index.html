@@ -4586,9 +4586,9 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 
 <p>&nbsp;</p>
 
-<h1 id="detailmvcmvp">MV* Patterns</h1>
+<h1 id="detailmvcmvp">JavaScript MV* Patterns</h1>
 
-<p>In this section, we're going to review two very important architectural patterns - MVC (Model-View-Controller) and MVP (Model-View-Presenter). In the past both of these patterns have been heavily used for structuring desktop and server-side applications, but it's only been in recent years that come to being applied to JavaScript.</p>
+<p>In this section, we're going to review three very important architectural patterns - MVC (Model-View-Controller), MVP (Model-View-Presenter) and MVVM (Model-View-ViewModel). In the past, these patterns have been heavily used for structuring desktop and server-side applications but it's only been in recent years that come to being applied to JavaScript.</p>
 
 <p>As the majority of JavaScript developers currently using these patterns opt to utilize libraries such as Backbone.js for implementing an MVC/MV*-like structure, we will compare how modern solutions such as it differ in their interpretation of MVC compared to classical takes on these patterns.</p>
 
@@ -4603,13 +4603,15 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 <p>The Smalltalk-80 implementation of MVC took this concept further and had an objective of separating out the application logic from the user interface. The idea was that decoupling these parts of the application would also allow the reuse of models for other interfaces in the application. There are some interesting points worth noting about Smalltalk-80's MVC architecture:</p>
 
 <ul>
-  <li>A Domain element was known as a Model and was ignorant of the user-interface (Views and Controllers)</li>
-  <li>Presentation was taken care of by the View and the Controller, but there wasn't just a single view and controller. A View-Controller pair was required for each element being displayed on the screen and so there was no true separation between them</li>
-  <li>The Controllers role in this pair was handling user input (such as key-presses and actions e.g clicks), doing something sensible with them.</li>
-  <li>The Observer pattern was relied upon for updating the View whenever the Model changed</li>
+  <li>A Model represented domain-specific data and was ignorant of the user-interface (Views and Controllers). When a model changed, it would inform its observers.</li>
+   <li>A View represented the current state of a Model. The Observer pattern was used for letting the View know whenever the Model was updated or modified.</li>
+  <li>Presentation was taken care of by the View and the Controller, but there wasn't just a single View and Controller. A View-Controller pair was required for each section or element being displayed on the screen and so there was no true separation between them</li>
+  <li>The Controllers role in this pair was handling user interaction (such as key-presses and actions e.g clicks), making decisions for the View.</li>
+ 
 </ul>
 
-<p>Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as a Publish/Subscribe system) was included as a part of MVC's architecture many decades ago. In Smalltalk-80's MVC, the View and Controller both observe the Model. As mentioned in the bullet point above, anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - in order for the application to be useful, any change to the data in our Models should result in the View being refreshed instantly.</p>
+<p>Developers are sometimes surprised when they learn that the Observer pattern (nowadays commonly implemented as the Publish/Subscribe variation) was included as a part of MVC's architecture many decades ago. In Smalltalk-80's MVC, the View and Controller both observe the Model. As mentioned in the bullet point above, anytime the Model changes, the Views react. A simple example of this is an application backed by stock market data - in order for the application to be useful, any change to the data in our Models should result in the View being refreshed instantly.</p>
+
 <p>Martin Fowler has done an excellent job of writing about the <a href="http://martinfowler.com/eaaDev/uiArchs.html">origins</a> of MVC over the years and if interested in some further historical information about Smalltalk-80's MVC, I recommend reading his work.</p>
 
 <h2>MVC For JavaScript Developers</h2>
@@ -4824,6 +4826,11 @@ var PhotoRouter = Backbone.Router.extend({
   <li>Duplication of low-level model and controller code (i.e what we may have been using instead) is eliminated across the application</li>
   <li>Depending on the size of the application and separation of roles, this modularity allows developers responsible for core logic and developers working on the user-interfaces to work simultaneously</li>
 </ul>
+
+<h2>Smalltalk-80 MVC In JavaScript</h2>
+
+<p>Although the majority of modern-day JavaScript frameworks attempt to evolve the MVC paradigm to better fit the differing needs of web application development, there is one framework which attempts to adhere to the pure form of the pattern found in Smalltalk-80. Maria.js (<a href="https://github.com/petermichaux/maria">https://github.com/petermichaux/maria</a>) by Peter Michaux offers an implementation which is faithful to MVCs origins - Models are models, Views are views and Controllers are nothing but controllers. Whilst some developers might feel an MV* framework should address more concerns, this is a useful reference to be aware of in case you would like a JavaScript implementation of the original MVC.</p>
+
 <h3>Delving deeper</h3>
 <p>At this point in the book, we should have a basic understanding of what the MVC pattern provides, but there's still some fascinating information about it worth noting.</p>
 
