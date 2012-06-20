@@ -384,7 +384,7 @@ function Car( model ) {
 
   this.getInfo = function () {
     return this.model + " " + this.year;
-  }
+  };
 
 }
 </pre>
@@ -649,7 +649,7 @@ Object.defineProperty( newObject, "someKey", {
 var defineProp = function ( obj, key, value ){
   config.value = value;
   Object.defineProperty( obj, key, config );
-}
+};
 
 // To use, we then create a new empty "person" object
 var person = Object.create( null );
@@ -810,7 +810,7 @@ var myObjectLiteral = {
 
     functionKey: function () {
       // ...
-    }
+    };
 };
 </pre>
 
@@ -1020,7 +1020,7 @@ var basketModule = (function () {
 
       return p;
     }
-  }
+  };
 }());
 
 </pre>
@@ -1085,22 +1085,22 @@ var myModule = (function ( jQ, _ ) {
   
     function privateMethod1(){
         jQ(".container").html("test");
-    };
+    }
 
     function privateMethod2(){
       console.log( _.min([10, 5, 100, 2, 1000]) );
-    };
+    }
     
     return{
         publicMethod: function(){
             privateMethod1();                
         }            
-    }
+    };
    
 // Pull in jQuery and Underscore
 }( jQuery, _ ));
 
-myModule.publicMethod();    
+myModule.publicMethod();  
 </pre>
 
 <strong>Exports</strong>
@@ -1116,7 +1116,7 @@ var myModule = (function () {
   
   function privateMethod() {
     // ...
-  };
+  }
 
   module.publicProperty = "Foobar";
   module.publicMethod = function () {
@@ -1144,13 +1144,14 @@ var store = window.store || {};
 if ( !store["basket"] ) {
   store.basket = {};
 }
+
 if ( !store.basket["core"] ) {
   store.basket.core = {};
 }
 
 store.basket.core = {
   // ...rest of our logic
-}
+};
 </pre>
 </p>
 <p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
@@ -1240,7 +1241,7 @@ YUI
 Similarly, we can also implement the Module pattern when building applications using YUI3. The following example is heavily based on the original YUI Module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
 </p>
 <pre  class="brush: js">
-Y.namespace( 'store.basket") = (function () {
+Y.namespace( "store.basket" ) = (function () {
 
     var myPrivateVar, myPrivateMethod;
 
@@ -1284,7 +1285,7 @@ In the following example, a <code>library</code> function is defined which decla
 
 function library( module ) {
 
-  $(function () {
+  $( function() {
     if ( module.init ) {
       module.init();
     }
@@ -1335,19 +1336,19 @@ var myLibrary = library(function () {
 var myRevealingModule = function () {
 
         var privateVar = "Ben Cherry",
-            publicVar  = "Hey there!";
+          publicVar  = "Hey there!";
 
         function privateFunction() {
             console.log( "Name:" + privateVar );
-        };
+        }
         
         function publicSetName( strName ) {
-            privateVar = strName;
-        };
+            privateName = strName;
+        }
 
         function publicGetName() {
             privateFunction();
-        };
+        }
 
 
         // Reveal public pointers to  
@@ -1357,7 +1358,7 @@ var myRevealingModule = function () {
             setName: publicSetName,
             greeting: publicVar,
             getName: publicGetName
-        }
+        };
 
     }();
 
@@ -1374,19 +1375,19 @@ var myRevealingModule = function () {
 
         function privateFunction() {
             privateCounter++;
-        };
+        }
 
         function publicFunction() {
             publicIncrement();
-        };
+        }
 
         function publicIncrement() {
             privateFunction();
-        };
+        }
 
         function publicGetCount(){
           return privateCounter;
-        };
+        }
 
         // Reveal public pointers to 
         // private functions and properties        
@@ -1394,12 +1395,13 @@ var myRevealingModule = function () {
        return {
             start: publicFunction,
             increment: publicIncrement,
-            count: publicGetCount,
-        }
+            count: publicGetCount
+        };
 
     }();
 
 myRevealingModule.start();
+  
   </pre></p>
 
 <p><strong>Advantages</strong></p>
@@ -1525,11 +1527,11 @@ Singleton.getInstance().publicMethod();
 <p>
 <pre  class="brush: js">
 
-var SingletonTester = (function () {
+var SingletonTester = (function () {
 
   // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};  
-  function Singleton( options )  {
+  // e.g var options = { name: "test", pointX: 5};  
+  function Singleton( options )  {
 
     // set options to the options supplied 
     // or an empty object if none are provided
@@ -1540,41 +1542,42 @@ var SingletonTester = (function () {
 
     this.pointX = options.pointX || 6;
 
-    this.pointY = options.pointY || 10;  
+    this.pointY = options.pointY || 10;  
 
-  }; 
+  }
 
-  // our instance holder  
-  var instance;
+  // our instance holder  
+  var instance;
 
   // an emulation of static variables and methods
-  var _static  = {   
+  var _static  = {   
 
-    name:  "SingletonTester",
+    name:  "SingletonTester",
 
     // Method for getting an instance. It returns 
     // a singleton instance of a singleton object
-    getInstance:  function( options ) {    
-      if( instance  ===  undefined )  {     
-        instance = new Singleton( options );    
-      }    
+    getInstance:  function( options ) {    
+      if( instance  ===  undefined )  {     
+        instance = new Singleton( options );    
+      }    
 
-      return  instance;  
-       
-    }  
-  };  
+      return  instance;  
+       
+    }  
+  };  
 
-  return  _static;
+  return  _static;
 
 })();
 
-var singletonTest  =  SingletonTester.getInstance({
-  pointX:  5
+var singletonTest  =  SingletonTester.getInstance({
+  pointX:  5
 });
 
 // Log the output of pointX just to verify it is correct
 // Outputs: 5
-console.log( singletonTest.pointX );  
+console.log( singletonTest.pointX );  
+
 
 </pre></p>
 <p>&nbsp;</p>
@@ -1611,7 +1614,7 @@ It's often useful to refer back to published definitions of design patterns that
 
 function ObserverList(){
   this.observerList = [];
-};
+}
 
 ObserverList.prototype.Add = function( obj ){
   return this.observerList.push( obj );
@@ -1641,19 +1644,19 @@ ObserverList.prototype.Insert = function( obj, index ){
   }else if( index === this.observerList.length ){
     this.observerList.push( obj );
     pointer = index;
-  };
+  }
 
-  return index;
+  return pointer;
 };
 
 ObserverList.prototype.IndexOf = function( obj, startIndex ){
-  var i = startIndex;
+  var i = startIndex, pointer = -1;
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
       pointer = i;
-    };
-  };
+    }
+  }
 
   return pointer;
 };
@@ -1673,7 +1676,8 @@ function extend( obj, extension ){
   for ( var key in obj ){
     extension[key] = obj[key];
   }
-};  
+}
+ 
 
 </pre>
 </p>
@@ -1685,7 +1689,7 @@ function extend( obj, extension ){
 
 function Subject(){
   this.observers = new ObserverList();
-};
+}
 
 Subject.prototype.AddObserver = function( observer ){
   this.observers.Add( observer );
@@ -1699,8 +1703,9 @@ Subject.prototype.Notify = function( context ){
   var observerCount = this.observers.Count();
   for(var i=0; i < observerCount; i++){
     this.observers.Get(i).Update( context );
-  };
+  }
 };
+
 </pre>
 </p>
 
@@ -1714,7 +1719,7 @@ function Observer(){
   this.Update = function(){
     // ...
   };
-};
+}
 
 </pre>
 </p>
@@ -1770,12 +1775,12 @@ function AddNewObserver(){
   check.type = "checkbox";
 
   // Extend the checkbox with the Observer class
-  extend( new Observer(), check )
+  extend( new Observer(), check );
 
   // Override with custom update behaviour
   check.Update = function( value ){
     this.checked = value;
-  }
+  };
 
   // Add the new observer to our list of observers
   // for our main subject
@@ -1784,6 +1789,7 @@ function AddNewObserver(){
   // Append the item to the container
   container.appendChild( check );
 }
+
 
 </pre>
 </p>
@@ -2086,7 +2092,7 @@ getCurrentTime = function (){
          t = date.toLocaleTimeString().toLowerCase();
          
         return (m + "/" + d + "/" + y + " " + t);
-}
+};
 
 // Add a new row of data to our fictional grid component
 function addGridRow( data ) {
@@ -2094,7 +2100,7 @@ function addGridRow( data ) {
    // ui.grid.addRow( data );
    console.log( "updated grid component with:" + data );
 
-};
+}
 
 // Update our fictional grid to show the time it was last
 // updated
@@ -2108,12 +2114,12 @@ function updateCounter( data ) {
 // Update the grid using the data passed to our subscribers
 gridUpdate = function( topic, data ){
 
-  if( !(data === "undefined") ) {
+  if ( data !== "undefined" ) {
      grid.addGridRow( data );
      grid.updateCounter( data );
    }
 
-}
+};
 
 // The following represents updates to our data layer. This could be
 // powered by ajax requests which broadcast that new data is available
@@ -2131,6 +2137,7 @@ pubsub.publish( "newDataAvailable", {
   identifier: "MSFT",
   stockPrice: 30.85
 });
+
 
 </pre>
 
@@ -2201,6 +2208,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 <strong>JavaScript</strong>
 
 <pre  class="brush: js">
+
 ;(function( $ ) {
 
   // Subscribe to the new user topic, which adds a user
@@ -2230,7 +2238,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
       
       compiledTemplate = _.template($( "#ratingsTemplate" ).html());
 
-      $( "#ratings" ).append( compiledTemplate( data );
+      $( "#ratings" ).append( compiledTemplate( data ) );
 
     }
 
@@ -2254,6 +2262,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
     });
 
 })( jQuery );
+
 </pre>
 
 <h4>Example: Decoupling an Ajax-based jQuery application</h4>
@@ -2362,7 +2371,8 @@ Notice how in our sample below, one topic notification is made when a user indic
    });
 
 
-});
+})();
+
 </pre>
 
 <p>
@@ -2455,7 +2465,9 @@ var mediator = (function(){
 <p>By generating object instances, we can easily update Subscribers later without the need to unregister and re-register them. Subscribers can be written as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
 
 <pre  class="brush: js">
-// Pass in a context to attach our Mediator to. By default this will be the window object
+
+// Pass in a context to attach our Mediator to. 
+// By default this will be the window object
 (function( root ){
    
   function guidGenerator() { /*..*/}
@@ -2481,47 +2493,49 @@ var mediator = (function(){
       this.topic = null;
 
     }
-  };
+  }
+})();
+
 </pre>
 
 <p>Topics in our Mediator hold a list of callbacks and sub-topics that are fired when <code>Mediator.Publish</code> is called on our Mediator instance. It also contains methods for manipulating lists of data.</p>
 
 <pre  class="brush: js">
-  Subscriber.prototype = {
+// Let's model the Topic.
+// JavaScript lets us use a Function object as a 
+// conjunction of a prototype for use with the new 
+// object and a constructor function to be invoked.
+function Topic( namespace ){
 
-  function Topic( namespace ){
+  if ( !this instanceof Topic ) {
+    return new Topic( namespace );
+  }else{
 
-    if ( !this instanceof Topic ) {
-      return new Topic( namespace );
+    this.namespace = namespace || "";
+    this._callbacks = [];
+    this._topics = [];
+    this.stopped = false;
 
-    }else{
-
-      this.namespace = namespace || "";
-      this._callbacks = [];
-      this._topics = [];
-      this.stopped = false;
-
-    }
-  };
+  }
+}
 
 
-  // Define the prototype for our topic, including ways to
-  // add new subscribers or retrieve existing ones.
+// Define the prototype for our topic, including ways to
+// add new subscribers or retrieve existing ones.
+Topic.prototype = {
 
-  Topic.prototype = {
+  // Add a new subscriber 
+  AddSubscriber: function( fn, options, context ){
 
-    // Add a new subscriber 
-    AddSubscriber: function( fn, options, context ){
+    var callback = new Subscriber( fn, options, context );
 
-      var callback = new Subscriber( fn, options, context );
+    this._callbacks.push( callback );
 
-      this._callbacks.push( callback );
+    callback.topic = this;
 
-      callback.topic = this;
-
-      return callback;
-    },
-
+    return callback;
+  },
+...
 </pre>
 
 <p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
@@ -2798,7 +2812,7 @@ function logChat( data ) {
 // Subscribe to new chat messages being submitted
 // via the mediator
 mediator.subscribe( "newMessage", displayChat );
-mediator.subscribe( "newMessage", logChat )
+mediator.subscribe( "newMessage", logChat );
 
 
 // The following will however only work with the more advanced implementation:
@@ -2885,7 +2899,7 @@ var myCar = {
   },
 
   panic: function () {
-    console.log( "Wait. How do you stop this thing?" )
+    console.log( "Wait. How do you stop this thing?" );
   }
 
 };
@@ -2894,7 +2908,7 @@ var myCar = {
 var yourCar = Object.create( myCar );
 
 // Now we can see that one is a prototype of the other
-console.log( your.name );
+console.log( yourCar.name );
 </pre></p>
 <p>
 <code>Object.create</code> also allows us to easily implement advanced concepts such as differential inheritance where objects are able to directly inherit from other objects. We saw earlier that <code>Object.create</code> allows us to initialise object properties using the second supplied argument. For example:
@@ -3001,20 +3015,17 @@ var beget = (function () {
   
       // request information
       requestInfo: function( model, id ){
-        return "The information for " + model + 
-        " with ID " + id + " is foobar";
+        return "The information for " + model + " with ID " + id + " is foobar";
       },
       
       // purchase the car
       buyVehicle: function( model, id ){
-        return "You have successfully purchased Item " 
-        + id + ", a " + model;
+        return "You have successfully purchased Item " + id + ", a " + model;
       },
       
       // arrange a viewing
       arrangeViewing: function( model, id ){
-        return "You have successfully booked a viewing of "
-        + model + " ( " + id + " ) ";
+        return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
       }
     
     };
@@ -3146,7 +3157,7 @@ var module = (function() {
                 _private.run();
             }
         }
-    }
+    };
 }());
  
  
@@ -3281,15 +3292,14 @@ var myBigTruck = truckFactory.createVehicle( {
                     color: "pink", 
                     wheelSize: "so big" } );
 
-// Confirms that myBigTruck was created with the 
-
-prototype Truck
+// Confirms that myBigTruck was created with the prototype Truck
 // Outputs: true
 console.log( myBigTruck instanceof Truck );
 
 // Outputs: Truck object with the color "pink", wheelSize "so big" 
 // and state "omg. so bad"
 console.log( myBigTruck );
+
 
 </pre>
 
@@ -3410,7 +3420,7 @@ var Superhero = function( firstName, lastName , powers ){
 
     // Finally, store their powers, a new array of traits not found in a normal "Person"
     this.powers = powers;
-}
+};
 
 SuperHero.prototype = Object.create( Person.prototype );
 var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
@@ -3454,12 +3464,12 @@ var myMixins = {
 function carAnimator(){
   this.moveLeft = function(){
     console.log( "move left" );
-  }
+  };
 }
 
 // A skeleton personAnimator constructor
 function personAnimator(){
-  this.moveRandomly = function(){ /*..*/ }
+  this.moveRandomly = function(){ /*..*/ };
 }
 
 // Extend both constructors with our Mixin
@@ -3631,11 +3641,11 @@ var truck = new vehicle( "truck" );
 // New functionality we're decorating vehicle with
 truck.setModel = function( modelName ){
     this.model = modelName;
-}
+};
 
 truck.setColor = function( color ){
     this.color = color;
-}
+};
     
 // Test the value setters and value assignment works correctly
 truck.setModel( "CAT" );
@@ -3652,6 +3662,7 @@ console.log( secondInstance );
 
 // Outputs:
 // vehicle: car, model:default, license: 00000-000
+
 
 </pre>
 
@@ -3674,7 +3685,7 @@ function Memory( macbook ) {
   var v = macbook.cost(); 
   macbook.cost = function() { 
     return v + 75; 
-  } 
+  }; 
 
 } 
 
@@ -3708,6 +3719,7 @@ console.log( mb.cost() );
 
 // Outputs: 11.6
 console.log( mb.screenSize() ); 
+
 </pre>
 
 <p>In the above example, our Decorators are overriding the <code>MacBook()</code> super-class objects <code>.cost()</code> function to return the current price of the <code>Macbook</code> plus the cost of the upgrade being specified.</p>
@@ -3747,13 +3759,13 @@ var reminder = new Interface( "List", ["summary", "placeOrder"] );
 
 var properties = {
   name: "Remember to buy the milk",
-  date: "05/06/2016"
+  date: "05/06/2016",
   actions:{
     summary: function (){
-      return "Remember to buy the milk, we are almost out!"
+      return "Remember to buy the milk, we are almost out!";
    },
     placeOrder: function (){
-      return "Ordering milk from your local grocery store"
+      return "Ordering milk from your local grocery store";
     }
   }
 };
@@ -3786,6 +3798,7 @@ console.log( todoItem.methods.placeOrder() );
 // Outputs:
 // Remember to buy the milk, we are almost out!
 // Ordering milk from your local grocery store
+
 </pre>
 
 <p>In the above, <code>Interface.ensureImplements</code> provides strict functionality checking and code for both this and the <code>Interface</code> constructor can be found <a href="https://gist.github.com/1057989">here</a>.</p>
@@ -3801,7 +3814,8 @@ console.log( todoItem.methods.placeOrder() );
 <pre  class="brush: js">
 var Macbook = function(){
         //...
-}
+};
+
 var  MacbookWith4GBRam =  function(){},
      MacbookWith8GBRam = function(){},
      MacbookWith4GBRamAndEngraving = function(){},
@@ -3831,10 +3845,9 @@ var Macbook = new Interface( "Macbook",
   "addCase"]);
 
 // A Macbook Pro might thus be represented as follows:
-
 var MacbookPro = function(){
     // implements Macbook
-}
+};
 
 MacbookPro.prototype = {
     addEngraving: function(){
@@ -3864,7 +3877,7 @@ var MacbookDecorator = function( macbook ){
     Interface.ensureImplements( macbook, Macbook );
     this.macbook = macbook;  
 
-}
+};
 
 MacbookDecorator.prototype = {
     addEngraving: function(){
@@ -3894,10 +3907,10 @@ MacbookDecorator.prototype = {
 
 var CaseDecorator = function( macbook ){
 
-    // call the superclass's constructor next
-    this.superclass.constructor( macbook );   
+   // call the superclass's constructor next
+   this.superclass.constructor( macbook );   
 
-}
+};
 
 // Let's now extend the superclass
 extend( CaseDecorator, MacbookDecorator ); 
@@ -4080,7 +4093,7 @@ Function.prototype.implementsFor = function( parentClassOrObject ){
     if ( parentClassOrObject.constructor === Function ) 
     { 
         // Normal Inheritance 
-        this.prototype = new parentClassOrObject;
+        this.prototype = new parentClassOrObject();
         this.prototype.constructor = this;
         this.prototype.parent = parentClassOrObject.prototype;
     } 
@@ -4092,7 +4105,7 @@ Function.prototype.implementsFor = function( parentClassOrObject ){
         this.prototype.parent = parentClassOrObject;
     } 
     return this;
-}
+};
 </pre>
 
 <p>We can use this to patch the lack of an <code>implements</code> keyword by having a function inherit an interface explicitly. Below, <code>CoffeeFlavor</code> implements the <code>CoffeeOrder</code> interface and must contain its interface methods in order for us to assign the functionality powering these implementations to an object.</p>
@@ -4140,14 +4153,11 @@ CoffeeFlavor.implementsFor( CoffeeOrder );
 
 // Handle table numbers for a coffee order
 function CoffeeOrderContext( tableNumber ) {
-
-  var tableNumber = tableNumber;
-
    return{
       getTable: function() {
          return tableNumber;
      }
-   }
+   };
 }
 
 
@@ -4170,7 +4180,7 @@ function CoffeeFlavorFactory() {
       getTotalCoffeeFlavorsMade: function() {
         return flavors.length;
       }
-  }
+  };
 }
 
 // Sample usage:
@@ -4248,9 +4258,7 @@ We'll also require the following properties to keep track of which member has ch
 Each book would thus be represented as follows, prior to any optimization using the Flyweight pattern:
 </p>
 <pre class="brush: js">
-var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, 
-
-dueReturnDate,availability ){
+var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ){
 
    this.id = id;
    this.title = title;
@@ -4344,15 +4352,15 @@ Let's now define a very basic factory. What we're going to have it do is perform
 <pre class="brush: js">
 // Book Factory singleton 
 var BookFactory = (function () {
-  var existingBooks = {};
+  var existingBooks = {}, existingBook;
 
   return {
     createBook: function ( title, author, genre, pageCount, publisherID, ISBN ) {
 
       // Find out if a particular book meta-data combination has been created before
       // !! or (bang bang) forces a boolean to be returned
-      if ( !!existingBooks[ISBN] ) {
-
+      existingBook = existingBooks[ISBN];
+      if ( !!existingBook ) {
         return existingBook;
       } else {
 
@@ -4363,7 +4371,7 @@ var BookFactory = (function () {
 
       }
     }
-  }
+  };
 
 });
 </pre>
@@ -4392,8 +4400,7 @@ var BookRecordManager = (function () {
         checkoutDate: checkoutDate,
         dueReturnDate: dueReturnDate,
         availability: availability,
-        book: book;
-
+        book: book
       };
     },
     updateCheckoutStatus: function ( bookID, newStatus, checkoutDate, checkoutMember, newReturnDate ) {
@@ -4497,7 +4504,7 @@ var stateManager = {
   handleClick: function ( elem ) {
     elem.find( "span" ).toggle( "slow" );
   }
-});
+};
 </pre>
 
 <p>
@@ -4547,7 +4554,7 @@ The idea here is that a single jQuery object is created and used for each call t
 jQuery.single = (function( o ){
 
    var collection = jQuery([1]);
-   return function(element) {
+   return function( element ) {
 
        // Give collection the element:
        collection[0] = element;
@@ -4692,7 +4699,7 @@ var buildPhotoView = function ( photoModel, photoController ) {
           photoEl.innerHTML = _.template( "#photoTemplate" , {
               src: photoModel.getSrc()
           });
-      }
+      };
 
   photoModel.addSubscriber( render );
 
@@ -4702,18 +4709,18 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
   var show = function () {
     photoEl.style.display = "";
-  }
+  };
 
   var hide = function () {
     photoEl.style.display = "none";
-  }
+  };
 
   return {
     showView: show,
     hideView: hide
-  }
+  };
 
-}
+};
 </pre>
 <p><strong>Templating</strong></p>
 <p>In the context of JavaScript frameworks that support MVC/MV*, it is worth briefly discussing JavaScript templating and its relationship to views as we briefly touched upon it in the last section.</p>
@@ -4803,9 +4810,9 @@ var PhotoRouter = Backbone.Router.extend({
     var item = photoCollection.get( id );
     var view = new PhotoView( { model: item } );
 
-    something.html( view.render().el );
+    $('.content').html( view.render().el );
   }
-}):
+});
 </pre>
 <p>To summarize, the takeaway from this section is that controllers manage the logic and coordination between models and views in an application.</p>
 <h2>What does MVC give us?</h2>
@@ -4885,9 +4892,8 @@ var PhotoView = Backbone.View.extend({
     // app, we set a direct reference on the model for convenience.
 
     initialize: function() {
-      _.bindAll( this, "render" );
-      this.model.bind( "change", this.render );
-      this.model.bind( "destroy", this.remove );
+      this.model.on( "change", this.render, this );
+      this.model.on( "destroy", this.remove, this );
     },
 
     // Re-render the photo entry
@@ -5013,7 +5019,8 @@ var aViewModel = {
         var self = this;
 
     // map array of passed in todos to an observableArray of Todo objects
-    self.todos = ko.observableArray( ko.utils.arrayMap( todos, function ( todo ) {
+    self.todos = ko.observableArray( 
+    ko.utils.arrayMap( todos, function ( todo ) {
         return new Todo( todo.content, todo.done );
     }));
 
@@ -5071,7 +5078,7 @@ var aViewModel = {
 var myObservableArray = ko.observableArray();
 
 // Add a value to the array and notify our observers 
-myObservableArray.push( &lsquo;A new todo item&rsquo; );
+myObservableArray.push( 'A new todo item' );
 
 </pre>
 <p>Note: The complete Knockout.js Todo application we reviewed above can be grabbed from <a href="http://todomvc.com">TodoMVC</a> if interested.</p>
@@ -5396,7 +5403,7 @@ define( "myModule",
             doStuff:function () {
                 console.log( "Yay! Stuff" );
             }
-        }
+        };
 
     return myModule;
 });
@@ -5416,9 +5423,9 @@ define( "myModule",
             plot: function( x, y ){
                 return graph.drawPie( math.randomGrid( x, y ) );
             }
-        }
-    };
+        };
 });
+
 </pre>
 
 
@@ -5576,7 +5583,6 @@ define(["dojo", "dijit', "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit 
 <p><strong>Decorator pattern:</strong></p>
 
 <pre class="brush: js">
-
 // mylib/UpdatableObservable: a Decorator for dojo/store/Observable
 define(["dojo", "dojo/store/Observable"], function ( dojo, Observable ) {
     return function UpdatableObservable ( store ) {
@@ -5587,7 +5593,7 @@ define(["dojo", "dojo/store/Observable"], function ( dojo, Observable ) {
         observable.updated = function( object ) {
             dojo.when( object, function ( itemOrArray) {
                 dojo.forEach( [].concat(itemOrArray), this.notify, this );
-            };
+            });
         };
 
         return observable;
@@ -5611,6 +5617,7 @@ define(["mylib/UpdatableObservable"], function ( makeUpdatable ) {
     //updatable.updated( updatedItem );
 });
 
+
 </pre>
 
 <p><strong>Adapter pattern</strong></p>
@@ -5623,7 +5630,7 @@ define(["dojo/_base/lang", "dojo/_base/array"], function ( lang, array ) {
         each: function ( arr, lambda ) {
             array.forEach( arr, function ( item, i ) {
                 lambda.call( item, i, item ); // like jQuery's each
-            })
+            });
         }
     });
 });
@@ -5880,15 +5887,14 @@ exports.helloWorld = function(){
 <li>curl.js <a href="http://github.com/unscriptable/curl">http://github.com/unscriptable/curl</a></li>
 <li>SproutCore 1.1 <a href="http://sproutcore.com">http://sproutcore.com</a></li>
 <li>PINF <a href="http://github.com/pinf/loader-js">http://github.com/pinf/loader-js</a></li>
-<li>(and more)</li>
 </ul>
 
 <h5>Server-side:</h5>
 <ul>
 <li>Node<a href="http://nodejs.org">http://nodejs.org</a></li>
 <li>Narwhal <a href="https://github.com/tlrobinson/narwhal">https://github.com/tlrobinson/narwhal</a></li>
-<li>Persevere<a href="http://www.persvr.org/">http://www.persvr.org/</a></li>
-<li>Wakanda<a href="http://www.wakandasoft.com/">http://www.wakandasoft.com/</a></li>
+<li>Persevere <a href="http://www.persvr.org/">http://www.persvr.org/</a></li>
+<li>Wakanda <a href="http://www.wakandasoft.com/">http://www.wakandasoft.com/</a></li>
 </ul>
 
 
@@ -6798,7 +6804,7 @@ $( "li" ).each( function ( index ) {
 
 <p>Here we can see the code for <code>jQuery.fn.each()</code>:</p>
 
-<pre>
+<pre class="brush: js">
 // Execute a callback for every element in the matched set.
 each: function( callback, args ) {
   return jQuery.each( this, callback, args );
@@ -6807,7 +6813,7 @@ each: function( callback, args ) {
 
 <p>Followed by the code behind <code>jQuery.each()</code> which handles two ways of iterating through objects:</p>
 
-<pre>
+<pre class="brush: js">
   each: function( object, callback, args ) {
     var name, i = 0,
       length = object.length,
