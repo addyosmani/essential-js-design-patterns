@@ -2028,7 +2028,7 @@ var messageLogger = function ( topics, data ) {
 // Subscribers listen for topics they have subscribed to and
 // invoke a callback function (e.g messageLogger) once a new 
 // notification is broadcast on that topic
-var subscriber = pubsub.subscribe( "inbox/newMessage", messageLogger );
+var subscription = pubsub.subscribe( "inbox/newMessage", messageLogger );
 
 // Publishers are in charge of publishing topics or notifications of
 // interest to the application. e.g:
@@ -2046,7 +2046,7 @@ pubsub.publish( "inbox/newMessage", {
 
 // We cab also unsubscribe if we no longer wish for our subscribers
 // to be notified
-// pubsub.unsubscribe( testSubscription );
+// pubsub.unsubscribe( subscription );
 
 // Once unsubscribed, this for example won't result in our
 // messageLogger being executed as the subscriber is
@@ -2203,18 +2203,17 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 <pre  class="brush: js">
 ;(function( $ ) {
 
+  // Pre-compile templates and "cache" them using closure
+  var 
+    userTemplate = _.template($( "#userTemplate" ).html());
+    ratingTemplate = _.template($( "#ratingsTemplate" ).html());
+	
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
   $.subscribe( "/new/user", function( e, data ){
 
-    var compiledTemplate;
-
     if( data ){
-
-       compiledTemplate = _.template($( "#userTemplate" ).html());
-
-       $('#users').append( compiledTemplate( data ));
-
+       $('#users').append( userTemplate( data ));
     }
 
   });
@@ -2224,14 +2223,8 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // ratings.
   $.subscribe( "/new/rating", function( e, data ){
 
-    var compiledTemplate;
-
-    if( data ){
-      
-      compiledTemplate = _.template($( "#ratingsTemplate" ).html());
-
-      $( "#ratings" ).append( compiledTemplate( data );
-
+    if( data ){      
+      $( "#ratings" ).append( ratingTemplate( data );
     }
 
   });
@@ -2307,6 +2300,9 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 ;(function( $ ) {
 
+   // Pre-compile template and "cache" it using closure
+   var resultTemplate = _.template($( "#resultTemplate" ).html());
+
    // Subscribe to the new search tags topic
    $.subscribe( "/search/tags" , function( tags ) {
        $( "#searchResults" )
@@ -2316,9 +2312,7 @@ Notice how in our sample below, one topic notification is made when a user indic
    // Subscribe to the new results topic
    $.subscribe( "/search/resultSet" , function( results ){
 
-       var compiled_template = _.template($( "#resultTemplate" ).html());
-
-       $( "#searchResults" ).append(compiled_template( results ));
+       $( "#searchResults" ).append(resultTemplate( results ));
 
    });
 
