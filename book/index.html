@@ -2028,7 +2028,7 @@ var messageLogger = function ( topics, data ) {
 // Subscribers listen for topics they have subscribed to and
 // invoke a callback function (e.g messageLogger) once a new 
 // notification is broadcast on that topic
-var subscriber = pubsub.subscribe( "inbox/newMessage", messageLogger );
+var subscription = pubsub.subscribe( "inbox/newMessage", messageLogger );
 
 // Publishers are in charge of publishing topics or notifications of
 // interest to the application. e.g:
@@ -2046,7 +2046,7 @@ pubsub.publish( "inbox/newMessage", {
 
 // We cab also unsubscribe if we no longer wish for our subscribers
 // to be notified
-// pubsub.unsubscribe( testSubscription );
+// pubsub.unsubscribe( subscription );
 
 // Once unsubscribed, this for example won't result in our
 // messageLogger being executed as the subscriber is
