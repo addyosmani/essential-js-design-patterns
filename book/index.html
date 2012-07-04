@@ -1420,111 +1420,166 @@ myRevealingModule.start();
 
 <h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
 
-<p>Classically, the Singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.The Singleton pattern is thus known because it restricts instantiation of a class to a single object.</p>
+<p>The Singleton pattern is thus known because it restricts instantiation of a class to a single object. Classically, the Singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.</p>
 
-<p>In JavaScript, singletons serve as a namespace provider which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
+<p>Singletons differ from static <i>classes</i> (or objects) as we can delay their initialization, generally because they require some information that may not be available during initialization time. They don't provide a way for code that is unaware of a previous reference to them to easily retrieve them. This is because it is neither the object or "class" that's returned by a Singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
 
-<p>
-They can take on a number of different forms, but in its most basic, a Singleton could be implemented as an object literal grouped together with its related functions and properties as follows:
-<p>
+<p>In JavaScript, Singletons serve as a shared resource namespace which isolate implementation code from the global namespace so as to provide a single point of access for functions.</p>
+
+<p>We can implement a Singleton as follows:</p>
+
 <pre  class="brush: js">
+var mySingleton = (function () {
 
-var mySingleton = {
+  // Instance stores a reference to the Singleton
+  var instance;
 
-  property1: "Foo",
+  function init() {
 
-  property2: "Bar",
+    // Singleton
 
-  method1: function () {
-    console.log( "Hey Nicholas!" );
-  }
+    return {
 
-};
+      // Public methods and variables
+      publicMethod: function () {
+        console.log( "something public" );
+      },
+
+      publicProperty: "test"
+    };
+
+  };
+
+  return {
+
+    // Get the Singleton instance if one exists
+    // or create one if it doesn't
+    getInstance: function () {
+
+      if ( !instance ) {
+        instance = init();
+      }
+
+      return instance;
+    }
+
+  };
+
+})();
+
+// Usage:
+
+var singleA = mySingleton;
+var singleB = mySingleton;
+console.log( singleA === singleB ); // true
 
 </pre>
-</p>
 
-<p>The Singleton doesn't provide a way for code that is unaware of a previous reference to it to easily retrieve it. This is because it is neither the object or "class" that's returned by a singleton, it's a structure. Think of how closured variables aren't actually closures - the function scope that provides the closure is the closure.</p>
-
-<p>
-If we wish to extend the previous example further, we can add our own private members and methods to the singleton by encapsulating variable and function declarations inside a closure. Exposing only those which we wish to make public is quite straight-forward from that point as demonstrated below:</p>
+<p>A variation of the pattern where deferred module initialization would be easier to implement could then be written as follows:</p>
 
 <pre  class="brush: js">
 
-var mySingleton = function () {
+var mySingleton = (function () {
 
-    // here are our private methods and variables
+    // Instance stores a reference to the Singleton
+    var instance;
+
+    // Private methods and variables
     var privateVariable = "something private";
 
     function showPrivate() {
       console.log( privateVariable );
     }
 
-    // public variables and methods (which can access 
-    // private variables and methods )
-    return {
+    // Create a new Singleton instance
 
-      publicMethod: function () {
-        showPrivate();
-      },
+    // This is useful for cases where the module initialization
+    // should be deferred. Consider this a naive example as the
+    // code could be static
 
-      publicVar: "the public can see this!"
+    function create(){
+        var api = {
+            publicMethod: function () {
+                showPrivate();
+            },
+            publicVar: "the public can see this!"
+        };
+        return api;
+    }
 
+    // Convert mySingleton into a function which creates 
+    // a single instance
+    return function(){
+        if (instance == null) {
+            instance = create();
+        }
+        return instance;
     };
-  };
+
+  }());
+
 
 // Usage:
-
-// Create a new singleton
 var single = mySingleton();
 
 // Execute our public method which accesses
-// a private one. 
+// a private one.
 // Outputs: "something private"
-single.publicMethod(); 
+single.publicMethod();
 
 // Outputs: "the public can see this!"
-console.log( single.publicVar ); 
+console.log( single.publicVar );
+
+
+// it will always return the same instance
+var a = mySingleton();
+var b = mySingleton();
+console.log( a === b ); // true
+
+
 </pre>
 </p>
+
+<p>What makes the Singleton is the global access to the instance (generally through <code>MySingleton.getInstance()</code>) as we don't (at least in static languages) call <code>new MySingleton()</code> directly. This is however possible in JavaScript.</p>
+
+<p>In the GoF book, the <i>applicability</i> of the Singleton pattern is described as follows:</p>
+
 <p>
-The above example is great, but let's next consider a situation where we only wish to instantiate the singleton when it's needed. To save on resources, we can place the instantiation code inside another constructor function as follows:
-<pre  class="brush: js">
-
-var Singleton = (function () {
-  var instantiated;
-
-  function init() {
-
-    // singleton 
-
-    return {
-      publicMethod: function () {
-        console.log( "Hey Alex!" );
-      },
-
-      publicProperty: "test"
-    };
-  }
-
-  return {
-    getInstance: function () {
-      if ( !instantiated ) {
-        instantiated = init();
-      }
-      return instantiated;
-    }
-  };
-})();
-
-// calling public methods is then as easy as:
-Singleton.getInstance().publicMethod();
-
-</pre>
+<ul>
+<li>There must be exactly one instance of a class, and it must be accessible to clients from a well-known access point.</li>
+<li>When the sole instance should be extensible by subclassing, and clients should be able to use an extended instance without modifying their code.</li>
+</ul>
 </p>
+
+<p>The second of these points refers to a case where we might need code such as:</p>
+
+<pre class="brush: js">
+mySingleton.getInstance = function(){
+  if ( this._instance == null ) {
+    if ( isFoo() ) {
+       this._instance = new FooSingleton();
+    } else {
+       this._instance = new BasicSingleton();
+    }
+  }
+  return this._instance;
+};
+</pre>
+
 <p>&nbsp;</p>
-<p>In practice, the Singleton pattern is useful when exactly one object is needed to coordinate others across a system. Here is a final example with the pattern being used in this context:</p>
-<p>&nbsp;</p>
+<p>Here, <code>getInstance</code> becomes a little like a Factory method and we don't need to update each point in our code accessing it. <code>FooSingleton</code> above would be a subclass of <code>BasicSingleton</code> and implement the same interface.</p>
+
+<p>Why is deferring execution considered important for a Singleton?:</p>
+
+<blockquote>In C++ it serves to isolate from the unpredictability of the order of dynamic initialization, returning control to the programmer.</blockquote>
+
+<p>It is important to note the difference between a static instance of a class (object) and a Singleton: whilst a Singleton can be implemented as a static instance, it can also be constructed lazily, without the need for resources nor memory until this is actually needed.</p>
+
+<p>If we have a static object that can be initialized directly, we need to ensure the code is always executed in the same order (e.g in case <code>objCar</code> needs <code>objWheel</code> during its initialization) and this doesn't scale when you have a large number of source files.</p>
+
+<p>Both Singletons and static objects are useful but they shouldn't be overused - the same way in which we shouldn't overuse other patterns.</p>
+
+<p>In practice, the Singleton pattern is useful when exactly one object is needed to coordinate others across a system. Here is one example with the pattern being used in this context:</p>
 <p>
 <pre  class="brush: js">
 
@@ -1578,9 +1633,14 @@ var singletonTest  =  SingletonTester.getInstance({
 // Log the output of pointX just to verify it is correct
 // Outputs: 5
 console.log( singletonTest.pointX );  
-
-
 </pre></p>
+
+<p>Whilst the Singleton has valid uses, often when we find ourselves needing it in JavaScript it's a sign that we may need to re-evaluate our design.</p>
+
+<p>They're often  an indication that modules in a system are either tightly coupled or that logic is overly spread across multiple parts of a codebase. Singletons can be more difficult to test due to issues ranging from hidden dependencies, the difficulty in creating multiple instances, difficulty in stubbing dependencies and so on.</p>
+
+<p>Miller Medeiros has previously recommended <a href="http://www.ibm.com/developerworks/webservices/library/co-single/index.html">this</a> excellent article on the Singleton and its various issues for further reading as well as the comments to <a href="http://misko.hevery.com/2008/10/21/dependency-injection-myth-reference-passing/">this</a> article, discussing how Singletons can increase tight coupling. I'm happy to second these recommendations as both pieces raise many important points about this pattern that are also worth noting.</p>
+
 <p>&nbsp;</p>
 
 
