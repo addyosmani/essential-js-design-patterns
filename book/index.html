@@ -1438,14 +1438,21 @@ var mySingleton = (function () {
 
     // Singleton
 
+    // Private methods and variables
+    function privateMethod(){
+        console.log( "I am private" );
+    }
+
+    var privateVariable = "Im also private";
+
     return {
 
       // Public methods and variables
       publicMethod: function () {
-        console.log( "something public" );
+        console.log( "The public can see me!" );
       },
 
-      publicProperty: "test"
+      publicProperty: "I am also public"
     };
 
   };
@@ -1472,73 +1479,7 @@ var mySingleton = (function () {
 var singleA = mySingleton;
 var singleB = mySingleton;
 console.log( singleA === singleB ); // true
-
 </pre>
-
-<p>A variation of the pattern where deferred module initialization would be easier to implement could then be written as follows:</p>
-
-<pre  class="brush: js">
-
-var mySingleton = (function () {
-
-    // Instance stores a reference to the Singleton
-    var instance;
-
-    // Private methods and variables
-    var privateVariable = "something private";
-
-    function showPrivate() {
-      console.log( privateVariable );
-    }
-
-    // Create a new Singleton instance
-
-    // This is useful for cases where the module initialization
-    // should be deferred. Consider this a naive example as the
-    // code could be static
-
-    function create(){
-        var api = {
-            publicMethod: function () {
-                showPrivate();
-            },
-            publicVar: "the public can see this!"
-        };
-        return api;
-    }
-
-    // Convert mySingleton into a function which creates 
-    // a single instance
-    return function(){
-        if (instance == null) {
-            instance = create();
-        }
-        return instance;
-    };
-
-  }());
-
-
-// Usage:
-var single = mySingleton();
-
-// Execute our public method which accesses
-// a private one.
-// Outputs: "something private"
-single.publicMethod();
-
-// Outputs: "the public can see this!"
-console.log( single.publicVar );
-
-
-// it will always return the same instance
-var a = mySingleton();
-var b = mySingleton();
-console.log( a === b ); // true
-
-
-</pre>
-</p>
 
 <p>What makes the Singleton is the global access to the instance (generally through <code>MySingleton.getInstance()</code>) as we don't (at least in static languages) call <code>new MySingleton()</code> directly. This is however possible in JavaScript.</p>
 
