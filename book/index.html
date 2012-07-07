@@ -8397,7 +8397,8 @@ myApplication.utils = {
 </pre>
 <p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
 
-<p>The code at the very top of the next sample demonstrates the different ways in which we can check to see if a variable (object namespace) already exists before defining it. We may commonly see developers using Option 1, however Options 3 and 5 may be considered more thorough and Option 4 is considered a good best practice.</p>
+<p>In the next sample, we demonstrate a number of different ways in which we can check to see if a variable (object or plugin namespace) already exists, definiting it if it doesn't.</p>
+
 <pre  class="brush: js">
 // This doesn't check for existence of "myApplication" in
 // the global namespace. Bad practice as we can easily
@@ -8410,13 +8411,65 @@ var myApplication = {};
 // 
 // Option 1: var myApplication = myApplication || {};
 // Option 2  if( !MyApplication ){ MyApplication = {} };
-// Option 3: var myApplication = myApplication = myApplication || {}
-// Option 4: myApplication || ( myApplication = {});
+// Option 3: window.myApplication || ( window.myApplication = {} );
+// Option 4: var myApplication = $.fn.myApplication = function() {};
 // Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
+</pre
 
+<p>We'll often see developers opting for Option 1 or Option 2 - they are both straight-forward to understand and are equivalent in terms of their end-result.</p>
+
+<p>Option 3 assumes that we're working in the global namespace, but it could also be written as:</p>
+
+<pre class="brush: js">
+myApplication || (myApplication = {});
+</pre>
+
+<p>This variation assumes that <code>myApplication</code> has already been initialized and so it's only really useful for a parameter/argument scenario as in the following example:</p>
+
+<pre class="brush: js">
+function foo() {
+  myApplication || ( myApplication = {} );
+}
+
+// myApplication hasn't been initialized, 
+// so foo() throws a ReferenceError
+
+foo(); 
+
+// However accepting myApplication as an
+// argument
+
+function foo( myApplication ) {
+  myApplication || ( myApplication = {} );
+}
+
+foo();
+
+// Even if myApplication === undefined, there is no error
+// and myApplication gets set to {} correctly 
 
 </pre>
-<p>There is of course a huge amount of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, we may just find ourselves using the Revealing Module Pattern, which we covered earlier in the book:</p>
+
+<p>Options 4 can be useful for writing jQuery plugins where:</p>
+
+<pre class="brush: js">
+// If we were to define a new plugin..
+var myPlugin = $.fn.myPlugin = function() { ... };
+
+// Then later rather than having to type:
+$.fn.myPlugin.defaults = {};
+
+// We can do:
+myPlugin.defaults = {};
+</pre>
+
+<p>This results in better compression (minification) and can save on scope lookups.</p>
+
+<p>Option 5 is a little similar to Option 4, but is a long-form which evaluates whether <code>myApplication</code> is <code>undefined</code> inline such that it's defined as an object if not, otherwise set to an existing value for <code>myApplication</code> if so.</p>
+
+</p>It is shown just for the sake of being thorough but in most situations, Options 1-4 will more than suffice for most needs.</p>
+
+<p>There is of course a great deal of variance in how and where object literals are used for organizing and structuring code. For smaller applications wishing to expose a nested API for a particular self-enclosed module, we may just find ourselves using the Revealing Module Pattern, which we covered earlier in the book:</p>
 <pre  class="brush: js">
 
 var namespace = (function () {
