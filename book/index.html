@@ -4950,7 +4950,7 @@ var PhotoView = Backbone.View.extend({
 <h3>Model</h3>
 <p>As with other members of the MV* family, the Model in MVVM represents domain-specific data or information that our application will be working with. A typical example of domain-specific data might be a user account (e.g name, avatar, e-mail) or a music track (e.g title, year, album).</p>
 <p>Models hold information, but typically don&rsquo;t handle behavior. They don&rsquo;t format information or influence how data appears in the browser as this isn&rsquo;t their responsibility. Instead, formatting of data is handled by the View, whilst behavior is considered business logic that should be encapsulated in another layer that interacts with the Model - the ViewModel.</p>
-<p>The only exception to this rule tends to be validation and it&rsquo;s considered acceptable for Models to validate data being used to define or update existing models (e.g does an e-mail address being input meet the requirements of a particular Regular expression?).</p>
+<p>The only exception to this rule tends to be validation and it&rsquo;s considered acceptable for Models to validate data being used to define or update existing models (e.g does an e-mail address being input meet the requirements of a particular regular expression?).</p>
 <p>In KnockoutJS, Models fall under the above definition, but often make Ajax calls to a server-side service to both read and write Model data.</p>
 <p>If we were constructing a simple Todo application, a KnockoutJS Model representing a single Todo item could look as follows:</p>
 <pre   class="brush: js">var Todo = function ( content, done ) {
@@ -4961,8 +4961,9 @@ var PhotoView = Backbone.View.extend({
 </pre>
 <p>Note: One may notice in the above snippet that we are calling the method <code>observables()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to synchronize Models and ViewModels when the value of a Model attribute is modified.</p>
 <h3>View</h3>
-<p>As with MVC, the View is the only part of the application of users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, MVVM View is considered active rather than passive, but what does this mean?</p>
-<p>A passive View has no real knowledge of the models in our application and is manipulated by a controller. MVVM&rsquo;s active View contains the data-bindings, events and behaviors which require an understanding of the Model and ViewModel. Although these behaviors can be mapped to properties, the View is still responsible for handling events to the ViewModel.</p>
+<p>As with MVC, the View is the only part of the application that users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, the view is considered active rather than passive, but this is also true for views in MVC and MVP. In MVC, MVP and MVVM a view can also be passive, but what does this mean?</p>
+<p>A passive View only outputs a display and does not accept any user input.</p>
+<p>Such a view may also have no real knowledge of the models in our application and could be manipulated by a presenter. MVVM&rsquo;s active View contains the data-bindings, events and behaviors which requires an understanding of the ViewModel. Although these behaviors can be mapped to properties, the View is still responsible for handling events from the ViewModel.</p>
 <p>It&rsquo;s important to remember the View isn&rsquo;t responsible here for handling state - it keeps this in sync with the ViewModel.</p>
 <p>A KnockoutJS View is simply a HTML document with declarative bindings to link it to the ViewModel. KnockoutJS Views display information from the ViewModel, pass commands to it (e.g a user clicking on an element) and update as the state of the ViewModel changes. Templates generating markup using data from the ViewModel can however also be used for this purpose.</p>
 <p>To give a brief initial example, we can look to the JavaScript MVVM framework KnockoutJS for how it allows the definition of a ViewModel and its related bindings in markup:</p>
@@ -4973,7 +4974,7 @@ var aViewModel = {
 };
 </pre>
 <p>View:</p>
-<pre   class="brush: js">&lt;input id="source" data-bind="value: contactName, valueUpdate: "keyup"" /&gt;&lt;/p&gt;
+<pre   class="brush: js">&lt;input id="source" data-bind="value: contactName, valueUpdate: "keyup" /&gt;&lt;/p&gt;
 
 &lt;div data-bind="visible: contactName().length &gt; 10"&gt;
     You have a really long name!
@@ -5289,7 +5290,7 @@ ko.applyBindings( viewModel );
 <p>Whilst it may look like quite a lot of work in the explanation above, now that we have a generic <code>getBindings</code> method written, it&rsquo;s a lot more trivial to simply re-use it and use data-classes rather than strict data-bindings for writing our KnockoutJS applications instead. The net result is hopefully cleaner markup with our data bindings being shifted from the View to a bindings object instead.</p>
 <h2>MVC Vs. MVP Vs. MVVM</h2>
 <p>Both MVP and MVVM are derivatives of MVC. The key difference between it and its derivatives is the dependency each layer has on other layers as well as how tightly bound they are to each other.</p>
-<p>In MVC, the View sits on top of our architecture with the controller laying below this. Models sit below the controller and so our Views know about our controllers and controllers know about Models. Here, our Views have direct access to Models. Exposing the complete Model to the View however may have security and performance costs, depending on the complexity of our application. MVVM attempts to avoid these issues.</p>
+<p>In MVC, the View sits on top of our architecture with the controller beside it. Models sit below the controller and so our Views know about our controllers and controllers know about Models. Here, our Views have direct access to Models. Exposing the complete Model to the View however may have security and performance costs, depending on the complexity of our application. MVVM attempts to avoid these issues.</p>
 <p>In MVP, the role of the controller is replaced with a Presenter. Presenters sit at the same level as views, listening to events from both the View and model and mediating the actions between them. Unlike MVVM, there isn&rsquo;t a mechanism for binding Views to ViewModels, so we instead rely on each View implementing an interface allowing the Presenter to interact with the View.</p>
 <p>MVVM consequently allows us to create View-specific subsets of a Model which can contain state and logic information, avoiding the need to expose the entire Model to a View. Unlike MVP&rsquo;s Presenter, a ViewModel is not required to reference a View. The View can bind to properties on the ViewModel which in turn expose data contained in Models to the View. As we&rsquo;ve mentioned, the abstraction of the View means there is less logic required in the code behind it.</p>
 <p>One of the downsides to this however is that a level of interpretation is needed between the ViewModel and the View and this can have performance costs. The complexity of this interpretation can also vary - it can be as simple as copying data or as complex as manipulating them to a form we would like the View to see. MVC doesn&rsquo;t have this problem as the whole Model is readily available and such manipulation can be avoided.</p>
@@ -5306,7 +5307,7 @@ ko.applyBindings( viewModel );
     <p>Backbone excels with its ease of integration with RESTful services, whilst KnockoutJS Models are simply JavaScript objects and code needed for updating the Model must be written by the developer.</p>
   </li>
   <li>
-    <p>KnockoutJS has a focus on automating UI bindings, which requires significantly more verbose custom code if attempting to do this with Backbone. This isn't a problem with Backbone itself par se as it purposefully attempts to stay out of the UI. Knockback does however attempt to assist with this problem.</p>
+    <p>KnockoutJS has a focus on automating UI bindings, which requires significantly more verbose custom code if attempting to do this with Backbone. This isn't a problem with Backbone itself per se as it purposefully attempts to stay out of the UI. Knockback does however attempt to assist with this problem.</p>
   </li>
   <li>
     <p>With KnockoutJS, we can bind our own functions to ViewModel observables, which are executed anytime the observable changes. This allows us the same level of flexibility as can be found in Backbone</p>
@@ -5894,7 +5895,7 @@ exports.name = "bar";
 <pre class="brush: js">
 require( "./bar" );
 exports.helloWorld = function(){
-    return "Hello World!!""
+    return "Hello World!!"
 }
 </pre>
 
