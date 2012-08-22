@@ -4989,7 +4989,7 @@ ko.applyBindings(aViewModel);
 <pre   class="brush: js">&lt;div id="todoapp"&gt;
     &lt;header&gt;
         &lt;h1&gt;Todos&lt;/h1&gt;
-        &lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: "afterkeydown", enterKey: add"
+        &lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add"
                placeholder="What needs to be done?"/&gt;
     &lt;/header&gt;
     &lt;section id="main" data-bind="block: todos().length"&gt;
@@ -5007,7 +5007,7 @@ ko.applyBindings(aViewModel);
                     &lt;a class="destroy" href="#" data-bind="click: $root.remove"&gt;&lt;/a&gt;
                 &lt;/div&gt;
                 &lt;input class="edit' type="text"
-                       data-bind="value: content, valueUpdate: "afterkeydown", enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/&gt;
+                       data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/&gt;
             &lt;/li&gt;
             
         &lt;/ul&gt;
@@ -5131,7 +5131,7 @@ myObservableArray.push( 'A new todo item' );
 <p>I must admit that when I first reviewed implementations of MVVM (e.g KnockoutJS, Knockback), I was surprised that any developer would want to return to the days of old where we mixed logic (JavaScript) with our markup and found it quickly unmaintainable. The reality however is that MVVM does this for a number of good reasons (which we&rsquo;ve covered), including facilitating designers to more easily bind to logic from their markup.</p>
 <p>For the purists among us, you&rsquo;ll be happy to know that we can now also greatly reduce how reliant we are on data-bindings thanks to a feature known as custom binding providers, introduced in KnockoutJS 1.3 and available in all versions since.</p>
 <p>KnockoutJS by default has a data-binding provider which searches for any elements with <code>data-bind</code> attributes on them such as in the below example.</p>
-<pre class="brush: js">&lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: "afterkeydown", enterKey: add" placeholder="What needs to be done?"/&gt;
+<pre class="brush: js">&lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?"/&gt;
 </pre>
 <p>When the provider locates an element with this attribute, it parses it and turns it into a binding object using the current data context. This is the way KnockoutJS has always worked, allowing us to declaratively add bindings to elements which KnockoutJS binds to the data at that layer.</p>
 <p>Once we start building Views that are no longer trivial, we may end up with a large number of elements and attributes whose bindings in markup can become difficult to manage. With custom binding providers however, this is no longer a problem.</p>
