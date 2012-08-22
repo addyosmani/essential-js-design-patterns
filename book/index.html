@@ -4971,15 +4971,17 @@ var PhotoView = Backbone.View.extend({
 <p>ViewModel:</p>
 <pre class="brush: js">
 var aViewModel = {
-    contactName: ko.observable( "John" );
+    contactName: ko.observable("John")
 };
+ko.applyBindings(aViewModel);
 </pre>
 <p>View:</p>
-<pre   class="brush: js">&lt;input id="source" data-bind="value: contactName, valueUpdate: "keyup" /&gt;&lt;/p&gt;
-
-&lt;div data-bind="visible: contactName().length &gt; 10"&gt;
-    You have a really long name!
-&lt;/div&gt;
+<pre class="brush: js">
+  &lt;p&gt;&lt;input id=&quot;source&quot; data-bind=&quot;value: contactName, valueUpdate: &#x27;keyup&#x27;&quot; /&gt;&lt;/p&gt;
+  &lt;div data-bind=&quot;visible: contactName().length &gt; 10&quot;&gt;
+      You have a really long name!
+  &lt;/div&gt;
+  &lt;p&gt;Contact name: &lt;strong data-bind=&quot;text: contactName&quot;&gt;&lt;/strong&gt;&lt;/p&gt;
 </pre>
 <p>Our input text-box (source) obtains it's initial value from <code>contactName</code>, automatically updating this value whenever contactName changes. As the data binding is two-way, typing into the text-box will update <code>contactName</code> accordingly so the values are always in sync.</p>
 <p>Although implementation specific to KnockoutJS, the <code>&lt;div&gt;</code> containing the "You have a really long name!" text also contains simple validation (once again in the form of data bindings). If the input exceeds 10 characters, it will display, otherwise it will remain hidden.</p>
