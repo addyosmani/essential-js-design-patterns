@@ -4989,7 +4989,7 @@ ko.applyBindings(aViewModel);
 <pre   class="brush: js">&lt;div id="todoapp"&gt;
     &lt;header&gt;
         &lt;h1&gt;Todos&lt;/h1&gt;
-        &lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: "afterkeydown", enterKey: add"
+        &lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add"
                placeholder="What needs to be done?"/&gt;
     &lt;/header&gt;
     &lt;section id="main" data-bind="block: todos().length"&gt;
@@ -5007,7 +5007,7 @@ ko.applyBindings(aViewModel);
                     &lt;a class="destroy" href="#" data-bind="click: $root.remove"&gt;&lt;/a&gt;
                 &lt;/div&gt;
                 &lt;input class="edit' type="text"
-                       data-bind="value: content, valueUpdate: "afterkeydown", enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/&gt;
+                       data-bind="value: content, valueUpdate: 'afterkeydown', enterKey: $root.stopEditing, selectAndFocus: editing, event: { blur: $root.stopEditing }"/&gt;
             &lt;/li&gt;
             
         &lt;/ul&gt;
@@ -5030,7 +5030,7 @@ ko.applyBindings(aViewModel);
 <p>&nbsp;</p>
 <h3>ViewModel</h3>
 <p>The ViewModel can be considered a specialized Controller that acts as a data converter. It changes Model information into View information, passing commands from the View to the Model.</p>
-<p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user's view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the address to its display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
+<p>For example, let us imagine that we have a model containing a date attribute in unix format (e.g 1333832407). Rather than our models being aware of a user's view of the date (e.g 04/07/2012 @ 5:00pm), where it would be necessary to convert the attribute to its display format, our model simply holds the raw format of the data. Our View contains the formatted date and our ViewModel acts as a middle-man between the two.</p>
 <p>In this sense, the ViewModel might be looked upon as more of a Model than a View but it does handle most of the View's display logic. The ViewModel may also expose methods for helping to maintain the View's state, update the model based on the action's on a View and trigger events on the View.</p>
 <p>In summary, the ViewModel sits behind our UI layer. It exposes data needed by a View (from a Model) and can be viewed as the source our Views go to for both data and actions.</p>
 <p>KnockoutJS interprets the ViewModel as the representation of data and operations that can be performed on a UI. This isn't the UI itself nor the data model that persists, but rather a layer that can also hold the yet to be saved data a user is working with. Knockout's ViewModels are implemented JavaScript objects with no knowledge of HTML markup. This abstract approach to their implementation allows them to stay simple, meaning more complex behavior can be more easily managed on-top as needed.</p>
@@ -5131,7 +5131,7 @@ myObservableArray.push( 'A new todo item' );
 <p>I must admit that when I first reviewed implementations of MVVM (e.g KnockoutJS, Knockback), I was surprised that any developer would want to return to the days of old where we mixed logic (JavaScript) with our markup and found it quickly unmaintainable. The reality however is that MVVM does this for a number of good reasons (which we&rsquo;ve covered), including facilitating designers to more easily bind to logic from their markup.</p>
 <p>For the purists among us, you&rsquo;ll be happy to know that we can now also greatly reduce how reliant we are on data-bindings thanks to a feature known as custom binding providers, introduced in KnockoutJS 1.3 and available in all versions since.</p>
 <p>KnockoutJS by default has a data-binding provider which searches for any elements with <code>data-bind</code> attributes on them such as in the below example.</p>
-<pre class="brush: js">&lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: "afterkeydown", enterKey: add" placeholder="What needs to be done?"/&gt;
+<pre class="brush: js">&lt;input id="new-todo" type="text" data-bind="value: current, valueUpdate: 'afterkeydown', enterKey: add" placeholder="What needs to be done?"/&gt;
 </pre>
 <p>When the provider locates an element with this attribute, it parses it and turns it into a binding object using the current data context. This is the way KnockoutJS has always worked, allowing us to declaratively add bindings to elements which KnockoutJS binds to the data at that layer.</p>
 <p>Once we start building Views that are no longer trivial, we may end up with a large number of elements and attributes whose bindings in markup can become difficult to manage. With custom binding providers however, this is no longer a problem.</p>
@@ -5177,38 +5177,91 @@ var viewModel = new ViewModel( todos || [] ),
             enterKey: viewModel.add 
         },
 
-        taskTooltip : { visible: viewModel.showTooltip },
-        checkAllContainer : {visible: viewModel.todos().length },
-        checkAll: { checked: viewModel.allCompleted },
+        taskTooltip : { 
+            visible: viewModel.showTooltip 
+        },
+        checkAllContainer : {
+            visible: viewModel.todos().length 
+        },
+        checkAll: { 
+            checked: viewModel.allCompleted
+        },
 
-        todos: { foreach: viewModel.todos },
-        todoListItem: function() { return { css: { editing: this.editing } }; },
+        todos: {
+            foreach: viewModel.todos
+        },
+        todoListItem: function() { 
+            return {
+                css: { 
+                    editing: this.editing 
+                } 
+            };
+        },
         todoListItemWrapper: function() { 
-          return { css: { done: this.done } }; 
+            return {
+                css: { 
+                    done: this.done
+                }
+            }; 
         },
-        todoCheckBox: function() { return { checked: this.done }; },
-        todoContent: function() { return { text: this.content, event: { dblclick: this.edit } }; },
-        todoDestroy: function() { return { click: viewModel.remove }; },        
+        todoCheckBox: function() {
+            return {
+                checked: this.done
+            };
+        },
+        todoContent: function() {
+            return { 
+                text: this.content, 
+                event: {
+                    dblclick: this.edit
+                }
+            };
+        },
+        todoDestroy: function() {
+            return {
+                click: viewModel.remove
+            };
+        },        
 
-        todoEdit: function() { return {
-            value: this.content, 
-            valueUpdate: "afterkeydown", 
-            enterKey: this.stopEditing, 
-            event: { blur: this.stopEditing } }; 
+        todoEdit: function() {
+            return {
+                value: this.content, 
+                valueUpdate: "afterkeydown", 
+                enterKey: this.stopEditing, 
+                event: {
+                    blur: this.stopEditing
+                }
+            }; 
         },
 
-        todoCount: { visible: viewModel.remainingCount },
-        remainingCount: { text: viewModel.remainingCount },
+        todoCount: {
+            visible: viewModel.remainingCount
+        },
+        remainingCount: {
+            text: viewModel.remainingCount
+        },
         remainingCountWord: function() { 
-          return { text: viewModel.getLabel(viewModel.remainingCount) };
+            return {
+                text: viewModel.getLabel(viewModel.remainingCount)
+            };
         },
-        todoClear: {visible: viewModel.completedCount},
-        todoClearAll: {click: viewModel.removeCompleted},
-        completedCount: { text: viewModel.completedCount },
+        todoClear: {
+            visible: viewModel.completedCount
+        },
+        todoClearAll: {
+            click: viewModel.removeCompleted
+        },
+        completedCount: {
+            text: viewModel.completedCount
+        },
         completedCountWord: function() { 
-          return { text: viewModel.getLabel(viewModel.completedCount) }; 
+            return {
+                text: viewModel.getLabel(viewModel.completedCount)
+            };
         },
-        todoInstructions: { visible: viewModel.todos().length }
+        todoInstructions: {
+            visible: viewModel.todos().length
+        }
     };
 
     ....
