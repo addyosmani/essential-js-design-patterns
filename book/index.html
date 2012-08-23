@@ -5177,38 +5177,91 @@ var viewModel = new ViewModel( todos || [] ),
             enterKey: viewModel.add 
         },
 
-        taskTooltip : { visible: viewModel.showTooltip },
-        checkAllContainer : {visible: viewModel.todos().length },
-        checkAll: { checked: viewModel.allCompleted },
+        taskTooltip : { 
+            visible: viewModel.showTooltip 
+        },
+        checkAllContainer : {
+            visible: viewModel.todos().length 
+        },
+        checkAll: { 
+            checked: viewModel.allCompleted
+        },
 
-        todos: { foreach: viewModel.todos },
-        todoListItem: function() { return { css: { editing: this.editing } }; },
+        todos: {
+            foreach: viewModel.todos
+        },
+        todoListItem: function() { 
+            return {
+                css: { 
+                    editing: this.editing 
+                } 
+            };
+        },
         todoListItemWrapper: function() { 
-          return { css: { done: this.done } }; 
+            return {
+                css: { 
+                    done: this.done
+                }
+            }; 
         },
-        todoCheckBox: function() { return { checked: this.done }; },
-        todoContent: function() { return { text: this.content, event: { dblclick: this.edit } }; },
-        todoDestroy: function() { return { click: viewModel.remove }; },        
+        todoCheckBox: function() {
+            return {
+                checked: this.done
+            };
+        },
+        todoContent: function() {
+            return { 
+                text: this.content, 
+                event: {
+                    dblclick: this.edit
+                }
+            };
+        },
+        todoDestroy: function() {
+            return {
+                click: viewModel.remove
+            };
+        },        
 
-        todoEdit: function() { return {
-            value: this.content, 
-            valueUpdate: "afterkeydown", 
-            enterKey: this.stopEditing, 
-            event: { blur: this.stopEditing } }; 
+        todoEdit: function() {
+            return {
+                value: this.content, 
+                valueUpdate: "afterkeydown", 
+                enterKey: this.stopEditing, 
+                event: {
+                    blur: this.stopEditing
+                }
+            }; 
         },
 
-        todoCount: { visible: viewModel.remainingCount },
-        remainingCount: { text: viewModel.remainingCount },
+        todoCount: {
+            visible: viewModel.remainingCount
+        },
+        remainingCount: {
+            text: viewModel.remainingCount
+        },
         remainingCountWord: function() { 
-          return { text: viewModel.getLabel(viewModel.remainingCount) };
+            return {
+                text: viewModel.getLabel(viewModel.remainingCount)
+            };
         },
-        todoClear: {visible: viewModel.completedCount},
-        todoClearAll: {click: viewModel.removeCompleted},
-        completedCount: { text: viewModel.completedCount },
+        todoClear: {
+            visible: viewModel.completedCount
+        },
+        todoClearAll: {
+            click: viewModel.removeCompleted
+        },
+        completedCount: {
+            text: viewModel.completedCount
+        },
         completedCountWord: function() { 
-          return { text: viewModel.getLabel(viewModel.completedCount) }; 
+            return {
+                text: viewModel.getLabel(viewModel.completedCount)
+            };
         },
-        todoInstructions: { visible: viewModel.todos().length }
+        todoInstructions: {
+            visible: viewModel.todos().length
+        }
     };
 
     ....
