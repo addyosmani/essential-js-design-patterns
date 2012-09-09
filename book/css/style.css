@@ -46,6 +46,23 @@ a:visited {
 a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
 	text-decoration: none;
 }
+.subhead-link {
+    font-size: .75em;
+    margin-left: -15px;
+    margin-top: 5px;
+    float: left;
+    visibility: hidden;
+}
+.subhead-link:hover {
+    text-decoration: none;
+    visibility: visible;
+}
+h1:hover .subhead-link,
+h2:hover .subhead-link,
+h3:hover .subhead-link,
+h4:hover .subhead-link {
+    visibility: visible;
+}
 
 /* ~~ this fixed width container surrounds the other divs ~~ */
 .container {
