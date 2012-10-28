@@ -155,7 +155,10 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 </div>
    </p>
    <p>&nbsp;</p>
-  <h1 id="introduction">Introduction</h1>
+  <h1 id="introduction">
+    <a href="#introduction" class="subhead-link">#</a>
+    Introduction
+  </h1>
 
     <p>One of the most important aspects of writing maintainable code is being able to notice the recurring themes in that code and optimize them. This is an area where knowledge of design patterns can prove invaluable.</p>
 
@@ -252,7 +255,10 @@ The work involved in fully documenting a qualified pattern can be quite daunting
   <li><strong>Applicability</strong> - is the design worthy of being a pattern because it has wider      applicability? If so, this needs to be explained. When reviewing or defining a pattern, it is important to keep the above in mind.</li>
   </ol>
 <p>&nbsp;</p>
-<h1 id="designpatternstructure">The Structure Of A Design Pattern</h1>
+<h1 id="designpatternstructure">
+  <a href="#designpatternstructure" class="subhead-link">#</a>
+  The Structure Of A Design Pattern
+</h1>
 <p>You may be curious about how a pattern author might approach outlining structure, implementation and purpose of a new pattern.&nbsp; A pattern is initially presented in the form of a <strong>rule</strong> that establishes a relationship between:</p> 
 <p>
 
@@ -281,7 +287,10 @@ The work involved in fully documenting a qualified pattern can be quite daunting
 
 <p>Design patterns are quite a powerful approach to getting all of the developers in an organization or team on the same page when creating or maintaining solutions. If considering working on a pattern of your own, remember that although they may have a heavy initial cost in the planning and write-up phases, the value returned from that investment can be quite worth it. Always research thoroughly before working on new patterns however, as you may find it more beneficial to use or build on top of existing proven patterns than starting afresh.</p>
 <p>&nbsp;</p>
-<h1 id="writingdesignpatterns">Writing Design Patterns</h1>
+<h1 id="writingdesignpatterns">
+  <a href="#writingdesignpatterns" class="subhead-link">#</a>
+  Writing Design Patterns
+</h1>
 <p>Although this book is aimed at those new to design patterns, a fundamental understanding of how a design pattern is written can offer a number of useful benefits. For starters, we can gain a deeper appreciation for the reasoning behind why a pattern is needed. We can also learn how to tell if a pattern (or proto-pattern) is up to scratch when reviewing it for our own needs.</p>
 <p>
 Writing good patterns is a challenging task. Patterns not only need to (ideally) provide a substantial quantity of reference material for end-users, but they also need to be able to defend why they are necessary. 
@@ -345,7 +354,10 @@ The following are tips I would suggest if interesting in creating a new design p
 <p>
   Knowledge of anti-patterns is critical for success. Once we are able to recognize such anti-patterns, we're able to refactor our code to negate them so that the overall quality of our solutions improves instantly. </p>
 <p>&nbsp;</p>
-<h1 id="categoriesofdesignpatterns">Categories Of Design Pattern</h1>
+<h1 id="categoriesofdesignpatterns">
+  <a href="#categoriesofdesignpatterns" class="subhead-link">#</a>
+  Categories Of Design Pattern
+</h1>
 <p>&nbsp;</p>
 <p>A glossary from the well-known design book, <em>Domain-Driven Terms, </em>rightly states that:</p>
 <p><i>&ldquo;A design pattern names, abstracts, and identifies the key aspects of a common design structure that make it useful for creating a reusable object-oriented design. The design pattern identifies the participating classes and their instances, their roles and collaborations, and the distribution of responsibilities. </i></p>
@@ -354,8 +366,7 @@ The following are tips I would suggest if interesting in creating a new design p
 <p>Design patterns can be broken down into a number of different categories. In this section we&rsquo;ll review three of these categories and briefly mention a few examples of the patterns that fall into these categories before exploring specific ones in more detail. 
 </p>
 <p>&nbsp;</p>
-<h2>
-  Creational Design Patterns</h2>
+<h2>Creational Design Patterns</h2>
 <p>
   <p>Creational design patterns focus on handling object creation mechanisms where objects are created in a manner suitable for the situation we're are working in. The basic approach to object creation might otherwise lead to added complexity in a project whilst these patterns aim to solve this problem by <em>controlling</em> the creation process.</p>
   <p>Some of the patterns that fall under this category are: Constructor, Factory, Abstract, Prototype, Singleton and Builder.</p>
@@ -364,12 +375,14 @@ The following are tips I would suggest if interesting in creating a new design p
 <p>Structural patterns are concerned with object composition and typically identify simple ways to realize relationships between different objects. They help ensure that when one part of a system changes, the entire structure of the system doesn't need to do the same. They also assist in recasting parts of the system which don't fit a particular purpose into those that do. </p>
   <p>Patterns that fall under this category include: Decorator, Facade, Flyweight, Adapter and Proxy.</p>
 
-<h2>Behavioral Design Patterns
-</h2>
+<h2>Behavioral Design Patterns</h2>
 <p>Behavioral patterns focus on improving or streamlining the communication between disparate objects in a system.</p>
 <p>Some behavioral patterns include: Iterator, Mediator, Observer and Visitor.</p>
 <p>&nbsp;</p>
-<h1 id="summarytabledesignpatterns">Design Pattern Categorization</h1>
+<h1 id="summarytabledesignpatterns">
+  <a href="#summarytabledesignpatterns" class="subhead-link">#</a>
+  Design Pattern Categorization
+</h1>
 <p>In my early experiences of learning about design patterns, I personally found the following table a very useful reminder of what a number of patterns has to offer - it covers the 23 Design Patterns mentioned by the GoF. The original table was summarized by Elyse Nielsen back in 2004
 and I've modified it where necessary to suit our discussion in this section of the book. 
 <p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p> 
@@ -551,7 +564,10 @@ console.log( myCar.getInfo() );
 </tbody></table></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h1 id="designpatternsjavascript">JavaScript Design Patterns</h1>
+<h1 id="designpatternsjavascript">
+  <a href="#designpatternsjavascript" class="subhead-link">#</a>
+  JavaScript Design Patterns
+</h1>
 <p>&nbsp;</p>
 
 <p>In this section, we will explore JavaScript implementations of a number of both classic and modern design patterns.</p>
@@ -583,7 +599,10 @@ console.log( myCar.getInfo() );
 </ul>
 
 <p>&nbsp;</p>
-<h2 id="constructorpatternjavascript">The Constructor Pattern</h2>
+<h2 id="constructorpatternjavascript">
+  <a href="#constructorpatternjavascript" class="subhead-link">#</a>
+  The Constructor Pattern
+</h2>
 
 <p>In classical object-oriented programming languages, a constructor is a special method used to initialize a newly created object once memory has been allocated for it. In JavaScript, as almost everything is an object, we're most often interested in <em>object</em> constructors.</p>
 
@@ -783,7 +802,10 @@ console.log( mondeo.toString() );
 
 <p>&nbsp;</p>
 
-<h2 id="modulepatternjavascript">The Module Pattern</h2>
+<h2 id="modulepatternjavascript">
+  <a href="#modulepatternjavascript" class="subhead-link">#</a>
+  The Module Pattern
+</h2>
 
 <h2 id="detailmodule">Modules</h2>
 
@@ -1327,7 +1349,11 @@ var myLibrary = library(function () {
 
 
 
-<h2 id="revealingmodulepatternjavascript">The Revealing Module Pattern</h2>
+<h2 id="revealingmodulepatternjavascript">
+  <a href="#revealingmodulepatternjavascript" class="subhead-link">#</a>
+  The Revealing Module Pattern
+</h2>
+
 <p>Now that we're a little more familiar with the module pattern, let&rsquo;s take a look at a slightly improved version - Christian Heilmann&rsquo;s Revealing Module pattern.</p>
 
 <p>The Revealing Module pattern came about as Heilmann was frustrated with the fact that he had to repeat the name of the main object when we wanted to call one public method from another or access public variables.&nbsp; He also disliked the Module pattern&rsquo;s requirement for having to switch to object literal notation for the things he wished to make public. </p>
@@ -1422,7 +1448,10 @@ myRevealingModule.start();
 
 
 
-<h2 id="singletonpatternjavascript">The Singleton Pattern</h2>
+<h2 id="singletonpatternjavascript">
+  <a href="#singletonpatternjavascript" class="subhead-link">#</a>
+  The Singleton Pattern
+</h2>
 
 <p>The Singleton pattern is thus known because it restricts instantiation of a class to a single object. Classically, the Singleton pattern can be implemented by creating a class with a method that creates a new instance of the class if one doesn't exist. In the event of an instance already existing, it simply returns a reference to that object.</p>
 
@@ -1589,7 +1618,10 @@ console.log( singletonTest.pointX );
 <p>&nbsp;</p>
 
 
-<h2 id="observerpatternjavascript">The Observer Pattern</h2>
+<h2 id="observerpatternjavascript">
+  <a href="#observerpatternjavascript" class="subhead-link">#</a>
+  The Observer Pattern
+</h2>
 
 <p>The Observer is a design pattern where an an object (known as a subject) maintains a list of objects depending on it (observers), automatically notifying them of any changes to state.</p>
 
@@ -2482,7 +2514,7 @@ var mediator = (function(){
   // Our Subscriber constructor
   function Subscriber( fn, options, context ){
 
-    if ( !this instanceof Subscriber ) {
+    if ( !(this instanceof Subscriber) ) {
 
       return new Subscriber( fn, context, options );
 
@@ -2514,7 +2546,7 @@ var mediator = (function(){
 // object and a constructor function to be invoked.
 function Topic( namespace ){
 
-  if ( !this instanceof Topic ) {
+  if ( !(this instanceof Topic) ) {
     return new Topic( namespace );
   }else{
 
@@ -2657,7 +2689,7 @@ Topic.prototype = {
 <pre  class="brush: js">
   function Mediator() {
 
-    if ( !this instanceof Mediator ) {
+    if ( !(this instanceof Mediator) ) {
       return new Mediator();
     }else{
       this._topics = new Topic( "" );
@@ -2879,7 +2911,10 @@ The Mediator centralizes communication between modules where it's explicitly ref
  <p>&nbsp;</p>
   <p>&nbsp;</p>
 </p>
-<h2 id="prototypepatternjavascript">The Prototype Pattern</h2>
+<h2 id="prototypepatternjavascript">
+  <a href="#prototypepatternjavascript" class="subhead-link">#</a>
+  The Prototype Pattern
+</h2>
 
 <p>The GoF refer to the prototype pattern as one which creates objects based on a template of an existing object through cloning.</p>
 
@@ -3004,7 +3039,10 @@ var beget = (function () {
 <p>One could reference this method from the <code>vehicle</code> function. Note, however that <code>vehicle</code> here is emulating a constructor, since the prototype pattern does not include any notion of initialization beyond linking an object to a prototype.</p>
 
 <p>&nbsp;</p>
-<h2 id="commandpatternjavascript">The Command Pattern</h2>
+<h2 id="commandpatternjavascript">
+  <a href="#commandpatternjavascript" class="subhead-link">#</a>
+  The Command Pattern
+</h2>
 
 <p>The Command pattern aims to encapsulate method invocation, requests or operations into a single object and gives us the ability to both parameterize and pass method calls around that can be executed at our discretion. In addition, it enables us to decouple objects invoking the action from the objects which implement them, giving us a greater degree of overall flexibility in swapping out concrete <em>classes</em> (objects).</p>
 
@@ -3071,7 +3109,10 @@ CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
 <p>&nbsp;</p>
 
 <p>&nbsp;</p>
-<h2 id="facadepatternjavascript">The Facade Pattern</h2>
+<h2 id="facadepatternjavascript">
+  <a href="#facadepatternjavascript" class="subhead-link">#</a>
+  The Facade Pattern
+</h2>
 
 <p>When we put up a facade, we present an outward appearance to the world which may conceal a very different reality. This was the inspiration for the name behind the next pattern we're going to review - the Facade pattern. This pattern provides a convenient higher-level interface to a larger body of code, hiding its true underlying complexity. Think of it as simplifying the API being presented to other developers, something which almost always improves usability.</p>
 
@@ -3190,7 +3231,10 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 
 <p>&nbsp;</p>
-<h2 id="factorypatternjavascript">The Factory Pattern</h2>
+<h2 id="factorypatternjavascript">
+  <a href="#factorypatternjavascript" class="subhead-link">#</a>
+  The Factory Pattern
+</h2>
 
 
 <p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
@@ -3385,7 +3429,10 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 <br />
 
 
-<h2 id="mixinpatternjavascript">The Mixin Pattern</h2>
+<h2 id="mixinpatternjavascript">
+  <a href="#mixinpatternjavascript" class="subhead-link">#</a>
+  The Mixin Pattern
+</h2>
 
 <p>In traditional programming languages such as C++ and Lisp, Mixins are classes which offer functionality that can be easily inherited by a sub-class or group of sub-classes for the purpose of function re-use.</p>
 
@@ -3440,7 +3487,7 @@ console.log( superman );
 
 <h2>Mixins</h2>
 
-<p>In JavaScript, we can look at inheriting from Mixins as a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but can even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use.</p>
+<p>In JavaScript, we can look at inheriting from Mixins as a means of collecting functionality through extension. Each new object we define has a prototype from which it can inherit further properties. Prototypes can inherit from other object prototypes but, even more importantly, can define properties for any number of object instances. We can leverage this fact to promote function re-use.</p>
 
 <p>Mixins allow objects to borrow (or inherit) functionality from them with a minimal amount of complexity. As the pattern works well with JavaScripts object prototypes, it gives us a fairly flexible way to share functionality from not just one Mixin, but effectively many through multiple inheritance.</p>
 
@@ -3615,7 +3662,7 @@ mySportsCar.driveSideways();
 
 <p>They can be used to modify existing systems where we wish to add additional features to objects without the need to heavily modify the underlying code using them. A common reason why developers use them is their applications may contain features requiring a large quantity of distinct types of object. Imagine having to define hundreds of different object constructors for say, a JavaScript game.</p>
 
-<p>The object constructors could represent distinct player types, each with differing capabilities. A <em>Lord of the Rings</em> game could require constructors for <code>Hobbit</code>, <code>Elf</code>, <code>Ork</code>, <code>Wizard</code>, <code>Mountain Giant</code>, <code>Stone Giant</code> and so on, but there could easily be hundreds of these. If we then factored in capabilities, imagine having to create sub-classes for each combination of capability type e.g <code>HobbitWithRing</code>,<code>HobbitWithSword</code>, <code>HobbitWithRingAndSword</code> and so on.This isn't very practical and certainly isn't manageable when we factor in a growing number of different abilities.</p>
+<p>The object constructors could represent distinct player types, each with differing capabilities. A <em>Lord of the Rings</em> game could require constructors for <code>Hobbit</code>, <code>Elf</code>, <code>Orc</code>, <code>Wizard</code>, <code>Mountain Giant</code>, <code>Stone Giant</code> and so on, but there could easily be hundreds of these. If we then factored in capabilities, imagine having to create sub-classes for each combination of capability type e.g <code>HobbitWithRing</code>,<code>HobbitWithSword</code>, <code>HobbitWithRingAndSword</code> and so on.This isn't very practical and certainly isn't manageable when we factor in a growing number of different abilities.</p>
 
 <p>The Decorator pattern isn't heavily tied to how objects are created but instead focuses on the problem of extending their functionality. Rather than just relying on prototypal inheritance, we work with a single base object and progressively add decorator objects which provide the additional capabilities. The idea is that rather than sub-classing, we add (decorate) properties or methods to a base object so it's a little more streamlined.</p>
 
@@ -4030,7 +4077,10 @@ $("#log")
 <!--end detail-->
 
 <p>&nbsp;</p>
-<h1 id="detailflyweight">Flyweight</h1>
+<h1 id="detailflyweight">
+  <a href="#detailflyweight" class="subhead-link">#</a>
+  Flyweight
+</h1>
 <p>&nbsp;</p>
 
 
@@ -4046,20 +4096,17 @@ $("#log")
 
 <p>The second is at the DOM-layer where the Flyweight can be used as a central event-manager to avoid attaching event handlers to every child element in a parent container we wish to have some similar behavior.</p>
 
-<p>
-As the data-layer is where the flyweight pattern is most used traditionally, we'll take a look at this first.</p>
+<p>As the data-layer is where the flyweight pattern is most used traditionally, we'll take a look at this first.</p>
 
 <h2>Flyweights and sharing data</h2>
 
-<p>
-For this application, there are a few more concepts around the classical Flyweight pattern that we need to be aware of. In the Flyweight pattern there's a concept of two states - intrinsic and extrinsic. Intrinsic information may be required by internal methods in our objects which they absolutely cannot function without. Extrinsic information can however be removed and stored externally.</p>
+<p>For this application, there are a few more concepts around the classical Flyweight pattern that we need to be aware of. In the Flyweight pattern there's a concept of two states - intrinsic and extrinsic. Intrinsic information may be required by internal methods in our objects which they absolutely cannot function without. Extrinsic information can however be removed and stored externally.</p>
 
 <p>Objects with the same intrinsic data can be replaced with a single shared object, created by a factory method. This allows us to reduce the overall quantity of implicit data being stored quite significantly.</p>
 
 <p>The benefit of this is that we're able to keep an eye on objects that have already been instantiated so that new copies are only ever created should the intrinsic state differ from the object we already have.</p>
 
-<p>
-We use a manager to handle the extrinsic states. How this is implemented can vary, but one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
+<p>We use a manager to handle the extrinsic states. How this is implemented can vary, but one approach to this to have the manager object contain a central database of the extrinsic states and the flyweight objects which they belong to.</p>
 
 
 <h2>Implementing Classical Flyweights</h2>
@@ -4070,10 +4117,12 @@ We use a manager to handle the extrinsic states. How this is implemented can var
 
 <p>We will be making use of three types of Flyweight components in this implementation, which are listed below:</p>
 
-<p><ul>
-  <li><strong>Flyweight</strong> corresponds to an interface through which flyweights are able to receive and act on extrinsic states</li>
-  <li><strong>Concrete Flyweight</strong> actually implements the Flyweight interface and stores intrinsic state. Concrete Flyweights need to be sharable and capable of manipulating state that is extrinsic</li>
-  <li><strong>Flyweight Factory</strong> manages flyweight objects and creates them too. It makes sure that our flyweights are shared and manages them as a group of objects which can be queried if we require individual instances. If an object has been already created in the group it returns it, otherwise it adds a new object to the pool and returns it.</li>
+<p>
+  <ul>
+    <li><strong>Flyweight</strong> corresponds to an interface through which flyweights are able to receive and act on extrinsic states</li>
+    <li><strong>Concrete Flyweight</strong> actually implements the Flyweight interface and stores intrinsic state. Concrete Flyweights need to be sharable and capable of manipulating state that is extrinsic</li>
+    <li><strong>Flyweight Factory</strong> manages flyweight objects and creates them too. It makes sure that our flyweights are shared and manages them as a group of objects which can be queried if we require individual instances. If an object has been already created in the group it returns it, otherwise it adds a new object to the pool and returns it.</li>
+  </ul>
 </p>
 
 <p>These correspond to the following definitions in our implementation:</p>
@@ -4592,7 +4641,10 @@ Note: Although we may believe that simply caching our jQuery code may offer just
 
 <p>&nbsp;</p>
 
-<h1 id="detailmvcmvp">JavaScript MV* Patterns</h1>
+<h1 id="detailmvcmvp">
+  <a href="#detailmvcmvp" class="subhead-link">#</a>
+  JavaScript MV* Patterns
+</h1>
 
 <p>In this section, we're going to review three very important architectural patterns - MVC (Model-View-Controller), MVP (Model-View-Presenter) and MVVM (Model-View-ViewModel). In the past, these patterns have been heavily used for structuring desktop and server-side applications but it's only been in recent years that come to being applied to JavaScript.</p>
 
@@ -4761,7 +4813,7 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
 <p>It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In Single-page JavaScript applications however, once data is fetched from a server via Ajax, it can simply be dynamically rendered in a new view within the same page without any such refresh being necessary.</p>
 
-<p>The role of navigation thus falls to a "router", which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are however neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.</p>
+<p>The role of navigation thus falls to a "router", which assists in managing application state (e.g allowing users to bookmark a particular view they have navigated to). As routers are, however, neither a part of MVC nor present in every MVC-like framework, I will not be going into them in greater detail in this section.</p>
 
 <p>To summarize, views are a visual representation of our application data.</p>
 
@@ -4770,9 +4822,9 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
 <p>In our photo gallery application, a controller would be responsible for handling changes the user made to the edit view for a particular photo, updating a specific photo model when a user has finished editing.</p>
 
-<p>Remember that the controllers fulfill one role in MVC: the facilitation of the Strategy pattern for the view. In the Strategy pattern regard, the view delegates to the controller at the view's discretion. So, that's how the strategy pattern works. The view could delegate handling user events to the controller whe the view sees fit. The view *could* delegate handling model change events to the controller if the view sees fit, but this is not the traditional role of the controller.</p>
+<p>Remember that the controllers fulfill one role in MVC: the facilitation of the Strategy pattern for the view. In the Strategy pattern regard, the view delegates to the controller at the view's discretion. So, that's how the strategy pattern works. The view could delegate handling user events to the controller when the view sees fit. The view *could* delegate handling model change events to the controller if the view sees fit, but this is not the traditional role of the controller.</p>
 
-<p>In terms of where most JavaScript MVC frameworks detract from what is conventionally considered "MVC" however, it is with controllers. The reasons for this vary, but in my honest opinion it is that framework authors initially look at the server-side interpretation of MVC, realize that it doesn't translate 1:1 on the client-side and re-interpret the C in MVC to mean something they feel makes more sense. The issue with this however is that it is subjective, increases the complexity in both understanding the classical MVC pattern and of course the role of controllers in modern frameworks.</p>
+<p>In terms of where most JavaScript MVC frameworks detract from what is conventionally considered "MVC" however, it is with controllers. The reasons for this vary, but in my honest opinion, it is that framework authors initially look at the server-side interpretation of MVC, realize that it doesn't translate 1:1 on the client-side and re-interpret the C in MVC to mean something they feel makes more sense. The issue with this however is that it is subjective, increases the complexity in both understanding the classical MVC pattern and of course the role of controllers in modern frameworks.</p>
 
 <p>As an example, let's briefly review the architecture of the popular architectural framework Backbone.js. Backbone contains models and views (somewhat similar to what we reviewed earlier), however it doesn't actually have true controllers. Its views and routers act a little similar to a controller, but neither are actually controllers on their own.</p>
 <p>In this respect, contrary to what might be mentioned in the official documentation or in blog posts, Backbone is neither a truly MVC/MVP nor MVVM framework. It's in fact better to consider it a member of the MV* family which approaches architecture in its own way. There is of course nothing wrong with this, but it is important to distinguish between classical MVC and MV* should we begin relying on advice from classical literature on the former to help with the latter.</p>
@@ -4784,7 +4836,7 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
 <p>It can thus be useful for us to review the controller from another MVC framework to appreciate the difference in implementations and further demonstrate how nontraditionally frameworks approach the role of the controller. For this, let's take a look at a sample controller from Spine.js:</p>
 
-<p>In this example, we're going to have a controller called <code>`PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user edited the photo meta-data) the corresponding model does too.</p>
+<p>In this example, we're going to have a controller called <code>PhotosController</code> which will be in charge of individual photos in the application. It will ensure that when the view updates (e.g a user edited the photo meta-data) the corresponding model does too.</p>
 
 <p>Note: We won't be delving heavily into Spine.js at all, but will just take a ten-foot view of what its controllers can do:</p>
 <pre  class="brush: js">// Controllers in Spine are created by inheriting from Spine.Controller
@@ -4940,7 +4992,10 @@ var PhotoView = Backbone.View.extend({
 <p>&nbsp;</p>
 
 
-<h2 id="detailmvvm">MVVM</h2>
+<h2 id="detailmvvm">
+  <a href="#detailmvvm" class="subhead-link">#</a>
+  MVVM
+</h2>
 
 <p>MVVM (Model View ViewModel) is an architectural pattern based on MVC and MVP, which attempts to more clearly separate the development of user-interfaces (UI) from that of the business logic and behavior in an application. To this end, many implementations of this pattern make use of declarative data bindings to allow a separation of work on Views from other layers.</p>
 <p>This facilitates UI and development work occurring almost simultaneously within the same codebase. UI developers write bindings to the ViewModel within their document markup (HTML), where the Model and ViewModel are maintained by developers working on the logic for the application.</p>
@@ -5393,7 +5448,10 @@ ko.applyBindings( viewModel );
 
 
 
-<h1 id="modularjavascript">Modern Modular JavaScript Design Patterns</h1>
+<h1 id="modularjavascript">
+  <a href="#modularjavascript" class="subhead-link">#</a>
+  Modern Modular JavaScript Design Patterns
+</h1>
 
 <div>
 <h2>The Importance Of Decoupling Applications </small></h2>
@@ -5812,7 +5870,7 @@ define(["jquery"] , function ( $ ) {
 <p><a href="http://groups.google.com/group/amd-implement">The AMD Mailing List</a></p>
    </div>
 
-<h4>What Script Loaders &#38; Frameworks Support AMD?</h4
+<h4>What Script Loaders &#38; Frameworks Support AMD?</h4>
 
 <h5>In-browser:</h5>
 <ul>
@@ -6258,7 +6316,10 @@ $(function(){
 <div class="hr"></div>
 <p>&nbsp;</p>
 <div>
-    <h2 id="detailharmony">ES Harmony</h2>
+    <h2 id="detailharmony">
+      <a href="#detailharmony" class="subhead-link">#</a>
+      ES Harmony
+    </h2>
   </div>
 
 <h3>Modules Of The Future</h3>
@@ -6412,7 +6473,7 @@ class Cake{
 }
 </pre>
 
-<h3>ES Harmony Conclusions</h4>
+<h3>ES Harmony Conclusions</h3>
 
 <p>As we've seen, Harmony might come with some exciting new additions that will ease the development of modular applications and handling concerns such as dependency management.</p>
 At present, our best options for using Harmony syntax in today's browsers is through a transpiler such as <a href="http://code.google.com/p/traceur-compiler/">Google Traceur</a> or<a href="http://esprima.googlecode.com">Esprima</a>. There are also projects such as <a href="https://github.com/addyosmani/require-hm">Require HM<a/> which allow us to use Harmony modules with AMD. Our best bets however until we have specification finalization are AMD (for in-browser modules) and CommonJS (for those on the server).</p>
@@ -6442,7 +6503,10 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 
 
 <p>&nbsp;</p>
-<h1 id="designpatternsjquery">Design Patterns In jQuery</h1>
+<h1 id="designpatternsjquery">
+  <a href="#designpatternsjquery" class="subhead-link">#</a>
+  Design Patterns In jQuery
+</h1>
 
 
 <p>&nbsp;</p>
@@ -6454,7 +6518,10 @@ At present, our best options for using Harmony syntax in today's browsers is thr
 
 
 <p>&nbsp;</p>
-<h2 id="compositepatternjquery">The Composite Pattern</h2>
+<h2 id="compositepatternjquery">
+  <a href="#compositepatternjquery" class="subhead-link">#</a>
+  The Composite Pattern
+</h2>
 <p>
   <strong>The Composite Pattern</strong> describes a group of objects that can be treated in the same way a single instance of an object may be.</p>
 
@@ -6587,7 +6654,10 @@ set: function( elem, value ) {
 </pre>
 
 
-<h2 id="facadepatternjquery">The Facade Pattern</h2>
+<h2 id="facadepatternjquery">
+  <a href="#facadepatternjquery" class="subhead-link">#</a>
+  The Facade Pattern
+</h2>
 
 <p>As we reviewed earlier in the book, the <strong>Facade Pattern</strong> provides a simpler abstracted interface to a larger (potentially more complex) body of code.</p>
 
@@ -6716,7 +6786,10 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject ?
 </pre>
 
 <p>&nbsp;</p>
-<h2 id="observerpatternjquery">The Observer Pattern</h2>
+<h2 id="observerpatternjquery">
+  <a href="#observerpatternjquery" class="subhead-link">#</a>
+  The Observer Pattern
+</h2>
 <p>
   Another pattern we reviewed earlier is the Observer (Publish/Subscribe) pattern. This is where the objects in a system may subscribe to other objects and be notified by them when an event of interest occurs.
 </p>
@@ -6861,7 +6934,10 @@ $.Topic( "mailSent" ).publish( "woo! mail!" );
 </pre>
 
 <p>&nbsp;</p>
-<h2 id="iteratorpatternjquery">The Iterator Pattern</h2>
+<h2 id="iteratorpatternjquery">
+  <a href="#iteratorpatternjquery" class="subhead-link">#</a>
+  The Iterator Pattern
+</h2>
 <p>
   The Iterator is a design pattern where iterators (objects that allow us to traverse through all the elements of a collection) access the elements of an aggregate object sequentially without needing to expose its underlying form.</p>
 
@@ -7016,7 +7092,10 @@ $( document ).ready( function () {
 
 
 
-<h2 id="proxypatternjquery">The Proxy Pattern</h2>
+<h2 id="proxypatternjquery">
+  <a href="#proxypatternjquery" class="subhead-link">#</a>
+  The Proxy Pattern
+</h2>
 
 <p>There are times when it is necessary for us to control the access and context behind an object and this is where the Proxy pattern can be useful.</p>
 
@@ -7093,7 +7172,10 @@ $( "button" ).on( "click", function () {
 
 
 
-<h2 id="builderpatternjquery">The Builder Pattern</h2>
+<h2 id="builderpatternjquery">
+  <a href="#builderpatternjquery" class="subhead-link">#</a>
+  The Builder Pattern
+</h2>
 
 <p>When working with the DOM, we often want to construct new elements dynamically - a process which can increase in complexity depending on the final markup, attributes and properties we wish our constructed elements to contain.</p>
 
@@ -7105,9 +7187,9 @@ $( "button" ).on( "click", function () {
 
 
 <pre  class="brush: js">
-$( "&lt;div class= "foo"&gt;bar&lt;/div&gt;" );
+$( '&lt;div class="foo"&gt;bar&lt;/div&gt;' );
 
-$( "&lt;p id="test"&gt;foo &lt;em&gt;bar&lt;/em&gt;&lt;/p&gt;").appendTo("body" );
+$( '&lt;p id="test"&gt;foo &lt;em&gt;bar&lt;/em&gt;&lt;/p&gt;').appendTo("body");
 
 var newParagraph = $( "&lt;p /&gt;" ).text( "Hello world" );
 
@@ -7150,7 +7232,10 @@ $( "&lt;input /&gt;" )
 
 
 <p>&nbsp;</p>
-<h1 id="jquerypluginpatterns">jQuery Plugin Design Patterns</h1>
+<h1 id="jquerypluginpatterns">
+  <a href="#jquerypluginpatterns" class="subhead-link">#</a>
+  jQuery Plugin Design Patterns
+</h1>
 
 
 <p>jQuery plugin development has evolved over the past few years. We no longer have just one way to write plugins, but many. In reality, certain plugin design patterns might work better for a particular problem or component than others.</p>
@@ -7172,7 +7257,7 @@ $( "&lt;input /&gt;" )
 
 <h3>Patterns</h3>
 
-<p>jQuery plugins have few concrete rules, which one of the reasons for the incredible diversity in how they are implemented across the community. At the most basic level, we can write a plugin simply by adding a new function property to jQuery’s <code>jQuery.fn</code> object, as follows:</p>
+<p>jQuery plugins have few concrete rules, which is one of the reasons for the incredible diversity in how they are implemented across the community. At the most basic level, we can write a plugin simply by adding a new function property to jQuery’s <code>jQuery.fn</code> object, as follows:</p>
 
 <pre class="brush: js">
 $.fn.myPluginName = function () {
@@ -7462,7 +7547,7 @@ collection.widgetName("methodB");
 
 <p>JavaScript doesn't really have built-in support for namespaces as other languages do, but it does have objects that can be used to achieve a similar effect. Employing a top-level object as the name of our namespace, we can easily check for the existence of another object on the page with the same name. If such an object does not exist, then we define it; if it does exist, then we simply extend it with our plugin.</p>
 
-<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should us everything we need to get started with these concepts.</p>
+<p>Objects (or, rather, object literals) can be used to create nested namespaces, such as <code>namespace.subnamespace.pluginName</code> and so on. But to keep things simple, the namespacing boilerplate below should show us everything we need to get started with these concepts.</p>
 
 <pre class="brush: js">
 /*!
