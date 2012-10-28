@@ -1662,6 +1662,7 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
     if( this.observerList[i] === obj ){
       pointer = i;
     }
+    i++;
   }
 
   return pointer;
@@ -1678,9 +1679,9 @@ ObserverList.prototype.RemoveAt = function( index ){
 
 
 // Extend an object with an extension
-function extend( obj, extension ){
-  for ( var key in obj ){
-    extension[key] = obj[key];
+function extend( extension, obj ){
+  for ( var key in extension ){
+    obj[key] = extension[key];
   }
 }
  
@@ -1702,7 +1703,7 @@ Subject.prototype.AddObserver = function( observer ){
 };  
 
 Subject.prototype.RemoveObserver = function( observer ){
-  this.observers.RemoveIndexAt( this.observers.IndexOf( observer, 0 ) );
+  this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
 };  
 
 Subject.prototype.Notify = function( context ){
@@ -2085,9 +2086,6 @@ In our implementation, our subscriber will listen to the topic "newDataAvailable
 
 <pre  class="brush: js">
 
-// Create a subscription to the newDataAvailable topic
-var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
-
 // Return the current local time to be used in our UI later
 getCurrentTime = function (){
 
@@ -2121,11 +2119,14 @@ function updateCounter( data ) {
 gridUpdate = function( topic, data ){
 
   if ( data !== "undefined" ) {
-     grid.addGridRow( data );
-     grid.updateCounter( data );
+     addGridRow( data );
+     updateCounter( data );
    }
 
 };
+
+// Create a subscription to the newDataAvailable topic
+var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 
 // The following represents updates to our data layer. This could be
 // powered by ajax requests which broadcast that new data is available
@@ -2217,14 +2218,14 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 ;(function( $ ) {
 
+  // Pre-compile templates and "cache" them using closure
+  var
+    userTemplate = _.template($( "#userTemplate" ).html()),
+    ratingsTemplate = _.template($( "#ratingsTemplate" ).html());
+
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
   $.subscribe( "/new/user", function( e, data ){
-
-    // Pre-compile templates and "cache" them using closure
-    var
-      userTemplate = _.template($( "#userTemplate" ).html()),
-      ratingTemplate = _.template($( "#ratingsTemplate" ).html());
 
     if( data ){
 
@@ -2243,7 +2244,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     if( data ){
       
-      $( "#ratings" ).append( ratingTemplate( data );
+      $( "#ratings" ).append( ratingsTemplate( data );
 
     }
 
@@ -2296,7 +2297,7 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    &lt;input type="text" name="tag" id="query"/&gt;
 
-   &lt;input type="submit' name="submit' value="submit'/&gt;
+   &lt;input type="submit" name="submit" value="submit"/&gt;
 
 &lt;/form&gt;
 
@@ -2447,8 +2448,8 @@ var mediator = (function(){
     };
 
     return {
-        Publish: publish,
-        Subscribe: subscribe,
+        publish: publish,
+        subscribe: subscribe,
         installTo: function( obj ){
             obj.subscribe = subscribe;
             obj.publish = publish;
@@ -2777,7 +2778,7 @@ Finally we can easily expose our Mediator for attachment to the object passed in
     &lt;br /&gt;
     &lt;label for=&quot;chatBox&quot;&gt;Message:&lt;/label&gt;
     &lt;input id=&quot;chatBox&quot; type=&quot;text&quot;/&gt;
-    &lt;button action=&quot;submit&quot;&gt;Chat&lt;/button&gt;
+    &lt;button type=&quot;submit&quot;&gt;Chat&lt;/button&gt;
 &lt;/form&gt;
 
 &lt;div id=&quot;chatResult&quot;&gt;&lt;/div&gt;
@@ -3167,7 +3168,7 @@ var module = (function() {
 }());
  
  
-// Outputs: "running", 10
+// Outputs: "current value: 10" and "running"
 module.facade( {run: true, val:10} );
 
 </pre>
@@ -3346,7 +3347,7 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
         getVehicle: function ( type, customizations ) {
             var Vehicle = types[type];
 
-            return (Vehicle) ? return new Vehicle(customizations) : null;
+            return (Vehicle ? new Vehicle(customizations) : null);
         },
 
         registerVehicle: function ( type, Vehicle ) {
