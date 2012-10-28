@@ -1679,9 +1679,9 @@ ObserverList.prototype.RemoveAt = function( index ){
 
 
 // Extend an object with an extension
-function extend( obj, extension ){
-  for ( var key in obj ){
-    extension[key] = obj[key];
+function extend( extension, obj ){
+  for ( var key in extension ){
+    obj[key] = extension[key];
   }
 }
  
