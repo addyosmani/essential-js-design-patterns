@@ -2221,7 +2221,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // Pre-compile templates and "cache" them using closure
   var
     userTemplate = _.template($( "#userTemplate" ).html()),
-    ratingTemplate = _.template($( "#ratingsTemplate" ).html());
+    ratingsTemplate = _.template($( "#ratingsTemplate" ).html());
 
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
@@ -2244,7 +2244,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     if( data ){
       
-      $( "#ratings" ).append( ratingTemplate( data );
+      $( "#ratings" ).append( ratingsTemplate( data );
 
     }
 
