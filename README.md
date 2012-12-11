@@ -1,7 +1,7 @@
 
 #### Introduction
 
-This is the repo for 'Learning JavaScript Design Patterns', an open-source book on JavaScript patterns also released for sale (should you wish to support the project that way) via [O'Reilly Media](http://shop.oreilly.com/product/0636920025832.do.
+This is the repo for 'Learning JavaScript Design Patterns', an open-source book on JavaScript patterns also released for sale (should you wish to support the project that way) via [O'Reilly Media](http://shop.oreilly.com/product/0636920025832.do).
 
 Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. You can read the latest version [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/) for free at any time. 
 
