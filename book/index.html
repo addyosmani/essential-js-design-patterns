@@ -207,7 +207,7 @@ To understand how useful patterns can be, let's review a very simple element sel
 Imagine that we have a script where for each DOM element found on a page with class "foo" we wish to increment a counter. What's the most efficient way to query for this collection of elements? Well, there are a few different ways this problem could be tackled:</p>
 <p>
   <ol>
-    <li>Select all of the elements in the page and then store references them. Next, filter this collection and use regular expressions (or another means) to only store those with the class "foo".</li> 
+    <li>Select all of the elements in the page and then store references to them. Next, filter this collection and use regular expressions (or another means) to only store those with the class "foo".</li> 
 <li>
 Use a modern native browser feature such as <code>querySelectorAll()</code> to select all of the elements with the class "foo".</li>
 <li>Use a native feature such as <code>getElementsByClassName()</code> to similarly get back the desired collection. </li>
