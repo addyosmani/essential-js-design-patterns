@@ -5019,7 +5019,7 @@ var PhotoView = Backbone.View.extend({
     this.editing = ko.observable(false);
 };
 </pre>
-<p>Note: One may notice in the above snippet that we are calling the method <code>observables()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to synchronize Models and ViewModels when the value of a Model attribute is modified.</p>
+<p>Note: One may notice in the above snippet that we are calling the method <code>observable()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to synchronize Models and ViewModels when the value of a Model attribute is modified.</p>
 <h3>View</h3>
 <p>As with MVC, the View is the only part of the application that users actually interact with. They are an interactive UI that represent the state of a ViewModel. In this sense, the view is considered active rather than passive, but this is also true for views in MVC and MVP. In MVC, MVP and MVVM a view can also be passive, but what does this mean?</p>
 <p>A passive View only outputs a display and does not accept any user input.</p>
