@@ -8803,8 +8803,10 @@ console.log( namespace.foobar2 );
         speak( "goodbye" );
     }    
 }( window.namespace = window.namespace || {});
+
+// Outputs: goodbye
+namespace.sayGoodbye();
 </pre>
-<p>namespace.sayGoodbye(); // goodbye</p>
 
 <p>If would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> for more information.</p>
 
