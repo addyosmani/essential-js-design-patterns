@@ -6330,7 +6330,7 @@ $(function(){
 <p>Having read through the sections on AMD and CommonJS modules you may be familiar with the concept of module dependencies (imports) and module exports (or, the public API/variables we allow other modules to consume). In ES.next, these concepts have been proposed in a slightly more succinct manner with dependencies being specified using an <code>import</code> keyword. <code>export</code> isn't greatly different to what we might expect and many developers will look at the code samples lower down and instantly grab them.</p>
 
 <p><ul><li><strong>import</strong> declarations bind a modules exports as local variables and may be renamed to avoid name collisions/conflicts.</li>
-<li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules however can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul> </p>
+<li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules but can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul> </p>
 <pre class="brush: js">
 
 module staff{
