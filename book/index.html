@@ -6142,12 +6142,7 @@ define( function ( require, exports, module ){
 
 <p>UMD provides two patterns for working with jQuery plugins - one which defines plugins that work well with AMD and browser globals and another which can also work in CommonJS environments. jQuery is not likely to be used in most CommonJS environments so keep this in mind unless we're working with an environment which does play well with it.</p>
 
-<p>We will now define a plugin composed of a core and an extension to that core.</p>
-
-<ul>
-<li>Our plugin will be composed of a core and an extension to that core</li>
-<li>The core plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</li>
-</ul>
+<p>We will now define a plugin composed of a core and an extension to that core. The core plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</p>
 
 <p>The pattern can be quite nice to work with because plugin extensions can access properties and methods defined in the base or, with a little tweaking, override default behavior so that it can be extended to do more. A loader is also not required to make any of this fully functional.</p>
 
