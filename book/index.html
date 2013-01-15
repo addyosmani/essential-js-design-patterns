@@ -5895,7 +5895,7 @@ define(["jquery"] , function ( $ ) {
 
 <p>It's also an excellent addition for modular development using Backbone.js, ember.js or any number of other structural frameworks for keeping applications organized. </p>
 
-<p>As AMD has been heavily discussed for almost two years within the Dojo and CommonJS worlds, we know it's had time to mature and evolve. We also know it's been battle-tested in the wild by by a number of large companies to build non-trivial applications (IBM, BBC iPlayer) and so, if it didn't work, chances are they would have abandoned it by now, but haven't.</p>
+<p>As AMD has been heavily discussed for almost two years within the Dojo and CommonJS worlds, we know it's had time to mature and evolve. We also know it's been battle-tested in the wild by a number of large companies to build non-trivial applications (IBM, BBC iPlayer) and so, if it didn't work, chances are they would have abandoned it by now, but haven't.</p>
 
 <p>That said, there are still areas where AMD could be improved. Developers who have used the format for some time may feel the AMD boilerplate/wrapper-code is an annoying overhead. Whilst I share this concern, there are tools such as <a href="https://github.com/volojs/volo">Volo</a> that can help work around these issues and I would argue that on the whole, the pros with using AMD far outweigh the cons.</p>
 
@@ -6140,14 +6140,9 @@ define( function ( require, exports, module ){
 
 <h4>jQuery plugins that function in all environments</h4>
 
-<p>UMD provides two patterns for working with jQuery plugins - one which defines plugins that work well with AMD and browser globals and another which can also work in CommonJS environments. jQuery is not likely to be used in most CommonJS environments so keep this in mind unless we're working with an environment which does that does play well with it.</p>
+<p>UMD provides two patterns for working with jQuery plugins - one which defines plugins that work well with AMD and browser globals and another which can also work in CommonJS environments. jQuery is not likely to be used in most CommonJS environments so keep this in mind unless we're working with an environment which does play well with it.</p>
 
-<p>We will now define a plugin composed of a core and an extension to that core.</p>
-
-<ul>
-<li>Our plugin will be composed of a core and an extension to that core</li>
-<li>The core plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</li>
-</ul>
+<p>We will now define a plugin composed of a core and an extension to that core. The core plugin is loaded into a <code>$.core</code> namespace, which can then be easily extended using plugin extensions via the namespacing pattern. Plugins loaded via script tags automatically populate a <code>plugin</code> namespace under <code>core</code> (i.e. <code>$.core.plugin.methodName()</code>).</p>
 
 <p>The pattern can be quite nice to work with because plugin extensions can access properties and methods defined in the base or, with a little tweaking, override default behavior so that it can be extended to do more. A loader is also not required to make any of this fully functional.</p>
 
@@ -6335,7 +6330,7 @@ $(function(){
 <p>Having read through the sections on AMD and CommonJS modules you may be familiar with the concept of module dependencies (imports) and module exports (or, the public API/variables we allow other modules to consume). In ES.next, these concepts have been proposed in a slightly more succinct manner with dependencies being specified using an <code>import</code> keyword. <code>export</code> isn't greatly different to what we might expect and many developers will look at the code samples lower down and instantly grab them.</p>
 
 <p><ul><li><strong>import</strong> declarations bind a modules exports as local variables and may be renamed to avoid name collisions/conflicts.</li>
-<li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules however can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul> </p>
+<li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules but can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul> </p>
 <pre class="brush: js">
 
 module staff{
@@ -6476,7 +6471,7 @@ class Cake{
 <h3>ES Harmony Conclusions</h3>
 
 <p>As we've seen, Harmony might come with some exciting new additions that will ease the development of modular applications and handling concerns such as dependency management.</p>
-At present, our best options for using Harmony syntax in today's browsers is through a transpiler such as <a href="http://code.google.com/p/traceur-compiler/">Google Traceur</a> or<a href="http://esprima.googlecode.com">Esprima</a>. There are also projects such as <a href="https://github.com/addyosmani/require-hm">Require HM<a/> which allow us to use Harmony modules with AMD. Our best bets however until we have specification finalization are AMD (for in-browser modules) and CommonJS (for those on the server).</p>
+At present, our best options for using Harmony syntax in today's browsers is through a transpiler such as <a href="http://code.google.com/p/traceur-compiler/">Google Traceur</a> or<a href="http://esprima.googlecode.com">Esprima</a>. There are also projects such as <a href="https://github.com/addyosmani/require-hm">Require HM</a> which allow us to use Harmony modules with AMD. Our best bets however until we have specification finalization are AMD (for in-browser modules) and CommonJS (for those on the server).</p>
 
   <div class="alert-message block-message info">
 <p><b>Related Reading</b></p>
@@ -6591,7 +6586,7 @@ $( "input" ).addClass( "active" );
   <p>Adapters basically allow objects or classes to function together which normally couldn't due to their incompatible interfaces. The adapter translates calls to its interface into calls to the original interface and the code required to achieve this is usually quite minimal.
 </p>
 
-<p>One example of a adapter we may have used is the jQuery <code>jQuery.fn.css()</code> method. It helps normalize the interfaces to how styles can be applied across a number of browsers, making in trivial for us to use a simple syntax which is adapted to use what the browser actually supports behind the scenes:</p>
+<p>One example of an adapter we may have used is the jQuery <code>jQuery.fn.css()</code> method. It helps normalize the interfaces to how styles can be applied across a number of browsers, making it trivial for us to use a simple syntax which is adapted to use what the browser actually supports behind the scenes:</p>
 
 <pre  class="brush: js">
 
@@ -6943,7 +6938,7 @@ $.Topic( "mailSent" ).publish( "woo! mail!" );
 
  <p>Iterators encapsulate the internal structure of how that particular iteration occurs. In the case of jQuery's <code>jQuery.fn.each()</code> iterator, we are actually able to use the underlying code behind <code>jQuery.each()</code> to iterate through a collection, without needing to see or understand the code working behind the scenes providing this capability.</p> 
 
-<p>This is a pattern could be considered a special case of the facade, where we explicitly deal with problems related to iteration.</p>
+<p>This is a pattern that could be considered a special case of the facade, where we explicitly deal with problems related to iteration.</p>
 
 
 <pre  class="brush: js">
@@ -8552,7 +8547,7 @@ myApplication.utils = {
 </pre>
 <p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
 
-<p>In the next sample, we demonstrate a number of different ways in which we can check to see if a variable (object or plugin namespace) already exists, definiting it if it doesn't.</p>
+<p>In the next sample, we demonstrate a number of different ways in which we can check to see if a variable (object or plugin namespace) already exists, defining it if it doesn't.</p>
 
 <pre  class="brush: js">
 // This doesn't check for existence of "myApplication" in
@@ -8747,7 +8742,7 @@ function foobar () { foobar(); }
 
 console.log( namespace );
 </pre>
-<p>Whilst readable, this example could be significantly expanded on to address common development concerns such as defined levels of privacy (public/private functions and variables) as well as convenient namespace extension. let's go through some more code:</p>
+<p>Whilst readable, this example could be significantly expanded on to address common development concerns such as defined levels of privacy (public/private functions and variables) as well as convenient namespace extension. Let's go through some more code:</p>
 <pre  class="brush: js">
 
 // namespace (our namespace name) and undefined are passed here 
@@ -8808,8 +8803,10 @@ console.log( namespace.foobar2 );
         speak( "goodbye" );
     }    
 }( window.namespace = window.namespace || {});
+
+// Outputs: goodbye
+namespace.sayGoodbye();
 </pre>
-<p>namespace.sayGoodbye(); // goodbye</p>
 
 <p>If would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> for more information.</p>
 
@@ -8919,7 +8916,7 @@ var application = {
 };
 </pre>
 
-<p>One of the obvious challenges with this pattern is that each additional layer or we wish to create requires yet another object to be defined as a child of some parent in our top-level namespace. This can become particularly laborious when multiple depths are required as our application increases in complexity.</p>
+<p>One of the obvious challenges with this pattern is that each additional layer we wish to create requires yet another object to be defined as a child of some parent in our top-level namespace. This can become particularly laborious when multiple depths are required as our application increases in complexity.</p>
 
 <p>How can this problem be better solved? In <a href="http://www.amazon.com/JavaScript-Patterns-Stoyan-Stefanov/dp/0596806752">JavaScript Patterns</a>, <a href="http://jspatterns.com">Stoyan Stefanov</a> presents a very-clever approach for automatically defining nested namespaces under an existing global variable. He suggests a convenience method that takes a single string argument for a nest, parses this and automatically populates our base namespace with the objects required.</p>
 
@@ -9151,7 +9148,7 @@ console.log("test", myApp);
 </ol>
 <p>&nbsp;</p>
 
-<p>Thanks for reading <em>Learning JavaScript Design Patterns</em>. For more educational material on learning JavaScript, please feel free to read more from me on my blog at<a href="http://addyosmani.com">http://addyosmani.com</a> or on Twitter <a href="http://twitter.com/addyosmani">@addyosmani</a>.</p>
+<p>Thanks for reading <em>Learning JavaScript Design Patterns</em>. For more educational material on learning JavaScript, please feel free to read more from me on my blog at <a href="http://addyosmani.com">http://addyosmani.com</a> or on Twitter <a href="http://twitter.com/addyosmani">@addyosmani</a>.</p>
 <p>&nbsp;</p>
 
 <p>Until next time, the very best of luck with your adventures in JavaScript!</p>
