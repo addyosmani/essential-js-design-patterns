@@ -1509,8 +1509,8 @@ var mySingleton = (function () {
 
 // Usage:
 
-var singleA = mySingleton;
-var singleB = mySingleton;
+var singleA = mySingleton.getInstance();
+var singleB = mySingleton.getInstance();
 console.log( singleA === singleB ); // true
 </pre>
 
