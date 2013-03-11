@@ -4264,26 +4264,26 @@ function CoffeeOrderContext( tableNumber ) {
 }
 
 
- 
-// FlyweightFactory object
 function CoffeeFlavorFactory() {
-    var flavors = [];
- 
-  return {
-      getCoffeeFlavor: function( flavorName ) {
+    var flavors = {},
+    length = 0;
 
-          var flavor = flavors[flavorName];
-          if (flavor === undefined) {
-              flavor = new CoffeeFlavor( flavorName );
-              flavors.push( [flavorName, flavor] );
-          }
-          return flavor;
-      },
-   
-      getTotalCoffeeFlavorsMade: function() {
-        return flavors.length;
-      }
-  };
+    return {
+        getCoffeeFlavor: function (flavorName) {
+
+            var flavor = flavors[flavorName];
+            if (flavor === undefined) {
+                flavor = new CoffeeFlavor(flavorName);
+                flavors[flavorName] = flavor;
+                length++;
+            }
+            return flavor;
+        },
+
+        getTotalCoffeeFlavorsMade: function () {
+            return length;
+        }
+    };
 }
 
 // Sample usage:
