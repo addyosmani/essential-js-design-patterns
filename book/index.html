@@ -2405,13 +2405,13 @@ Notice how in our sample below, one topic notification is made when a user indic
    var resultTemplate = _.template($( "#resultTemplate" ).html());
 
    // Subscribe to the new search tags topic
-   $.subscribe( "/search/tags" , function( tags ) {
+   $.subscribe( "/search/tags" , function( e, tags ) {
        $( "#searchResults" )
                 .html("<p>Searched for:<strong>" + tags + "</strong></p>");
    });
 
    // Subscribe to the new results topic
-   $.subscribe( "/search/resultSet" , function( results ){
+   $.subscribe( "/search/resultSet" , function( e, results ){
 
        $( "#searchResults" ).append(resultTemplate( results ));
 
@@ -2437,7 +2437,7 @@ Notice how in our sample below, one topic notification is made when a user indic
    // publish this data for the rest of the application
    // to consume
 
-   $.subscribe("/search/tags", function( tags ) {
+   $.subscribe("/search/tags", function( e, tags ) {
 
        $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{ 
               tags: tags, 
