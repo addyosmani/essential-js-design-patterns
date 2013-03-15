@@ -1753,6 +1753,8 @@ ObserverList.prototype.RemoveAt = function( index ){
     this.observerList.shift();
   }else if( index === this.observerList.length -1 ){
     this.observerList.pop();
+  }else {
+    this.observerList.splice( index, 1 );
   }
 };
 
