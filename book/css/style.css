@@ -159,3 +159,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
 }
+
+div.syntaxhighlighter {
+  padding: 1em 0;
+}
