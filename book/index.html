@@ -1048,7 +1048,7 @@ var basketModule = (function () {
       return p;
     }
   };
-}());
+})();
 
 </pre>
 
@@ -1125,7 +1125,7 @@ var myModule = (function ( jQ, _ ) {
     };
    
 // Pull in jQuery and Underscore
-}( jQuery, _ ));
+})( jQuery, _ );
 
 myModule.publicMethod();  
 </pre>
@@ -1152,7 +1152,7 @@ var myModule = (function () {
   
   return module;
 
-}());
+})();
 </pre>
 
 
@@ -1200,7 +1200,7 @@ require(["dojo/_base/customStore"], function( store ){
           }
       };
 
-  }()));
+  })());
 
 });
 </pre>
@@ -1328,7 +1328,7 @@ var myLibrary = library(function () {
       // module implementation
     }
   };
-}());
+})();
 
 </pre>
 
@@ -8407,7 +8407,7 @@ $( ".items" ).draggable();
       // This next line takes advantage of HTML5 data attributes
       // to support customization of the plugin on a per-element
       // basis. For example,
-      // &lt;div class=item" data-plugin-options="{"message":"Goodbye World!"}"&gt;&lt;/div&gt;
+      // &lt;div class="item" data-plugin-options="{'message':'Goodbye World!'}"&gt;&lt;/div&gt;
       this.metadata = this.$elem.data( "plugin-options" );
     };
 
@@ -8771,7 +8771,7 @@ myApp["controllers"] = myApp["controllers"] || {};
 (function () { /*...*/})();
 
 // a named immediately-invoked function expression
-(function foobar () { /*..*/}());
+(function foobar () { /*..*/})();
 
 // this is technically a self-executing function which is quite different
 function foobar () { foobar(); }
@@ -8822,7 +8822,7 @@ console.log( namespace );
     // global namespace - if not, assign window.namespace an 
     // object literal
 
-}( window.namespace = window.namespace || {} ));
+})( window.namespace = window.namespace || {} );
 
 
 // we can then test our properties and methods as follows
@@ -8851,13 +8851,13 @@ console.log( namespace.foobar2 );
         console.log( namespace.bar );
         speak( "goodbye" );
     }    
-}( window.namespace = window.namespace || {});
+})( window.namespace = window.namespace || {});
 
 // Outputs: goodbye
 namespace.sayGoodbye();
 </pre>
 
-<p>If would like to find out more about this pattern, I recommend reading both Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> for more information.</p>
+<p>If you would like to find out more about this pattern, I recommend reading Ben's <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">IIFE post</a> for more information.</p>
 
 <h3>6. Namespace injection</h3>
 
