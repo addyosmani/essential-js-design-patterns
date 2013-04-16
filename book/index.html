@@ -1729,7 +1729,7 @@ ObserverList.prototype.Insert = function( obj, index ){
   }else if( index === this.observerList.length ){
     this.observerList.push( obj );
     pointer = index;
-  } else if( index > 0 && index < this.observerList.length ){
+  }else if( index > 0 && index < this.observerList.length ){
     this.observerList.splice( index, 0, obj );
     pointer = index;
   }
