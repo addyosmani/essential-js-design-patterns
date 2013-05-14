@@ -671,7 +671,7 @@ Object.defineProperty( newObject, "someKey", {
 // be written as follows:
 
 var defineProp = function ( obj, key, value ){
-  config.value = value;
+  var config = { value : value };
   Object.defineProperty( obj, key, config );
 };
 
