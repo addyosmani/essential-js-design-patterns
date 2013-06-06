@@ -1731,13 +1731,7 @@ ObserverList.prototype.Get = function( index ){
 ObserverList.prototype.Insert = function( obj, index ){
   var pointer = -1;
 
-  if( index === 0 ){
-    this.observerList.unshift( obj );
-    pointer = index;
-  }else if( index === this.observerList.length ){
-    this.observerList.push( obj );
-    pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
+  if( index >= 0 && index <= this.observerList.length ){
     this.observerList.splice( index, 0, obj );
     pointer = index;
   }
@@ -1758,15 +1752,10 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
   return pointer;
 };
 
-ObserverList.prototype.RemoveAt = function (index) {
-    if (index === 0) {
-        this.observerList.shift();
-    } else if (index === this.observerList.length - 1) {
-        this.observerList.pop();
-    } else {
-        this.observerList.splice(index, 1);
-    }
-}
+
+ObserverList.prototype.RemoveAt = function( index ){
+  this.observerList.splice( index, 1 );
+};
 
 
 // Extend an object with an extension
