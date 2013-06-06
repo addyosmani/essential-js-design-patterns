@@ -1908,18 +1908,18 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $('.newMessageCounter').html( ++mailCounter );
 
 });
 
 publish( "inbox/newMessage", [{
-  sender:"hello@google.com", 
+  sender:"hello@google.com",
   body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1 );
 // unsubscribe( subscriber2 );
 </pre>
 
