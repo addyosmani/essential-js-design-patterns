@@ -1756,7 +1756,7 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
-      pointer = i;
+      return i;
     }
     i++;
   }
