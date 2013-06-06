@@ -1713,14 +1713,9 @@ ObserverList.prototype.add = function( obj ){
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.empty = function(){
-  this.observerList = [];
-};
-
 ObserverList.prototype.count = function(){
   return this.observerList.length;
 };
-
 
 ObserverList.prototype.get = function( index ){
   if( index > -1 && index < this.observerList.length ){
@@ -1728,19 +1723,8 @@ ObserverList.prototype.get = function( index ){
   }
 };
 
-ObserverList.prototype.insert = function( obj, index ){
-  var pointer = -1;
-
-  if( index >= 0 && index <= this.observerList.length ){
-    this.observerList.splice( index, 0, obj );
-    pointer = index;
-  }
-
-  return pointer;
-};
-
 ObserverList.prototype.indexOf = function( obj, startIndex ){
-  var i = startIndex, pointer = -1;
+  var i = startIndex;
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
@@ -1749,23 +1733,12 @@ ObserverList.prototype.indexOf = function( obj, startIndex ){
     i++;
   }
 
-  return pointer;
+  return -1;
 };
-
 
 ObserverList.prototype.removeAt = function( index ){
   this.observerList.splice( index, 1 );
 };
-
-
-// Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
-    obj[key] = extension[key];
-  }
-}
- 
-
 </pre>
 </p>
 
@@ -1834,6 +1807,12 @@ function Observer(){
 <p><strong>Sample script:</strong></p>
 <p>
 <pre  class="brush: js">
+// Extend an object with an extension
+function extend( extension, obj ){
+  for ( var key in extension ){
+    obj[key] = extension[key];
+  }
+}
 
 // References to our DOM elements
 
@@ -1848,14 +1827,15 @@ var controlCheckbox = document.getElementById( "mainCheckbox" ),
 extend( new Subject(), controlCheckbox );
 
 // Clicking the checkbox will trigger notifications to its observers
-controlCheckbox["onclick"] = new Function( "controlCheckbox.Notify(controlCheckbox.checked)" );
+controlCheckbox.onclick = function(){
+  controlCheckbox.notify( controlCheckbox.checked );
+};
 
-
-addBtn["onclick"] = AddNewObserver;
+addBtn.onclick = addNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function addNewObserver(){
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1865,13 +1845,13 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.update = function( value ){
     this.checked = value;
   };
 
   // Add the new observer to our list of observers
   // for our main subject
-  controlCheckbox.AddObserver( check );
+  controlCheckbox.addObserver( check );
 
   // Append the item to the container
   container.appendChild( check );
