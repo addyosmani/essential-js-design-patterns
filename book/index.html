@@ -1758,16 +1758,15 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
   return pointer;
 };
 
-
-ObserverList.prototype.RemoveAt = function( index ){
-  if( index === 0 ){
-    this.observerList.shift();
-  }else if( index === this.observerList.length -1 ){
-    this.observerList.pop();
-  }else {
-    this.observerList.splice( index, 1 );
-  }
-};
+ObserverList.prototype.RemoveAt = function (index) {
+    if (index === 0) {
+        this.observerList.shift();
+    } else if (index === this.observerList.length - 1) {
+        this.observerList.pop();
+    } else {
+        this.observerList.splice(index, 1);
+    }
+}
 
 
 // Extend an object with an extension
