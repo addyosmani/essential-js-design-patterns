@@ -671,7 +671,12 @@ Object.defineProperty( newObject, "someKey", {
 // be written as follows:
 
 var defineProp = function ( obj, key, value ){
-  var config = { value : value };
+  var config = {
+    value: value,
+    writable: true,
+    enumerable: true,
+    configurable: true
+  };
   Object.defineProperty( obj, key, config );
 };
 
@@ -682,6 +687,9 @@ var person = Object.create( null );
 defineProp( person, "car",  "Delorean" );
 defineProp( person, "dateOfBirth", "1981" );
 defineProp( person, "hasBeard", false );
+
+console.log(person);
+// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
 
 
 // 4. Object.defineProperties
