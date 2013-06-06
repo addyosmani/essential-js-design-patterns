@@ -1709,26 +1709,26 @@ function ObserverList(){
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.add = function( obj ){
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
+ObserverList.prototype.empty = function(){
   this.observerList = [];
 };
 
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.count = function(){
   return this.observerList.length;
 };
 
 
-ObserverList.prototype.Get = function( index ){
+ObserverList.prototype.get = function( index ){
   if( index > -1 && index < this.observerList.length ){
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
+ObserverList.prototype.insert = function( obj, index ){
   var pointer = -1;
 
   if( index >= 0 && index <= this.observerList.length ){
@@ -1739,7 +1739,7 @@ ObserverList.prototype.Insert = function( obj, index ){
   return pointer;
 };
 
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
+ObserverList.prototype.indexOf = function( obj, startIndex ){
   var i = startIndex, pointer = -1;
 
   while( i < this.observerList.length ){
@@ -1753,7 +1753,7 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
 };
 
 
-ObserverList.prototype.RemoveAt = function( index ){
+ObserverList.prototype.removeAt = function( index ){
   this.observerList.splice( index, 1 );
 };
 
@@ -1778,32 +1778,32 @@ function Subject(){
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
-  this.observers.Add( observer );
-};  
+Subject.prototype.addObserver = function( observer ){
+  this.observers.add( observer );
+};
 
-Subject.prototype.RemoveObserver = function( observer ){
-  this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
-};  
+Subject.prototype.removeObserver = function( observer ){
+  this.observers.removeAt( this.observers.indexOf( observer, 0 ) );
+};
 
-Subject.prototype.Notify = function( context ){
-  var observerCount = this.observers.Count();
+Subject.prototype.notify = function( context ){
+  var observerCount = this.observers.count();
   for(var i=0; i < observerCount; i++){
-    this.observers.Get(i).Update( context );
+    this.observers.get(i).update( context );
   }
 };
 
 </pre>
 </p>
 
-<p>We then define a skeleton for creating new Observers. The <code>Update</code> functionality here will be overwritten later with custom behaviour. </p>
+<p>We then define a skeleton for creating new Observers. The <code>update</code> functionality here will be overwritten later with custom behaviour. </p>
 
 <p>
 <pre  class="brush: js">
 
 // The Observer
 function Observer(){
-  this.Update = function(){
+  this.update = function(){
     // ...
   };
 }
