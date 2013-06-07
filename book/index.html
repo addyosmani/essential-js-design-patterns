@@ -2154,7 +2154,7 @@ getCurrentTime = function (){
          d = date.getDate(),
          y = date.getFullYear(),
          t = date.toLocaleTimeString().toLowerCase();
-         
+
         return (m + "/" + d + "/" + y + " " + t);
 };
 
@@ -2170,7 +2170,7 @@ function addGridRow( data ) {
 // updated
 function updateCounter( data ) {
 
-   // ui.grid.updateLastChanged( getCurrentTime() );   
+   // ui.grid.updateLastChanged( getCurrentTime() );
    console.log( "data last updated at: " + getCurrentTime() + " with " + data);
 
 }
@@ -2178,7 +2178,7 @@ function updateCounter( data ) {
 // Update the grid using the data passed to our subscribers
 gridUpdate = function( topic, data ){
 
-  if ( data !== "undefined" ) {
+  if ( data !== undefined ) {
      addGridRow( data );
      updateCounter( data );
    }
@@ -2194,13 +2194,13 @@ var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 
 // Publish changes to the gridUpdated topic representing new entries
 pubsub.publish( "newDataAvailable", {
-  summary: "Apple made $5 billion", 
+  summary: "Apple made $5 billion",
   identifier: "APPL",
   stockPrice: 570.91
 });
 
 pubsub.publish( "newDataAvailable", {
-  summary: "Microsoft made $20 million", 
+  summary: "Microsoft made $20 million",
   identifier: "MSFT",
   stockPrice: 30.85
 });
