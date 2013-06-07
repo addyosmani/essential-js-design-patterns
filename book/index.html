@@ -2438,7 +2438,7 @@ Notice how in our sample below, one topic notification is made when a user indic
                 return;
               }
 
-              $.publish( "/search/resultSet" , data.items  );
+              $.publish( "/search/resultSet" , { items: data.items } );
        });
 
    });
