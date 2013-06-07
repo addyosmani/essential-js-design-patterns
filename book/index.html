@@ -2184,7 +2184,7 @@ function updateCounter( data ) {
 // Update the grid using the data passed to our subscribers
 gridUpdate = function( topic, data ){
 
-  if ( data !== "undefined" ) {
+  if ( data !== undefined ) {
      addGridRow( data );
      updateCounter( data );
    }
