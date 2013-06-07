@@ -2420,19 +2420,19 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe("/search/tags", function( e, tags ) {
 
-       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{ 
-              tags: tags, 
-              tagmode: "any", 
+       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
+              tags: tags,
+              tagmode: "any",
               format: "json"
             },
 
           function( data ){
 
-              if( !data.items.length ) { 
-                return; 
+              if( !data.items.length ) {
+                return;
               }
 
-              $.publish( "/search/resultSet" , data.items  );
+              $.publish( "/search/resultSet" , { items: data.items } );
        });
 
    });
