@@ -8782,9 +8782,6 @@ myApp["controllers"] = myApp["controllers"] || {};
 
 // a named immediately-invoked function expression
 (function foobar () { /*..*/})();
-
-// this is technically a self-executing function which is quite different
-function foobar () { foobar(); }
 </pre>
 <p>whilst a slightly more expanded version of the first example might look like:</p>
 <pre  class="brush: js">var namespace = namespace || {};
