@@ -4609,7 +4609,7 @@ var stateManager = {
     var self = this;
 
     $( "#container" ).unbind().on( "click" , function ( e ) {
-      var target = $( e.originalTarget || e.srcElement );
+      var target = $( e.target );
         if ( target.is( "div.toggle") ) {
           self.handleClick( target );
         }
