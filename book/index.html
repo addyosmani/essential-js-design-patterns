@@ -8783,6 +8783,18 @@ myApp["controllers"] = myApp["controllers"] || {};
 // a named immediately-invoked function expression
 (function foobar () { /*..*/})();
 </pre>
+
+<p>Examples of self-executing functions, which are quite different than IIFEs, can be found below:</p>
+
+<pre  class="brush: js">
+// named self-executing function
+function foobar () { foobar(); }
+
+// anonymous self-executing function
+var foobar = function () { arguments.callee(); }
+</pre>
+
+
 <p>whilst a slightly more expanded version of the first example might look like:</p>
 <pre  class="brush: js">var namespace = namespace || {};
 
