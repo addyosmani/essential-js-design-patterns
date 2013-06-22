@@ -2805,55 +2805,55 @@ var beget = (function () {
 <p><pre  class="brush: js">
 (function(){
 
-  var CarManager = {
+  var carManager = {
 
-      // request information
-      requestInfo: function( model, id ){
-        return "The information for " + model + " with ID " + id + " is foobar";
-      },
+    // request information
+    requestInfo: function( model, id ){
+      return "The information for " + model + " with ID " + id + " is foobar";
+    },
 
-      // purchase the car
-      buyVehicle: function( model, id ){
-        return "You have successfully purchased Item " + id + ", a " + model;
-      },
+    // purchase the car
+    buyVehicle: function( model, id ){
+      return "You have successfully purchased Item " + id + ", a " + model;
+    },
 
-      // arrange a viewing
-      arrangeViewing: function( model, id ){
-        return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
-      }
+    // arrange a viewing
+    arrangeViewing: function( model, id ){
+      return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
+    }
 
-    };
+  };
 
 })();
 </pre></p>
 
-<p>Taking a look at the above code, it would be trivial to invoke our <code>CarManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
+<p>Taking a look at the above code, it would be trivial to invoke our <code>carManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
 
-<p>For example, imagine if the core API behind the <code>CarManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
+<p>For example, imagine if the core API behind the <code>carManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
 
-<p>Let's now expand on our <code>CarManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>CarManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
+<p>Let's now expand on our <code>carManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>carManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
 
 <p>Here is what we would like to be able to achieve:</p>
-
+    
 <p><pre  class="brush: js">
-CarManager.execute( "buyVehicle", "Ford Escort", "453543" );
+carManager.execute( "buyVehicle", "Ford Escort", "453543" );
 </pre>
 </p>
 <p>
-As per this structure we should now add a definition for the "CarManager.execute" method as follows:
+As per this structure we should now add a definition for the <code>carManager.execute</code> method as follows:
 </p>
 <p><pre  class="brush: js">
-CarManager.execute = function ( name ) {
-    return CarManager[name] && CarManager[name].apply( CarManager, [].slice.call(arguments, 1) );
+carManager.execute = function ( name ) {
+    return carManager[name] && carManager[name].apply( carManager, [].slice.call(arguments, 1) );
 };
 </pre></p>
 <p>Our final sample calls would thus look as follows:</p>
 
 <p><pre  class="brush: js">
-CarManager.execute( "arrangeViewing", "Ferrari", "14523" );
-CarManager.execute( "requestInfo", "Ford Mondeo", "54323" );
-CarManager.execute( "requestInfo", "Ford Escort", "34232" );
-CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
+carManager.execute( "arrangeViewing", "Ferrari", "14523" );
+carManager.execute( "requestInfo", "Ford Mondeo", "54323" );
+carManager.execute( "requestInfo", "Ford Escort", "34232" );
+carManager.execute( "buyVehicle", "Ford Escort", "34232" );
 </pre></p>
 <p>&nbsp;</p>
 
