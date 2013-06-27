@@ -3128,47 +3128,47 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
 
 <p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.</p>
 
-<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
+<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named abstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
 
 <pre class="brush: js">
-  var AbstractVehicleFactory = (function () {
+var abstractVehicleFactory = (function () {
 
-    // Storage for our vehicle types
-    var types = {};
+  // Storage for our vehicle types
+  var types = {};
 
-    return {
-        getVehicle: function ( type, customizations ) {
-            var Vehicle = types[type];
+  return {
+      getVehicle: function ( type, customizations ) {
+          var Vehicle = types[type];
 
-            return (Vehicle ? new Vehicle(customizations) : null);
-        },
+          return (Vehicle ? new Vehicle(customizations) : null);
+      },
 
-        registerVehicle: function ( type, Vehicle ) {
-            var proto = Vehicle.prototype;
+      registerVehicle: function ( type, Vehicle ) {
+          var proto = Vehicle.prototype;
 
-            // only register classes that fulfill the vehicle contract
-            if ( proto.drive && proto.breakDown ) {
-                types[type] = Vehicle;
-            }
+          // only register classes that fulfill the vehicle contract
+          if ( proto.drive && proto.breakDown ) {
+              types[type] = Vehicle;
+          }
 
-            return AbstractVehicleFactory;
-        }
-    };
+          return abstractVehicleFactory;
+      }
+  };
 })();
 
 
 // Usage:
 
-AbstractVehicleFactory.registerVehicle( "car", Car );
-AbstractVehicleFactory.registerVehicle( "truck", Truck );
+abstractVehicleFactory.registerVehicle( "car", Car );
+abstractVehicleFactory.registerVehicle( "truck", Truck );
 
 // Instantiate a new car based on the abstract vehicle type
-var car = AbstractVehicleFactory.getVehicle( "car" , {
+var car = abstractVehicleFactory.getVehicle( "car" , {
             color: "lime green",
             state: "like new" } );
 
 // Instantiate a new truck in a similar manner
-var truck = AbstractVehicleFactory.getVehicle( "truck" , {
+var truck = abstractVehicleFactory.getVehicle( "truck" , {
             wheelSize: "medium",
             color: "neon yellow" } );
 </pre>
