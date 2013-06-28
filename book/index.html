@@ -3264,23 +3264,23 @@ var myMixins = {
 
 <pre class="brush: js">
 // A skeleton carAnimator constructor
-function carAnimator(){
+function CarAnimator(){
   this.moveLeft = function(){
     console.log( "move left" );
   };
 }
 
 // A skeleton personAnimator constructor
-function personAnimator(){
+function PersonAnimator(){
   this.moveRandomly = function(){ /*..*/ };
 }
 
 // Extend both constructors with our Mixin
-_.extend( carAnimator.prototype, myMixins );
-_.extend( personAnimator.prototype, myMixins );
+_.extend( CarAnimator.prototype, myMixins );
+_.extend( PersonAnimator.prototype, myMixins );
 
 // Create a new instance of carAnimator
-var myAnimator = new carAnimator();
+var myAnimator = new CarAnimator();
 myAnimator.moveLeft();
 myAnimator.moveDown();
 myAnimator.stop();
