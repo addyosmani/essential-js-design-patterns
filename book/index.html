@@ -3422,7 +3422,7 @@ mySportsCar.driveSideways();
 <pre  class="brush: js">
 
 // A vehicle constructor
-function vehicle( vehicleType ){
+function Vehicle( vehicleType ){
 
     // some sane defaults
     this.vehicleType = vehicleType || "car";
@@ -3432,14 +3432,14 @@ function vehicle( vehicleType ){
 }
 
 // Test instance for a basic vehicle
-var testInstance = new vehicle( "car" );
+var testInstance = new Vehicle( "car" );
 console.log( testInstance );
 
 // Outputs:
 // vehicle: car, model:default, license: 00000-000
 
 // Lets create a new instance of vehicle, to be decorated
-var truck = new vehicle( "truck" );
+var truck = new Vehicle( "truck" );
 
 // New functionality we're decorating vehicle with
 truck.setModel = function( modelName ){
@@ -3460,7 +3460,7 @@ console.log( truck );
 // vehicle:truck, model:CAT, color: blue
 
 // Demonstrate "vehicle" is still unaltered
-var secondInstance = new vehicle( "car" );
+var secondInstance = new Vehicle( "car" );
 console.log( secondInstance );
 
 // Outputs:
@@ -3483,7 +3483,7 @@ function MacBook() {
 }
 
 // Decorator 1
-function Memory( macbook ) {
+function memory( macbook ) { 
 
   var v = macbook.cost();
   macbook.cost = function() {
@@ -3493,7 +3493,7 @@ function Memory( macbook ) {
 }
 
 // Decorator 2
-function Engraving( macbook ){
+function engraving( macbook ){
 
   var v = macbook.cost();
   macbook.cost = function(){
@@ -3503,7 +3503,7 @@ function Engraving( macbook ){
 }
 
 // Decorator 3
-function Insurance( macbook ){
+function insurance( macbook ){
 
   var v = macbook.cost();
   macbook.cost = function(){
@@ -3512,10 +3512,10 @@ function Insurance( macbook ){
 
 }
 
-var mb = new MacBook();
-Memory( mb );
-Engraving( mb );
-Insurance( mb );
+var mb = new MacBook(); 
+memory( mb ); 
+engraving( mb );
+insurance( mb );
 
 // Outputs: 1522
 console.log( mb.cost() );
