@@ -3701,7 +3701,7 @@ mySportsCar.driveSideways();
 <pre  class="brush: js">
 
 // A vehicle constructor
-function vehicle( vehicleType ){
+function Vehicle( vehicleType ){
 
     // some sane defaults
     this.vehicleType = vehicleType || "car";
@@ -3711,14 +3711,14 @@ function vehicle( vehicleType ){
 }
 
 // Test instance for a basic vehicle
-var testInstance = new vehicle( "car" );
+var testInstance = new Vehicle( "car" );
 console.log( testInstance );
 
 // Outputs:
 // vehicle: car, model:default, license: 00000-000
 
 // Lets create a new instance of vehicle, to be decorated
-var truck = new vehicle( "truck" );
+var truck = new Vehicle( "truck" );
 
 // New functionality we're decorating vehicle with
 truck.setModel = function( modelName ){
@@ -3739,7 +3739,7 @@ console.log( truck );
 // vehicle:truck, model:CAT, color: blue
 
 // Demonstrate "vehicle" is still unaltered
-var secondInstance = new vehicle( "car" );
+var secondInstance = new Vehicle( "car" );
 console.log( secondInstance );
 
 // Outputs:
@@ -3754,7 +3754,7 @@ console.log( secondInstance );
 <pre  class="brush: js">
 
 // The constructor to decorate
-function MacBook() { 
+function Macbook() { 
 
   this.cost = function () { return 997; }; 
   this.screenSize = function () { return 11.6; }; 
@@ -3762,7 +3762,7 @@ function MacBook() {
 } 
 
 // Decorator 1
-function Memory( macbook ) { 
+function memory( macbook ) { 
 
   var v = macbook.cost(); 
   macbook.cost = function() { 
@@ -3772,7 +3772,7 @@ function Memory( macbook ) {
 } 
 
 // Decorator 2
-function Engraving( macbook ){
+function engraving( macbook ){
 
   var v = macbook.cost(); 
   macbook.cost = function(){
@@ -3782,7 +3782,7 @@ function Engraving( macbook ){
 }
  
 // Decorator 3
-function Insurance( macbook ){
+function insurance( macbook ){
 
   var v = macbook.cost(); 
   macbook.cost = function(){
@@ -3791,10 +3791,10 @@ function Insurance( macbook ){
 
 }
 
-var mb = new MacBook(); 
-Memory( mb ); 
-Engraving( mb );
-Insurance( mb );
+var mb = new Macbook(); 
+memory( mb ); 
+engraving( mb );
+insurance( mb );
 
 // Outputs: 1522
 console.log( mb.cost() );
@@ -3804,7 +3804,7 @@ console.log( mb.screenSize() );
 
 </pre>
 
-<p>In the above example, our Decorators are overriding the <code>MacBook()</code> super-class objects <code>.cost()</code> function to return the current price of the <code>Macbook</code> plus the cost of the upgrade being specified.</p>
+<p>In the above example, our Decorators are overriding the <code>Macbook()</code> super-class objects <code>.cost()</code> function to return the current price of the <code>Macbook</code> plus the cost of the upgrade being specified.</p>
 
 <p>It's considered a decoration as the original <code>Macbook</code> objects constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
 
