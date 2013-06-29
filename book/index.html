@@ -1145,7 +1145,7 @@ myModule.publicMethod();
 // Global module
 var myModule = (function () {
 
-    // Module object 
+  // Module object 
   var module = {},
     privateVariable = "Hello World";
   
@@ -1164,9 +1164,9 @@ var myModule = (function () {
 </pre>
 
 
-<p>
+<h4>
 Toolkit And Framework-specific Module Pattern Implementations
-</p>
+</h4>
 <p>
 <strong>Dojo</strong>
 <p>
@@ -1342,7 +1342,7 @@ var myLibrary = library(function () {
 
 <h4>Advantages</h4>
 
-<p>We've seen why the Singleton pattern can be useful, but why is the Module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>We've seen why the Constructor pattern can be useful, but why is the Module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
 <p>Secondly, it supports private data - so, in the Module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
 <h4>Disadvantages</h4>
@@ -1709,74 +1709,36 @@ function ObserverList(){
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.add = function( obj ){
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
-  this.observerList = [];
-};
-
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.count = function(){
   return this.observerList.length;
 };
 
-
-ObserverList.prototype.Get = function( index ){
+ObserverList.prototype.get = function( index ){
   if( index > -1 && index < this.observerList.length ){
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
-  var pointer = -1;
-
-  if( index === 0 ){
-    this.observerList.unshift( obj );
-    pointer = index;
-  }else if( index === this.observerList.length ){
-    this.observerList.push( obj );
-    pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
-    this.observerList.splice( index, 0, obj );
-    pointer = index;
-  }
-
-  return pointer;
-};
-
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
-  var i = startIndex, pointer = -1;
+ObserverList.prototype.indexOf = function( obj, startIndex ){
+  var i = startIndex;
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
-      pointer = i;
+      return i;
     }
     i++;
   }
 
-  return pointer;
+  return -1;
 };
 
-ObserverList.prototype.RemoveAt = function (index) {
-    if (index === 0) {
-        this.observerList.shift();
-    } else if (index === this.observerList.length - 1) {
-        this.observerList.pop();
-    } else {
-        this.observerList.splice(index, 1);
-    }
-}
-
-
-// Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
-    obj[key] = extension[key];
-  }
-}
- 
-
+ObserverList.prototype.removeAt = function( index ){
+  this.observerList.splice( index, 1 );
+};
 </pre>
 </p>
 
@@ -1789,32 +1751,32 @@ function Subject(){
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
-  this.observers.Add( observer );
-};  
+Subject.prototype.addObserver = function( observer ){
+  this.observers.add( observer );
+};
 
-Subject.prototype.RemoveObserver = function( observer ){
-  this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
-};  
+Subject.prototype.removeObserver = function( observer ){
+  this.observers.removeAt( this.observers.indexOf( observer, 0 ) );
+};
 
-Subject.prototype.Notify = function( context ){
-  var observerCount = this.observers.Count();
+Subject.prototype.notify = function( context ){
+  var observerCount = this.observers.count();
   for(var i=0; i < observerCount; i++){
-    this.observers.Get(i).Update( context );
+    this.observers.get(i).update( context );
   }
 };
 
 </pre>
 </p>
 
-<p>We then define a skeleton for creating new Observers. The <code>Update</code> functionality here will be overwritten later with custom behaviour. </p>
+<p>We then define a skeleton for creating new Observers. The <code>update</code> functionality here will be overwritten later with custom behaviour. </p>
 
 <p>
 <pre  class="brush: js">
 
 // The Observer
 function Observer(){
-  this.Update = function(){
+  this.update = function(){
     // ...
   };
 }
@@ -1845,6 +1807,12 @@ function Observer(){
 <p><strong>Sample script:</strong></p>
 <p>
 <pre  class="brush: js">
+// Extend an object with an extension
+function extend( extension, obj ){
+  for ( var key in extension ){
+    obj[key] = extension[key];
+  }
+}
 
 // References to our DOM elements
 
@@ -1859,14 +1827,15 @@ var controlCheckbox = document.getElementById( "mainCheckbox" ),
 extend( new Subject(), controlCheckbox );
 
 // Clicking the checkbox will trigger notifications to its observers
-controlCheckbox["onclick"] = new Function( "controlCheckbox.Notify(controlCheckbox.checked)" );
+controlCheckbox.onclick = function(){
+  controlCheckbox.notify( controlCheckbox.checked );
+};
 
-
-addBtn["onclick"] = AddNewObserver;
+addBtn.onclick = addNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function addNewObserver(){
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1876,13 +1845,13 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.update = function( value ){
     this.checked = value;
   };
 
   // Add the new observer to our list of observers
   // for our main subject
-  controlCheckbox.AddObserver( check );
+  controlCheckbox.addObserver( check );
 
   // Append the item to the container
   container.appendChild( check );
@@ -1939,18 +1908,18 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $('.newMessageCounter').html( ++mailCounter );
 
 });
 
 publish( "inbox/newMessage", [{
-  sender:"hello@google.com", 
+  sender:"hello@google.com",
   body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1 );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -2185,7 +2154,7 @@ getCurrentTime = function (){
          d = date.getDate(),
          y = date.getFullYear(),
          t = date.toLocaleTimeString().toLowerCase();
-         
+
         return (m + "/" + d + "/" + y + " " + t);
 };
 
@@ -2201,7 +2170,7 @@ function addGridRow( data ) {
 // updated
 function updateCounter( data ) {
 
-   // ui.grid.updateLastChanged( getCurrentTime() );   
+   // ui.grid.updateLastChanged( getCurrentTime() );
    console.log( "data last updated at: " + getCurrentTime() + " with " + data);
 
 }
@@ -2209,7 +2178,7 @@ function updateCounter( data ) {
 // Update the grid using the data passed to our subscribers
 gridUpdate = function( topic, data ){
 
-  if ( data !== "undefined" ) {
+  if ( data !== undefined ) {
      addGridRow( data );
      updateCounter( data );
    }
@@ -2225,13 +2194,13 @@ var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 
 // Publish changes to the gridUpdated topic representing new entries
 pubsub.publish( "newDataAvailable", {
-  summary: "Apple made $5 billion", 
+  summary: "Apple made $5 billion",
   identifier: "APPL",
   stockPrice: 570.91
 });
 
 pubsub.publish( "newDataAvailable", {
-  summary: "Microsoft made $20 million", 
+  summary: "Microsoft made $20 million",
   identifier: "MSFT",
   stockPrice: 30.85
 });
@@ -2334,8 +2303,8 @@ It's left up to the subscribers to those topics to then delegate what happens wi
     var compiledTemplate;
 
     if( data ){
-      
-      $( "#ratings" ).append( ratingsTemplate( data );
+
+      $( "#ratings" ).append( ratingsTemplate( data ) );
 
     }
 
@@ -2451,19 +2420,19 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe("/search/tags", function( e, tags ) {
 
-       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{ 
-              tags: tags, 
-              tagmode: "any", 
+       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
+              tags: tags,
+              tagmode: "any",
               format: "json"
             },
 
           function( data ){
 
-              if( !data.items.length ) { 
-                return; 
+              if( !data.items.length ) {
+                return;
               }
 
-              $.publish( "/search/resultSet" , data.items  );
+              $.publish( "/search/resultSet" , { items: data.items } );
        });
 
    });
@@ -3114,56 +3083,56 @@ var beget = (function () {
 <p>To demonstrate the Command pattern we're going to create a simple car purchasing service.</p>
 <p><pre  class="brush: js">
 (function(){
-  
-  var CarManager = {
-  
-      // request information
-      requestInfo: function( model, id ){
-        return "The information for " + model + " with ID " + id + " is foobar";
-      },
-      
-      // purchase the car
-      buyVehicle: function( model, id ){
-        return "You have successfully purchased Item " + id + ", a " + model;
-      },
-      
-      // arrange a viewing
-      arrangeViewing: function( model, id ){
-        return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
-      }
-    
-    };
-    
+
+  var carManager = {
+
+    // request information
+    requestInfo: function( model, id ){
+      return "The information for " + model + " with ID " + id + " is foobar";
+    },
+
+    // purchase the car
+    buyVehicle: function( model, id ){
+      return "You have successfully purchased Item " + id + ", a " + model;
+    },
+
+    // arrange a viewing
+    arrangeViewing: function( model, id ){
+      return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
+    }
+
+  };
+
 })();
 </pre></p>
 
-<p>Taking a look at the above code, it would be trivial to invoke our <code>CarManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
+<p>Taking a look at the above code, it would be trivial to invoke our <code>carManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
 
-<p>For example, imagine if the core API behind the <code>CarManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
+<p>For example, imagine if the core API behind the <code>carManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
 
-<p>Let's now expand on our <code>CarManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>CarManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
+<p>Let's now expand on our <code>carManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>carManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
 
 <p>Here is what we would like to be able to achieve:</p>
     
 <p><pre  class="brush: js">
-CarManager.execute( "buyVehicle", "Ford Escort", "453543" );
+carManager.execute( "buyVehicle", "Ford Escort", "453543" );
 </pre>
 </p>
 <p>
-As per this structure we should now add a definition for the "CarManager.execute" method as follows:
+As per this structure we should now add a definition for the <code>carManager.execute</code> method as follows:
 </p>
-<p><pre  class="brush: js">  
-CarManager.execute = function ( name ) {
-    return CarManager[name] && CarManager[name].apply( CarManager, [].slice.call(arguments, 1) );
+<p><pre  class="brush: js">
+carManager.execute = function ( name ) {
+    return carManager[name] && carManager[name].apply( carManager, [].slice.call(arguments, 1) );
 };
 </pre></p>
 <p>Our final sample calls would thus look as follows:</p>
 
 <p><pre  class="brush: js">
-CarManager.execute( "arrangeViewing", "Ferrari", "14523" );
-CarManager.execute( "requestInfo", "Ford Mondeo", "54323" );
-CarManager.execute( "requestInfo", "Ford Escort", "34232" );
-CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
+carManager.execute( "arrangeViewing", "Ferrari", "14523" );
+carManager.execute( "requestInfo", "Ford Mondeo", "54323" );
+carManager.execute( "requestInfo", "Ford Escort", "34232" );
+carManager.execute( "buyVehicle", "Ford Escort", "34232" );
 </pre></p>
 <p>&nbsp;</p>
 
@@ -3283,7 +3252,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>Did you know however that <code>getElementById()</code> on its own is significantly faster by a high order of magnitude? Take a look at this jsPerf test to see results on a per-browser level: <a href="http://jsperf.com/getelementbyid-vs-jquery-id">http://jsperf.com/getelementbyid-vs-jquery-id</a>. Now of course, we have to keep in mind that jQuery (and Sizzle - its selector engine) are doing a lot more behind the scenes to optimize our query (and that a jQuery object, not just a DOM node is returned). </p>
 
-<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById("identifier")</code> or <code>jQuery.getbyClass("identifier")</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
+<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById("identifier")</code> or <code>jQuery.getByClass("identifier")</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
 
 <p>When using the pattern, try to be aware of any performance costs involved and make a call on whether they are worth the level of abstraction offered.</p>
 
@@ -3438,48 +3407,48 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
 
 <p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.</p>
 
-<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
+<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named abstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
 
 <pre class="brush: js">
-  var AbstractVehicleFactory = (function () {
+var abstractVehicleFactory = (function () {
 
-    // Storage for our vehicle types
-    var types = {};
+  // Storage for our vehicle types
+  var types = {};
 
-    return {
-        getVehicle: function ( type, customizations ) {
-            var Vehicle = types[type];
+  return {
+      getVehicle: function ( type, customizations ) {
+          var Vehicle = types[type];
 
-            return (Vehicle ? new Vehicle(customizations) : null);
-        },
+          return (Vehicle ? new Vehicle(customizations) : null);
+      },
 
-        registerVehicle: function ( type, Vehicle ) {
-            var proto = Vehicle.prototype;
+      registerVehicle: function ( type, Vehicle ) {
+          var proto = Vehicle.prototype;
 
-            // only register classes that fulfill the vehicle contract
-            if ( proto.drive && proto.breakDown ) {
-                types[type] = Vehicle;
-            }
+          // only register classes that fulfill the vehicle contract
+          if ( proto.drive && proto.breakDown ) {
+              types[type] = Vehicle;
+          }
 
-            return AbstractVehicleFactory;
-        }
-    };
+          return abstractVehicleFactory;
+      }
+  };
 })();
 
 
-// Usage: 
+// Usage:
 
-AbstractVehicleFactory.registerVehicle( "car", Car );
-AbstractVehicleFactory.registerVehicle( "truck", Truck );
+abstractVehicleFactory.registerVehicle( "car", Car );
+abstractVehicleFactory.registerVehicle( "truck", Truck );
 
 // Instantiate a new car based on the abstract vehicle type
-var car = AbstractVehicleFactory.getVehicle( "car" , { 
-            color: "lime green", 
+var car = abstractVehicleFactory.getVehicle( "car" , {
+            color: "lime green",
             state: "like new" } );
 
 // Instantiate a new truck in a similar manner
-var truck = AbstractVehicleFactory.getVehicle( "truck" , { 
-            wheelSize: "medium", 
+var truck = abstractVehicleFactory.getVehicle( "truck" , {
+            wheelSize: "medium",
             color: "neon yellow" } );
 </pre>
 
@@ -3535,7 +3504,7 @@ var Superhero = function( firstName, lastName , powers ){
     this.powers = powers;
 };
 
-SuperHero.prototype = Object.create( Person.prototype );
+Superhero.prototype = Object.create( Person.prototype );
 var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
 console.log( superman ); 
 
@@ -3574,23 +3543,23 @@ var myMixins = {
 
 <pre class="brush: js">
 // A skeleton carAnimator constructor
-function carAnimator(){
+function CarAnimator(){
   this.moveLeft = function(){
     console.log( "move left" );
   };
 }
 
 // A skeleton personAnimator constructor
-function personAnimator(){
+function PersonAnimator(){
   this.moveRandomly = function(){ /*..*/ };
 }
 
 // Extend both constructors with our Mixin
-_.extend( carAnimator.prototype, myMixins );
-_.extend( personAnimator.prototype, myMixins );
+_.extend( CarAnimator.prototype, myMixins );
+_.extend( PersonAnimator.prototype, myMixins );
 
 // Create a new instance of carAnimator
-var myAnimator = new carAnimator();
+var myAnimator = new CarAnimator();
 myAnimator.moveLeft();
 myAnimator.moveDown();
 myAnimator.stop();
@@ -3613,10 +3582,10 @@ myAnimator.stop();
 // Define a simple Car constructor
 var Car = function ( settings ) {
 
-        this.model = settings.model || "no model provided";
-        this.color = settings.color || "no colour provided";
+    this.model = settings.model || "no model provided";
+    this.color = settings.color || "no colour provided";
 
-    };
+};
 
 // Mixin
 var Mixin = function () {};
@@ -3654,7 +3623,7 @@ function augment( receivingClass, givingClass ) {
             // check to make sure the receiving class doesn't 
             // have a method of the same name as the one currently 
             // being processed 
-            if ( !Object.hasOwnProperty(receivingClass.prototype, methodName) ) {
+            if ( !Object.hasOwnProperty.call(receivingClass.prototype, methodName) ) {
                 receivingClass.prototype[methodName] = givingClass.prototype[methodName];
             }
 
@@ -3732,7 +3701,7 @@ mySportsCar.driveSideways();
 <pre  class="brush: js">
 
 // A vehicle constructor
-function vehicle( vehicleType ){
+function Vehicle( vehicleType ){
 
     // some sane defaults
     this.vehicleType = vehicleType || "car";
@@ -3742,14 +3711,14 @@ function vehicle( vehicleType ){
 }
 
 // Test instance for a basic vehicle
-var testInstance = new vehicle( "car" );
+var testInstance = new Vehicle( "car" );
 console.log( testInstance );
 
 // Outputs:
 // vehicle: car, model:default, license: 00000-000
 
 // Lets create a new instance of vehicle, to be decorated
-var truck = new vehicle( "truck" );
+var truck = new Vehicle( "truck" );
 
 // New functionality we're decorating vehicle with
 truck.setModel = function( modelName ){
@@ -3770,7 +3739,7 @@ console.log( truck );
 // vehicle:truck, model:CAT, color: blue
 
 // Demonstrate "vehicle" is still unaltered
-var secondInstance = new vehicle( "car" );
+var secondInstance = new Vehicle( "car" );
 console.log( secondInstance );
 
 // Outputs:
@@ -3785,7 +3754,7 @@ console.log( secondInstance );
 <pre  class="brush: js">
 
 // The constructor to decorate
-function MacBook() { 
+function Macbook() { 
 
   this.cost = function () { return 997; }; 
   this.screenSize = function () { return 11.6; }; 
@@ -3793,7 +3762,7 @@ function MacBook() {
 } 
 
 // Decorator 1
-function Memory( macbook ) { 
+function memory( macbook ) { 
 
   var v = macbook.cost(); 
   macbook.cost = function() { 
@@ -3803,7 +3772,7 @@ function Memory( macbook ) {
 } 
 
 // Decorator 2
-function Engraving( macbook ){
+function engraving( macbook ){
 
   var v = macbook.cost(); 
   macbook.cost = function(){
@@ -3813,7 +3782,7 @@ function Engraving( macbook ){
 }
  
 // Decorator 3
-function Insurance( macbook ){
+function insurance( macbook ){
 
   var v = macbook.cost(); 
   macbook.cost = function(){
@@ -3822,10 +3791,10 @@ function Insurance( macbook ){
 
 }
 
-var mb = new MacBook(); 
-Memory( mb ); 
-Engraving( mb );
-Insurance( mb );
+var mb = new Macbook(); 
+memory( mb ); 
+engraving( mb );
+insurance( mb );
 
 // Outputs: 1522
 console.log( mb.cost() );
@@ -3835,7 +3804,7 @@ console.log( mb.screenSize() );
 
 </pre>
 
-<p>In the above example, our Decorators are overriding the <code>MacBook()</code> super-class objects <code>.cost()</code> function to return the current price of the <code>Macbook</code> plus the cost of the upgrade being specified.</p>
+<p>In the above example, our Decorators are overriding the <code>Macbook()</code> super-class objects <code>.cost()</code> function to return the current price of the <code>Macbook</code> plus the cost of the upgrade being specified.</p>
 
 <p>It's considered a decoration as the original <code>Macbook</code> objects constructor methods which are not overridden (e.g. <code>screenSize()</code>) as well as any other properties which we may define as a part of the <code>Macbook</code> remain unchanged and intact.</p>
 
@@ -4609,7 +4578,7 @@ var stateManager = {
     var self = this;
 
     $( "#container" ).unbind().on( "click" , function ( e ) {
-      var target = $( e.originalTarget || e.srcElement );
+      var target = $( e.target );
         if ( target.is( "div.toggle") ) {
           self.handleClick( target );
         }
@@ -4652,7 +4621,7 @@ $( "div" ).on( "click", function () {
 
 <p>James had wanted to use jQuery's <code>jQuery.text</code> in the following context, however he disagreed with the notion that a new jQuery object had to be created on each iteration:</p>
 
-<pre>
+<pre class="brush: js">
 $( "a" ).map( function () { 
   return $( this ).text(); 
 });
