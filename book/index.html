@@ -869,17 +869,17 @@ var myModule = {
   },
 
   // a very basic method
-  myMethod: function () {
+  saySomething: function () {
     console.log( "Where in the world is Paul Irish today?" );
   },
 
   // output a value based on the current configuration
-  myMethod2: function () {
-    console.log( "Caching is:" + ( this.myConfig.useCaching ) ? "enabled" : "disabled" );
+  reportMyConfig: function () {
+    console.log( "Caching is: " + ( this.myConfig.useCaching  ? "enabled" : "disabled") );
   },
 
   // override the current configuration
-  myMethod3: function( newConfig ) {
+  updateMyConfig: function( newConfig ) {
 
     if ( typeof newConfig === "object" ) {
       this.myConfig = newConfig;
@@ -889,16 +889,19 @@ var myModule = {
 };
 
 // Outputs: Where in the world is Paul Irish today?
-myModule.myMethod();
+myModule.saySomething();
 
-// Outputs: enabled
-myModule.myMethod2();
+// Outputs: Caching is: enabled
+myModule.reportMyConfig();
 
 // Outputs: fr
-myModule.myMethod3({
+myModule.updateMyConfig({
   language: "fr",
   useCaching: false
 });
+
+// Outputs: Caching is: disabled
+myModule.reportMyConfig();
 
 </pre>
 </p>
