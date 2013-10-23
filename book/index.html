@@ -2150,7 +2150,7 @@ pubsub.publish( "inbox/newMessage", {
 
 // We cab also unsubscribe if we no longer wish for our subscribers
 // to be notified
-// pubsub.unsubscribe( subscription );
+pubsub.unsubscribe( subscription );
 
 // Once unsubscribed, this for example won't result in our
 // messageLogger being executed as the subscriber is
