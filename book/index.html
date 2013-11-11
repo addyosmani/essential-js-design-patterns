@@ -879,7 +879,7 @@ var myModule = {
   },
 
   // override the current configuration
-  updateMyConfig: function( newConfig ) {
+  updateMyConfig: function ( newConfig ) {
 
     if ( typeof newConfig === "object" ) {
       this.myConfig = newConfig;
@@ -986,8 +986,8 @@ var myNamespace = (function () {
   myPrivateVar = 0;
 
   // A private function which logs any arguments
-  myPrivateMethod = function( foo ) {
-      console.log( foo );
+  myPrivateMethod = function ( foo ) {
+    console.log( foo );
   };
 
   return {
@@ -996,7 +996,7 @@ var myNamespace = (function () {
     myPublicVar: "foo",
 
     // A public function utilizing privates
-    myPublicFunction: function( bar ) {
+    myPublicFunction: function ( bar ) {
 
       // Increment our private counter
       myPrivateVar++;
@@ -1022,11 +1022,11 @@ var basketModule = (function () {
 
   var basket = [];
 
-  function doSomethingPrivate() {
+  function doSomethingPrivate () {
     //...
   }
 
-  function doSomethingElsePrivate() {
+  function doSomethingElsePrivate () {
     //...
   }
 
@@ -1034,8 +1034,8 @@ var basketModule = (function () {
   return {
 
     // Add items to our basket
-    addItem: function( values ) {
-      basket.push(values);
+    addItem: function ( values ) {
+      basket.push( values );
     },
 
     // Get the count of items in the basket
@@ -1052,7 +1052,7 @@ var basketModule = (function () {
       var q = this.getItemCount(),
           p = 0;
 
-      while (q--) {
+      while ( q-- ) {
         p += basket[q].price;
       }
 
@@ -1121,16 +1121,16 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 // Global module
 var myModule = (function ( jQ, _ ) {
 
-    function privateMethod1(){
+    function privateMethod1 () {
         jQ(".container").html("test");
     }
 
-    function privateMethod2(){
+    function privateMethod2 () {
       console.log( _.min([10, 5, 100, 2, 1000]) );
     }
 
-    return{
-        publicMethod: function(){
+    return {
+        publicMethod: function () {
             privateMethod1();
         }
     };
@@ -1152,7 +1152,7 @@ var myModule = (function () {
   var module = {},
     privateVariable = "Hello World";
 
-  function privateMethod() {
+  function privateMethod () {
     // ...
   }
 
@@ -1194,19 +1194,19 @@ store.basket.core = {
 </p>
 <p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
 <pre  class="brush: js">
-require(["dojo/_base/customStore"], function( store ){
+require(["dojo/_base/customStore"], function ( store ) {
 
   // using dojo.setObject()
-  store.setObject( "basket.core", (function() {
+  store.setObject( "basket.core", (function () {
 
       var basket = [];
 
-      function privateMethod() {
-          console.log(basket);
+      function privateMethod () {
+          console.log( basket );
       }
 
       return {
-          publicMethod: function(){
+          publicMethod: function () {
                   privateMethod();
           }
       };
@@ -1223,7 +1223,7 @@ require(["dojo/_base/customStore"], function( store ){
 <p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the Module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
-Ext.namespace("myNameSpace");
+Ext.namespace( "myNameSpace" );
 
 // create application
 myNameSpace.app = function () {
@@ -1236,9 +1236,9 @@ myNameSpace.app = function () {
 
   // private functions
   var btn1Handler = function ( button, event ) {
-      console.log( "privVar1=" + privVar1 );
-      console.log( "this.btn1Text=" + this.btn1Text );
-    };
+    console.log( "privVar1=" + privVar1 );
+    console.log( "this.btn1Text=" + this.btn1Text );
+  };
 
   // public space
   return {
