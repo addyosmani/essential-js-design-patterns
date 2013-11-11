@@ -409,7 +409,7 @@ function Car( model ) {
 
 <p>We can then instantiate the object using the Car constructor we defined above like this:</p>
 <pre class="brush: js" >
-var myCar = new Car("ford");
+var myCar = new Car( "ford" );
 
 myCar.year = "2010";
 
@@ -660,7 +660,7 @@ var key = newObject["someKey"];
 // 3. Object.defineProperty
 
 // Set properties
-Object.defineProperty( newObject, "someKey", {
+Object.defineProperty(newObject, "someKey", {
     value: "for more control of the property's behavior",
     writable: true,
     enumerable: true,
@@ -670,7 +670,7 @@ Object.defineProperty( newObject, "someKey", {
 // If the above feels a little difficult to read, a short-hand could
 // be written as follows:
 
-var defineProp = function ( obj, key, value ){
+var defineProp = function ( obj, key, value ) {
   var config = {
     value: value,
     writable: true,
@@ -688,14 +688,14 @@ defineProp( person, "car",  "Delorean" );
 defineProp( person, "dateOfBirth", "1981" );
 defineProp( person, "hasBeard", false );
 
-console.log(person);
-// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
+console.log( person );
+// Outputs: Object { car: "Delorean", dateOfBirth: "1981", hasBeard: false };
 
 
 // 4. Object.defineProperties
 
 // Set properties
-Object.defineProperties( newObject, {
+Object.defineProperties(newObject, {
 
   "someKey": {
     value: "Hello World",
@@ -724,7 +724,7 @@ Object.defineProperties( newObject, {
 var driver = Object.create( person );
 
 // Set some properties for the driver
-defineProp(driver, "topSpeed", "100mph");
+defineProp( driver, "topSpeed", "100mph" );
 
 // Get an inherited property (1981)
 console.log( driver.dateOfBirth );
@@ -742,14 +742,14 @@ console.log( driver.topSpeed );
 
 <p><pre  class="brush: js">
 
-function Car( model, year, miles ) {
+function Car ( model, year, miles ) {
 
   this.model = model;
   this.year = year;
   this.miles = miles;
 
   this.toString = function () {
-    return this.model + " has done " + this.miles + " miles";
+    return this.model + " has done " + this.miles + " miles.";
   };
 }
 
@@ -781,7 +781,7 @@ console.log( mondeo.toString() );
 
 <p><pre class="brush: js">
 
-function Car( model, year, miles ) {
+function Car ( model, year, miles ) {
 
   this.model = model;
   this.year = year;
@@ -793,7 +793,7 @@ function Car( model, year, miles ) {
 // Note here that we are using Object.prototype.newMethod rather than
 // Object.prototype so as to avoid redefining the prototype object
 Car.prototype.toString = function () {
-  return this.model + " has done " + this.miles + " miles";
+  return this.model + " has done " + this.miles + " miles.";
 };
 
 // Usage:
@@ -879,7 +879,7 @@ var myModule = {
   },
 
   // override the current configuration
-  updateMyConfig: function( newConfig ) {
+  updateMyConfig: function ( newConfig ) {
 
     if ( typeof newConfig === "object" ) {
       this.myConfig = newConfig;
@@ -986,8 +986,8 @@ var myNamespace = (function () {
   myPrivateVar = 0;
 
   // A private function which logs any arguments
-  myPrivateMethod = function( foo ) {
-      console.log( foo );
+  myPrivateMethod = function ( foo ) {
+    console.log( foo );
   };
 
   return {
@@ -996,7 +996,7 @@ var myNamespace = (function () {
     myPublicVar: "foo",
 
     // A public function utilizing privates
-    myPublicFunction: function( bar ) {
+    myPublicFunction: function ( bar ) {
 
       // Increment our private counter
       myPrivateVar++;
@@ -1022,11 +1022,11 @@ var basketModule = (function () {
 
   var basket = [];
 
-  function doSomethingPrivate() {
+  function doSomethingPrivate () {
     //...
   }
 
-  function doSomethingElsePrivate() {
+  function doSomethingElsePrivate () {
     //...
   }
 
@@ -1034,8 +1034,8 @@ var basketModule = (function () {
   return {
 
     // Add items to our basket
-    addItem: function( values ) {
-      basket.push(values);
+    addItem: function ( values ) {
+      basket.push( values );
     },
 
     // Get the count of items in the basket
@@ -1052,7 +1052,7 @@ var basketModule = (function () {
       var q = this.getItemCount(),
           p = 0;
 
-      while (q--) {
+      while ( q-- ) {
         p += basket[q].price;
       }
 
@@ -1121,16 +1121,16 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 // Global module
 var myModule = (function ( jQ, _ ) {
 
-    function privateMethod1(){
-        jQ(".container").html("test");
+    function privateMethod1 () {
+        jQ( ".container" ).html( "test" );
     }
 
-    function privateMethod2(){
+    function privateMethod2 () {
       console.log( _.min([10, 5, 100, 2, 1000]) );
     }
 
-    return{
-        publicMethod: function(){
+    return {
+        publicMethod: function () {
             privateMethod1();
         }
     };
@@ -1152,7 +1152,7 @@ var myModule = (function () {
   var module = {},
     privateVariable = "Hello World";
 
-  function privateMethod() {
+  function privateMethod () {
     // ...
   }
 
@@ -1194,21 +1194,21 @@ store.basket.core = {
 </p>
 <p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
 <pre  class="brush: js">
-require(["dojo/_base/customStore"], function( store ){
+require(["dojo/_base/customStore"], function ( store ) {
 
   // using dojo.setObject()
-  store.setObject( "basket.core", (function() {
+  store.setObject("basket.core", ( function () {
 
       var basket = [];
 
-      function privateMethod() {
-          console.log(basket);
+      function privateMethod () {
+          console.log( basket );
       }
 
       return {
-          publicMethod: function(){
-                  privateMethod();
-          }
+        publicMethod: function () {
+          privateMethod();
+        }
       };
 
   })());
@@ -1223,7 +1223,7 @@ require(["dojo/_base/customStore"], function( store ){
 <p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the Module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
-Ext.namespace("myNameSpace");
+Ext.namespace( "myNameSpace" );
 
 // create application
 myNameSpace.app = function () {
@@ -1236,9 +1236,9 @@ myNameSpace.app = function () {
 
   // private functions
   var btn1Handler = function ( button, event ) {
-      console.log( "privVar1=" + privVar1 );
-      console.log( "this.btn1Text=" + this.btn1Text );
-    };
+    console.log( "privVar1=" + privVar1 );
+    console.log( "this.btn1Text=" + this.btn1Text );
+  };
 
   // public space
   return {
@@ -1258,7 +1258,7 @@ myNameSpace.app = function () {
 
       } else {
 
-        btn1 = new Ext.Button( "btn1-ct", {
+        btn1 = new Ext.Button("btn1-ct", {
           text: this.btn1Text,
           handler: btn1Handler
         });
@@ -1323,7 +1323,7 @@ In the following example, a <code>library</code> function is defined which decla
 
 function library( module ) {
 
-  $( function() {
+  $( function () {
     if ( module.init ) {
       module.init();
     }
@@ -1380,16 +1380,16 @@ var myRevealingModule = function () {
         var privateVar = "Ben Cherry",
             publicVar  = "Hey there!";
 
-        function privateFunction() {
+        function privateFunction () {
             console.log( "Name:" + privateVar );
         }
 
-        function publicSetName( strName ) {
+        function publicSetName ( strName ) {
             privateVar = strName;
         }
 
-        function publicGetName() {
-            privateFunction();
+        function publicGetName () {
+            privateFunction ();
         }
 
 
@@ -1415,26 +1415,26 @@ var myRevealingModule = function () {
 
         var privateCounter = 0;
 
-        function privateFunction() {
+        function privateFunction () {
             privateCounter++;
         }
 
-        function publicFunction() {
+        function publicFunction () {
             publicIncrement();
         }
 
-        function publicIncrement() {
-            privateFunction();
+        function publicIncrement () {
+            privateFunction ();
         }
 
-        function publicGetCount(){
-          return privateCounter;
+        function publicGetCount () {
+            return privateCounter;
         }
 
         // Reveal public pointers to
         // private functions and properties
 
-       return {
+        return {
             start: publicFunction,
             increment: publicIncrement,
             count: publicGetCount
@@ -1442,9 +1442,9 @@ var myRevealingModule = function () {
 
     }();
 
-myRevealingModule.start();
+  myRevealingModule.start();
 
-  </pre></p>
+</pre></p>
 
 <p><strong>Advantages</strong></p>
 
@@ -1478,12 +1478,12 @@ var mySingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
     // Private methods and variables
-    function privateMethod(){
+    function privateMethod () {
         console.log( "I am private" );
     }
 
@@ -1500,7 +1500,7 @@ var mySingleton = (function () {
 
       publicProperty: "I am also public",
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1530,7 +1530,7 @@ var myBadSingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
@@ -1538,7 +1538,7 @@ var myBadSingleton = (function () {
 
     return {
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1552,8 +1552,8 @@ var myBadSingleton = (function () {
     getInstance: function () {
 
       instance = init();
-
       return instance;
+
     }
 
   };
@@ -1586,12 +1586,12 @@ console.log( badSingleA.getRandomNumber() !== badSingleB.getRandomNumber() ); //
 <p>The second of these points refers to a case where we might need code such as:</p>
 
 <pre class="brush: js">
-mySingleton.getInstance = function(){
+mySingleton.getInstance = function () {
   if ( this._instance == null ) {
     if ( isFoo() ) {
-       this._instance = new FooSingleton();
+      this._instance = new FooSingleton();
     } else {
-       this._instance = new BasicSingleton();
+      this._instance = new BasicSingleton();
     }
   }
   return this._instance;
@@ -1618,8 +1618,8 @@ mySingleton.getInstance = function(){
 var SingletonTester = (function () {
 
   // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};
-  function Singleton( options )  {
+  // e.g var options = { name: "test", pointX: 5 };
+  function Singleton ( options )  {
 
     // set options to the options supplied
     // or an empty object if none are provided
@@ -1644,17 +1644,17 @@ var SingletonTester = (function () {
 
     // Method for getting an instance. It returns
     // a singleton instance of a singleton object
-    getInstance:  function( options ) {
-      if( instance  ===  undefined )  {
+    getInstance:  function ( options ) {
+      if ( instance  ===  undefined )  {
         instance = new Singleton( options );
       }
 
-      return  instance;
+      return instance;
 
     }
   };
 
-  return  _static;
+  return _static;
 
 })();
 
@@ -1708,39 +1708,38 @@ It's often useful to refer back to published definitions of design patterns that
 <p>
 <pre  class="brush: js">
 
-function ObserverList(){
+function ObserverList () {
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.Add = function ( obj ) {
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
+ObserverList.prototype.Empty = function () {
   this.observerList = [];
 };
 
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.Count = function () {
   return this.observerList.length;
 };
 
-
-ObserverList.prototype.Get = function( index ){
-  if( index > -1 && index < this.observerList.length ){
+ObserverList.prototype.Get = function ( index ) {
+  if ( index > -1 && index < this.observerList.length ) {
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
+ObserverList.prototype.Insert = function ( obj, index ) {
   var pointer = -1;
 
-  if( index === 0 ){
+  if ( index === 0 ) {
     this.observerList.unshift( obj );
     pointer = index;
-  }else if( index === this.observerList.length ){
+  } else if ( index === this.observerList.length ) {
     this.observerList.push( obj );
     pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
+  } else if ( index > 0 && index < this.observerList.length ) {
     this.observerList.splice( index, 0, obj );
     pointer = index;
   }
@@ -1748,11 +1747,11 @@ ObserverList.prototype.Insert = function( obj, index ){
   return pointer;
 };
 
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
+ObserverList.prototype.IndexOf = function ( obj, startIndex ) {
   var i = startIndex, pointer = -1;
 
-  while( i < this.observerList.length ){
-    if( this.observerList[i] === obj ){
+  while ( i < this.observerList.length ) {
+    if ( this.observerList[i] === obj ) {
       pointer = i;
     }
     i++;
@@ -1762,19 +1761,19 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
 };
 
 ObserverList.prototype.RemoveAt = function (index) {
-    if (index === 0) {
+    if ( index === 0 ) {
         this.observerList.shift();
-    } else if (index === this.observerList.length - 1) {
+    } else if ( index === this.observerList.length - 1 ) {
         this.observerList.pop();
     } else {
-        this.observerList.splice(index, 1);
+        this.observerList.splice( index, 1 );
     }
 }
 
 
 // Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
+function extend ( extension, obj ) {
+  for ( var key in extension ) {
     obj[key] = extension[key];
   }
 }
@@ -1788,22 +1787,22 @@ function extend( extension, obj ){
 <p>
 <pre  class="brush: js">
 
-function Subject(){
+function Subject () {
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
+Subject.prototype.AddObserver = function ( observer ) {
   this.observers.Add( observer );
 };
 
-Subject.prototype.RemoveObserver = function( observer ){
+Subject.prototype.RemoveObserver = function ( observer ) {
   this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
 };
 
-Subject.prototype.Notify = function( context ){
+Subject.prototype.Notify = function ( context ) {
   var observerCount = this.observers.Count();
-  for(var i=0; i < observerCount; i++){
-    this.observers.Get(i).Update( context );
+  for ( var i = 0; i < observerCount; i++ ) {
+    this.observers.Get( i ).Update( context );
   }
 };
 
@@ -1816,8 +1815,8 @@ Subject.prototype.Notify = function( context ){
 <pre  class="brush: js">
 
 // The Observer
-function Observer(){
-  this.Update = function(){
+function Observer () {
+  this.Update = function () {
     // ...
   };
 }
@@ -1869,7 +1868,7 @@ addBtn["onclick"] = AddNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function AddNewObserver () {
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1879,7 +1878,7 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.Update = function ( value ) {
     this.checked = value;
   };
 
@@ -1922,7 +1921,7 @@ var mailCounter = 0;
 // with the name "inbox/newMessage".
 
 // Render a preview of new messages
-var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
+var subscriber1 = subscribe("inbox/newMessage", function ( topic, data ) {
 
   // Log the topic for debugging purposes
   console.log( "A new message was received: ", topic );
@@ -1940,20 +1939,20 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 // Update the counter displaying the number of new
 // messages received via the publisher
 
-var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
+var subscriber2 = subscribe("inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $( '.newMessageCounter' ).html( mailCounter++ );
 
 });
 
-publish( "inbox/newMessage", [{
+publish("inbox/newMessage", [{
   sender:"hello@google.com",
   body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1, );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -1994,37 +1993,37 @@ Publish/Subscribe fits in very well in JavaScript ecosystems, largely because at
 <pre class="brush: js">
 // Publish
 
-// jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
+// jQuery: $( obj ).trigger( "channel", [arg1, arg2, arg3] );
 $( el ).trigger( "/login", [{username:"test", userData:"test"}] );
 
-// Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
+// Dojo: dojo.publish( "channel", [arg1, arg2, arg3] );
 dojo.publish( "/login", [{username:"test", userData:"test"}] );
 
-// YUI: el.publish("channel", [arg1, arg2, arg3]);
-el.publish( "/login", {username:"test", userData:"test"} );
+// YUI: el.publish( "channel", [arg1, arg2, arg3] );
+el.publish( "/login", {username:"test", userData: "test"} );
 
 
 // Subscribe
 
-// jQuery: $(obj).on( "channel", [data], fn );
+// jQuery: $( obj ).on( "channel", [data], fn );
 $( el ).on( "/login", function( event ){...} );
 
-// Dojo: dojo.subscribe( "channel", fn);
+// Dojo: dojo.subscribe( "channel", fn );
 var handle = dojo.subscribe( "/login", function(data){..} );
 
-// YUI: el.on("channel", handler);
-el.on( "/login", function( data ){...} );
+// YUI: el.on( "channel", handler );
+el.on( "/login", function ( data ) {...} );
 
 
 // Unsubscribe
 
-// jQuery: $(obj).off( "channel" );
+// jQuery: $( obj ).off( "channel" );
 $( el ).off( "/login" );
 
 // Dojo: dojo.unsubscribe( handle );
 dojo.unsubscribe( handle );
 
-// YUI: el.detach("channel");
+// YUI: el.detach( "channel" );
 el.detach( "/login" );
 
 </pre>
@@ -2056,7 +2055,7 @@ I've opted to base our examples on this code as it sticks closely to both the me
 <pre  class="brush: js">
 var pubsub = {};
 
-(function(q) {
+(function ( q ) {
 
     var topics = {},
         subUid = -1;
@@ -2064,7 +2063,7 @@ var pubsub = {};
     // Publish or broadcast events of interest
     // with a specific topic name and arguments
     // such as the data to pass along
-    q.publish = function( topic, args ) {
+    q.publish = function ( topic, args ) {
 
         if ( !topics[topic] ) {
             return false;
@@ -2073,7 +2072,7 @@ var pubsub = {};
         var subscribers = topics[topic],
             len = subscribers ? subscribers.length : 0;
 
-        while (len--) {
+        while ( len-- ) {
             subscribers[len].func( topic, args );
         }
 
@@ -2084,9 +2083,9 @@ var pubsub = {};
     // with a specific topic name and a
     // callback function, to be executed
     // when the topic/event is observed
-    q.subscribe = function( topic, func ) {
+    q.subscribe = function ( topic, func ) {
 
-        if (!topics[topic]) {
+        if ( !topics[topic] ) {
             topics[topic] = [];
         }
 
@@ -2101,7 +2100,7 @@ var pubsub = {};
     // Unsubscribe from a specific
     // topic, based on a tokenized reference
     // to the subscription
-    q.unsubscribe = function( token ) {
+    q.unsubscribe = function ( token ) {
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
@@ -2146,7 +2145,7 @@ pubsub.publish( "inbox/newMessage", "hello world!" );
 pubsub.publish( "inbox/newMessage", ["test", "a", "b", "c"] );
 
 // or
-pubsub.publish( "inbox/newMessage", {
+pubsub.publish("inbox/newMessage", {
   sender: "hello@google.com",
   body: "Hey again!"
 });
@@ -2181,7 +2180,7 @@ In our implementation, our subscriber will listen to the topic "newDataAvailable
 <pre  class="brush: js">
 
 // Return the current local time to be used in our UI later
-getCurrentTime = function (){
+function getCurrentTime () {
 
    var date = new Date(),
          m = date.getMonth() + 1,
@@ -2189,11 +2188,11 @@ getCurrentTime = function (){
          y = date.getFullYear(),
          t = date.toLocaleTimeString().toLowerCase();
 
-        return (m + "/" + d + "/" + y + " " + t);
+        return ( m + "/" + d + "/" + y + " " + t );
 };
 
 // Add a new row of data to our fictional grid component
-function addGridRow( data ) {
+function addGridRow ( data ) {
 
    // ui.grid.addRow( data );
    console.log( "updated grid component with:" + data );
@@ -2210,7 +2209,7 @@ function updateCounter( data ) {
 }
 
 // Update the grid using the data passed to our subscribers
-gridUpdate = function( topic, data ){
+gridUpdate = function( topic, data ) {
 
   if ( data !== "undefined" ) {
      addGridRow( data );
@@ -2227,13 +2226,13 @@ var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 // to the rest of the application.
 
 // Publish changes to the gridUpdated topic representing new entries
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Apple made $5 billion",
   identifier: "APPL",
   stockPrice: 570.91
 });
 
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Microsoft made $20 million",
   identifier: "MSFT",
   stockPrice: 30.85
@@ -2310,18 +2309,18 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
   // Pre-compile templates and "cache" them using closure
   var
-    userTemplate = _.template($( "#userTemplate" ).html()),
-    ratingsTemplate = _.template($( "#ratingsTemplate" ).html());
+    userTemplate = _.template( $( "#userTemplate" ).html() ),
+    ratingsTemplate = _.template( $( "#ratingsTemplate" ).html() );
 
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
-  $.subscribe( "/new/user", function( e, data ){
+  $.subscribe("/new/user", function ( e, data ) {
 
-    if( data ){
+    if ( data ) {
 
       $('#users').append( userTemplate( data ));
 
@@ -2332,26 +2331,26 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // Subscribe to the new rating topic. This is composed of a title and
   // rating. New ratings are appended to a running list of added user
   // ratings.
-  $.subscribe( "/new/rating", function( e, data ){
+  $.subscribe("/new/rating", function ( e, data ) {
 
     var compiledTemplate;
 
-    if( data ){
+    if ( data ) {
 
-      $( "#ratings" ).append( ratingsTemplate( data );
+      $( "#ratings" ).append( ratingsTemplate( data ) );
 
     }
 
   });
 
   // Handler for adding a new user
-  $("#add").on("click", function( e ) {
+  $( "#add" ).on("click", function ( e ) {
 
     e.preventDefault();
 
-    var strUser = $("#twitter_handle").val(),
-       strMovie = $("#movie_seen").val(),
-       strRating = $("#movie_rating").val();
+    var strUser = $( "#twitter_handle" ).val(),
+       strMovie = $( "#movie_seen" ).val(),
+       strRating = $( "#movie_rating" ).val();
 
     // Inform the application a new user is available
     $.publish( "/new/user",  { name: strUser } );
@@ -2414,21 +2413,21 @@ Notice how in our sample below, one topic notification is made when a user indic
 <strong>JavaScript</strong>:
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
    // Pre-compile template and "cache" it using closure
-   var resultTemplate = _.template($( "#resultTemplate" ).html());
+   var resultTemplate = _.template( $( "#resultTemplate" ).html() );
 
    // Subscribe to the new search tags topic
    $.subscribe( "/search/tags" , function( e, tags ) {
        $( "#searchResults" )
-                .html("<p>Searched for:<strong>" + tags + "</strong></p>");
+                .html( "<p>Searched for:<strong>" + tags + "</strong></p>" );
    });
 
    // Subscribe to the new results topic
-   $.subscribe( "/search/resultSet" , function( e, results ){
+   $.subscribe("/search/resultSet" , function( e, results ) {
 
-       $( "#searchResults" ).append(resultTemplate( results ));
+       $( "#searchResults" ).append( resultTemplate( results ) );
 
    });
 
@@ -2436,13 +2435,13 @@ Notice how in our sample below, one topic notification is made when a user indic
    $( "#flickrSearch" ).submit( function( e ) {
 
        e.preventDefault();
-       var tags = $(this).find( "#query").val();
+       var tags = $( this ).find( "#query" ).val();
 
-       if ( !tags ){
+       if ( !tags ) {
         return;
        }
 
-       $.publish( "/search/tags" , [ $.trim(tags) ]);
+       $.publish( "/search/tags" , [ $.trim( tags ) ]);
 
    });
 
@@ -2454,15 +2453,15 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe("/search/tags", function( e, tags ) {
 
-       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
+       $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
               tags: tags,
               tagmode: "any",
               format: "json"
             },
 
-          function( data ){
+          function( data ) {
 
-              if( !data.items.length ) {
+              if ( !data.items.length ) {
                 return;
               }
 
@@ -2505,16 +2504,16 @@ A real-world analogy could be a typical airport traffic control system. A tower 
 <p>A simple implementation of the Mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
 
 <pre class="brush: js">
-var mediator = (function(){
+var mediator = (function () {
 
     // Storage for topics that can be broadcast or listened to
     var topics = {};
 
     // Subscribe to a topic, supply a callback to be executed
     // when that topic is broadcast to
-    var subscribe = function( topic, fn ){
+    var subscribe = function ( topic, fn ) {
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           topics[topic] = [];
         }
 
@@ -2524,17 +2523,16 @@ var mediator = (function(){
     };
 
     // Publish/broadcast an event to the rest of the application
-    var publish = function( topic ){
+    var publish = function ( topic ) {
 
         var args;
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           return false;
         }
 
         args = Array.prototype.slice.call( arguments, 1 );
         for ( var i = 0, l = topics[topic].length; i < l; i++ ) {
-
             var subscription = topics[topic][i];
             subscription.callback.apply( subscription.context, args );
         }
@@ -2544,7 +2542,7 @@ var mediator = (function(){
     return {
         publish: publish,
         subscribe: subscribe,
-        installTo: function( obj ){
+        installTo: function ( obj ) {
             obj.subscribe = subscribe;
             obj.publish = publish;
         }
@@ -2569,18 +2567,18 @@ var mediator = (function(){
 
 // Pass in a context to attach our Mediator to.
 // By default this will be the window object
-(function( root ){
+(function ( root ) {
 
-  function guidGenerator() { /*..*/}
+  function guidGenerator () { /*..*/}
 
   // Our Subscriber constructor
-  function Subscriber( fn, options, context ){
+  function Subscriber ( fn, options, context ) {
 
-    if ( !(this instanceof Subscriber) ) {
+    if ( !( this instanceof Subscriber ) ) {
 
       return new Subscriber( fn, context, options );
 
-    }else{
+    } else {
 
       // guidGenerator() is a function that generates
       // GUIDs for instances of our Mediators Subscribers so
@@ -2608,9 +2606,9 @@ var mediator = (function(){
 // object and a constructor function to be invoked.
 function Topic( namespace ){
 
-  if ( !(this instanceof Topic) ) {
+  if ( !( this instanceof Topic ) ) {
     return new Topic( namespace );
-  }else{
+  } else {
 
     this.namespace = namespace || "";
     this._callbacks = [];
@@ -2626,7 +2624,7 @@ function Topic( namespace ){
 Topic.prototype = {
 
   // Add a new subscriber
-  AddSubscriber: function( fn, options, context ){
+  AddSubscriber: function ( fn, options, context ) {
 
     var callback = new Subscriber( fn, options, context );
 
@@ -2642,7 +2640,7 @@ Topic.prototype = {
 <p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
 
 <pre  class="brush: js">
-    StopPropagation: function(){
+    StopPropagation: function () {
       this.stopped = true;
     },
 </pre>
@@ -2650,18 +2648,18 @@ Topic.prototype = {
 <p>We can also make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
 
 <pre  class="brush: js">
-    GetSubscriber: function( identifier ){
+    GetSubscriber: function ( identifier ) {
 
-      for(var x = 0, y = this._callbacks.length; x < y; x++ ){
-        if( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ){
+      for (var x = 0, y = this._callbacks.length; x < y; x++ ) {
+        if ( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ) {
           return this._callbacks[x];
         }
       }
 
-      for( var z in this._topics ){
-        if( this._topics.hasOwnProperty( z ) ){
+      for ( var z in this._topics ) {
+        if ( this._topics.hasOwnProperty( z ) ) {
           var sub = this._topics[z].GetSubscriber( identifier );
-          if( sub !== undefined ){
+          if ( sub !== undefined ) {
             return sub;
           }
         }
@@ -2674,15 +2672,15 @@ Topic.prototype = {
 <p>Next, in case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
 <pre  class="brush: js">
 
-    AddTopic: function( topic ){
-      this._topics[topic] = new Topic( (this.namespace ? this.namespace + ":" : "") + topic );
+    AddTopic: function ( topic ) {
+      this._topics[topic] = new Topic( ( this.namespace ? this.namespace + ":" : "" ) + topic );
     },
 
-    HasTopic: function( topic ){
+    HasTopic: function ( topic ) {
       return this._topics.hasOwnProperty( topic );
     },
 
-    ReturnTopic: function( topic ){
+    ReturnTopic: function ( topic ) {
       return this._topics[topic];
     },
 </pre>
@@ -2690,22 +2688,22 @@ Topic.prototype = {
 <p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its sub-topics:</p>
 
 <pre  class="brush: js">
-    RemoveSubscriber: function( identifier ){
+    RemoveSubscriber: function ( identifier ) {
 
-      if( !identifier ){
+      if ( !identifier ) {
         this._callbacks = [];
 
-        for( var z in this._topics ){
-          if( this._topics.hasOwnProperty(z) ){
+        for ( var z in this._topics ) {
+          if ( this._topics.hasOwnProperty( z ) ) {
             this._topics[z].RemoveSubscriber( identifier );
           }
         }
       }
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
-        if( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ){
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+        if ( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ) {
           this._callbacks[y].topic = null;
-          this._callbacks.splice( y,1 );
+          this._callbacks.splice( y, 1 );
           x--; y--;
         }
       }
@@ -2718,24 +2716,24 @@ Topic.prototype = {
 </p>
 
 <pre  class="brush: js">
-    Publish: function( data ){
+    Publish: function ( data ) {
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
 
           var callback = this._callbacks[y], l;
             callback.fn.apply( callback.context, data );
 
         l = this._callbacks.length;
 
-        if( l < x ){
+        if ( l < x ) {
           y--;
           x = l;
         }
       }
 
-      for( var x in this._topics ){
-        if( !this.stopped ){
-          if( this._topics.hasOwnProperty( x ) ){
+      for ( var x in this._topics ) {
+        if ( !this.stopped ) {
+          if ( this._topics.hasOwnProperty( x ) ) {
             this._topics[x].Publish( data );
           }
         }
@@ -2751,9 +2749,9 @@ Topic.prototype = {
 <pre  class="brush: js">
   function Mediator() {
 
-    if ( !(this instanceof Mediator) ) {
+    if ( !( this instanceof Mediator ) ) {
       return new Mediator();
-    }else{
+    } else {
       this._topics = new Topic( "" );
     }
 
@@ -2766,18 +2764,18 @@ Topic.prototype = {
 <pre  class="brush: js">
   Mediator.prototype = {
 
-    GetTopic: function( namespace ){
+    GetTopic: function ( namespace ) {
       var topic = this._topics,
           namespaceHierarchy = namespace.split( ":" );
 
-      if( namespace === "" ){
+      if ( namespace === "" ) {
         return topic;
       }
 
-      if( namespaceHierarchy.length > 0 ){
-        for( var i = 0, j = namespaceHierarchy.length; i < j; i++ ){
+      if ( namespaceHierarchy.length > 0 ) {
+        for ( var i = 0, j = namespaceHierarchy.length; i < j; i++ ) {
 
-          if( !topic.HasTopic( namespaceHierarchy[i]) ){
+          if ( !topic.HasTopic( namespaceHierarchy[i] ) ) {
             topic.AddTopic( namespaceHierarchy[i] );
           }
 
@@ -2794,7 +2792,7 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 </p>
 
 <pre  class="brush: js">
-    Subscribe: function( topiclName, fn, options, context ){
+    Subscribe: function ( topicName, fn, options, context ) {
       var options = options || {},
           context = context || {},
           topic = this.GetTopic( topicName ),
@@ -2810,14 +2808,14 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 
     // Returns a subscriber for a given subscriber id / named function and topic namespace
 
-    GetSubscriber: function( identifier, topic ){
+    GetSubscriber: function ( identifier, topic ) {
       return this.GetTopic( topic || "" ).GetSubscriber( identifier );
     },
 
     // Remove a subscriber from a given topic namespace recursively based on
     // a provided subscriber id or named function.
 
-    Remove: function( topicName, identifier ){
+    Remove: function ( topicName, identifier ) {
       this.GetTopic( topicName ).RemoveSubscriber( identifier );
     },
 
@@ -2828,8 +2826,8 @@ Our primary <code>Publish</code> method allows us to arbitrarily publish data to
 <p>Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
 
 <pre  class="brush: js">
-    Publish: function( topicName ){
-      var args = Array.prototype.slice.call( arguments, 1),
+    Publish: function ( topicName ) {
+      var args = Array.prototype.slice.call( arguments, 1 ),
           topic = this.GetTopic( topicName );
 
       args.push( topic );
@@ -2880,7 +2878,7 @@ Finally we can easily expose our Mediator for attachment to the object passed in
 
 <p><strong>JavaScript</strong></p>
 <pre class="brush:js">
-$( "#chatForm" ).on( "submit", function(e) {
+$( "#chatForm" ).on("submit", function ( e ) {
     e.preventDefault();
 
     // Collect the details of the chat from our UI
@@ -2898,11 +2896,11 @@ function displayChat( data ) {
         msg = data.from + " said \"" + data.message + "\" to " + data.to;
 
     $( "#chatResult" )
-        .prepend("<p>" + msg + " (" + date.toLocaleTimeString() + ")</p>");
+        .prepend( "<p>" + msg + " ( " + date.toLocaleTimeString() + " )</p>" );
 }
 
 // Log messages
-function logChat( data ) {
+function logChat ( data ) {
     if ( window.console ) {
         console.log( data );
     }
@@ -2918,12 +2916,12 @@ mediator.subscribe( "newMessage", logChat );
 
 // The following will however only work with the more advanced implementation:
 
-function amITalkingToMyself( data ) {
+function amITalkingToMyself ( data ) {
     return data.from === data.to;
 }
 
-function iAmClearlyCrazy( data ) {
-    $( "#chatResult" ).prepend("<p>" + data.from + " is talking to himself.</p>");
+function iAmClearlyCrazy ( data ) {
+    $( "#chatResult" ).prepend( "<p>" + data.from + " is talking to himself.</p>" );
 }
 
  mediator.Subscribe( amITalkingToMyself, iAmClearlyCrazy );
@@ -3065,9 +3063,9 @@ var vehiclePrototype = {
 };
 
 
-function vehicle( model ) {
+function vehicle ( model ) {
 
-  function F() {};
+  function F () {};
   F.prototype = vehiclePrototype;
 
   var f = new F();
@@ -3089,7 +3087,7 @@ car.getModel();
 <pre  class="brush: js">
 var beget = (function () {
 
-    function F() {}
+    function F () {};
 
     return function ( proto ) {
         F.prototype = proto;
@@ -3116,23 +3114,23 @@ var beget = (function () {
 
 <p>To demonstrate the Command pattern we're going to create a simple car purchasing service.</p>
 <p><pre  class="brush: js">
-(function(){
+(function () {
 
   var CarManager = {
 
       // request information
-      requestInfo: function( model, id ){
+      requestInfo: function ( model, id ) {
         return "The information for " + model + " with ID " + id + " is foobar";
       },
 
       // purchase the car
-      buyVehicle: function( model, id ){
+      buyVehicle: function ( model, id ) {
         return "You have successfully purchased Item " + id + ", a " + model;
       },
 
       // arrange a viewing
-      arrangeViewing: function( model, id ){
-        return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
+      arrangeViewing: function ( model, id ) {
+        return "You have successfully booked a viewing of " + model + " ( " + id + " )";
       }
 
     };
@@ -3157,7 +3155,7 @@ As per this structure we should now add a definition for the "CarManager.execute
 </p>
 <p><pre  class="brush: js">
 CarManager.execute = function ( name ) {
-    return CarManager[name] && CarManager[name].apply( CarManager, [].slice.call(arguments, 1) );
+    return CarManager[name] && CarManager[name].apply( CarManager, [].slice.call( arguments, 1 ) );
 };
 </pre></p>
 <p>Our final sample calls would thus look as follows:</p>
@@ -3194,14 +3192,14 @@ Let’s take a look at the pattern in action. This is an unoptimized code exampl
 
 <pre class="brush: js">
 
-var addMyEvent = function( el,ev,fn ){
+var addMyEvent = function ( el, ev, fn ) {
 
-   if( el.addEventListener ){
-            el.addEventListener( ev,fn, false );
-      }else if(el.attachEvent){
-            el.attachEvent( "on" + ev, fn );
-      } else{
-           el["on" + ev] = fn;
+    if ( el.addEventListener ) {
+      el.addEventListener( ev,fn, false );
+    } else if( el.attachEvent ) {
+        el.attachEvent( "on" + ev, fn );
+    } else {
+        el["on" + ev] = fn;
     }
 
 };
@@ -3213,7 +3211,7 @@ In a similar manner, we're all familiar with jQuery's <code>$(document).ready(..
 
 <pre class="brush: js">
 
-bindReady: function() {
+bindReady: function () {
     ...
     if ( document.addEventListener ) {
       // Use the handy event callback
@@ -3240,28 +3238,28 @@ Facades don't just have to be used on their own, however. They can also be integ
 </p>
 <pre class="brush: js">
 
-var module = (function() {
+var module = (function () {
 
     var _private = {
-        i:5,
-        get : function() {
-            console.log( "current value:" + this.i);
+        i : 5,
+        get : function () {
+            console.log( "current value:" + this.i );
         },
-        set : function( val ) {
+        set : function ( val ) {
             this.i = val;
         },
-        run : function() {
+        run : function () {
             console.log( "running" );
         },
-        jump: function(){
+        jump: function (){
             console.log( "jumping" );
         }
     };
 
     return {
 
-        facade : function( args ) {
-            _private.set(args.val);
+        facade : function ( args ) {
+            _private.set( args.val );
             _private.get();
             if ( args.run ) {
                 _private.run();
@@ -3272,7 +3270,7 @@ var module = (function() {
 
 
 // Outputs: "current value: 10" and "running"
-module.facade( {run: true, val:10} );
+module.facade( { run: true, val:10 } );
 
 </pre>
 
@@ -3315,7 +3313,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 // Types.js - Constructors used behind the scenes
 
 // A constructor for defining new cars
-function Car( options ) {
+function Car ( options ) {
 
   // some defaults
   this.doors = options.doors || 4;
@@ -3325,7 +3323,7 @@ function Car( options ) {
 }
 
 // A constructor for defining new trucks
-function Truck( options){
+function Truck ( options ) {
 
   this.state = options.state || "used";
   this.wheelSize = options.wheelSize || "large";
@@ -3336,7 +3334,7 @@ function Truck( options){
 // FactoryExample.js
 
 // Define a skeleton vehicle factory
-function VehicleFactory() {}
+function VehicleFactory () {};
 
 // Define the prototypes and utilities for this factory
 
@@ -3346,9 +3344,9 @@ VehicleFactory.prototype.vehicleClass = Car;
 // Our Factory method for creating new Vehicle instances
 VehicleFactory.prototype.createVehicle = function ( options ) {
 
-  if( options.vehicleType === "car" ){
+  if ( options.vehicleType === "car" ) {
     this.vehicleClass = Car;
-  }else{
+  } else {
     this.vehicleClass = Truck;
   }
 
@@ -3358,10 +3356,11 @@ VehicleFactory.prototype.createVehicle = function ( options ) {
 
 // Create an instance of our factory that makes cars
 var carFactory = new VehicleFactory();
-var car = carFactory.createVehicle( {
+var car = carFactory.createVehicle({
             vehicleType: "car",
             color: "yellow",
-            doors: 6 } );
+            doors: 6 
+          });
 
 // Test to confirm our car was created using the vehicleClass/prototype Car
 
@@ -3375,11 +3374,12 @@ console.log( car );
 <p><strong>Approach #1: Modify a VehicleFactory instance to use the Truck class</strong></p>
 
 <pre  class="brush: js">
-var movingTruck = carFactory.createVehicle( {
+var movingTruck = carFactory.createVehicle({
                       vehicleType: "truck",
                       state: "like new",
                       color: "red",
-                      wheelSize: "small" } );
+                      wheelSize: "small" 
+                    });
 
 // Test to confirm our truck was created with the vehicleClass/prototype Truck
 
@@ -3395,15 +3395,16 @@ console.log( movingTruck );
 
 <pre class="brush: js" >
 
-function TruckFactory () {}
+function TruckFactory () {};
 TruckFactory.prototype = new VehicleFactory();
 TruckFactory.prototype.vehicleClass = Truck;
 
 var truckFactory = new TruckFactory();
-var myBigTruck = truckFactory.createVehicle( {
+var myBigTruck = truckFactory.createVehicle({
                     state: "omg..so bad.",
                     color: "pink",
-                    wheelSize: "so big" } );
+                    wheelSize: "so big"
+                  });
 
 // Confirms that myBigTruck was created with the prototype Truck
 // Outputs: true
@@ -3453,7 +3454,7 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
         getVehicle: function ( type, customizations ) {
             var Vehicle = types[type];
 
-            return (Vehicle ? new Vehicle(customizations) : null);
+            return ( Vehicle ? new Vehicle( customizations ) : null );
         },
 
         registerVehicle: function ( type, Vehicle ) {
@@ -3476,14 +3477,16 @@ AbstractVehicleFactory.registerVehicle( "car", Car );
 AbstractVehicleFactory.registerVehicle( "truck", Truck );
 
 // Instantiate a new car based on the abstract vehicle type
-var car = AbstractVehicleFactory.getVehicle( "car" , {
+var car = AbstractVehicleFactory.getVehicle("car" , {
             color: "lime green",
-            state: "like new" } );
+            state: "like new"
+          });
 
 // Instantiate a new truck in a similar manner
-var truck = AbstractVehicleFactory.getVehicle( "truck" , {
+var truck = AbstractVehicleFactory.getVehicle("truck" , {
             wheelSize: "medium",
-            color: "neon yellow" } );
+            color: "neon yellow"
+          });
 </pre>
 
 
@@ -3510,10 +3513,10 @@ var truck = AbstractVehicleFactory.getVehicle( "truck" , {
 <p>In order to demonstrate sub-classing, we first need a base object that can have new instances of itself created. let's model this around the concept of a person.</p>
 
 <pre  class="brush: js">
-var Person =  function( firstName , lastName ){
+var Person =  function ( firstName, lastName ) {
 
   this.firstName = firstName;
-  this.lastName =  lastName;
+  this.lastName = lastName;
   this.gender = "male";
 
 };
@@ -3526,7 +3529,7 @@ var Person =  function( firstName , lastName ){
 var clark = new Person( "Clark" , "Kent" );
 
 // Define a subclass constructor for for "Superhero":
-var Superhero = function( firstName, lastName , powers ){
+var Superhero = function ( firstName, lastName , powers ) {
 
     // Invoke the superclass constructor on the new object
     // then use .call() to invoke the constructor as a method of
@@ -3558,15 +3561,15 @@ console.log( superman );
 <pre class="brush: js">
 var myMixins = {
 
-  moveUp: function(){
+  moveUp: function () {
     console.log( "move up" );
   },
 
-  moveDown: function(){
+  moveDown: function () {
     console.log( "move down" );
   },
 
-  stop: function(){
+  stop: function () {
     console.log( "stop! in the name of love!" );
   }
 
@@ -3577,15 +3580,15 @@ var myMixins = {
 
 <pre class="brush: js">
 // A skeleton carAnimator constructor
-function carAnimator(){
-  this.moveLeft = function(){
+function carAnimator () {
+  this.moveLeft = function () {
     console.log( "move left" );
   };
 }
 
 // A skeleton personAnimator constructor
-function personAnimator(){
-  this.moveRandomly = function(){ /*..*/ };
+function personAnimator () {
+  this.moveRandomly = function () { /*..*/ };
 }
 
 // Extend both constructors with our Mixin
@@ -3657,7 +3660,7 @@ function augment( receivingClass, givingClass ) {
             // check to make sure the receiving class doesn't
             // have a method of the same name as the one currently
             // being processed
-            if ( !Object.hasOwnProperty(receivingClass.prototype, methodName) ) {
+            if ( !Object.hasOwnProperty( receivingClass.prototype, methodName ) ) {
                 receivingClass.prototype[methodName] = givingClass.prototype[methodName];
             }
 
@@ -3735,7 +3738,7 @@ mySportsCar.driveSideways();
 <pre  class="brush: js">
 
 // A vehicle constructor
-function vehicle( vehicleType ){
+function Vehicle ( vehicleType ) {
 
     // some sane defaults
     this.vehicleType = vehicleType || "car";
@@ -3752,14 +3755,14 @@ console.log( testInstance );
 // vehicle: car, model:default, license: 00000-000
 
 // Lets create a new instance of vehicle, to be decorated
-var truck = new vehicle( "truck" );
+var truck = new Vehicle( "truck" );
 
 // New functionality we're decorating vehicle with
-truck.setModel = function( modelName ){
+truck.setModel = function ( modelName ) {
     this.model = modelName;
 };
 
-truck.setColor = function( color ){
+truck.setColor = function ( color ) {
     this.color = color;
 };
 
@@ -3788,7 +3791,7 @@ console.log( secondInstance );
 <pre  class="brush: js">
 
 // The constructor to decorate
-function MacBook() {
+function MacBook () {
 
   this.cost = function () { return 997; };
   this.screenSize = function () { return 11.6; };
@@ -3796,30 +3799,30 @@ function MacBook() {
 }
 
 // Decorator 1
-function Memory( macbook ) {
+function Memory ( macbook ) {
 
   var v = macbook.cost();
-  macbook.cost = function() {
+  macbook.cost = function () {
     return v + 75;
   };
 
 }
 
 // Decorator 2
-function Engraving( macbook ){
+function Engraving ( macbook ) {
 
   var v = macbook.cost();
-  macbook.cost = function(){
+  macbook.cost = function () {
     return  v + 200;
   };
 
 }
 
 // Decorator 3
-function Insurance( macbook ){
+function Insurance ( macbook ) {
 
   var v = macbook.cost();
-  macbook.cost = function(){
+  macbook.cost = function () {
      return  v + 250;
   };
 
@@ -3876,11 +3879,11 @@ var reminder = new Interface( "List", ["summary", "placeOrder"] );
 var properties = {
   name: "Remember to buy the milk",
   date: "05/06/2016",
-  actions:{
-    summary: function (){
+  actions: {
+    summary: function () {
       return "Remember to buy the milk, we are almost out!";
    },
-    placeOrder: function (){
+    placeOrder: function () {
       return "Ordering milk from your local grocery store";
     }
   }
@@ -3889,7 +3892,7 @@ var properties = {
 // Now create a constructor implementing the above properties
 // and methods
 
-function Todo( config ){
+function Todo ( config ) {
 
   // State the methods we expect to be supported
   // as well as the Interface instance being checked
@@ -3928,20 +3931,20 @@ console.log( todoItem.methods.placeOrder() );
 <p>Enhancements can include upgrades to 4GB or 8GB Ram, engraving, Parallels or a case. Now if we were to model this using an individual sub-class for each combination of enhancement options, it might look something like this:</p>
 
 <pre  class="brush: js">
-var Macbook = function(){
+var Macbook = function () {
         //...
 };
 
-var  MacbookWith4GBRam =  function(){},
-     MacbookWith8GBRam = function(){},
-     MacbookWith4GBRamAndEngraving = function(){},
-     MacbookWith8GBRamAndEngraving = function(){},
-     MacbookWith8GBRamAndParallels = function(){},
-     MacbookWith4GBRamAndParallels = function(){},
-     MacbookWith8GBRamAndParallelsAndCase = function(){},
-     MacbookWith4GBRamAndParallelsAndCase = function(){},
-     MacbookWith8GBRamAndParallelsAndCaseAndInsurance = function(){},
-     MacbookWith4GBRamAndParallelsAndCaseAndInsurance = function(){};
+var  MacbookWith4GBRam =  function () {},
+     MacbookWith8GBRam = function () {},
+     MacbookWith4GBRamAndEngraving = function () {},
+     MacbookWith8GBRamAndEngraving = function () {},
+     MacbookWith8GBRamAndParallels = function () {},
+     MacbookWith4GBRamAndParallels = function () {},
+     MacbookWith8GBRamAndParallelsAndCase = function () {},
+     MacbookWith4GBRamAndParallelsAndCase = function () {},
+     MacbookWith8GBRamAndParallelsAndCaseAndInsurance = function () {},
+     MacbookWith4GBRamAndParallelsAndCaseAndInsurance = function () {};
 </pre>
 <p>and so on.</p>
 <p>This would be an impractical solution as a new subclass would be required for every possible combination of enhancements that are available. As we would prefer to keep things simple without maintaining a large set of subclasses, let's look at how decorators may be used to solve this problem better.</p>
@@ -3953,30 +3956,31 @@ var  MacbookWith4GBRam =  function(){},
 <p>Here's the interface we're going to define for the Macbook:</p>
 <pre  class="brush: js">
 
-var Macbook = new Interface( "Macbook",
+var Macbook = new Interface("Macbook",
   ["addEngraving",
   "addParallels",
   "add4GBRam",
   "add8GBRam",
-  "addCase"]);
+  "addCase"]
+);
 
 // A Macbook Pro might thus be represented as follows:
-var MacbookPro = function(){
+var MacbookPro = function () {
     // implements Macbook
 };
 
 MacbookPro.prototype = {
-    addEngraving: function(){
+    addEngraving: function () {
     },
-    addParallels: function(){
+    addParallels: function () {
     },
-    add4GBRam: function(){
+    add4GBRam: function () {
     },
-    add8GBRam:function(){
+    add8GBRam:function () {
     },
-    addCase: function(){
+    addCase: function () {
     },
-    getPrice: function(){
+    getPrice: function () {
       // Base price
       return 900.00;
     }
@@ -3988,7 +3992,7 @@ MacbookPro.prototype = {
 <pre  class="brush: js">
 // Macbook decorator abstract decorator class
 
-var MacbookDecorator = function( macbook ){
+var MacbookDecorator = function ( macbook ) {
 
     Interface.ensureImplements( macbook, Macbook );
     this.macbook = macbook;
@@ -3996,22 +4000,22 @@ var MacbookDecorator = function( macbook ){
 };
 
 MacbookDecorator.prototype = {
-    addEngraving: function(){
+    addEngraving: function () {
         return this.macbook.addEngraving();
     },
-    addParallels: function(){
+    addParallels: function () {
         return this.macbook.addParallels();
     },
-    add4GBRam: function(){
+    add4GBRam: function () {
         return this.macbook.add4GBRam();
     },
-    add8GBRam:function(){
+    add8GBRam:function () {
         return this.macbook.add8GBRam();
     },
-    addCase: function(){
+    addCase: function () {
         return this.macbook.addCase();
     },
-    getPrice: function(){
+    getPrice: function () {
         return this.macbook.getPrice();
     }
 };
@@ -4021,7 +4025,7 @@ MacbookDecorator.prototype = {
 
 <pre  class="brush: js">
 
-var CaseDecorator = function( macbook ){
+var CaseDecorator = function ( macbook ) {
 
    // call the superclass's constructor next
    this.superclass.constructor( macbook );
@@ -4031,11 +4035,11 @@ var CaseDecorator = function( macbook ){
 // Let's now extend the superclass
 extend( CaseDecorator, MacbookDecorator );
 
-CaseDecorator.prototype.addCase = function(){
+CaseDecorator.prototype.addCase = function () {
     return this.macbook.addCase() + "Adding case to macbook";
 };
 
-CaseDecorator.prototype.getPrice = function(){
+CaseDecorator.prototype.getPrice = function () {
     return this.macbook.getPrice() + 45.00;
 };
 </pre>
@@ -4207,16 +4211,13 @@ $("#log")
 <pre class="brush: js">
 
 // Simulate pure virtual inheritance/"implement" keyword for JS
-Function.prototype.implementsFor = function( parentClassOrObject ){
-    if ( parentClassOrObject.constructor === Function )
-    {
+Function.prototype.implementsFor = function ( parentClassOrObject ) {
+    if ( parentClassOrObject.constructor === Function ) {
         // Normal Inheritance
         this.prototype = new parentClassOrObject();
         this.prototype.constructor = this;
         this.prototype.parent = parentClassOrObject.prototype;
-    }
-    else
-    {
+    } else {
         // Pure Virtual Inheritance
         this.prototype = parentClassOrObject;
         this.prototype.constructor = this;
@@ -4233,33 +4234,33 @@ Function.prototype.implementsFor = function( parentClassOrObject ){
 var CoffeeOrder = {
 
   // Interfaces
-  serveCoffee:function(context){},
-    getFlavor:function(){}
+  serveCoffee: function ( context ) {},
+  getFlavor: function () {}
 
 };
 
 
 // ConcreteFlyweight object that creates ConcreteFlyweight
 // Implements CoffeeOrder
-function CoffeeFlavor( newFlavor ){
+function CoffeeFlavor ( newFlavor ) {
 
     var flavor = newFlavor;
 
     // If an interface has been defined for a feature
     // implement the feature
-    if( typeof this.getFlavor === "function" ){
-      this.getFlavor = function() {
+    if ( typeof this.getFlavor === "function" ) {
+      this.getFlavor = function () {
           return flavor;
       };
     }
 
-    if( typeof this.serveCoffee === "function" ){
-      this.serveCoffee = function( context ) {
+    if ( typeof this.serveCoffee === "function" ) {
+      this.serveCoffee = function ( context ) {
         console.log("Serving Coffee flavor "
           + flavor
           + " to table number "
           + context.getTable());
-    };
+      };
     }
 
 }
@@ -4270,25 +4271,25 @@ CoffeeFlavor.implementsFor( CoffeeOrder );
 
 
 // Handle table numbers for a coffee order
-function CoffeeOrderContext( tableNumber ) {
-   return{
-      getTable: function() {
-         return tableNumber;
+function CoffeeOrderContext ( tableNumber ) {
+   return {
+      getTable: function () {
+        return tableNumber;
      }
    };
 }
 
 
-function CoffeeFlavorFactory() {
+function CoffeeFlavorFactory () {
     var flavors = {},
     length = 0;
 
     return {
-        getCoffeeFlavor: function (flavorName) {
+        getCoffeeFlavor: function ( flavorName ) {
 
             var flavor = flavors[flavorName];
-            if (flavor === undefined) {
-                flavor = new CoffeeFlavor(flavorName);
+            if ( flavor === undefined ) {
+                flavor = new CoffeeFlavor( flavorName );
                 flavors[flavorName] = flavor;
                 length++;
             }
@@ -4304,7 +4305,7 @@ function CoffeeFlavorFactory() {
 // Sample usage:
 // testFlyweight()
 
-function testFlyweight(){
+function testFlyweight () {
 
 
   // The flavors ordered.
@@ -4319,34 +4320,34 @@ function testFlyweight(){
   // The CoffeeFlavorFactory instance
     flavorFactory;
 
-  function takeOrders( flavorIn, table) {
+  function takeOrders ( flavorIn, table ) {
      flavors[ordersMade] = flavorFactory.getCoffeeFlavor( flavorIn );
      tables[ordersMade++] = new CoffeeOrderContext( table );
   }
 
    flavorFactory = new CoffeeFlavorFactory();
 
-   takeOrders("Cappuccino", 2);
-   takeOrders("Cappuccino", 2);
-   takeOrders("Frappe", 1);
-   takeOrders("Frappe", 1);
-   takeOrders("Xpresso", 1);
-   takeOrders("Frappe", 897);
-   takeOrders("Cappuccino", 97);
-   takeOrders("Cappuccino", 97);
-   takeOrders("Frappe", 3);
-   takeOrders("Xpresso", 3);
-   takeOrders("Cappuccino", 3);
-   takeOrders("Xpresso", 96);
-   takeOrders("Frappe", 552);
-   takeOrders("Cappuccino", 121);
-   takeOrders("Xpresso", 121);
+   takeOrders( "Cappuccino", 2 );
+   takeOrders( "Cappuccino", 2 );
+   takeOrders( "Frappe", 1 );
+   takeOrders( "Frappe", 1 );
+   takeOrders( "Xpresso", 1 );
+   takeOrders( "Frappe", 897 );
+   takeOrders( "Cappuccino", 97 );
+   takeOrders( "Cappuccino", 97 );
+   takeOrders( "Frappe", 3 );
+   takeOrders( "Xpresso", 3 );
+   takeOrders( "Cappuccino", 3 );
+   takeOrders( "Xpresso", 96 );
+   takeOrders( "Frappe", 552 );
+   takeOrders( "Cappuccino", 121 );
+   takeOrders( "Xpresso", 121 );
 
-   for (var i = 0; i < ordersMade; ++i) {
-       flavors[i].serveCoffee(tables[i]);
+   for ( var i = 0; i < ordersMade; ++i ) {
+       flavors[i].serveCoffee( tables[i] );
    }
-   console.log(" ");
-   console.log("total CoffeeFlavor objects made: " +  flavorFactory.getTotalCoffeeFlavorsMade());
+   console.log( " " );
+   console.log( "total CoffeeFlavor objects made: " +  flavorFactory.getTotalCoffeeFlavorsMade() );
 }
 </pre>
 
@@ -4376,7 +4377,7 @@ We'll also require the following properties to keep track of which member has ch
 Each book would thus be represented as follows, prior to any optimization using the Flyweight pattern:
 </p>
 <pre class="brush: js">
-var Book = function( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ){
+var Book = function ( id, title, author, genre, pageCount,publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate,availability ) {
 
    this.id = id;
    this.title = title;
@@ -4402,12 +4403,12 @@ Book.prototype = {
      return this.author;
   },
 
-  getISBN: function (){
+  getISBN: function () {
      return this.ISBN;
   },
 
   // For brevity, other getters are not shown
-  updateCheckoutStatus: function( bookID, newStatus, checkoutDate , checkoutMember, newReturnDate ){
+  updateCheckoutStatus: function ( bookID, newStatus, checkoutDate , checkoutMember, newReturnDate ) {
 
      this.id  = bookID;
      this.availability = newStatus;
@@ -4417,19 +4418,19 @@ Book.prototype = {
 
   },
 
-  extendCheckoutPeriod: function( bookID, newReturnDate ){
+  extendCheckoutPeriod: function ( bookID, newReturnDate ) {
 
       this.id =  bookID;
       this.dueReturnDate = newReturnDate;
 
   },
 
-  isPastDue: function(bookID){
+  isPastDue: function ( bookID ) {
 
      var currentDate = new Date();
      return currentDate.getTime() > Date.parse( this.dueReturnDate );
 
-   }
+  }
 };
 </pre>
 
@@ -4669,10 +4670,10 @@ $( "a" ).map( function () {
 The idea here is that a single jQuery object is created and used for each call to jQuery.single (effectively meaning only one jQuery object is ever created). The implementation for this can be found below and as we're consolidating data for multiple possible objects into a more central singular structure, it is technically also a Flyweight.</p>
 
 <pre class="brush: js">
-jQuery.single = (function( o ){
+jQuery.single = (function ( o ) {
 
    var collection = jQuery([1]);
-   return function( element ) {
+   return function ( element ) {
 
        // Give collection the element:
        collection[0] = element;
@@ -4688,7 +4689,7 @@ jQuery.single = (function( o ){
 An example of this in action with chaining is:
 </p>
 <pre class="brush: js">
-$( "div" ).on( "click", function () {
+$( "div" ).on("click", function () {
 
    var html = jQuery.single( this ).next().html();
    console.log( html );
@@ -4757,8 +4758,8 @@ var Photo = Backbone.Model.extend({
     },
 
     // Ensure that each photo created has an `src`.
-    initialize: function() {
-       this.set( { "src": this.defaults.src} );
+    initialize: function () {
+       this.set( { "src": this.defaults.src } );
     }
 
 });
@@ -4775,7 +4776,7 @@ var PhotoGallery = Backbone.Collection.extend({
 
     // Filter down the list of all photos
     // that have been viewed
-    viewed: function() {
+    viewed: function () {
         return this.filter(function( photo ){
            return photo.get( "viewed" );
         });
@@ -4783,7 +4784,7 @@ var PhotoGallery = Backbone.Collection.extend({
 
     // Filter down the list to only photos that
     // have not yet been viewed
-    unviewed: function() {
+    unviewed: function () {
       return this.without.apply( this, this.viewed() );
     }
 });
@@ -4813,20 +4814,20 @@ var buildPhotoView = function ( photoModel, photoController ) {
   var base = document.createElement( "div" ),
       photoEl = document.createElement( "div" );
 
-  base.appendChild(photoEl);
+  base.appendChild( photoEl );
 
   var render = function () {
           // We use a templating library such as Underscore
           // templating which generates the HTML for our
           // photo entry
-          photoEl.innerHTML = _.template( "#photoTemplate" , {
+          photoEl.innerHTML = _.template("#photoTemplate" , {
               src: photoModel.getSrc()
           });
       };
 
   photoModel.addSubscriber( render );
 
-  photoEl.addEventListener( "click", function () {
+  photoEl.addEventListener("click", function () {
     photoController.handleEvent( "click", photoModel );
   });
 
@@ -4906,8 +4907,8 @@ var buildPhotoView = function ( photoModel, photoController ) {
 var PhotosController = Spine.Controller.sub({
 
   init: function () {
-    this.item.bind( "update" , this.proxy( this.render ));
-    this.item.bind( "destroy", this.proxy( this.remove ));
+    this.item.bind( "update" , this.proxy( this.render ) );
+    this.item.bind( "destroy", this.proxy( this.remove ) );
   },
 
   render: function () {
@@ -5028,19 +5029,19 @@ var PhotoView = Backbone.View.extend({
     // **Photo** and a **PhotoView** in this
     // app, we set a direct reference on the model for convenience.
 
-    initialize: function() {
+    initialize: function () {
       this.model.on( "change", this.render, this );
       this.model.on( "destroy", this.remove, this );
     },
 
     // Re-render the photo entry
-    render: function() {
-      $( this.el ).html( this.template(this.model.toJSON() ));
+    render: function () {
+      $( this.el ).html( this.template( this.model.toJSON() ) );
       return this;
     },
 
     // Toggle the `"viewed"` state of the model.
-    toggleViewed: function() {
+    toggleViewed: function () {
       this.model.viewed();
     }
 
@@ -5076,9 +5077,9 @@ var PhotoView = Backbone.View.extend({
 <p>In KnockoutJS, Models fall under the above definition, but often make Ajax calls to a server-side service to both read and write Model data.</p>
 <p>If we were constructing a simple Todo application, a KnockoutJS Model representing a single Todo item could look as follows:</p>
 <pre   class="brush: js">var Todo = function ( content, done ) {
-    this.content = ko.observable(content);
-    this.done = ko.observable(done);
-    this.editing = ko.observable(false);
+    this.content = ko.observable( content );
+    this.done = ko.observable( done );
+    this.editing = ko.observable( false );
 };
 </pre>
 <p>Note: One may notice in the above snippet that we are calling the method <code>observable()</code> on the KnockoutJS namespace <code>ko</code>. In KnockoutJS, observables are special JavaScript objects that can notify subscribers about changes and automatically detect dependencies. This allows us to synchronize Models and ViewModels when the value of a Model attribute is modified.</p>
@@ -5092,9 +5093,9 @@ var PhotoView = Backbone.View.extend({
 <p>ViewModel:</p>
 <pre class="brush: js">
 var aViewModel = {
-    contactName: ko.observable("John")
+    contactName: ko.observable( "John" )
 };
-ko.applyBindings(aViewModel);
+ko.applyBindings( aViewModel );
 </pre>
 <p>View:</p>
 <pre class="brush: js">
@@ -5163,7 +5164,7 @@ ko.applyBindings(aViewModel);
 
     // map array of passed in todos to an observableArray of Todo objects
     self.todos = ko.observableArray(
-    ko.utils.arrayMap( todos, function ( todo ) {
+    ko.utils.arrayMap(todos, function ( todo ) {
         return new Todo( todo.content, todo.done );
     }));
 
@@ -5176,7 +5177,7 @@ ko.applyBindings(aViewModel);
         if ( current ) {
             newTodo = new Todo( current );
             self.todos.push( newTodo );
-            self.current("");
+            self.current( "" );
         }
     };
 
@@ -5187,7 +5188,7 @@ ko.applyBindings(aViewModel);
 
     // remove all completed todos
     self.removeCompleted = function () {
-        self.todos.remove(function (todo) {
+        self.todos.remove(function ( todo ) {
             return todo.done();
         });
     };
@@ -5196,12 +5197,12 @@ ko.applyBindings(aViewModel);
     self.allCompleted = ko.computed({
 
         // always return true/false based on the done flag of all todos
-        read:function () {
+        read: function () {
             return !self.remainingCount();
         },
 
         // set all todos to the written value (true/false)
-        write:function ( newValue ) {
+        write: function ( newValue ) {
             ko.utils.arrayForEach( self.todos(), function ( todo ) {
                 //set even if value is the same, as subscribers are not notified in that case
                 todo.done( newValue );
@@ -5210,7 +5211,7 @@ ko.applyBindings(aViewModel);
     });
 
     // edit an item
-    self.editItem = function( item ) {
+    self.editItem = function ( item ) {
         item.editing( true );
     };
  ..
@@ -5269,11 +5270,11 @@ myObservableArray.push( 'A new todo item' );
 <p>A skeleton binding provider might thus look as follows:</p>
 <pre   class="brush: js">
 var ourBindingProvider = {
-  nodeHasBindings: function( node ) {
+  nodeHasBindings: function ( node ) {
       // returns true/false
   },
 
-  getBindings: function( node, bindingContext ) {
+  getBindings: function ( node, bindingContext ) {
       // returns a binding object
   }
 };
@@ -5281,8 +5282,8 @@ var ourBindingProvider = {
 <p>Before we get to fleshing out this provider, let&rsquo;s briefly discuss logic in data-bind attributes.</p>
 <p>If when using Knockout&rsquo;s MVVM we find yourself dissatisfied with the idea of application logic being overly tied into your View, we can change this. We could implement something a little like CSS classes to assign bindings by name to elements. Ryan Niemeyer (of knockmeout.net) has previously suggested using <code>data-class</code> for this to avoid confusing presentation classes with data classes, so let&rsquo;s get our <code>nodeHasBindings</code> function supporting this:</p>
 <pre   class="brush: js">// does an element have any bindings?
-function nodeHasBindings( node ) {
-    return node.getAttribute ? node.getAttribute("data-class") : false;
+function nodeHasBindings ( node ) {
+    return node.getAttribute ? node.getAttribute( "data-class" ) : false;
 };
 </pre>
 <p>Next, we need a sensible <code>getBindings()</code> function. As we&rsquo;re sticking with the idea of CSS classes, why not also consider supporting space-separated classes to allow us to share binding specs between different elements?</p>
@@ -5297,7 +5298,6 @@ var viewModel = new ViewModel( todos || [] ),
             valueUpdate: "afterkeydown",
             enterKey: viewModel.add
         },
-
         taskTooltip : {
             visible: viewModel.showTooltip
         },
@@ -5311,26 +5311,26 @@ var viewModel = new ViewModel( todos || [] ),
         todos: {
             foreach: viewModel.todos
         },
-        todoListItem: function() {
+        todoListItem: function () {
             return {
                 css: {
                     editing: this.editing
                 }
             };
         },
-        todoListItemWrapper: function() {
+        todoListItemWrapper: function () {
             return {
                 css: {
                     done: this.done
                 }
             };
         },
-        todoCheckBox: function() {
+        todoCheckBox: function () {
             return {
                 checked: this.done
             };
         },
-        todoContent: function() {
+        todoContent: function () {
             return {
                 text: this.content,
                 event: {
@@ -5338,13 +5338,13 @@ var viewModel = new ViewModel( todos || [] ),
                 }
             };
         },
-        todoDestroy: function() {
+        todoDestroy: function () {
             return {
                 click: viewModel.remove
             };
         },
 
-        todoEdit: function() {
+        todoEdit: function () {
             return {
                 value: this.content,
                 valueUpdate: "afterkeydown",
@@ -5361,9 +5361,9 @@ var viewModel = new ViewModel( todos || [] ),
         remainingCount: {
             text: viewModel.remainingCount
         },
-        remainingCountWord: function() {
+        remainingCountWord: function () {
             return {
-                text: viewModel.getLabel(viewModel.remainingCount)
+                text: viewModel.getLabel( viewModel.remainingCount )
             };
         },
         todoClear: {
@@ -5375,9 +5375,9 @@ var viewModel = new ViewModel( todos || [] ),
         completedCount: {
             text: viewModel.completedCount
         },
-        completedCountWord: function() {
+        completedCountWord: function () {
             return {
-                text: viewModel.getLabel(viewModel.completedCount)
+                text: viewModel.getLabel( viewModel.completedCount )
             };
         },
         todoInstructions: {
@@ -5392,17 +5392,17 @@ var viewModel = new ViewModel( todos || [] ),
 
     // We can now create a bindingProvider that uses
     // something different than data-bind attributes
-    ko.customBindingProvider = function( bindingObject ) {
+    ko.customBindingProvider = function ( bindingObject ) {
         this.bindingObject = bindingObject;
 
         // determine if an element has any bindings
-        this.nodeHasBindings = function( node ) {
+        this.nodeHasBindings = function ( node ) {
             return node.getAttribute ? node.getAttribute( "data-class" ) : false;
         };
       };
 
     // return the bindings given a node and the bindingContext
-    this.getBindings = function( node, bindingContext ) {
+    this.getBindings = function ( node, bindingContext ) {
 
         var result = {},
             classes = node.getAttribute( "data-class" );
@@ -5415,8 +5415,8 @@ var viewModel = new ViewModel( todos || [] ),
 
                var bindingAccessor = this.bindingObject[classes[i]];
                if ( bindingAccessor ) {
-                   var binding = typeof bindingAccessor === "function" ? bindingAccessor.call(bindingContext.$data) : bindingAccessor;
-                   ko.utils.extend(result, binding);
+                   var binding = typeof bindingAccessor === "function" ? bindingAccessor.call( bindingContext.$data ) : bindingAccessor;
+                   ko.utils.extend( result, binding );
                }
 
             }
@@ -5587,7 +5587,7 @@ define(
 <pre class="brush: js">
 
 // A module_id (myModule) is used here for demonstration purposes only
-define( "myModule",
+define("myModule",
 
     ["foo", "bar"],
 
@@ -5608,7 +5608,7 @@ define( "myModule",
 });
 
 // An alternative version could be..
-define( "myModule",
+define("myModule",
 
     ["math", "graph"],
 
@@ -5619,7 +5619,7 @@ define( "myModule",
         // different ways due to it's flexibility with
         // certain aspects of the syntax
         return {
-            plot: function( x, y ){
+            plot: function ( x, y ) {
                 return graph.drawPie( math.randomGrid( x, y ) );
             }
         };
@@ -5672,9 +5672,9 @@ define(function ( require ) {
 // dependencies which can be used to skin components either on
 // page-load or dynamically.
 
-define( ["./templates", "text!./template.md","css!./template.css" ],
+define(["./templates", "text!./template.md","css!./template.css" ],
 
-    function( templates, template ){
+    function ( templates, template ) {
         console.log( templates );
         // do something with our templates here
     }
@@ -5688,7 +5688,7 @@ define( ["./templates", "text!./template.md","css!./template.css" ],
 <pre class="brush: js">
 require(["app/myModule"],
 
-    function( myModule ){
+    function ( myModule ) {
         // start the main module which in-turn
         // loads other modules
         var module = new myModule();
@@ -5696,13 +5696,13 @@ require(["app/myModule"],
 });
 </pre>
 
-<p>This example could simply be looked at as <code>requirejs(["app/myModule"], function(){})</code> which indicates the loader's top level globals are being used. This is how to kick off top-level loading of modules with different AMD loaders however with a <code>define()</code> function, if it's passed a local require all <code>require([])</code> examples apply to both types of loader (curl.js and RequireJS).</p>
+<p>This example could simply be looked at as <code>requirejs(["app/myModule"], function (){})</code> which indicates the loader's top level globals are being used. This is how to kick off top-level loading of modules with different AMD loaders however with a <code>define()</code> function, if it's passed a local require all <code>require([])</code> examples apply to both types of loader (curl.js and RequireJS).</p>
 
 <h4>Loading AMD Modules Using curl.js</h4>
 <pre class="brush: js">
 curl(["app/myModule.js"],
 
-    function( myModule ){
+    function ( myModule ) {
         // start the main module which in-turn
         // loads other modules
         var module = new myModule();
@@ -5717,11 +5717,11 @@ curl(["app/myModule.js"],
 // futures.js (slightly different syntax) or any one of a number
 // of other implementations
 
-define(["lib/Deferred"], function( Deferred ){
+define(["lib/Deferred"], function ( Deferred ) {
     var defer = new Deferred();
 
     require(["lib/templates/?index.html","lib/data/?stats"],
-        function( template, data ){
+        function ( template, data ) {
             defer.resolve( { template: template, data:data } );
         }
     );
@@ -5739,7 +5739,7 @@ define(["lib/Deferred"], function( Deferred ){
 <p>Defining AMD-compatible modules using Dojo is fairly straight-forward. As per above, define any module dependencies in an array as the first argument and provide a callback (factory) which will execute the module once the dependencies have been loaded. e.g:</p>
 
 <pre class="brush: js">
-define(["dijit/Tooltip"], function( Tooltip ){
+define(["dijit/Tooltip"], function ( Tooltip ) {
 
     //Our dijit tooltip is now available for local use
     new Tooltip(...);
@@ -5752,7 +5752,7 @@ define(["dijit/Tooltip"], function( Tooltip ){
 <p>There are some interesting gotchas with module referencing that are useful to know here. Although the AMD-advocated way of referencing modules declares them in the dependency list with a set of matching arguments, this isn't supported by the older Dojo 1.6 build system - it really only works for AMD-compliant loaders. e.g:</p>
 
 <pre class="brush: js">
-define(["dojo/cookie", "dijit/Tooltip"], function( cookie, Tooltip ){
+define(["dojo/cookie", "dijit/Tooltip"], function ( cookie, Tooltip ) {
 
     var cookieValue = cookie( "cookieName" );
     new Tooltip(...);
@@ -5787,10 +5787,10 @@ define(["dojo", "dojo/store/Observable"], function ( dojo, Observable ) {
     return function UpdatableObservable ( store ) {
 
         var observable = dojo.isFunction( store.notify ) ? store :
-                new Observable(store);
+                new Observable( store );
 
-        observable.updated = function( object ) {
-            dojo.when( object, function ( itemOrArray) {
+        observable.updated = function ( object ) {
+            dojo.when( object, function ( itemOrArray ) {
                 dojo.forEach( [].concat(itemOrArray), this.notify, this );
             });
         };
@@ -5852,7 +5852,7 @@ define(["mylib/Array"], function ( array ) {
 <pre class="brush: js">
 define(["js/jquery.js","js/jquery.color.js","js/underscore.js"],
 
-    function( $, colorPlugin, _ ){
+    function ( $, colorPlugin, _ ) {
         // Here we've passed in jQuery, the color plugin and Underscore
         // None of these will be accessible in the global scope, but we
         // can easily reference them below.
@@ -5990,7 +5990,7 @@ define(["jquery"] , function ( $ ) {
 var lib = require( "package/lib" );
 
 // behaviour for our module
-function foo(){
+function foo () {
     lib.log( "hello world!" );
 }
 
@@ -6002,12 +6002,12 @@ exports.foo = foo;
 <pre class="brush: js">
 
 // define more behaviour we would like to expose
-function foobar(){
-  this.foo = function(){
+function foobar () {
+  this.foo = function () {
     console.log( "Hello foo" );
   }
 
-  this.bar = function(){
+  this.bar = function () {
     console.log( "Hello bar" );
   }
 }
@@ -6021,7 +6021,7 @@ exports.foobar = foobar;
 // where both usage and module files exist
 // in the same directory
 
-var foobar = require("./foobar").foobar,
+var foobar = require( "./foobar" ).foobar,
     test   = new foobar();
 
 // Outputs: "Hello bar"
@@ -6032,11 +6032,11 @@ test.bar();
 <h4>AMD-equivalent Of The First CommonJS Example</h4>
 
 <pre class="brush: js">
-define(function(require){
+define(function ( require ) {
    var lib = require( "package/lib" );
 
     // some behaviour for our module
-    function foo(){
+    function foo () {
         lib.log( "hello world!" );
     }
 
@@ -6056,11 +6056,11 @@ define(function(require){
 var modA = require( "./foo" );
 var modB = require( "./bar" );
 
-exports.app = function(){
+exports.app = function () {
     console.log( "Im an application!" );
 }
 
-exports.foo = function(){
+exports.foo = function () {
     return modA.helloWorld();
 }
 </pre>
@@ -6074,7 +6074,7 @@ exports.name = "bar";
 <h5>foo.js</h5>
 <pre class="brush: js">
 require( "./bar" );
-exports.helloWorld = function(){
+exports.helloWorld = function () {
     return "Hello World!!"
 }
 </pre>
@@ -6153,11 +6153,11 @@ exports.helloWorld = function(){
 <h4>Basic AMD Hybrid Format</h4>
 
 <pre class="brush: js">
-define( function ( require, exports, module ){
+define( function ( require, exports, module ) {
 
     var shuffler = require( "lib/shuffle" );
 
-    exports.randomize = function( input ){
+    exports.randomize = function ( input ) {
         return shuffler.shuffle( input );
     }
 });
@@ -6180,15 +6180,15 @@ define( function ( require, exports, module ){
 (function ( root, factory ) {
     if ( typeof exports === 'object' ) {
         // CommonJS
-        factory( exports, require('b') );
+        factory( exports, require( 'b' ) );
     } else if ( typeof define === 'function' && define.amd ) {
         // AMD. Register as an anonymous module.
-        define( ['exports', 'b'], factory);
+        define( ['exports', 'b'], factory );
     } else {
         // Browser globals
-        factory( (root.commonJsStrict = {}), root.b );
+        factory( ( root.commonJsStrict = {} ), root.b );
     }
-}(this, function ( exports, b ) {
+}( this, function ( exports, b ) {
     //use b in some fashion.
 
     // attach properties to the exports object to define
@@ -6218,7 +6218,7 @@ define( function ( require, exports, module ){
 
 &lt;script type="text/javascript"&gt;
 
-$(function(){
+$(function () {
 
     // Our plugin "core" is exposed under a core namespace in
     // this example, which we first cache
@@ -6240,7 +6240,7 @@ $(function(){
     // our core module/plugin. If we review the code further down,
     // we can see how easy it is to consume properties and methods
     // between the core and other plugins
-    core.plugin.setRed("div:last");
+    core.plugin.setRed( "div:last" );
 });
 
 &lt;/script&gt;</pre>
@@ -6258,21 +6258,21 @@ $(function(){
 // Note that dependencies can just as easily be declared if required
 // and should work as demonstrated earlier with the AMD module examples.
 
-(function ( name, definition ){
+(function ( name, definition ) {
   var theModule = definition(),
       // this is considered "safe":
       hasDefine = typeof define === "function" && define.amd,
       // hasDefine = typeof define === "function",
       hasExports = typeof module !== "undefined" && module.exports;
 
-  if ( hasDefine ){ // AMD Module
+  if ( hasDefine ) { // AMD Module
     define(theModule);
   } else if ( hasExports ) { // Node.js Module
     module.exports = theModule;
   } else { // Assign to common namespaces or simply the global object (window)
     ( this.jQuery || this.ender || this.$ || this)[name] = theModule;
   }
-})( "core", function () {
+})("core", function () {
     var module = this;
     module.plugins = [];
     module.highlightColor = "yellow";
@@ -6283,13 +6283,13 @@ $(function(){
   // This is the highlight method used by the core highlightAll()
   // method and all of the plugins highlighting elements different
   // colors
-  module.highlight = function( el,strColor ){
-    if( this.jQuery ){
+  module.highlight = function ( el,strColor ) {
+    if ( this.jQuery ) {
       jQuery(el).css( "background", strColor );
     }
   }
   return {
-      highlightAll:function(){
+      highlightAll:function () {
         module.highlight("div", module.highlightColor);
       }
   };
@@ -6318,7 +6318,7 @@ $(function(){
             scope;
 
         obj = null;
-        namespaces = name.split(".");
+        namespaces = name.split( "." );
         scope = ( this.jQuery || this.ender || this.$ || this );
 
         for ( var i = 0; i < namespaces.length; i++ ) {
@@ -6340,10 +6340,10 @@ $(function(){
     // in order to expand the highlight method to do more if we wish.
     return {
         setGreen: function ( el ) {
-            highlight(el, "green");
+            highlight( el, "green" );
         },
         setRed: function ( el ) {
-            highlight(el, errorColor);
+            highlight( el, errorColor );
         }
     };
 
@@ -6395,22 +6395,22 @@ $(function(){
 <li><strong>export</strong> declarations declare that a local-binding of a module is externally visible such that other modules may read the exports but can't modify them. Interestingly, modules may export child modules but can't export modules that have been defined elsewhere. We can also rename exports so their external name differs from their local names.</li></ul> </p>
 <pre class="brush: js">
 
-module staff{
+module staff {
     // specify (public) exports that can be consumed by
     // other modules
     export var baker = {
-        bake: function( item ){
+        bake: function ( item ) {
             console.log( "Woo! I just baked " + item );
         }
     }
 }
 
-module skills{
+module skills {
     export var specialty = "baking";
     export var experience = "5 years";
 }
 
-module cakeFactory{
+module cakeFactory {
 
     // specify dependencies
     import baker from staff;
@@ -6419,10 +6419,10 @@ module cakeFactory{
     import * from skills;
 
     export var oven = {
-        makeCupcake: function( toppings ){
+        makeCupcake: function ( toppings ) {
             baker.bake( "cupcake", toppings );
         },
-        makeMuffin: function( mSize ){
+        makeMuffin: function ( size ) {
             baker.bake( "muffin", size );
         }
     }
@@ -6462,7 +6462,7 @@ export function close( hnd ) { ... };
 module file from "io/File";
 
 import { open, close } from file;
-export function scan( in ) {
+export function scan ( in ) {
     try {
         var h = open( in ) ...
     }
@@ -6474,7 +6474,7 @@ export function scan( in ) {
 module lexer from "compiler/LexicalHandler";
 module stdlib from "@std";
 
-//... scan(cmdline[0]) ...
+//... scan( cmdline[0] ) ...
 </pre>
 
 <h3>Classes With Constructors, Getters &amp; Setters</h3>
@@ -6489,7 +6489,7 @@ class Cake{
     // We can define the body of a class" constructor
     // function by using the keyword "constructor" followed
     // by an argument list of public and private declarations.
-    constructor( name, toppings, price, cakeSize ){
+    constructor ( name, toppings, price, cakeSize ) {
         public name = name;
         public cakeSize = cakeSize;
         public toppings = toppings;
@@ -6502,24 +6502,24 @@ class Cake{
     // dropped for cases such as the following. Here an identifier
     // followed by an argument list and a body defines a new method
 
-    addTopping( topping ){
+    addTopping ( topping ) {
         public( this ).toppings.push( topping );
     }
 
     // Getters can be defined by declaring get before
     // an identifier/method name and a curly body.
-    get allToppings(){
+    get allToppings () {
         return public( this ).toppings;
     }
 
-    get qualifiesForDiscount(){
+    get qualifiesForDiscount () {
         return private( this ).price > 5;
     }
 
     // Similar to getters, setters can be defined by using
     // the "set" keyword before an identifier
-    set cakeSize( cSize ){
-        if( cSize < 0 ){
+    set cakeSize ( cSize ) {
+        if ( cSize < 0 ) {
             throw new Error( "Cake must be a valid size -
             either small, medium or large" );
         }
@@ -6603,12 +6603,12 @@ $( "input" ).addClass( "active" );
 <p>The jQuery <code>addClass()</code> implementation could either directly use native <em>for</em> loops (or jQuery's <code>jQuery.each()</code>/<code>jQuery.fn.each()</code>) to iterate through a collection in order to apply the method to both single items or groups. Looking through the source we can see this is indeed the case:</p>
 
 <pre class="brush: js">
-    addClass: function( value ) {
+    addClass: function ( value ) {
     var classNames, i, l, elem,
       setClass, c, cl;
 
     if ( jQuery.isFunction( value ) ) {
-      return this.each(function( j ) {
+      return this.each(function ( j ) {
         jQuery( this ).addClass( value.call(this, j, this.className) );
       });
     }
@@ -6666,7 +6666,7 @@ var currentOpacity = $( ".container" ).css('opacity');
 
 <p>The corresponding jQuery core cssHook which makes the above possible can be seen below:</p>
 <pre class="brush: js">
-get: function( elem, computed ) {
+get: function ( elem, computed ) {
   // IE uses filters for opacity
   return ropacity.test( (
         computed && elem.currentStyle ?
@@ -6789,7 +6789,7 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject ?
    * Additionally XMLHttpRequest can be disabled in IE7/IE8 so
    * we need a fallback.
    */
-  function() {
+  function () {
     return !this.isLocal && createStandardXHR() || createActiveXHR();
   } :
   // For all other browsers, use the standard XMLHttpRequest object
@@ -6807,18 +6807,18 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject ?
       dataType: "html",
       data: params,
       // Complete callback (responseText is used internally)
-      complete: function( jqXHR, status, responseText ) {
+      complete: function ( jqXHR, status, responseText ) {
         // Store the response as specified by the jqXHR object
         responseText = jqXHR.responseText;
         // If successful, inject the HTML into all the matched elements
         if ( jqXHR.isResolved() ) {
           // Get the actual response in case
           // a dataFilter is present in ajaxSettings
-          jqXHR.done(function( r ) {
+          jqXHR.done(function ( r ) {
             responseText = r;
           });
           // See if a selector was specified
-          self.html( selector ?
+          self.html(selector ?
             // Create a dummy div to hold the results
             jQuery("<div>")
               // inject the contents of the document in, removing the scripts
@@ -6879,7 +6879,7 @@ $( document ).off( "topicName" );
 <pre class="brush: js">
 jQuery.event = {
 
-  add: function( elem, types, handler, data, selector ) {
+  add: function ( elem, types, handler, data, selector ) {
 
     var elemData, eventHandle, events,
       t, tns, type, namespaces, handleObj,
@@ -6896,7 +6896,7 @@ jQuery.event = {
     ...
 
     // Handle multiple events separated by a space
-    // jQuery(...).bind("mouseover mouseout", fn);
+    // jQuery(...).bind( "mouseover mouseout", fn );
     types = jQuery.trim( hoverHack(types) ).split( " " );
     for ( t = 0; t < types.length; t++ ) {
 
@@ -6926,20 +6926,20 @@ jQuery.event = {
 <p>For those that prefer to use the conventional naming scheme for the Observer pattern, <a href="https://gist.github.com/661855">Ben Alman</a> created a simple wrapper around the above methods which provides us access to <code>jQuery.publish()</code>, <code>jQuery.subscribe</code>, and <code>jQuery.unsubscribe</code> methods. I've previously linked to them earlier in the book, but we can see the wrapper in full below.</p>
 
 <pre  class="brush: js">
-(function( $ ) {
+(function ( $ ) {
 
-  var o = $({});
+  var o = $( {} );
 
-  $.subscribe = function() {
-    o.on.apply(o, arguments);
+  $.subscribe = function () {
+    o.on.apply( o, arguments );
   };
 
-  $.unsubscribe = function() {
-    o.off.apply(o, arguments);
+  $.unsubscribe = function () {
+    o.off.apply( o, arguments );
   };
 
-  $.publish = function() {
-    o.trigger.apply(o, arguments);
+  $.publish = function () {
+    o.trigger.apply( o, arguments );
   };
 
 }( jQuery ));
@@ -6949,7 +6949,7 @@ jQuery.event = {
 <pre  class="brush: js">
 var topics = {};
 
-jQuery.Topic = function( id ) {
+jQuery.Topic = function ( id ) {
     var callbacks,
         topic = id && topics[ id ];
     if ( !topic ) {
@@ -7004,12 +7004,12 @@ $.Topic( "mailSent" ).publish( "woo! mail!" );
 
 
 <pre  class="brush: js">
-$.each( ["john","dave","rick","julian"] , function( index, value ) {
-  console.log( index + ": "" + value);
+$.each(["john","dave","rick","julian"] , function ( index, value ) {
+  console.log( index + ": "" + value );
 });
 
 $( "li" ).each( function ( index ) {
-  console.log( index + ": " + $( this ).text());
+  console.log( index + ": " + $( this ).text() );
 });
 </pre>
 
@@ -7018,7 +7018,7 @@ $( "li" ).each( function ( index ) {
 
 <pre class="brush: js">
 // Execute a callback for every element in the matched set.
-each: function( callback, args ) {
+each: function ( callback, args ) {
   return jQuery.each( this, callback, args );
 }
 </pre>
@@ -7026,7 +7026,7 @@ each: function( callback, args ) {
 <p>Followed by the code behind <code>jQuery.each()</code> which handles two ways of iterating through objects:</p>
 
 <pre class="brush: js">
-  each: function( object, callback, args ) {
+  each: function ( object, callback, args ) {
     var name, i = 0,
       length = object.length,
       isObj = length === undefined || jQuery.isFunction( object );
@@ -7073,7 +7073,7 @@ each: function( callback, args ) {
   <strong>Lazy Initialization </strong>is a design pattern which allows us to delay expensive processes until the first instance they are needed. An example of this is the <code>.ready()</code> function in jQuery that only executes a callback once the DOM is ready.</p>
 
 <pre class="brush: js">
-$( document ).ready( function () {
+$( document ).ready(function () {
 
     // The ajax request won't attempt to execute until
     // the DOM is ready
@@ -7082,7 +7082,7 @@ $( document ).ready( function () {
       url: "http://domain.com/api/",
       data: "display=latest&order=ascending"
     })
-    .done( function( data ) ){
+    .done( function( data ) ) {
         $(".status").html( "content loaded" );
         console.log( "Data output:" + data );
     });
@@ -7095,14 +7095,14 @@ $( document ).ready( function () {
 <p><code>jQuery.fn.ready()</code> is powered by <code>jQuery.bindReady()</code>, seen below:</p>
 
 <pre class="brush: js">
-  bindReady: function() {
+  bindReady: function () {
     if ( readyList ) {
       return;
     }
 
     readyList = jQuery.Callbacks( "once memory" );
 
-    // Catch cases where $(document).ready() is called after the
+    // Catch cases where $( document ).ready() is called after the
     // browser event has already occurred.
     if ( document.readyState === "complete" ) {
       // Handle it asynchronously to allow scripts the opportunity to delay ready
@@ -7216,7 +7216,7 @@ $( "button" ).on( "click", function () {
 
     // Simulated bind
     var args = slice.call( arguments, 2 ),
-      proxy = function() {
+      proxy = function () {
         return fn.apply( context, args.concat( slice.call( arguments ) ) );
       };
 
@@ -7271,7 +7271,7 @@ $( "&lt;input /&gt;" )
 
       if ( ret ) {
         if ( jQuery.isPlainObject( context ) ) {
-          selector = [ document.createElement( ret[1] ) ];
+          selector = [document.createElement( ret[1] )];
           jQuery.fn.attr.call( selector, context, true );
 
         } else {
@@ -7279,7 +7279,7 @@ $( "&lt;input /&gt;" )
         }
 
       } else {
-        ret = jQuery.buildFragment( [ match[1] ], [ doc ] );
+        ret = jQuery.buildFragment( [match[1]], [doc] );
         selector = ( ret.cacheable ? jQuery.clone(ret.fragment) : ret.fragment ).childNodes;
       }
 
@@ -7337,9 +7337,9 @@ $.fn.myPluginName = function () {
 <p>An alternative way to write this pattern would be to use <code>jQuery.extend()</code>, which enables us to define multiple functions at once and which sometimes make more sense semantically:</p>
 
 <pre class="brush: js">
-(function( $ ){
+(function ( $ ) {
     $.extend($.fn, {
-        myplugin: function(){
+        myplugin: function () {
             // your plugin logic
         }
     });
@@ -7410,7 +7410,7 @@ $.fn.myPluginName = function () {
         };
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin ( element, options ) {
         this.element = element;
 
         // jQuery has an extend method that merges the
@@ -7449,7 +7449,7 @@ $.fn.myPluginName = function () {
 
 <p>Usage:</p>
 <p><pre class="brush: js">
-$("#elem").defaultPluginName({
+$( "#elem" ).defaultPluginName({
   propertyName: "a custom value"
 });
 </pre></p>
@@ -7501,7 +7501,7 @@ $("#elem").defaultPluginName({
     // existing widget prototype to inherit from, an object
     // literal to become the widget's prototype );
 
-    $.widget( "namespace.widgetname" , {
+    $.widget("namespace.widgetname" , {
 
         //Options to be used as defaults
         options: {
@@ -7576,11 +7576,11 @@ $("#elem").defaultPluginName({
 
 <p>Usage:</p>
 <p><pre class="brush: js">
-var collection = $("#elem").widgetName({
+var collection = $( "#elem" ).widgetName({
   foo: false
 });
 
-collection.widgetName("methodB");
+collection.widgetName( "methodB" );
 </pre></p>
 
 <h4>Further Reading</h4>
@@ -7615,7 +7615,7 @@ collection.widgetName("methodB");
  */
 
 ;(function ( $ ) {
-    if (!$.myNamespace) {
+    if ( !$.myNamespace ) {
         $.myNamespace = {};
     };
 
@@ -7634,8 +7634,10 @@ collection.widgetName("methodB");
         base.init = function () {
             base.myFunctionParam = myFunctionParam;
 
-            base.options = $.extend({},
-            $.myNamespace.myPluginName.defaultOptions, options);
+            base.options = $.extend(
+              {},
+              $.myNamespace.myPluginName.defaultOptions, options
+            );
 
             // Put our initialization code here
         };
@@ -7655,8 +7657,8 @@ collection.widgetName("methodB");
     $.fn.mynamespace_myPluginName = function
         ( myFunctionParam, options ) {
         return this.each(function () {
-            (new $.myNamespace.myPluginName( this,
-            myFunctionParam, options ));
+            ( new $.myNamespace.myPluginName( this,
+            myFunctionParam, options ) );
         });
     };
 
@@ -7712,7 +7714,7 @@ $("#elem").mynamespace_myPluginName({
 
         },
 
-        _create : function() {
+        _create : function () {
             var self = this;
 
             //self.element.addClass( "my-widget" );
@@ -7728,12 +7730,12 @@ $("#elem").mynamespace_myPluginName({
             });
 
             //unsubscribe to "myEventStart"
-            //self.element.off( "myEventStart", function(e){
+            //self.element.off( "myEventStart", function (e) {
                 ///console.log( "unsubscribed to this event" );
             //});
         },
 
-        destroy: function(){
+        destroy: function () {
             $.Widget.prototype.destroy.apply( this, arguments );
         },
     });
@@ -7784,7 +7786,7 @@ el.eventStatus().trigger( "myEventStart" );
 // myObject - an object representing a concept we wish to model
 // (e.g. a car)
 var myObject = {
-  init: function( options, elem ) {
+  init: function ( options, elem ) {
     // Mix in the passed-in options with the default options
     this.options = $.extend( {}, this.options, options );
 
@@ -7802,10 +7804,10 @@ var myObject = {
   options: {
     name: "No name"
   },
-  _build: function(){
+  _build: function () {
     //this.$elem.html( "&lt;h1&gt;"+this.options.name+"&lt;/h1&gt;" );
   },
-  myMethod: function( msg ){
+  myMethod: function( msg ) {
     // We have direct access to the associated and cached
     // jQuery element
     // this.$elem.append( "&lt;p&gt;"+msg+"&lt;/p&gt;" );
@@ -7815,8 +7817,8 @@ var myObject = {
 
 // Object.create support test, and fallback for browsers without it
 if ( typeof Object.create !== "function" ) {
-    Object.create = function (o) {
-        function F() {}
+    Object.create = function ( o ) {
+        function F () {};
         F.prototype = o;
         return new F();
     };
@@ -7826,7 +7828,7 @@ if ( typeof Object.create !== "function" ) {
 // Create a plugin based on a defined object
 $.plugin = function( name, object ) {
   $.fn[name] = function( options ) {
-    return this.each(function() {
+    return this.each(function () {
       if ( ! $.data( this, name ) ) {
         $.data( this, name, Object.create( object ).init(
         options, this ) );
@@ -7907,7 +7909,7 @@ widgetName.prototype = {
 
     // _create will automatically run the first time this
     // widget is called
-    _create: function(){
+    _create: function () {
         // creation code
     },
 
@@ -7915,29 +7917,29 @@ widgetName.prototype = {
     // This fires when our instance is first created and when
     // attempting to initialize the widget again (by the bridge)
     // after it has already been initialized.
-    _init: function(){
+    _init: function () {
         // init code
     },
 
     // required: objects to be used with the bridge must contain an
     // "option". Post-initialization, the logic for changing options
     // goes here.
-    option: function( key, value ){
+    option: function ( key, value ) {
 
         // optional: get/change options post initialization
         // ignore if you don't require them.
 
-        // signature: $("#foo").bar({ cool:false });
+        // signature: $( "#foo" ).bar( { cool:false } );
         if( $.isPlainObject( key ) ){
             this.options = $.extend( true, this.options, key );
 
         // signature: $( "#foo" ).option( "cool" ); - getter
-        } else if ( key && typeof value === "undefined" ){
-            return this.options[ key ];
+        } else if ( key && typeof value === "undefined" ) {
+            return this.options[key];
 
         // signature: $( "#foo" ).bar("option", "baz", false );
         } else {
-            this.options[ key ] = value;
+            this.options[key] = value;
         }
 
         // required: option must return the current instance.
@@ -7947,12 +7949,12 @@ widgetName.prototype = {
     },
 
     // notice no underscore is used for public methods
-    publicFunction: function(){
+    publicFunction: function () {
         console.log( "public function" );
     },
 
     // underscores are used for private methods
-    _privateFunction: function(){
+    _privateFunction: function () {
         console.log( "private function" );
     }
 };
@@ -7971,14 +7973,14 @@ var instance = $( "#foo" ).foo({
 
 // our widget instance exists in the elem's data
 // Outputs: #elem
-console.log(instance.data( "foo" ).element);
+console.log( instance.data( "foo" ).element );
 
 // bridge allows us to call public methods
 // Outputs: "public method"
-instance.foo("publicFunction");
+instance.foo( "publicFunction" );
 
 // bridge prevents calls to internal methods
-instance.foo("_privateFunction");
+instance.foo( "_privateFunction" );
 </pre></p>
 
 <h4>Further Reading</h4>
@@ -8027,7 +8029,7 @@ instance.foo("_privateFunction");
             bar: false
         },
 
-        _create: function() {
+        _create: function () {
             // _create will automatically run the first time this
             // widget is called. Put the initial widget set-up code
             // here, then we can access the element on which
@@ -8041,13 +8043,13 @@ instance.foo("_privateFunction");
         },
 
         // Private methods/props start with underscores
-        _dosomething: function(){ ... },
+        _dosomething: function (){ ... },
 
         // Public methods like these below can can be called
         // externally:
         // $("#myelem").foo( "enable", arguments );
 
-        enable: function() { ... },
+        enable: function () { ... },
 
         // Destroy an instantiated plugin and clean up modifications
         // the widget has made to the DOM
@@ -8214,7 +8216,7 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
             // subscribe to
             // signature: _trigger( "callbackName" , [eventObject],
             // [uiObject] )
-            this._trigger( "methodA", event, {
+            this._trigger("methodA", event, {
                 key: value
             });
         },
@@ -8258,19 +8260,18 @@ define( "ao.myWidget", ["jquery", "text!templates/asset.html", "underscore", "jq
 <p>main.js</p>
 <p><pre class="brush: js">
 require({
-
     paths: {
         "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min",
         "jqueryui": "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min",
         "boilerplate": "../patterns/jquery.widget-factory.requirejs.boilerplate"
     }
 }, ["require", "jquery", "jqueryui", "boilerplate"],
-function (req, $) {
+function ( req, $ ) {
 
     $(function () {
 
-        var instance = $("#elem").myWidget();
-        instance.myWidget("methodB");
+        var instance = $( "#elem" ).myWidget();
+        instance.myWidget( "methodB" );
 
     });
 });
@@ -8323,7 +8324,7 @@ function (req, $) {
 
         return this.each(function () {
 
-            var elem = $(this);
+            var elem = $( this );
 
         });
     };
@@ -8348,7 +8349,7 @@ function (req, $) {
 
 <p>Usage:</p>
 <p><pre class="brush: js">
-$("#elem").pluginName({
+$( "#elem" ).pluginName({
   key: "foobar"
 });
 </pre></p>
@@ -8377,9 +8378,9 @@ $("#elem").pluginName({
 <p>We don’t see the latter option in the wild too often, but it can be a significantly cleaner solution (as long as we don’t mind the inline approach). If wondering where this could be useful, imagine writing a draggable plugin for a large set of elements. We could go about customizing their options as follows:</p>
 
 <pre class="brush: js">
-$( ".item-a" ).draggable( {"defaultPosition":"top-left"} );
-$( ".item-b" ).draggable( {"defaultPosition":"bottom-right"} );
-$( ".item-c" ).draggable( {"defaultPosition":"bottom-left"} );
+$( ".item-a" ).draggable( { "defaultPosition":"top-left" } );
+$( ".item-b" ).draggable( { "defaultPosition":"bottom-right" } );
+$( ".item-c" ).draggable( { "defaultPosition":"bottom-left" } );
 //etc
 </pre>
 
@@ -8409,12 +8410,12 @@ $( ".items" ).draggable();
 // hasn't been nested in a jQuery plugin. Instead, we just use
 // jQuery for its instantiation.
 
-;(function( $, window, document, undefined ){
+;(function ( $, window, document, undefined ) {
 
   // our plugin constructor
-  var Plugin = function( elem, options ){
+  var Plugin = function ( elem, options ) {
       this.elem = elem;
-      this.$elem = $(elem);
+      this.$elem = $( elem );
       this.options = options;
 
       // This next line takes advantage of HTML5 data attributes
@@ -8430,7 +8431,7 @@ $( ".items" ).draggable();
       message: "Hello world!"
     },
 
-    init: function() {
+    init: function () {
       // Introduce defaults that can be extended either
       // globally or using an object literal.
       this.config = $.extend( {}, this.defaults, this.options,
@@ -8449,7 +8450,7 @@ $( ".items" ).draggable();
       return this;
     },
 
-    sampleMethod: function() {
+    sampleMethod: function () {
       // e.g. show the currently configured message
       // console.log(this.config.message);
     }
@@ -8457,8 +8458,8 @@ $( ".items" ).draggable();
 
   Plugin.defaults = Plugin.prototype.defaults;
 
-  $.fn.plugin = function( options ) {
-    return this.each(function() {
+  $.fn.plugin = function ( options ) {
+    return this.each(function () {
       new Plugin( this, options ).init();
     });
   };
@@ -8545,10 +8546,10 @@ $("#elem").plugin({
 <p>One popular pattern for namespacing in JavaScript is opting for a single global variable as our primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
 <pre  class="brush: js">
 var myApplication =  (function () {
-        function(){
+        function () {
             //...
         },
-        return{
+        return {
             //...
         }
 })();
@@ -8561,7 +8562,7 @@ var myApplication =  (function () {
 <p>One solution to the above problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It's a simple concept at heart, but the idea is we select a unique prefix namespace we wish to use (in this example, <code>myApplication_</code>) and then define any methods, variables or other objects after the prefix as follows:</p>
 <pre  class="brush: js">var myApplication_propertyA = {};
 var myApplication_propertyB = {};
-function myApplication_myMethod(){
+function myApplication_myMethod () {
   //...
 }
 </pre>
@@ -8578,7 +8579,7 @@ var myApplication = {
 
     // As we've seen, we can easily define functionality for
     // this object literal..
-    getInfo:function(){
+    getInfo: function () {
       //...
     },
 
@@ -8594,18 +8595,18 @@ var myApplication = {
 </pre>
 <p>One can also opt for adding properties directly to the namespace:</p>
 <pre  class="brush: js">
-myApplication.foo = function(){
+myApplication.foo = function () {
     return "bar";
 }
 
 myApplication.utils = {
-    toString:function(){
+    toString: function () {
         //...
     },
-    export: function(){
+    export: function () {
         //...
     }
-}
+};
 </pre>
 <p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
 
@@ -8622,9 +8623,9 @@ var myApplication = {};
 // object literal to myApplication.
 //
 // Option 1: var myApplication = myApplication || {};
-// Option 2  if( !MyApplication ){ MyApplication = {} };
+// Option 2  if ( !MyApplication ) { MyApplication = {} };
 // Option 3: window.myApplication || ( window.myApplication = {} );
-// Option 4: var myApplication = $.fn.myApplication = function() {};
+// Option 4: var myApplication = $.fn.myApplication = function () {};
 // Option 5: var myApplication = myApplication === undefined ? {} : myApplication;
 </pre
 
@@ -8633,13 +8634,13 @@ var myApplication = {};
 <p>Option 3 assumes that we're working in the global namespace, but it could also be written as:</p>
 
 <pre class="brush: js">
-myApplication || (myApplication = {});
+myApplication || ( myApplication = {} );
 </pre>
 
 <p>This variation assumes that <code>myApplication</code> has already been initialized and so it's only really useful for a parameter/argument scenario as in the following example:</p>
 
 <pre class="brush: js">
-function foo() {
+function foo () {
   myApplication || ( myApplication = {} );
 }
 
@@ -8651,7 +8652,7 @@ foo();
 // However accepting myApplication as an
 // argument
 
-function foo( myApplication ) {
+function foo ( myApplication ) {
   myApplication || ( myApplication = {} );
 }
 
@@ -8666,7 +8667,7 @@ foo();
 
 <pre class="brush: js">
 // If we were to define a new plugin..
-var myPlugin = $.fn.myPlugin = function() { ... };
+var myPlugin = $.fn.myPlugin = function () { ... };
 
 // Then later rather than having to type:
 $.fn.myPlugin.defaults = {};
@@ -8700,12 +8701,12 @@ var namespace = (function () {
         publicMethod1: privateMethod1,
 
         // nested namespace with public properties
-        properties:{
+        properties: {
             publicProperty1: privateProperty1
         },
 
         // another tested namespace
-        utils:{
+        utils: {
             publicMethod2: privateMethod2
         }
         ...
@@ -8803,9 +8804,9 @@ var foobar = function () { arguments.callee(); }
 // here a namespace object is passed as a function
 // parameter, where we assign public methods and
 // properties to it
-(function( o ){
+(function ( o ) {
     o.foo = "foo";
-    o.bar = function(){
+    o.bar = function () {
         return "bar";
     };
 })( namespace );
@@ -8835,7 +8836,7 @@ console.log( namespace );
     };
 
     // private method
-    function speak(msg) {
+    function speak ( msg ) {
         console.log( "You said: " + msg );
     };
 
@@ -8872,7 +8873,7 @@ console.log( namespace.foobar2 );
         console.log( namespace.bar );
         speak( "goodbye" );
     }
-})( window.namespace = window.namespace || {});
+})( window.namespace = window.namespace || {} );
 
 // Outputs: goodbye
 namespace.sayGoodbye();
@@ -8895,9 +8896,9 @@ myApp.utils =  {};
       return val;
   };
 
-  this.setValue = function( newVal ) {
+  this.setValue = function ( newVal ) {
       val = newVal;
-  }
+  };
 
   // also introduce a new sub-namespace
   this.tools = {};
@@ -8908,9 +8909,9 @@ myApp.utils =  {};
 // which we defined via the utilities module
 
 (function () {
-    this.diagnose = function(){
+    this.diagnose = function () {
         return "diagnosis";
-    }
+    };
 }).apply( myApp.utils.tools );
 
 // note, this same approach to extension could be applied
@@ -8941,7 +8942,7 @@ var ns = ns || {},
     ns2 = ns2 || {};
 
 // the module/namespace creator
-var creator = function( val ){
+var creator = function ( val ) {
 
     var val = val || 0;
 
@@ -8974,10 +8975,10 @@ creator.call( ns2 , 5000 );
 <p>As we've reviewed, nested namespaces can provide an organized hierarchy of structure for a unit of code. An example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. This can also be expanded using the object literal pattern to be:</p>
 <pre  class="brush: js">
 var application = {
-      utilities:{
-          drawing:{
-              canvas:{
-                  2d:{
+      utilities: {
+          drawing: {
+              canvas: {
+                  2d: {
                           //...
                   }
               }
@@ -8997,8 +8998,8 @@ var myApp = myApp || {};
 
 // a convenience function for parsing string namespaces and
 // automatically generating nested namespaces
-function extend( ns, ns_string ) {
-    var parts = ns_string.split("."),
+function extend ( ns, ns_string ) {
+    var parts = ns_string.split( "." ),
         parent = ns,
         pl;
 
@@ -9018,7 +9019,7 @@ function extend( ns, ns_string ) {
 
 // Usage:
 // extend myApp with a deeply nested namespace
-var mod = extend(myApp, "modules.module2");
+var mod = extend( myApp, "modules.module2" );
 
 // the correct object with nested depths is output
 console.log(mod);
@@ -9028,13 +9029,13 @@ console.log(mod);
 // that includes the extensions
 
 // Outputs: true
-console.log(mod == myApp.modules.module2);
+console.log( mod == myApp.modules.module2 );
 
 // further demonstration of easier nested namespace
 // assignment using extend
-extend(myApp, "moduleA.moduleB.moduleC.moduleD");
-extend(myApp, "longer.version.looks.like.this");
-console.log(myApp);
+extend( myApp, "moduleA.moduleB.moduleC.moduleD" );
+extend( myApp, "longer.version.looks.like.this" );
+console.log( myApp );
 
 </pre>
 <p>Web inspector output:</p>
@@ -9078,15 +9079,15 @@ drawing.plot( 98, 50,60 );
 // extend.js
 // Written by Andrew Dupont, optimized by Addy Osmani
 
-function extend( destination, source ) {
+function extend ( destination, source ) {
 
     var toString = Object.prototype.toString,
-        objTest = toString.call({});
+        objTest = toString.call( {} );
 
     for ( var property in source ) {
-        if ( source[property] &amp;&amp; objTest === toString.call(source[property]) ) {
+        if ( source[property] &amp;&amp; objTest === toString.call( source[property] ) ) {
             destination[property] = destination[property] || {};
-            extend(destination[property], source[property]);
+            extend( destination[property], source[property] );
         } else {
             destination[property] = source[property];
         }
@@ -9111,10 +9112,10 @@ console.log( "test 1" , myNS);
 
 // 2. extend with multiple depths (namespace.hello.world.wave)
 extend(myNS, {
-                hello:{
-                        world:{
-                                wave:{
-                                    test: function(){
+                hello: {
+                        world: {
+                                wave: {
+                                    test: function () {
                                         //...
                                     }
                                 }
@@ -9135,9 +9136,9 @@ myNS.library = {
         foo:function () {}
 };
 
-extend( myNS, {
-        library:{
-                bar:function(){
+extend(myNS, {
+        library: {
+                bar: function () {
                     //...
                 }
         }
@@ -9168,7 +9169,7 @@ var myApp = myApp || {};
 
 // directly assign a nested namespace
 myApp.library = {
-  foo:function(){
+  foo:function (){
     //...
   }
 };
@@ -9178,9 +9179,9 @@ myApp.library = {
 // with the same name but with a different function
 // signature: $.extend( deep, target, object1, object2 )
 $.extend( true, myApp, {
-    library:{
-        bar:function(){
-            //...
+    library: {
+        bar:function () {
+            // ...
         }
     }
 });
@@ -9280,7 +9281,7 @@ console.log("test", myApp);
 <script src="js/shCore.js"></script>
 <script src="js/shBrushJScript.js"></script>
 <script>
-$(function() {
+$(function () {
   SyntaxHighlighter.all();
 });
 </script>
