@@ -670,7 +670,7 @@ Object.defineProperty( newObject, "someKey", {
 // If the above feels a little difficult to read, a short-hand could
 // be written as follows:
 
-var defineProp = function ( obj, key, value ){
+var defineProp = function ( obj, key, value ) {
   var config = {
     value: value,
     writable: true,
@@ -689,7 +689,7 @@ defineProp( person, "dateOfBirth", "1981" );
 defineProp( person, "hasBeard", false );
 
 console.log(person);
-// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
+// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false};
 
 
 // 4. Object.defineProperties
@@ -724,7 +724,7 @@ Object.defineProperties( newObject, {
 var driver = Object.create( person );
 
 // Set some properties for the driver
-defineProp(driver, "topSpeed", "100mph");
+defineProp( driver, "topSpeed", "100mph" );
 
 // Get an inherited property (1981)
 console.log( driver.dateOfBirth );
@@ -749,7 +749,7 @@ function Car( model, year, miles ) {
   this.miles = miles;
 
   this.toString = function () {
-    return this.model + " has done " + this.miles + " miles";
+    return this.model + " has done " + this.miles + " miles.";
   };
 }
 
@@ -793,7 +793,7 @@ function Car( model, year, miles ) {
 // Note here that we are using Object.prototype.newMethod rather than
 // Object.prototype so as to avoid redefining the prototype object
 Car.prototype.toString = function () {
-  return this.model + " has done " + this.miles + " miles";
+  return this.model + " has done " + this.miles + " miles.";
 };
 
 // Usage:
