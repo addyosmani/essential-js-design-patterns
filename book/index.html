@@ -4287,7 +4287,7 @@ function CoffeeFlavorFactory() {
         getCoffeeFlavor: function (flavorName) {
 
             var flavor = flavors[flavorName];
-            if (flavor === undefined) {
+            if (typeof flavor === "undefined") {
                 flavor = new CoffeeFlavor(flavorName);
                 flavors[flavorName] = flavor;
                 length++;
