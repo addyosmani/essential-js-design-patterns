@@ -2578,7 +2578,7 @@ var mediator = (function(){
 
     if ( !(this instanceof Subscriber) ) {
 
-      return new Subscriber( fn, context, options );
+      return new Subscriber( fn, options, context );
 
     }else{
 
@@ -4173,7 +4173,7 @@ $("#log")
 
 <h2>Implementing Classical Flyweights</h2>
 
-<p>As the Flyweight pattern hasn't been heavily used in JavaScript in recent years, many of the implementations we might use for inspiration come form the Java and C++ worlds.</p>
+<p>As the Flyweight pattern hasn't been heavily used in JavaScript in recent years, many of the implementations we might use for inspiration come from the Java and C++ worlds.</p>
 
 <p>Our first look at Flyweights in code is my JavaScript implementation of the Java sample of the Flyweight pattern from Wikipedia (<a href="http://en.wikipedia.org/wiki/Flyweight_pattern">http://en.wikipedia.org/wiki/Flyweight_pattern</a>).
 
@@ -4287,7 +4287,7 @@ function CoffeeFlavorFactory() {
         getCoffeeFlavor: function (flavorName) {
 
             var flavor = flavors[flavorName];
-            if (flavor === undefined) {
+            if (typeof flavor === "undefined") {
                 flavor = new CoffeeFlavor(flavorName);
                 flavors[flavorName] = flavor;
                 length++;
@@ -4540,7 +4540,7 @@ var BookRecordManager = (function () {
     }
   };
 
-});
+})();
 </pre>
 
 
@@ -5023,7 +5023,7 @@ var PhotoView = Backbone.View.extend({
     },
 
     // The PhotoView listens for changes to
-    // its model, re-rendering. Since tHere's
+    // its model, re-rendering. Since there's
     // a one-to-one correspondence between a
     // **Photo** and a **PhotoView** in this
     // app, we set a direct reference on the model for convenience.
