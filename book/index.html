@@ -1787,21 +1787,21 @@ function extend ( extension, obj ) {
 <p>
 <pre  class="brush: js">
 
-function Subject(){
+function Subject () {
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
+Subject.prototype.AddObserver = function ( observer ) {
   this.observers.Add( observer );
 };
 
-Subject.prototype.RemoveObserver = function( observer ){
+Subject.prototype.RemoveObserver = function ( observer ) {
   this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
 };
 
-Subject.prototype.Notify = function( context ){
+Subject.prototype.Notify = function ( context ) {
   var observerCount = this.observers.Count();
-  for(var i=0; i < observerCount; i++){
+  for (var i=0; i < observerCount; i++) {
     this.observers.Get(i).Update( context );
   }
 };
@@ -1815,8 +1815,8 @@ Subject.prototype.Notify = function( context ){
 <pre  class="brush: js">
 
 // The Observer
-function Observer(){
-  this.Update = function(){
+function Observer () {
+  this.Update = function () {
     // ...
   };
 }
