@@ -1122,7 +1122,7 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 var myModule = (function ( jQ, _ ) {
 
     function privateMethod1 () {
-        jQ(".container").html("test");
+        jQ( ".container" ).html( "test" );
     }
 
     function privateMethod2 () {
@@ -1207,7 +1207,7 @@ require(["dojo/_base/customStore"], function ( store ) {
 
       return {
           publicMethod: function () {
-                  privateMethod();
+            privateMethod();
           }
       };
 
@@ -1380,15 +1380,15 @@ var myRevealingModule = function () {
         var privateVar = "Ben Cherry",
             publicVar  = "Hey there!";
 
-        function privateFunction() {
+        function privateFunction () {
             console.log( "Name:" + privateVar );
         }
 
-        function publicSetName( strName ) {
+        function publicSetName ( strName ) {
             privateVar = strName;
         }
 
-        function publicGetName() {
+        function publicGetName () {
             privateFunction();
         }
 
