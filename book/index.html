@@ -1442,9 +1442,9 @@ var myRevealingModule = function () {
 
     }();
 
-myRevealingModule.start();
+  myRevealingModule.start();
 
-  </pre></p>
+</pre></p>
 
 <p><strong>Advantages</strong></p>
 
@@ -1478,12 +1478,12 @@ var mySingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
     // Private methods and variables
-    function privateMethod(){
+    function privateMethod () {
         console.log( "I am private" );
     }
 
@@ -1500,7 +1500,7 @@ var mySingleton = (function () {
 
       publicProperty: "I am also public",
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1530,7 +1530,7 @@ var myBadSingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
@@ -1538,7 +1538,7 @@ var myBadSingleton = (function () {
 
     return {
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1552,8 +1552,8 @@ var myBadSingleton = (function () {
     getInstance: function () {
 
       instance = init();
-
       return instance;
+
     }
 
   };
@@ -1586,12 +1586,12 @@ console.log( badSingleA.getRandomNumber() !== badSingleB.getRandomNumber() ); //
 <p>The second of these points refers to a case where we might need code such as:</p>
 
 <pre class="brush: js">
-mySingleton.getInstance = function(){
+mySingleton.getInstance = function () {
   if ( this._instance == null ) {
     if ( isFoo() ) {
-       this._instance = new FooSingleton();
+      this._instance = new FooSingleton();
     } else {
-       this._instance = new BasicSingleton();
+      this._instance = new BasicSingleton();
     }
   }
   return this._instance;
