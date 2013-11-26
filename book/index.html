@@ -1708,39 +1708,38 @@ It's often useful to refer back to published definitions of design patterns that
 <p>
 <pre  class="brush: js">
 
-function ObserverList(){
+function ObserverList () {
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.Add = function ( obj ) {
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
+ObserverList.prototype.Empty = function () {
   this.observerList = [];
 };
 
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.Count = function () {
   return this.observerList.length;
 };
 
-
-ObserverList.prototype.Get = function( index ){
-  if( index > -1 && index < this.observerList.length ){
+ObserverList.prototype.Get = function ( index ) {
+  if ( index > -1 && index < this.observerList.length ) {
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
+ObserverList.prototype.Insert = function ( obj, index ) {
   var pointer = -1;
 
-  if( index === 0 ){
+  if ( index === 0 ) {
     this.observerList.unshift( obj );
     pointer = index;
-  }else if( index === this.observerList.length ){
+  } else if( index === this.observerList.length ) {
     this.observerList.push( obj );
     pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
+  } else if( index > 0 && index < this.observerList.length ) {
     this.observerList.splice( index, 0, obj );
     pointer = index;
   }
@@ -1748,11 +1747,11 @@ ObserverList.prototype.Insert = function( obj, index ){
   return pointer;
 };
 
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
+ObserverList.prototype.IndexOf = function ( obj, startIndex ) {
   var i = startIndex, pointer = -1;
 
-  while( i < this.observerList.length ){
-    if( this.observerList[i] === obj ){
+  while ( i < this.observerList.length ) {
+    if ( this.observerList[i] === obj ) {
       pointer = i;
     }
     i++;
@@ -1773,8 +1772,8 @@ ObserverList.prototype.RemoveAt = function (index) {
 
 
 // Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
+function extend ( extension, obj ) {
+  for ( var key in extension ) {
     obj[key] = extension[key];
   }
 }
