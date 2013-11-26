@@ -1415,26 +1415,26 @@ var myRevealingModule = function () {
 
         var privateCounter = 0;
 
-        function privateFunction() {
+        function privateFunction () {
             privateCounter++;
         }
 
-        function publicFunction() {
+        function publicFunction () {
             publicIncrement();
         }
 
-        function publicIncrement() {
+        function publicIncrement () {
             privateFunction();
         }
 
-        function publicGetCount(){
-          return privateCounter;
+        function publicGetCount () {
+            return privateCounter;
         }
 
         // Reveal public pointers to
         // private functions and properties
 
-       return {
+        return {
             start: publicFunction,
             increment: publicIncrement,
             count: publicGetCount
