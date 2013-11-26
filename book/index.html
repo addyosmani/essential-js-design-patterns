@@ -1868,7 +1868,7 @@ addBtn["onclick"] = AddNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function AddNewObserver () {
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1878,7 +1878,7 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.Update = function ( value ) {
     this.checked = value;
   };
 
@@ -1941,18 +1941,18 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $( '.newMessageCounter' ).html( mailCounter++ );
 
 });
 
-publish( "inbox/newMessage", [{
+publish("inbox/newMessage", [{
   sender:"hello@google.com",
   body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1, );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -1993,37 +1993,37 @@ Publish/Subscribe fits in very well in JavaScript ecosystems, largely because at
 <pre class="brush: js">
 // Publish
 
-// jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
+// jQuery: $( obj ).trigger( "channel", [arg1, arg2, arg3] );
 $( el ).trigger( "/login", [{username:"test", userData:"test"}] );
 
-// Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
+// Dojo: dojo.publish( "channel", [arg1, arg2, arg3] );
 dojo.publish( "/login", [{username:"test", userData:"test"}] );
 
-// YUI: el.publish("channel", [arg1, arg2, arg3]);
-el.publish( "/login", {username:"test", userData:"test"} );
+// YUI: el.publish( "channel", [arg1, arg2, arg3] );
+el.publish( "/login", {username:"test", userData: "test"} );
 
 
 // Subscribe
 
-// jQuery: $(obj).on( "channel", [data], fn );
+// jQuery: $( obj ).on( "channel", [data], fn );
 $( el ).on( "/login", function( event ){...} );
 
-// Dojo: dojo.subscribe( "channel", fn);
+// Dojo: dojo.subscribe( "channel", fn );
 var handle = dojo.subscribe( "/login", function(data){..} );
 
-// YUI: el.on("channel", handler);
-el.on( "/login", function( data ){...} );
+// YUI: el.on( "channel", handler );
+el.on( "/login", function ( data ) {...} );
 
 
 // Unsubscribe
 
-// jQuery: $(obj).off( "channel" );
+// jQuery: $( obj ).off( "channel" );
 $( el ).off( "/login" );
 
 // Dojo: dojo.unsubscribe( handle );
 dojo.unsubscribe( handle );
 
-// YUI: el.detach("channel");
+// YUI: el.detach( "channel" );
 el.detach( "/login" );
 
 </pre>
@@ -2055,7 +2055,7 @@ I've opted to base our examples on this code as it sticks closely to both the me
 <pre  class="brush: js">
 var pubsub = {};
 
-(function(q) {
+(function ( q ) {
 
     var topics = {},
         subUid = -1;
@@ -2063,7 +2063,7 @@ var pubsub = {};
     // Publish or broadcast events of interest
     // with a specific topic name and arguments
     // such as the data to pass along
-    q.publish = function( topic, args ) {
+    q.publish = function ( topic, args ) {
 
         if ( !topics[topic] ) {
             return false;
@@ -2072,7 +2072,7 @@ var pubsub = {};
         var subscribers = topics[topic],
             len = subscribers ? subscribers.length : 0;
 
-        while (len--) {
+        while ( len-- ) {
             subscribers[len].func( topic, args );
         }
 
@@ -2083,9 +2083,9 @@ var pubsub = {};
     // with a specific topic name and a
     // callback function, to be executed
     // when the topic/event is observed
-    q.subscribe = function( topic, func ) {
+    q.subscribe = function ( topic, func ) {
 
-        if (!topics[topic]) {
+        if ( !topics[topic] ) {
             topics[topic] = [];
         }
 
@@ -2100,7 +2100,7 @@ var pubsub = {};
     // Unsubscribe from a specific
     // topic, based on a tokenized reference
     // to the subscription
-    q.unsubscribe = function( token ) {
+    q.unsubscribe = function ( token ) {
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
