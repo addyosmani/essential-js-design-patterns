@@ -1618,8 +1618,8 @@ mySingleton.getInstance = function () {
 var SingletonTester = (function () {
 
   // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};
-  function Singleton( options )  {
+  // e.g var options = { name: "test", pointX: 5 };
+  function Singleton ( options )  {
 
     // set options to the options supplied
     // or an empty object if none are provided
@@ -1644,8 +1644,8 @@ var SingletonTester = (function () {
 
     // Method for getting an instance. It returns
     // a singleton instance of a singleton object
-    getInstance:  function( options ) {
-      if( instance  ===  undefined )  {
+    getInstance:  function ( options ) {
+      if ( instance  ===  undefined )  {
         instance = new Singleton( options );
       }
 
