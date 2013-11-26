@@ -673,7 +673,7 @@ Object.defineProperty( newObject, "someKey", {
 // If the above feels a little difficult to read, a short-hand could
 // be written as follows:
 
-var defineProp = function ( obj, key, value ){
+var defineProp = function ( obj, key, value ) {
   var config = {
     value: value,
     writable: true,
@@ -692,7 +692,7 @@ defineProp( person, "dateOfBirth", "1981" );
 defineProp( person, "hasBeard", false );
 
 console.log(person);
-// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
+// Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false};
 
 
 // 4. Object.defineProperties
@@ -727,7 +727,7 @@ Object.defineProperties( newObject, {
 var driver = Object.create( person );
 
 // Set some properties for the driver
-defineProp(driver, "topSpeed", "100mph");
+defineProp( driver, "topSpeed", "100mph" );
 
 // Get an inherited property (1981)
 console.log( driver.dateOfBirth );
@@ -745,14 +745,14 @@ console.log( driver.topSpeed );
 
 <p><pre  class="brush: js">
 
-function Car( model, year, miles ) {
+function Car ( model, year, miles ) {
 
   this.model = model;
   this.year = year;
   this.miles = miles;
 
   this.toString = function () {
-    return this.model + " has done " + this.miles + " miles";
+    return this.model + " has done " + this.miles + " miles.";
   };
 }
 
@@ -784,7 +784,7 @@ console.log( mondeo.toString() );
 
 <p><pre class="brush: js">
 
-function Car( model, year, miles ) {
+function Car ( model, year, miles ) {
 
   this.model = model;
   this.year = year;
@@ -796,7 +796,7 @@ function Car( model, year, miles ) {
 // Note here that we are using Object.prototype.newMethod rather than
 // Object.prototype so as to avoid redefining the prototype object
 Car.prototype.toString = function () {
-  return this.model + " has done " + this.miles + " miles";
+  return this.model + " has done " + this.miles + " miles.";
 };
 
 // Usage:
@@ -882,7 +882,7 @@ var myModule = {
   },
 
   // override the current configuration
-  updateMyConfig: function( newConfig ) {
+  updateMyConfig: function ( newConfig ) {
 
     if ( typeof newConfig === "object" ) {
       this.myConfig = newConfig;
@@ -989,8 +989,8 @@ var myNamespace = (function () {
   myPrivateVar = 0;
 
   // A private function which logs any arguments
-  myPrivateMethod = function( foo ) {
-      console.log( foo );
+  myPrivateMethod = function ( foo ) {
+    console.log( foo );
   };
 
   return {
@@ -999,7 +999,7 @@ var myNamespace = (function () {
     myPublicVar: "foo",
 
     // A public function utilizing privates
-    myPublicFunction: function( bar ) {
+    myPublicFunction: function ( bar ) {
 
       // Increment our private counter
       myPrivateVar++;
@@ -1025,11 +1025,11 @@ var basketModule = (function () {
 
   var basket = [];
 
-  function doSomethingPrivate() {
+  function doSomethingPrivate () {
     //...
   }
 
-  function doSomethingElsePrivate() {
+  function doSomethingElsePrivate () {
     //...
   }
 
@@ -1037,8 +1037,8 @@ var basketModule = (function () {
   return {
 
     // Add items to our basket
-    addItem: function( values ) {
-      basket.push(values);
+    addItem: function ( values ) {
+      basket.push( values );
     },
 
     // Get the count of items in the basket
@@ -1055,7 +1055,7 @@ var basketModule = (function () {
       var q = this.getItemCount(),
           p = 0;
 
-      while (q--) {
+      while ( q-- ) {
         p += basket[q].price;
       }
 
@@ -1124,16 +1124,16 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 // Global module
 var myModule = (function ( jQ, _ ) {
 
-    function privateMethod1(){
-        jQ(".container").html("test");
+    function privateMethod1 () {
+        jQ( ".container" ).html( "test" );
     }
 
-    function privateMethod2(){
+    function privateMethod2 () {
       console.log( _.min([10, 5, 100, 2, 1000]) );
     }
 
-    return{
-        publicMethod: function(){
+    return {
+        publicMethod: function () {
             privateMethod1();
         }
     };
@@ -1155,7 +1155,7 @@ var myModule = (function () {
   var module = {},
     privateVariable = "Hello World";
 
-  function privateMethod() {
+  function privateMethod () {
     // ...
   }
 
@@ -1197,20 +1197,20 @@ store.basket.core = {
 </p>
 <p>Or as follows using Dojo 1.7 (AMD-compatible version) and above:</p>
 <pre  class="brush: js">
-require(["dojo/_base/customStore"], function( store ){
+require(["dojo/_base/customStore"], function ( store ) {
 
   // using dojo.setObject()
-  store.setObject( "basket.core", (function() {
+  store.setObject( "basket.core", (function () {
 
       var basket = [];
 
-      function privateMethod() {
-          console.log(basket);
+      function privateMethod () {
+          console.log( basket );
       }
 
       return {
-          publicMethod: function(){
-                  privateMethod();
+          publicMethod: function () {
+            privateMethod();
           }
       };
 
@@ -1226,7 +1226,7 @@ require(["dojo/_base/customStore"], function( store ){
 <p>Below we can see an example of how to define a namespace which can then be populated with a module containing both a private and public API. With the exception of some semantic differences, it's quite close to how the Module pattern is implemented in vanilla JavaScript: </p>
 <pre  class="brush: js">
 // create namespace
-Ext.namespace("myNameSpace");
+Ext.namespace( "myNameSpace" );
 
 // create application
 myNameSpace.app = function () {
@@ -1239,9 +1239,9 @@ myNameSpace.app = function () {
 
   // private functions
   var btn1Handler = function ( button, event ) {
-      console.log( "privVar1=" + privVar1 );
-      console.log( "this.btn1Text=" + this.btn1Text );
-    };
+    console.log( "privVar1=" + privVar1 );
+    console.log( "this.btn1Text=" + this.btn1Text );
+  };
 
   // public space
   return {
@@ -1383,15 +1383,15 @@ var myRevealingModule = function () {
         var privateVar = "Ben Cherry",
             publicVar  = "Hey there!";
 
-        function privateFunction() {
+        function privateFunction () {
             console.log( "Name:" + privateVar );
         }
 
-        function publicSetName( strName ) {
+        function publicSetName ( strName ) {
             privateVar = strName;
         }
 
-        function publicGetName() {
+        function publicGetName () {
             privateFunction();
         }
 
@@ -1418,26 +1418,26 @@ var myRevealingModule = function () {
 
         var privateCounter = 0;
 
-        function privateFunction() {
+        function privateFunction () {
             privateCounter++;
         }
 
-        function publicFunction() {
+        function publicFunction () {
             publicIncrement();
         }
 
-        function publicIncrement() {
+        function publicIncrement () {
             privateFunction();
         }
 
-        function publicGetCount(){
-          return privateCounter;
+        function publicGetCount () {
+            return privateCounter;
         }
 
         // Reveal public pointers to
         // private functions and properties
 
-       return {
+        return {
             start: publicFunction,
             increment: publicIncrement,
             count: publicGetCount
@@ -1445,9 +1445,9 @@ var myRevealingModule = function () {
 
     }();
 
-myRevealingModule.start();
+  myRevealingModule.start();
 
-  </pre></p>
+</pre></p>
 
 <p><strong>Advantages</strong></p>
 
@@ -1481,12 +1481,12 @@ var mySingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
     // Private methods and variables
-    function privateMethod(){
+    function privateMethod () {
         console.log( "I am private" );
     }
 
@@ -1503,7 +1503,7 @@ var mySingleton = (function () {
 
       publicProperty: "I am also public",
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1533,7 +1533,7 @@ var myBadSingleton = (function () {
   // Instance stores a reference to the Singleton
   var instance;
 
-  function init() {
+  function init () {
 
     // Singleton
 
@@ -1541,7 +1541,7 @@ var myBadSingleton = (function () {
 
     return {
 
-      getRandomNumber: function() {
+      getRandomNumber: function () {
         return privateRandomNumber;
       }
 
@@ -1555,8 +1555,8 @@ var myBadSingleton = (function () {
     getInstance: function () {
 
       instance = init();
-
       return instance;
+
     }
 
   };
@@ -1589,12 +1589,12 @@ console.log( badSingleA.getRandomNumber() !== badSingleB.getRandomNumber() ); //
 <p>The second of these points refers to a case where we might need code such as:</p>
 
 <pre class="brush: js">
-mySingleton.getInstance = function(){
+mySingleton.getInstance = function () {
   if ( this._instance == null ) {
     if ( isFoo() ) {
-       this._instance = new FooSingleton();
+      this._instance = new FooSingleton();
     } else {
-       this._instance = new BasicSingleton();
+      this._instance = new BasicSingleton();
     }
   }
   return this._instance;
@@ -1621,8 +1621,8 @@ mySingleton.getInstance = function(){
 var SingletonTester = (function () {
 
   // options: an object containing configuration options for the singleton
-  // e.g var options = { name: "test", pointX: 5};
-  function Singleton( options )  {
+  // e.g var options = { name: "test", pointX: 5 };
+  function Singleton ( options )  {
 
     // set options to the options supplied
     // or an empty object if none are provided
@@ -1647,8 +1647,8 @@ var SingletonTester = (function () {
 
     // Method for getting an instance. It returns
     // a singleton instance of a singleton object
-    getInstance:  function( options ) {
-      if( instance  ===  undefined )  {
+    getInstance:  function ( options ) {
+      if ( instance  ===  undefined )  {
         instance = new Singleton( options );
       }
 
@@ -1711,39 +1711,38 @@ It's often useful to refer back to published definitions of design patterns that
 <p>
 <pre  class="brush: js">
 
-function ObserverList(){
+function ObserverList () {
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.Add = function ( obj ) {
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
+ObserverList.prototype.Empty = function () {
   this.observerList = [];
 };
 
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.Count = function () {
   return this.observerList.length;
 };
 
-
-ObserverList.prototype.Get = function( index ){
-  if( index > -1 && index < this.observerList.length ){
+ObserverList.prototype.Get = function ( index ) {
+  if ( index > -1 && index < this.observerList.length ) {
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
+ObserverList.prototype.Insert = function ( obj, index ) {
   var pointer = -1;
 
-  if( index === 0 ){
+  if ( index === 0 ) {
     this.observerList.unshift( obj );
     pointer = index;
-  }else if( index === this.observerList.length ){
+  } else if( index === this.observerList.length ) {
     this.observerList.push( obj );
     pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
+  } else if( index > 0 && index < this.observerList.length ) {
     this.observerList.splice( index, 0, obj );
     pointer = index;
   }
@@ -1751,11 +1750,11 @@ ObserverList.prototype.Insert = function( obj, index ){
   return pointer;
 };
 
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
+ObserverList.prototype.IndexOf = function ( obj, startIndex ) {
   var i = startIndex, pointer = -1;
 
-  while( i < this.observerList.length ){
-    if( this.observerList[i] === obj ){
+  while ( i < this.observerList.length ) {
+    if ( this.observerList[i] === obj ) {
       pointer = i;
     }
     i++;
@@ -1776,8 +1775,8 @@ ObserverList.prototype.RemoveAt = function (index) {
 
 
 // Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
+function extend ( extension, obj ) {
+  for ( var key in extension ) {
     obj[key] = extension[key];
   }
 }
@@ -1791,21 +1790,21 @@ function extend( extension, obj ){
 <p>
 <pre  class="brush: js">
 
-function Subject(){
+function Subject () {
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
+Subject.prototype.AddObserver = function ( observer ) {
   this.observers.Add( observer );
 };
 
-Subject.prototype.RemoveObserver = function( observer ){
+Subject.prototype.RemoveObserver = function ( observer ) {
   this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
 };
 
-Subject.prototype.Notify = function( context ){
+Subject.prototype.Notify = function ( context ) {
   var observerCount = this.observers.Count();
-  for(var i=0; i < observerCount; i++){
+  for (var i=0; i < observerCount; i++) {
     this.observers.Get(i).Update( context );
   }
 };
@@ -1819,8 +1818,8 @@ Subject.prototype.Notify = function( context ){
 <pre  class="brush: js">
 
 // The Observer
-function Observer(){
-  this.Update = function(){
+function Observer () {
+  this.Update = function () {
     // ...
   };
 }
@@ -1872,7 +1871,7 @@ addBtn["onclick"] = AddNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function AddNewObserver () {
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1882,7 +1881,7 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.Update = function ( value ) {
     this.checked = value;
   };
 
@@ -1945,18 +1944,18 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $( '.newMessageCounter' ).html( mailCounter++ );
 
 });
 
-publish( "inbox/newMessage", [{
+publish("inbox/newMessage", [{
   sender:"hello@google.com",
   body: "Hey there! How are you doing today?"
 }]);
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1, );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -1997,37 +1996,37 @@ Publish/Subscribe fits in very well in JavaScript ecosystems, largely because at
 <pre class="brush: js">
 // Publish
 
-// jQuery: $(obj).trigger("channel", [arg1, arg2, arg3]);
+// jQuery: $( obj ).trigger( "channel", [arg1, arg2, arg3] );
 $( el ).trigger( "/login", [{username:"test", userData:"test"}] );
 
-// Dojo: dojo.publish("channel", [arg1, arg2, arg3] );
+// Dojo: dojo.publish( "channel", [arg1, arg2, arg3] );
 dojo.publish( "/login", [{username:"test", userData:"test"}] );
 
-// YUI: el.publish("channel", [arg1, arg2, arg3]);
-el.publish( "/login", {username:"test", userData:"test"} );
+// YUI: el.publish( "channel", [arg1, arg2, arg3] );
+el.publish( "/login", {username:"test", userData: "test"} );
 
 
 // Subscribe
 
-// jQuery: $(obj).on( "channel", [data], fn );
+// jQuery: $( obj ).on( "channel", [data], fn );
 $( el ).on( "/login", function( event ){...} );
 
-// Dojo: dojo.subscribe( "channel", fn);
+// Dojo: dojo.subscribe( "channel", fn );
 var handle = dojo.subscribe( "/login", function(data){..} );
 
-// YUI: el.on("channel", handler);
-el.on( "/login", function( data ){...} );
+// YUI: el.on( "channel", handler );
+el.on( "/login", function ( data ) {...} );
 
 
 // Unsubscribe
 
-// jQuery: $(obj).off( "channel" );
+// jQuery: $( obj ).off( "channel" );
 $( el ).off( "/login" );
 
 // Dojo: dojo.unsubscribe( handle );
 dojo.unsubscribe( handle );
 
-// YUI: el.detach("channel");
+// YUI: el.detach( "channel" );
 el.detach( "/login" );
 
 </pre>
@@ -2059,7 +2058,7 @@ I've opted to base our examples on this code as it sticks closely to both the me
 <pre  class="brush: js">
 var pubsub = {};
 
-(function(q) {
+(function ( q ) {
 
     var topics = {},
         subUid = -1;
@@ -2067,7 +2066,7 @@ var pubsub = {};
     // Publish or broadcast events of interest
     // with a specific topic name and arguments
     // such as the data to pass along
-    q.publish = function( topic, args ) {
+    q.publish = function ( topic, args ) {
 
         if ( !topics[topic] ) {
             return false;
@@ -2076,7 +2075,7 @@ var pubsub = {};
         var subscribers = topics[topic],
             len = subscribers ? subscribers.length : 0;
 
-        while (len--) {
+        while ( len-- ) {
             subscribers[len].func( topic, args );
         }
 
@@ -2087,9 +2086,9 @@ var pubsub = {};
     // with a specific topic name and a
     // callback function, to be executed
     // when the topic/event is observed
-    q.subscribe = function( topic, func ) {
+    q.subscribe = function ( topic, func ) {
 
-        if (!topics[topic]) {
+        if ( !topics[topic] ) {
             topics[topic] = [];
         }
 
@@ -2104,7 +2103,7 @@ var pubsub = {};
     // Unsubscribe from a specific
     // topic, based on a tokenized reference
     // to the subscription
-    q.unsubscribe = function( token ) {
+    q.unsubscribe = function ( token ) {
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
@@ -2184,7 +2183,7 @@ In our implementation, our subscriber will listen to the topic "newDataAvailable
 <pre  class="brush: js">
 
 // Return the current local time to be used in our UI later
-getCurrentTime = function (){
+function getCurrentTime () {
 
    var date = new Date(),
          m = date.getMonth() + 1,
@@ -2192,11 +2191,11 @@ getCurrentTime = function (){
          y = date.getFullYear(),
          t = date.toLocaleTimeString().toLowerCase();
 
-        return (m + "/" + d + "/" + y + " " + t);
+        return ( m + "/" + d + "/" + y + " " + t );
 };
 
 // Add a new row of data to our fictional grid component
-function addGridRow( data ) {
+function addGridRow ( data ) {
 
    // ui.grid.addRow( data );
    console.log( "updated grid component with:" + data );
@@ -2213,7 +2212,7 @@ function updateCounter( data ) {
 }
 
 // Update the grid using the data passed to our subscribers
-gridUpdate = function( topic, data ){
+gridUpdate = function( topic, data ) {
 
   if ( data !== "undefined" ) {
      addGridRow( data );
@@ -2230,13 +2229,13 @@ var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 // to the rest of the application.
 
 // Publish changes to the gridUpdated topic representing new entries
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Apple made $5 billion",
   identifier: "APPL",
   stockPrice: 570.91
 });
 
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Microsoft made $20 million",
   identifier: "MSFT",
   stockPrice: 30.85
@@ -2313,18 +2312,18 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
   // Pre-compile templates and "cache" them using closure
   var
-    userTemplate = _.template($( "#userTemplate" ).html()),
-    ratingsTemplate = _.template($( "#ratingsTemplate" ).html());
+    userTemplate = _.template( $( "#userTemplate" ).html() ),
+    ratingsTemplate = _.template( $( "#ratingsTemplate" ).html() );
 
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
-  $.subscribe( "/new/user", function( e, data ){
+  $.subscribe("/new/user", function( e, data ) {
 
-    if( data ){
+    if ( data ) {
 
       $('#users').append( userTemplate( data ));
 
@@ -2335,11 +2334,11 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // Subscribe to the new rating topic. This is composed of a title and
   // rating. New ratings are appended to a running list of added user
   // ratings.
-  $.subscribe( "/new/rating", function( e, data ){
+  $.subscribe("/new/rating", function ( e, data ) {
 
     var compiledTemplate;
 
-    if( data ){
+    if ( data ) {
 
       $( "#ratings" ).append( ratingsTemplate( data );
 
@@ -2348,13 +2347,13 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   });
 
   // Handler for adding a new user
-  $("#add").on("click", function( e ) {
+  $( "#add" ).on("click", function( e ) {
 
     e.preventDefault();
 
-    var strUser = $("#twitter_handle").val(),
-       strMovie = $("#movie_seen").val(),
-       strRating = $("#movie_rating").val();
+    var strUser = $( "#twitter_handle" ).val(),
+       strMovie = $( "#movie_seen" ).val(),
+       strRating = $( "#movie_rating" ).val();
 
     // Inform the application a new user is available
     $.publish( "/new/user",  { name: strUser } );
@@ -2417,21 +2416,21 @@ Notice how in our sample below, one topic notification is made when a user indic
 <strong>JavaScript</strong>:
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
    // Pre-compile template and "cache" it using closure
-   var resultTemplate = _.template($( "#resultTemplate" ).html());
+   var resultTemplate = _.template( $( "#resultTemplate" ).html() );
 
    // Subscribe to the new search tags topic
    $.subscribe( "/search/tags" , function( e, tags ) {
        $( "#searchResults" )
-                .html("<p>Searched for:<strong>" + tags + "</strong></p>");
+                .html( "<p>Searched for:<strong>" + tags + "</strong></p>" );
    });
 
    // Subscribe to the new results topic
-   $.subscribe( "/search/resultSet" , function( e, results ){
+   $.subscribe("/search/resultSet" , function( e, results ) {
 
-       $( "#searchResults" ).append(resultTemplate( results ));
+       $( "#searchResults" ).append( resultTemplate( results ) );
 
    });
 
@@ -2439,13 +2438,13 @@ Notice how in our sample below, one topic notification is made when a user indic
    $( "#flickrSearch" ).submit( function( e ) {
 
        e.preventDefault();
-       var tags = $(this).find( "#query").val();
+       var tags = $( this ).find( "#query" ).val();
 
-       if ( !tags ){
+       if ( !tags ) {
         return;
        }
 
-       $.publish( "/search/tags" , [ $.trim(tags) ]);
+       $.publish( "/search/tags" , [ $.trim( tags ) ]);
 
    });
 
@@ -2457,15 +2456,15 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe("/search/tags", function( e, tags ) {
 
-       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
+       $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
               tags: tags,
               tagmode: "any",
               format: "json"
             },
 
-          function( data ){
+          function( data ) {
 
-              if( !data.items.length ) {
+              if ( !data.items.length ) {
                 return;
               }
 
@@ -2508,16 +2507,16 @@ A real-world analogy could be a typical airport traffic control system. A tower 
 <p>A simple implementation of the Mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
 
 <pre class="brush: js">
-var mediator = (function(){
+var mediator = (function () {
 
     // Storage for topics that can be broadcast or listened to
     var topics = {};
 
     // Subscribe to a topic, supply a callback to be executed
     // when that topic is broadcast to
-    var subscribe = function( topic, fn ){
+    var subscribe = function( topic, fn ) {
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           topics[topic] = [];
         }
 
@@ -2527,11 +2526,11 @@ var mediator = (function(){
     };
 
     // Publish/broadcast an event to the rest of the application
-    var publish = function( topic ){
+    var publish = function( topic ) {
 
         var args;
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           return false;
         }
 
@@ -2547,7 +2546,7 @@ var mediator = (function(){
     return {
         publish: publish,
         subscribe: subscribe,
-        installTo: function( obj ){
+        installTo: function ( obj ) {
             obj.subscribe = subscribe;
             obj.publish = publish;
         }
@@ -2572,18 +2571,18 @@ var mediator = (function(){
 
 // Pass in a context to attach our Mediator to.
 // By default this will be the window object
-(function( root ){
+(function ( root ) {
 
-  function guidGenerator() { /*..*/}
+  function guidGenerator () { /*..*/}
 
   // Our Subscriber constructor
-  function Subscriber( fn, options, context ){
+  function Subscriber ( fn, options, context ) {
 
     if ( !(this instanceof Subscriber) ) {
 
       return new Subscriber( fn, options, context );
 
-    }else{
+    } else {
 
       // guidGenerator() is a function that generates
       // GUIDs for instances of our Mediators Subscribers so
@@ -2611,9 +2610,9 @@ var mediator = (function(){
 // object and a constructor function to be invoked.
 function Topic( namespace ){
 
-  if ( !(this instanceof Topic) ) {
+  if ( !( this instanceof Topic ) ) {
     return new Topic( namespace );
-  }else{
+  } else {
 
     this.namespace = namespace || "";
     this._callbacks = [];
@@ -2629,7 +2628,7 @@ function Topic( namespace ){
 Topic.prototype = {
 
   // Add a new subscriber
-  AddSubscriber: function( fn, options, context ){
+  AddSubscriber: function ( fn, options, context ) {
 
     var callback = new Subscriber( fn, options, context );
 
@@ -2645,7 +2644,7 @@ Topic.prototype = {
 <p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
 
 <pre  class="brush: js">
-    StopPropagation: function(){
+    StopPropagation: function () {
       this.stopped = true;
     },
 </pre>
@@ -2653,18 +2652,18 @@ Topic.prototype = {
 <p>We can also make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
 
 <pre  class="brush: js">
-    GetSubscriber: function( identifier ){
+    GetSubscriber: function ( identifier ) {
 
-      for(var x = 0, y = this._callbacks.length; x < y; x++ ){
-        if( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ){
+      for (var x = 0, y = this._callbacks.length; x < y; x++ ) {
+        if ( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ) {
           return this._callbacks[x];
         }
       }
 
-      for( var z in this._topics ){
-        if( this._topics.hasOwnProperty( z ) ){
+      for ( var z in this._topics ) {
+        if ( this._topics.hasOwnProperty( z ) ) {
           var sub = this._topics[z].GetSubscriber( identifier );
-          if( sub !== undefined ){
+          if ( sub !== undefined ) {
             return sub;
           }
         }
@@ -2677,15 +2676,15 @@ Topic.prototype = {
 <p>Next, in case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
 <pre  class="brush: js">
 
-    AddTopic: function( topic ){
+    AddTopic: function ( topic ) {
       this._topics[topic] = new Topic( (this.namespace ? this.namespace + ":" : "") + topic );
     },
 
-    HasTopic: function( topic ){
+    HasTopic: function ( topic ) {
       return this._topics.hasOwnProperty( topic );
     },
 
-    ReturnTopic: function( topic ){
+    ReturnTopic: function ( topic ) {
       return this._topics[topic];
     },
 </pre>
@@ -2693,20 +2692,20 @@ Topic.prototype = {
 <p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its sub-topics:</p>
 
 <pre  class="brush: js">
-    RemoveSubscriber: function( identifier ){
+    RemoveSubscriber: function ( identifier ) {
 
-      if( !identifier ){
+      if ( !identifier ) {
         this._callbacks = [];
 
-        for( var z in this._topics ){
-          if( this._topics.hasOwnProperty(z) ){
+        for ( var z in this._topics ) {
+          if ( this._topics.hasOwnProperty(z) ) {
             this._topics[z].RemoveSubscriber( identifier );
           }
         }
       }
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
-        if( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ){
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+        if ( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ) {
           this._callbacks[y].topic = null;
           this._callbacks.splice( y,1 );
           x--; y--;
@@ -2721,24 +2720,24 @@ Topic.prototype = {
 </p>
 
 <pre  class="brush: js">
-    Publish: function( data ){
+    Publish: function ( data ) {
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
 
           var callback = this._callbacks[y], l;
             callback.fn.apply( callback.context, data );
 
         l = this._callbacks.length;
 
-        if( l < x ){
+        if ( l < x ) {
           y--;
           x = l;
         }
       }
 
-      for( var x in this._topics ){
-        if( !this.stopped ){
-          if( this._topics.hasOwnProperty( x ) ){
+      for ( var x in this._topics ) {
+        if ( !this.stopped ) {
+          if ( this._topics.hasOwnProperty( x ) ) {
             this._topics[x].Publish( data );
           }
         }
@@ -2754,9 +2753,9 @@ Topic.prototype = {
 <pre  class="brush: js">
   function Mediator() {
 
-    if ( !(this instanceof Mediator) ) {
+    if ( !( this instanceof Mediator ) ) {
       return new Mediator();
-    }else{
+    } else {
       this._topics = new Topic( "" );
     }
 
@@ -2769,18 +2768,18 @@ Topic.prototype = {
 <pre  class="brush: js">
   Mediator.prototype = {
 
-    GetTopic: function( namespace ){
+    GetTopic: function ( namespace ) {
       var topic = this._topics,
           namespaceHierarchy = namespace.split( ":" );
 
-      if( namespace === "" ){
+      if ( namespace === "" ) {
         return topic;
       }
 
-      if( namespaceHierarchy.length > 0 ){
-        for( var i = 0, j = namespaceHierarchy.length; i < j; i++ ){
+      if ( namespaceHierarchy.length > 0 ) {
+        for ( var i = 0, j = namespaceHierarchy.length; i < j; i++ ) {
 
-          if( !topic.HasTopic( namespaceHierarchy[i]) ){
+          if ( !topic.HasTopic( namespaceHierarchy[i]) ) {
             topic.AddTopic( namespaceHierarchy[i] );
           }
 
@@ -2797,7 +2796,7 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 </p>
 
 <pre  class="brush: js">
-    Subscribe: function( topiclName, fn, options, context ){
+    Subscribe: function ( topicName, fn, options, context ) {
       var options = options || {},
           context = context || {},
           topic = this.GetTopic( topicName ),
@@ -2813,14 +2812,14 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 
     // Returns a subscriber for a given subscriber id / named function and topic namespace
 
-    GetSubscriber: function( identifier, topic ){
+    GetSubscriber: function ( identifier, topic ) {
       return this.GetTopic( topic || "" ).GetSubscriber( identifier );
     },
 
     // Remove a subscriber from a given topic namespace recursively based on
     // a provided subscriber id or named function.
 
-    Remove: function( topicName, identifier ){
+    Remove: function ( topicName, identifier ) {
       this.GetTopic( topicName ).RemoveSubscriber( identifier );
     },
 
@@ -2831,8 +2830,8 @@ Our primary <code>Publish</code> method allows us to arbitrarily publish data to
 <p>Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
 
 <pre  class="brush: js">
-    Publish: function( topicName ){
-      var args = Array.prototype.slice.call( arguments, 1),
+    Publish: function ( topicName ) {
+      var args = Array.prototype.slice.call( arguments, 1 ),
           topic = this.GetTopic( topicName );
 
       args.push( topic );
@@ -2883,7 +2882,7 @@ Finally we can easily expose our Mediator for attachment to the object passed in
 
 <p><strong>JavaScript</strong></p>
 <pre class="brush:js">
-$( "#chatForm" ).on( "submit", function(e) {
+$( "#chatForm" ).on( "submit", function (e) {
     e.preventDefault();
 
     // Collect the details of the chat from our UI
@@ -2905,7 +2904,7 @@ function displayChat( data ) {
 }
 
 // Log messages
-function logChat( data ) {
+function logChat ( data ) {
     if ( window.console ) {
         console.log( data );
     }
@@ -2921,12 +2920,12 @@ mediator.subscribe( "newMessage", logChat );
 
 // The following will however only work with the more advanced implementation:
 
-function amITalkingToMyself( data ) {
+function amITalkingToMyself ( data ) {
     return data.from === data.to;
 }
 
-function iAmClearlyCrazy( data ) {
-    $( "#chatResult" ).prepend("<p>" + data.from + " is talking to himself.</p>");
+function iAmClearlyCrazy ( data ) {
+    $( "#chatResult" ).prepend( "<p>" + data.from + " is talking to himself.</p>" );
 }
 
  mediator.Subscribe( amITalkingToMyself, iAmClearlyCrazy );
