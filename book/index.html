@@ -2180,7 +2180,7 @@ In our implementation, our subscriber will listen to the topic "newDataAvailable
 <pre  class="brush: js">
 
 // Return the current local time to be used in our UI later
-getCurrentTime = function (){
+function getCurrentTime () {
 
    var date = new Date(),
          m = date.getMonth() + 1,
@@ -2188,11 +2188,11 @@ getCurrentTime = function (){
          y = date.getFullYear(),
          t = date.toLocaleTimeString().toLowerCase();
 
-        return (m + "/" + d + "/" + y + " " + t);
+        return ( m + "/" + d + "/" + y + " " + t );
 };
 
 // Add a new row of data to our fictional grid component
-function addGridRow( data ) {
+function addGridRow ( data ) {
 
    // ui.grid.addRow( data );
    console.log( "updated grid component with:" + data );
@@ -2209,7 +2209,7 @@ function updateCounter( data ) {
 }
 
 // Update the grid using the data passed to our subscribers
-gridUpdate = function( topic, data ){
+gridUpdate = function( topic, data ) {
 
   if ( data !== "undefined" ) {
      addGridRow( data );
@@ -2226,13 +2226,13 @@ var subscriber = pubsub.subscribe( "newDataAvailable", gridUpdate );
 // to the rest of the application.
 
 // Publish changes to the gridUpdated topic representing new entries
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Apple made $5 billion",
   identifier: "APPL",
   stockPrice: 570.91
 });
 
-pubsub.publish( "newDataAvailable", {
+pubsub.publish("newDataAvailable", {
   summary: "Microsoft made $20 million",
   identifier: "MSFT",
   stockPrice: 30.85
@@ -2309,18 +2309,18 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
   // Pre-compile templates and "cache" them using closure
   var
-    userTemplate = _.template($( "#userTemplate" ).html()),
-    ratingsTemplate = _.template($( "#ratingsTemplate" ).html());
+    userTemplate = _.template( $( "#userTemplate" ).html() ),
+    ratingsTemplate = _.template( $( "#ratingsTemplate" ).html() );
 
   // Subscribe to the new user topic, which adds a user
   // to a list of users who have submitted reviews
-  $.subscribe( "/new/user", function( e, data ){
+  $.subscribe("/new/user", function( e, data ) {
 
-    if( data ){
+    if ( data ) {
 
       $('#users').append( userTemplate( data ));
 
@@ -2331,11 +2331,11 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // Subscribe to the new rating topic. This is composed of a title and
   // rating. New ratings are appended to a running list of added user
   // ratings.
-  $.subscribe( "/new/rating", function( e, data ){
+  $.subscribe("/new/rating", function ( e, data ) {
 
     var compiledTemplate;
 
-    if( data ){
+    if ( data ) {
 
       $( "#ratings" ).append( ratingsTemplate( data );
 
@@ -2344,13 +2344,13 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   });
 
   // Handler for adding a new user
-  $("#add").on("click", function( e ) {
+  $( "#add" ).on("click", function( e ) {
 
     e.preventDefault();
 
-    var strUser = $("#twitter_handle").val(),
-       strMovie = $("#movie_seen").val(),
-       strRating = $("#movie_rating").val();
+    var strUser = $( "#twitter_handle" ).val(),
+       strMovie = $( "#movie_seen" ).val(),
+       strRating = $( "#movie_rating" ).val();
 
     // Inform the application a new user is available
     $.publish( "/new/user",  { name: strUser } );
@@ -2413,21 +2413,21 @@ Notice how in our sample below, one topic notification is made when a user indic
 <strong>JavaScript</strong>:
 <pre  class="brush: js">
 
-;(function( $ ) {
+;(function ( $ ) {
 
    // Pre-compile template and "cache" it using closure
-   var resultTemplate = _.template($( "#resultTemplate" ).html());
+   var resultTemplate = _.template( $( "#resultTemplate" ).html() );
 
    // Subscribe to the new search tags topic
    $.subscribe( "/search/tags" , function( e, tags ) {
        $( "#searchResults" )
-                .html("<p>Searched for:<strong>" + tags + "</strong></p>");
+                .html( "<p>Searched for:<strong>" + tags + "</strong></p>" );
    });
 
    // Subscribe to the new results topic
-   $.subscribe( "/search/resultSet" , function( e, results ){
+   $.subscribe("/search/resultSet" , function( e, results ) {
 
-       $( "#searchResults" ).append(resultTemplate( results ));
+       $( "#searchResults" ).append( resultTemplate( results ) );
 
    });
 
@@ -2435,13 +2435,13 @@ Notice how in our sample below, one topic notification is made when a user indic
    $( "#flickrSearch" ).submit( function( e ) {
 
        e.preventDefault();
-       var tags = $(this).find( "#query").val();
+       var tags = $( this ).find( "#query" ).val();
 
-       if ( !tags ){
+       if ( !tags ) {
         return;
        }
 
-       $.publish( "/search/tags" , [ $.trim(tags) ]);
+       $.publish( "/search/tags" , [ $.trim( tags ) ]);
 
    });
 
@@ -2453,15 +2453,15 @@ Notice how in our sample below, one topic notification is made when a user indic
 
    $.subscribe("/search/tags", function( e, tags ) {
 
-       $.getJSON( "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
+       $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?" ,{
               tags: tags,
               tagmode: "any",
               format: "json"
             },
 
-          function( data ){
+          function( data ) {
 
-              if( !data.items.length ) {
+              if ( !data.items.length ) {
                 return;
               }
 
@@ -2504,16 +2504,16 @@ A real-world analogy could be a typical airport traffic control system. A tower 
 <p>A simple implementation of the Mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
 
 <pre class="brush: js">
-var mediator = (function(){
+var mediator = (function () {
 
     // Storage for topics that can be broadcast or listened to
     var topics = {};
 
     // Subscribe to a topic, supply a callback to be executed
     // when that topic is broadcast to
-    var subscribe = function( topic, fn ){
+    var subscribe = function( topic, fn ) {
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           topics[topic] = [];
         }
 
@@ -2523,11 +2523,11 @@ var mediator = (function(){
     };
 
     // Publish/broadcast an event to the rest of the application
-    var publish = function( topic ){
+    var publish = function( topic ) {
 
         var args;
 
-        if ( !topics[topic] ){
+        if ( !topics[topic] ) {
           return false;
         }
 
@@ -2543,7 +2543,7 @@ var mediator = (function(){
     return {
         publish: publish,
         subscribe: subscribe,
-        installTo: function( obj ){
+        installTo: function ( obj ) {
             obj.subscribe = subscribe;
             obj.publish = publish;
         }
@@ -2568,18 +2568,18 @@ var mediator = (function(){
 
 // Pass in a context to attach our Mediator to.
 // By default this will be the window object
-(function( root ){
+(function ( root ) {
 
-  function guidGenerator() { /*..*/}
+  function guidGenerator () { /*..*/}
 
   // Our Subscriber constructor
-  function Subscriber( fn, options, context ){
+  function Subscriber ( fn, options, context ) {
 
     if ( !(this instanceof Subscriber) ) {
 
       return new Subscriber( fn, context, options );
 
-    }else{
+    } else {
 
       // guidGenerator() is a function that generates
       // GUIDs for instances of our Mediators Subscribers so
@@ -2607,9 +2607,9 @@ var mediator = (function(){
 // object and a constructor function to be invoked.
 function Topic( namespace ){
 
-  if ( !(this instanceof Topic) ) {
+  if ( !( this instanceof Topic ) ) {
     return new Topic( namespace );
-  }else{
+  } else {
 
     this.namespace = namespace || "";
     this._callbacks = [];
@@ -2625,7 +2625,7 @@ function Topic( namespace ){
 Topic.prototype = {
 
   // Add a new subscriber
-  AddSubscriber: function( fn, options, context ){
+  AddSubscriber: function ( fn, options, context ) {
 
     var callback = new Subscriber( fn, options, context );
 
@@ -2641,7 +2641,7 @@ Topic.prototype = {
 <p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
 
 <pre  class="brush: js">
-    StopPropagation: function(){
+    StopPropagation: function () {
       this.stopped = true;
     },
 </pre>
@@ -2649,18 +2649,18 @@ Topic.prototype = {
 <p>We can also make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
 
 <pre  class="brush: js">
-    GetSubscriber: function( identifier ){
+    GetSubscriber: function ( identifier ) {
 
-      for(var x = 0, y = this._callbacks.length; x < y; x++ ){
-        if( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ){
+      for (var x = 0, y = this._callbacks.length; x < y; x++ ) {
+        if ( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ) {
           return this._callbacks[x];
         }
       }
 
-      for( var z in this._topics ){
-        if( this._topics.hasOwnProperty( z ) ){
+      for ( var z in this._topics ) {
+        if ( this._topics.hasOwnProperty( z ) ) {
           var sub = this._topics[z].GetSubscriber( identifier );
-          if( sub !== undefined ){
+          if ( sub !== undefined ) {
             return sub;
           }
         }
@@ -2673,15 +2673,15 @@ Topic.prototype = {
 <p>Next, in case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
 <pre  class="brush: js">
 
-    AddTopic: function( topic ){
+    AddTopic: function ( topic ) {
       this._topics[topic] = new Topic( (this.namespace ? this.namespace + ":" : "") + topic );
     },
 
-    HasTopic: function( topic ){
+    HasTopic: function ( topic ) {
       return this._topics.hasOwnProperty( topic );
     },
 
-    ReturnTopic: function( topic ){
+    ReturnTopic: function ( topic ) {
       return this._topics[topic];
     },
 </pre>
@@ -2689,20 +2689,20 @@ Topic.prototype = {
 <p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its sub-topics:</p>
 
 <pre  class="brush: js">
-    RemoveSubscriber: function( identifier ){
+    RemoveSubscriber: function ( identifier ) {
 
-      if( !identifier ){
+      if ( !identifier ) {
         this._callbacks = [];
 
-        for( var z in this._topics ){
-          if( this._topics.hasOwnProperty(z) ){
+        for ( var z in this._topics ) {
+          if ( this._topics.hasOwnProperty(z) ) {
             this._topics[z].RemoveSubscriber( identifier );
           }
         }
       }
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
-        if( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ){
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+        if ( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ) {
           this._callbacks[y].topic = null;
           this._callbacks.splice( y,1 );
           x--; y--;
@@ -2717,24 +2717,24 @@ Topic.prototype = {
 </p>
 
 <pre  class="brush: js">
-    Publish: function( data ){
+    Publish: function ( data ) {
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+      for ( var y = 0, x = this._callbacks.length; y < x; y++ ) {
 
           var callback = this._callbacks[y], l;
             callback.fn.apply( callback.context, data );
 
         l = this._callbacks.length;
 
-        if( l < x ){
+        if ( l < x ) {
           y--;
           x = l;
         }
       }
 
-      for( var x in this._topics ){
-        if( !this.stopped ){
-          if( this._topics.hasOwnProperty( x ) ){
+      for ( var x in this._topics ) {
+        if ( !this.stopped ) {
+          if ( this._topics.hasOwnProperty( x ) ) {
             this._topics[x].Publish( data );
           }
         }
@@ -2750,9 +2750,9 @@ Topic.prototype = {
 <pre  class="brush: js">
   function Mediator() {
 
-    if ( !(this instanceof Mediator) ) {
+    if ( !( this instanceof Mediator ) ) {
       return new Mediator();
-    }else{
+    } else {
       this._topics = new Topic( "" );
     }
 
@@ -2765,18 +2765,18 @@ Topic.prototype = {
 <pre  class="brush: js">
   Mediator.prototype = {
 
-    GetTopic: function( namespace ){
+    GetTopic: function ( namespace ) {
       var topic = this._topics,
           namespaceHierarchy = namespace.split( ":" );
 
-      if( namespace === "" ){
+      if ( namespace === "" ) {
         return topic;
       }
 
-      if( namespaceHierarchy.length > 0 ){
-        for( var i = 0, j = namespaceHierarchy.length; i < j; i++ ){
+      if ( namespaceHierarchy.length > 0 ) {
+        for ( var i = 0, j = namespaceHierarchy.length; i < j; i++ ) {
 
-          if( !topic.HasTopic( namespaceHierarchy[i]) ){
+          if ( !topic.HasTopic( namespaceHierarchy[i]) ) {
             topic.AddTopic( namespaceHierarchy[i] );
           }
 
@@ -2793,7 +2793,7 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 </p>
 
 <pre  class="brush: js">
-    Subscribe: function( topiclName, fn, options, context ){
+    Subscribe: function ( topicName, fn, options, context ) {
       var options = options || {},
           context = context || {},
           topic = this.GetTopic( topicName ),
@@ -2809,14 +2809,14 @@ In this section we define a <code>Mediator.Subscribe</code> method, which accept
 
     // Returns a subscriber for a given subscriber id / named function and topic namespace
 
-    GetSubscriber: function( identifier, topic ){
+    GetSubscriber: function ( identifier, topic ) {
       return this.GetTopic( topic || "" ).GetSubscriber( identifier );
     },
 
     // Remove a subscriber from a given topic namespace recursively based on
     // a provided subscriber id or named function.
 
-    Remove: function( topicName, identifier ){
+    Remove: function ( topicName, identifier ) {
       this.GetTopic( topicName ).RemoveSubscriber( identifier );
     },
 
@@ -2827,8 +2827,8 @@ Our primary <code>Publish</code> method allows us to arbitrarily publish data to
 <p>Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
 
 <pre  class="brush: js">
-    Publish: function( topicName ){
-      var args = Array.prototype.slice.call( arguments, 1),
+    Publish: function ( topicName ) {
+      var args = Array.prototype.slice.call( arguments, 1 ),
           topic = this.GetTopic( topicName );
 
       args.push( topic );
@@ -2879,7 +2879,7 @@ Finally we can easily expose our Mediator for attachment to the object passed in
 
 <p><strong>JavaScript</strong></p>
 <pre class="brush:js">
-$( "#chatForm" ).on( "submit", function(e) {
+$( "#chatForm" ).on( "submit", function (e) {
     e.preventDefault();
 
     // Collect the details of the chat from our UI
@@ -2901,7 +2901,7 @@ function displayChat( data ) {
 }
 
 // Log messages
-function logChat( data ) {
+function logChat ( data ) {
     if ( window.console ) {
         console.log( data );
     }
@@ -2917,12 +2917,12 @@ mediator.subscribe( "newMessage", logChat );
 
 // The following will however only work with the more advanced implementation:
 
-function amITalkingToMyself( data ) {
+function amITalkingToMyself ( data ) {
     return data.from === data.to;
 }
 
-function iAmClearlyCrazy( data ) {
-    $( "#chatResult" ).prepend("<p>" + data.from + " is talking to himself.</p>");
+function iAmClearlyCrazy ( data ) {
+    $( "#chatResult" ).prepend( "<p>" + data.from + " is talking to himself.</p>" );
 }
 
  mediator.Subscribe( amITalkingToMyself, iAmClearlyCrazy );
