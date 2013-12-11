@@ -1378,7 +1378,7 @@ var myLibrary = library(function () {
 <p>
 <pre  class="brush: js">
 
-var myRevealingModule = function () {
+var myRevealingModule = (function () {
 
         var privateVar = "Ben Cherry",
             publicVar  = "Hey there!";
@@ -1405,7 +1405,7 @@ var myRevealingModule = function () {
             getName: publicGetName
         };
 
-    }();
+    })();
 
 myRevealingModule.setName( "Paul Kinlan" );
 
@@ -1414,7 +1414,7 @@ myRevealingModule.setName( "Paul Kinlan" );
 <p>The pattern can also be used to reveal private functions and properties with a more specific naming scheme if we would prefer:</p>
 
 <p><pre class="brush: js">
-var myRevealingModule = function () {
+var myRevealingModule = (function () {
 
         var privateCounter = 0;
 
@@ -1443,7 +1443,7 @@ var myRevealingModule = function () {
             count: publicGetCount
         };
 
-    }();
+    })();
 
 myRevealingModule.start();
 
