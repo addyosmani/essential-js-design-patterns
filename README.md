@@ -1,11 +1,10 @@
-
 #### Introduction
 
 This is the repo for 'Learning JavaScript Design Patterns', an open-source book on JavaScript patterns also released for sale (should you wish to support the project that way) via [O'Reilly Media](http://shop.oreilly.com/product/0636920025832.do).
 
 Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. You can read the latest version [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/) for free at any time. 
 
-Version 1.5.2 of the book is currently over 254 pages in length and 1.0 was downloaded approximately 260,000 times during 2011. Additional formats of the book are available in the 'formats' directory.
+Additional formats of the book are available in the 'formats' directory.
 
 #### Why is this book needed?
 
@@ -23,4 +22,4 @@ There are a lot of requests to translate this project into other languages. Plea
 
 This book is released under a Creative Commons Attribution-Noncommercial- No Derivative Works 3.0 United States License. What this means it that the project is free to read and use, but the license does not permit commercial use of the material (i.e you can freely print out the book for your own use, but you can't sell it). I'm trying to best to publish all of my books in a free + purchased (if you would like to support these projects) form so I would greatly appreciate it if you would respect these terms.
 
-Copyright Addy Osmani, 2012.
+Copyright Addy Osmani, 2013.
