@@ -1151,7 +1151,7 @@ myModule.publicMethod();
 // Global module
 var myModule = (function () {
 
-    // Module object
+  // Module object 
   var module = {},
     privateVariable = "Hello World";
 
@@ -1170,9 +1170,9 @@ var myModule = (function () {
 </pre>
 
 
-<p>
+<h4>
 Toolkit And Framework-specific Module Pattern Implementations
-</p>
+</h4>
 <p>
 <strong>Dojo</strong>
 <p>
@@ -1348,7 +1348,7 @@ var myLibrary = library(function () {
 
 <h4>Advantages</h4>
 
-<p>We've seen why the Singleton pattern can be useful, but why is the Module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
+<p>We've seen why the Constructor pattern can be useful, but why is the Module pattern a good choice? For starters, it's a lot cleaner for developers coming from an object-oriented background than the idea of true encapsulation, at least from a JavaScript perspective.</p>
 <p>Secondly, it supports private data - so, in the Module pattern, public parts of our code are able to touch the private parts, however the outside world is unable to touch the class's private parts (no laughing! Oh, and thanks to David Engfer for the joke).</p>
 
 <h4>Disadvantages</h4>
@@ -1715,74 +1715,36 @@ function ObserverList(){
   this.observerList = [];
 }
 
-ObserverList.prototype.Add = function( obj ){
+ObserverList.prototype.add = function( obj ){
   return this.observerList.push( obj );
 };
 
-ObserverList.prototype.Empty = function(){
-  this.observerList = [];
-};
-
-ObserverList.prototype.Count = function(){
+ObserverList.prototype.count = function(){
   return this.observerList.length;
 };
 
-
-ObserverList.prototype.Get = function( index ){
+ObserverList.prototype.get = function( index ){
   if( index > -1 && index < this.observerList.length ){
     return this.observerList[ index ];
   }
 };
 
-ObserverList.prototype.Insert = function( obj, index ){
-  var pointer = -1;
-
-  if( index === 0 ){
-    this.observerList.unshift( obj );
-    pointer = index;
-  }else if( index === this.observerList.length ){
-    this.observerList.push( obj );
-    pointer = index;
-  }else if( index > 0 && index < this.observerList.length ){
-    this.observerList.splice( index, 0, obj );
-    pointer = index;
-  }
-
-  return pointer;
-};
-
-ObserverList.prototype.IndexOf = function( obj, startIndex ){
-  var i = startIndex, pointer = -1;
+ObserverList.prototype.indexOf = function( obj, startIndex ){
+  var i = startIndex;
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
-      pointer = i;
+      return i;
     }
     i++;
   }
 
-  return pointer;
+  return -1;
 };
 
-ObserverList.prototype.RemoveAt = function (index) {
-    if (index === 0) {
-        this.observerList.shift();
-    } else if (index === this.observerList.length - 1) {
-        this.observerList.pop();
-    } else {
-        this.observerList.splice(index, 1);
-    }
-}
-
-
-// Extend an object with an extension
-function extend( extension, obj ){
-  for ( var key in extension ){
-    obj[key] = extension[key];
-  }
-}
-
-
+ObserverList.prototype.removeAt = function( index ){
+  this.observerList.splice( index, 1 );
+};
 </pre>
 </p>
 
@@ -1795,32 +1757,32 @@ function Subject(){
   this.observers = new ObserverList();
 }
 
-Subject.prototype.AddObserver = function( observer ){
-  this.observers.Add( observer );
+Subject.prototype.addObserver = function( observer ){
+  this.observers.add( observer );
 };
 
-Subject.prototype.RemoveObserver = function( observer ){
-  this.observers.RemoveAt( this.observers.IndexOf( observer, 0 ) );
+Subject.prototype.removeObserver = function( observer ){
+  this.observers.removeAt( this.observers.indexOf( observer, 0 ) );
 };
 
-Subject.prototype.Notify = function( context ){
-  var observerCount = this.observers.Count();
+Subject.prototype.notify = function( context ){
+  var observerCount = this.observers.count();
   for(var i=0; i < observerCount; i++){
-    this.observers.Get(i).Update( context );
+    this.observers.get(i).update( context );
   }
 };
 
 </pre>
 </p>
 
-<p>We then define a skeleton for creating new Observers. The <code>Update</code> functionality here will be overwritten later with custom behaviour. </p>
+<p>We then define a skeleton for creating new Observers. The <code>update</code> functionality here will be overwritten later with custom behaviour. </p>
 
 <p>
 <pre  class="brush: js">
 
 // The Observer
 function Observer(){
-  this.Update = function(){
+  this.update = function(){
     // ...
   };
 }
@@ -1851,6 +1813,12 @@ function Observer(){
 <p><strong>Sample script:</strong></p>
 <p>
 <pre  class="brush: js">
+// Extend an object with an extension
+function extend( extension, obj ){
+  for ( var key in extension ){
+    obj[key] = extension[key];
+  }
+}
 
 // References to our DOM elements
 
@@ -1865,14 +1833,15 @@ var controlCheckbox = document.getElementById( "mainCheckbox" ),
 extend( new Subject(), controlCheckbox );
 
 // Clicking the checkbox will trigger notifications to its observers
-controlCheckbox["onclick"] = new Function( "controlCheckbox.Notify(controlCheckbox.checked)" );
+controlCheckbox.onclick = function(){
+  controlCheckbox.notify( controlCheckbox.checked );
+};
 
-
-addBtn["onclick"] = AddNewObserver;
+addBtn.onclick = addNewObserver;
 
 // Concrete Observer
 
-function AddNewObserver(){
+function addNewObserver(){
 
   // Create a new checkbox to be added
   var check  = document.createElement( "input" );
@@ -1882,13 +1851,13 @@ function AddNewObserver(){
   extend( new Observer(), check );
 
   // Override with custom update behaviour
-  check.Update = function( value ){
+  check.update = function( value ){
     this.checked = value;
   };
 
   // Add the new observer to our list of observers
   // for our main subject
-  controlCheckbox.AddObserver( check );
+  controlCheckbox.addObserver( check );
 
   // Append the item to the container
   container.appendChild( check );
@@ -1945,7 +1914,7 @@ var subscriber1 = subscribe( "inbox/newMessage", function( topic, data ) {
 
 var subscriber2 = subscribe( "inbox/newMessage", function( topic, data ) {
 
-  $('.newMessageCounter').html( mailCounter++ );
+  $('.newMessageCounter').html( ++mailCounter );
 
 });
 
@@ -1956,7 +1925,7 @@ publish( "inbox/newMessage", [{
 
 // We could then at a later point unsubscribe our subscribers
 // from receiving any new topic notifications as follows:
-// unsubscribe( subscriber1,  );
+// unsubscribe( subscriber1 );
 // unsubscribe( subscriber2 );
 </pre>
 
@@ -2215,7 +2184,7 @@ function updateCounter( data ) {
 // Update the grid using the data passed to our subscribers
 gridUpdate = function( topic, data ){
 
-  if ( data !== "undefined" ) {
+  if ( data !== undefined ) {
      addGridRow( data );
      updateCounter( data );
    }
@@ -2341,7 +2310,7 @@ It's left up to the subscribers to those topics to then delegate what happens wi
 
     if( data ){
 
-      $( "#ratings" ).append( ratingsTemplate( data );
+      $( "#ratings" ).append( ratingsTemplate( data ) );
 
     }
 
@@ -2469,7 +2438,7 @@ Notice how in our sample below, one topic notification is made when a user indic
                 return;
               }
 
-              $.publish( "/search/resultSet" , data.items  );
+              $.publish( "/search/resultSet" , { items: data.items } );
        });
 
    });
