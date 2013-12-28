@@ -2494,13 +2494,13 @@ A real-world analogy could be a typical airport traffic control system. A tower 
 
 <p>You can write a mediator using a single line of code:</p>
 
-<p><code>javascript
+<pre class="brush: js">
 var mediator = {};
-</code></p>
+</pre>
 
 <p>Yes, of course this is just an object literal in JavaScript. Once again, we’re talking about semantics here. The purpose of the mediator is to control the workflow between objects and we really don’t need anything more than an object literal to do this.</p>
 
-<pre>
+<pre class="brush: js">
 var orgChart = {
 
   addNewEmployee: function(){
@@ -2580,7 +2580,7 @@ var orgChart = {
 
 <p>A mediator, then, could be set up to listen to the event aggregator. It could run its logic and process to facilitate and coordinate many objects that are related to each other, but unrelated to the original event source.</p>
 
-<pre>
+<pre class="brush: js">
 var MenuItem = MyFrameworkView.extend({
 
   events: {
@@ -4337,7 +4337,7 @@ $( "div" ).on( "click", function () {
 
 <p>James had wanted to use jQuery's <code>jQuery.text</code> in the following context, however he disagreed with the notion that a new jQuery object had to be created on each iteration:</p>
 
-<pre>
+<pre class="brush: js">
 $( "a" ).map( function () {
   return $( this ).text();
 });
