@@ -26,7 +26,7 @@
     <p class="booktitle"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.com/resources/essentialjsdesignpatterns/book/" data-count="horizontal" data-via="addyosmani">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></p>
 
     <p class="copyright">
-      Copyright &copy; Addy Osmani 2012.
+      Copyright &copy; Addy Osmani 2013.
     </p>
     <p class="copyright"><em>Learning JavaScript Design Patterns</em> is released under a <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Noncommercial-No Derivative Works 3.0</a> unported license. It is available for purchase via <a href="http://shop.oreilly.com/product/0636920025832.do">O'Reilly</a> Media but will remain available for both free online and as a physical (or eBook) purchase for readers wishing to support the project.</p>
     <p class="copyright">&nbsp;</p>
@@ -2034,15 +2034,19 @@ I've opted to base our examples on this code as it sticks closely to both the me
 <pre  class="brush: js">
 var pubsub = {};
 
-(function(q) {
+(function(myObject) {
 
-    var topics = {},
-        subUid = -1;
+    // Storage for topics that can be broadcast 
+    // or listened to
+    var topics = {};
+
+    // An topic identifier
+    var subUid = -1;
 
     // Publish or broadcast events of interest
     // with a specific topic name and arguments
     // such as the data to pass along
-    q.publish = function( topic, args ) {
+    myObject.publish = function( topic, args ) {
 
         if ( !topics[topic] ) {
             return false;
@@ -2062,7 +2066,7 @@ var pubsub = {};
     // with a specific topic name and a
     // callback function, to be executed
     // when the topic/event is observed
-    q.subscribe = function( topic, func ) {
+    myObject.subscribe = function( topic, func ) {
 
         if (!topics[topic]) {
             topics[topic] = [];
@@ -2079,7 +2083,7 @@ var pubsub = {};
     // Unsubscribe from a specific
     // topic, based on a tokenized reference
     // to the subscription
-    q.unsubscribe = function( token ) {
+    myObject.unsubscribe = function( token ) {
         for ( var m in topics ) {
             if ( topics[m] ) {
                 for ( var i = 0, j = topics[m].length; i < j; i++ ) {
@@ -2466,6 +2470,10 @@ The Observer pattern is useful for decoupling a number of different scenarios in
 </h2>
 
 <p>
+In the section on the Observer pattern, we were introduced to a way of channeling multiple event sources through a single object. This is also known as Publish/Subscribe or Event Aggregation. It's common for developers to think of Mediators when faced with this problem, so let's explore how they differ.
+</p>
+
+<p>
 The dictionary refers to a mediator as <i>a neutral party that assists in negotiations and conflict resolution</i>. In our world, a mediator is a behavioral design pattern that allows us to expose a unified interface through which the different parts of a system may communicate.</p>
 
 <p>If it appears a system has too many direct relationships between components, it may be time to have a central point of control that components communicate through instead. The Mediator promotes loose coupling by ensuring that instead of components referring to each other explicitly, their interaction is handled through this central point. This can help us decouple systems and improve the potential for component reusability.
@@ -2473,440 +2481,137 @@ The dictionary refers to a mediator as <i>a neutral party that assists in negoti
 <p>
 A real-world analogy could be a typical airport traffic control system. A tower (Mediator) handles what planes can take off and land because all communications (notifications being listened out for or broadcast) are done from the planes to the control tower, rather than from plane-to-plane. A centralized controller is key to the success of this system and that's really the role a Mediator plays in software design.</p>
 
-<p>In implementation terms, the Mediator pattern is essentially a shared subject in the Observer pattern. This might assume that a direction Publish/Subscribe relationship between objects or modules in such systems is sacrificed in order to maintain a central point of contact.</p>
-
-<p>It may also be considered supplemental - perhaps used for application-level notifications such as a communication between different subsystems that are themselves complex and may desire internal component decoupling through Publish/Subscribe relationships.</p>
-
 <p>Another analogy would be DOM event bubbling and event delegation. If all subscriptions in a system are made against the document rather than individual nodes, the document effectively serves as a Mediator. Instead of binding to the events of the individual nodes, a higher level object is given the responsibility of notifying subscribers about interaction events.</p>
 
-<h3>Basic Implementation</h3>
-<p>A simple implementation of the Mediator pattern can be found below, exposing both <code>publish()</code> and <code>subscribe()</code> methods for use:</p>
 
-<pre class="brush: js">
-var mediator = (function(){
+<p>When it comes to the Mediator and Event Aggregator patterns, there are some times where it may look like the patterns are interchangeable due to implementation similarities. However, the semantics and intent of these patterns are very different.</p>
 
-    // Storage for topics that can be broadcast or listened to
-    var topics = {};
+<p>And even if the implementations both use some of the same core constructs, I believe there is a distinct difference between them. I also believe they should not be interchanged or confused in communication because of the differences.</p>
 
-    // Subscribe to a topic, supply a callback to be executed
-    // when that topic is broadcast to
-    var subscribe = function( topic, fn ){
+<p><strong>A Simple Mediator</strong></p>
 
-        if ( !topics[topic] ){
-          topics[topic] = [];
-        }
+<p>A Mediator is an object that coordinates interactions (logic and behavior) between multiple objects. It makes decisions on when to call which objects, based on the actions (or inaction) of other objects and input.</p>
 
-        topics[topic].push( { context: this, callback: fn } );
+<p>You can write a mediator using a single line of code:</p>
 
-        return this;
-    };
+<p><code>javascript
+var mediator = {};
+</code></p>
 
-    // Publish/broadcast an event to the rest of the application
-    var publish = function( topic ){
+<p>Yes, of course this is just an object literal in JavaScript. Once again, we’re talking about semantics here. The purpose of the mediator is to control the workflow between objects and we really don’t need anything more than an object literal to do this.</p>
 
-        var args;
+<pre>
+var orgChart = {
 
-        if ( !topics[topic] ){
-          return false;
-        }
+  addNewEmployee: function(){
 
-        args = Array.prototype.slice.call( arguments, 1 );
-        for ( var i = 0, l = topics[topic].length; i < l; i++ ) {
+    // getEmployeeDetail provides a view that users interact with
+    var employeeDetail = this.getEmployeeDetail();
 
-            var subscription = topics[topic][i];
-            subscription.callback.apply( subscription.context, args );
-        }
-        return this;
-    };
+    // when the employee detail is complete, the mediator (the 'orgchart' object)
+    // decides what should happen next
+    employeeDetail.on("complete", function(employee){
 
-    return {
-        publish: publish,
-        subscribe: subscribe,
-        installTo: function( obj ){
-            obj.subscribe = subscribe;
-            obj.publish = publish;
-        }
-    };
+      // set up additional objects that have additional events, which are used
+      // by the mediator to do additional things
+      var managerSelector = this.selectManager(employee);
+      managerSelector.on("save", function(employee){
+        employee.save();
+      });
 
-}());
-</pre>
-
-
-<h3>Advanced Implementation</h3>
-
-<p>For those interested in a more advanced implementation, read on for a walk-through of my trimmed down version of Jack Lawson's excellent <a href="http://thejacklawson.com/Mediator.js/">Mediator.js</a>. Amongst other improvements, this version supports topic namespaces, subscriber removal and a much more robust Publish/Subscribe system for our Mediator. If however, you wish to skip this walk-through, you can go directly to the next example to continue reading.</p>
-
-<p><em>Thanks to Jack for his excellent code comments which assisted with this section.</em></p>
-
-
-<p>To start, let's implement the notion of Subscriber, which we can consider an instance of a Mediators topic registration.</p>
-
-<p>By generating object instances, we can easily update Subscribers later without the need to unregister and re-register them. Subscribers can be written as constructors that take a function <code>fn</code> to be called, an <code>options</code> object and a <code>context</code>.</p>
-
-<pre  class="brush: js">
-
-// Pass in a context to attach our Mediator to.
-// By default this will be the window object
-(function( root ){
-
-  function guidGenerator() { /*..*/}
-
-  // Our Subscriber constructor
-  function Subscriber( fn, options, context ){
-
-    if ( !(this instanceof Subscriber) ) {
-
-      return new Subscriber( fn, options, context );
-
-    }else{
-
-      // guidGenerator() is a function that generates
-      // GUIDs for instances of our Mediators Subscribers so
-      // we can easily reference them later on. We're going
-      // to skip its implementation for brevity
-
-      this.id = guidGenerator();
-      this.fn = fn;
-      this.options = options;
-      this.context = context;
-      this.topic = null;
-
-    }
-  }
-})();
-
-</pre>
-
-<p>Topics in our Mediator hold a list of callbacks and sub-topics that are fired when <code>Mediator.Publish</code> is called on our Mediator instance. It also contains methods for manipulating lists of data.</p>
-
-<pre  class="brush: js">
-// Let's model the Topic.
-// JavaScript lets us use a Function object as a
-// conjunction of a prototype for use with the new
-// object and a constructor function to be invoked.
-function Topic( namespace ){
-
-  if ( !(this instanceof Topic) ) {
-    return new Topic( namespace );
-  }else{
-
-    this.namespace = namespace || "";
-    this._callbacks = [];
-    this._topics = [];
-    this.stopped = false;
-
-  }
-}
-
-
-// Define the prototype for our topic, including ways to
-// add new subscribers or retrieve existing ones.
-Topic.prototype = {
-
-  // Add a new subscriber
-  AddSubscriber: function( fn, options, context ){
-
-    var callback = new Subscriber( fn, options, context );
-
-    this._callbacks.push( callback );
-
-    callback.topic = this;
-
-    return callback;
+    });
   },
-...
+
+  // ...
+}
 </pre>
 
-<p>Our topic instance is passed along as an argument to the Mediator callback. Further callback propagation can then be called using a handy utility method called <code>StopPropagation()</code>:</p>
+<p>This example shows a very basic implementation of a mediator object with some utility methods that can trigger and subscribe to events.</p>
 
-<pre  class="brush: js">
-    StopPropagation: function(){
-      this.stopped = true;
-    },
-</pre>
+<p>I’ve often referred to this type of object as a “workflow” object in the past, but the truth is that it is a mediator. It is an object that handles the workflow between many other objects, aggregating the responsibility of that workflow knowledge into a single object. The result is workflow that is easier to understand and maintain.</p>
 
-<p>We can also make it easy to retrieve existing Subscribers when given a GUID identifier:</p>
+<h5>Similarities And Differences</h5>
 
-<pre  class="brush: js">
-    GetSubscriber: function( identifier ){
+<p>There are, without a doubt, similarities between the event aggregator and mediator examples that I’ve shown here. The similarities boil down to two primary items: events and third-party objects. These differences are superficial at best, though. When we dig into the intent of the pattern and see that the implementations can be dramatically different, the nature of the patterns become more apparent.</p>
 
-      for(var x = 0, y = this._callbacks.length; x < y; x++ ){
-        if( this._callbacks[x].id == identifier || this._callbacks[x].fn == identifier ){
-          return this._callbacks[x];
-        }
-      }
+<h6>Events</h6>
 
-      for( var z in this._topics ){
-        if( this._topics.hasOwnProperty( z ) ){
-          var sub = this._topics[z].GetSubscriber( identifier );
-          if( sub !== undefined ){
-            return sub;
-          }
-        }
-      }
+<p>Both the event aggregator and mediator use events, in the above examples. An event aggregator obviously deals with events – it’s in the name after all. The mediator only uses events because it makes life easy when dealing with modern JavaScript webapp frameworks. There is nothing that says a mediator must be built with events. You can build a mediator with callback methods, by handing the mediator reference to the child object, or by any of a number of other means.</p>
 
-    },
+<p>The difference, then, is why these two patterns are both using events. The event aggregator, as a pattern, is designed to deal with events. The mediator, though, only uses them because it’s convenient.</p>
 
-</pre>
+<h6>Third-Party Objects</h6>
 
-<p>Next, in case we need them, we can offer easy ways to add new topics, check for existing topics or retrieve topics as well:</p>
-<pre  class="brush: js">
+<p>Both the event aggregator and mediator, by design, use a third-party object to facilitate things. The event aggregator itself is a third-party to the event publisher and the event subscriber. It acts as a central hub for events to pass through. The mediator is also a third party to other objects, though. So where is the difference? Why don’t we call an event aggregator a mediator? The answer largely comes down to where the application logic and workflow is coded.</p>
 
-    AddTopic: function( topic ){
-      this._topics[topic] = new Topic( (this.namespace ? this.namespace + ":" : "") + topic );
-    },
+<p>In the case of an event aggregator, the third party object is there only to facilitate the pass-through of events from an unknown number of sources to an unknown number of handlers. All workflow and business logic that needs to be kicked off is put directly into the object that triggers the events and the objects that handle the events.</p>
 
-    HasTopic: function( topic ){
-      return this._topics.hasOwnProperty( topic );
-    },
+<p>In the case of the mediator, though, the business logic and workflow is aggregated into the mediator itself. The mediator decides when an object should have its methods called and attributes updated based on factors that the mediator knows about. It encapsulates the workflow and process, coordinating multiple objects to produce the desired system behaviour. The individual objects involved in this workflow each know how to perform their own task. But it’s the mediator that tells the objects when to perform the tasks by making decisions at a higher level than the individual objects.</p>
 
-    ReturnTopic: function( topic ){
-      return this._topics[topic];
-    },
-</pre>
+<p>An event aggregator facilitates a “fire and forget” model of communication. The object triggering the event doesn’t care if there are any subscribers. It just fires the event and moves on. A mediator, though, might use events to make decisions, but it is definitely not “fire and forget”. A mediator pays attention to a known set of input or activities so that it can facilitate and coordinate additional behavior with a known set of actors (objects).</p>
 
-<p>We can also explicitly remove Subscribers if we feel they are no longer necessary. The following will recursively remove a Subscriber through its sub-topics:</p>
+<h5>Relationships: When To Use Which</h5>
 
-<pre  class="brush: js">
-    RemoveSubscriber: function( identifier ){
+<p>Understanding the similarities and differences between an event aggregator and mediator is important for semantic reasons. It’s equally as important to understand when to use which pattern, though. The basic semantics and intent of the patterns does inform the question of when, but actual experience in using the patterns will help you understand the more subtle points and nuanced decisions that have to be made.</p>
 
-      if( !identifier ){
-        this._callbacks = [];
+<h6>Event Aggregator Use</h6>
 
-        for( var z in this._topics ){
-          if( this._topics.hasOwnProperty(z) ){
-            this._topics[z].RemoveSubscriber( identifier );
-          }
-        }
-      }
+<p>In general, an event aggregator is used when you either have too many objects to listen to directly, or you have objects that are entirely unrelated.</p>
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
-        if( this._callbacks[y].fn == identifier || this._callbacks[y].id == identifier ){
-          this._callbacks[y].topic = null;
-          this._callbacks.splice( y,1 );
-          x--; y--;
-        }
-      }
+<p>When two objects have a direct relationship already – say, a parent view and child view – then there might be little benefit in using an event aggregator. Have the child view trigger an event and the parent view can handle the event. In JavaScript framework terms, this is most commonly seen in Backbone’s Collection and Model, where all Model events are bubbled up to and through its parent Collection. A Collection often uses model events to modify the state of itself or other models. Handling “selected” items in a collection is a good example of this.</p>
 
-    },
+<p>jQuery’s on method as an event aggregator is a great example of too many objects to listen to. If you have 10, 20 or 200 DOM elements that can trigger a “click” event, it might be a bad idea to set up a listener on all of them individually. This could quickly deteriorate performance of the application and user experience. Instead, using jQuery’s on method allows us to aggregate all of the events and reduce the overhead of 10, 20, or 200 event handlers down to 1.</p>
 
-</pre>
+<p>Indirect relationships are also a great time to use event aggregators. In modern webapps applications, it is very common to have multiple view objects that need to communicate, but have no direct relationship. For example, a menu system might have a view that handles the menu item clicks. But we don’t want the menu to be directly tied to the content views that show all of the details and information when a menu item is clicked. Having the content and menu coupled together would make the code very difficult to maintain, in the long run. Instead, we can use an event aggregator to trigger “menu:click:foo” events, and have a “foo” object handle the click event to show its content on the screen.</p>
 
-<p>Next we include the ability to <code>Publish</code> arbitrary arguments to Subscribers recursively through sub-topics.
-</p>
+<h6>Mediator Use</h6>
 
-<pre  class="brush: js">
-    Publish: function( data ){
+<p>A mediator is best applied when two or more objects have an indirect working relationship, and business logic or workflow needs to dictate the interactions and coordination of these objects.</p>
 
-      for( var y = 0, x = this._callbacks.length; y < x; y++ ) {
+<p>A wizard interface is a good example of this, as shown with the “orgChart” example, above. There are multiple views that facilitate the entire workflow of the wizard. Rather than tightly coupling the view together by having them reference each other directly, we can decouple them and more explicitly model the workflow between them by introducing a mediator.</p>
 
-          var callback = this._callbacks[y], l;
-            callback.fn.apply( callback.context, data );
+<p>The mediator extracts the workflow from the implementation details and creates a more natural abstraction at a higher level, showing us at a much faster glance what that workflow is. We no longer have to dig into the details of each view in the workflow, to see what the workflow actually is.</p>
 
-        l = this._callbacks.length;
+<h5>Event Aggregator (Pub/Sub) And Mediator Together</h5>
 
-        if( l < x ){
-          y--;
-          x = l;
-        }
-      }
+<p>The crux of the difference between an event aggregator and a mediator, and why these pattern names should not be interchanged with each other, is illustrated best by showing how they can be used together. The menu example for an event aggregator is the perfect place to introduce a mediator as well.</p>
 
-      for( var x in this._topics ){
-        if( !this.stopped ){
-          if( this._topics.hasOwnProperty( x ) ){
-            this._topics[x].Publish( data );
-          }
-        }
-      }
+<p>Clicking a menu item may trigger a series of changes throughout an application. Some of these changes will be independent of others, and using an event aggregator for this makes sense. Some of these changes may be internally related to each other, though, and may use a mediator to enact those changes.</p>
 
-      this.stopped = false;
-    }
-  };
-</pre>
+<p>A mediator, then, could be set up to listen to the event aggregator. It could run its logic and process to facilitate and coordinate many objects that are related to each other, but unrelated to the original event source.</p>
 
-<p>Here we expose the <code>Mediator</code> instance we will primarily be interacting with. It is through here that events are registered and removed from topics.</p>
+<pre>
+var MenuItem = MyFrameworkView.extend({
 
-<pre  class="brush: js">
-  function Mediator() {
+  events: {
+    "click .thatThing": "clickedIt"
+  },
 
-    if ( !(this instanceof Mediator) ) {
-      return new Mediator();
-    }else{
-      this._topics = new Topic( "" );
-    }
-
-  };
-
-</pre>
-
-<p>For more advanced use-cases, we can get our Mediator supporting namespaces for topics such as <code>inbox:messages:new:read</code>.<code>GetTopic</code> below returns topic instances based on a namespace.</p>
-
-<pre  class="brush: js">
-  Mediator.prototype = {
-
-    GetTopic: function( namespace ){
-      var topic = this._topics,
-          namespaceHierarchy = namespace.split( ":" );
-
-      if( namespace === "" ){
-        return topic;
-      }
-
-      if( namespaceHierarchy.length > 0 ){
-        for( var i = 0, j = namespaceHierarchy.length; i < j; i++ ){
-
-          if( !topic.HasTopic( namespaceHierarchy[i]) ){
-            topic.AddTopic( namespaceHierarchy[i] );
-          }
-
-          topic = topic.ReturnTopic( namespaceHierarchy[i] );
-        }
-      }
-
-      return topic;
-    },
-</pre>
-
-<p>
-In this section we define a <code>Mediator.Subscribe</code> method, which accepts a topic namespace, a function <code>fn</code> to be executed, <code>options</code> and once again a <code>context</code> to call the function in to Subscribe. This creates a topic if one doesn't exist.
-</p>
-
-<pre  class="brush: js">
-    Subscribe: function( topiclName, fn, options, context ){
-      var options = options || {},
-          context = context || {},
-          topic = this.GetTopic( topicName ),
-          sub = topic.AddSubscriber( fn, options, context );
-
-      return sub;
-    },
-
-</pre>
-
-<p>Following on from this, we can also define further utilities for accessing specific subscribers or removing them from topics recursively.</p>
-<pre  class="brush: js">
-
-    // Returns a subscriber for a given subscriber id / named function and topic namespace
-
-    GetSubscriber: function( identifier, topic ){
-      return this.GetTopic( topic || "" ).GetSubscriber( identifier );
-    },
-
-    // Remove a subscriber from a given topic namespace recursively based on
-    // a provided subscriber id or named function.
-
-    Remove: function( topicName, identifier ){
-      this.GetTopic( topicName ).RemoveSubscriber( identifier );
-    },
-
-</pre>
-
-<p>
-Our primary <code>Publish</code> method allows us to arbitrarily publish data to a chosen topic namespace and can be seen below.</p>
-<p>Topics are called recursively downwards. For example, a post to <code>inbox:messages</code> will post to <code>inbox:messages:new</code> and <code>inbox:messages:new:read</code>. It is used as follows: <code>Mediator.Publish( "inbox:messages:new", [args] );</code></p>
-
-<pre  class="brush: js">
-    Publish: function( topicName ){
-      var args = Array.prototype.slice.call( arguments, 1),
-          topic = this.GetTopic( topicName );
-
-      args.push( topic );
-
-      this.GetTopic( topicName ).Publish( args );
-    }
-  };
-</pre>
-
-<p>
-Finally we can easily expose our Mediator for attachment to the object passed in to <code>root</code>:
-</p>
-
-<pre  class="brush: js">
-  root.Mediator = Mediator;
-  Mediator.Topic = Topic;
-  Mediator.Subscriber = Subscriber;
-
-// Remember we can pass anything in here. I've passed in <code>window</code> to
-// attach the Mediator to, but we can just as easily attach it to another
-// object if desired.
-})( window );
-</pre>
-
-
-<h3>Example</h3>
-
-<p>Using either of the implementations from above (both the simple option and the more advanced one), we can then put together a simple chat logging system as follows:</p>
-
-
-<p><strong>HTML</strong></p>
-<pre class="brush: js">
- &lt;h1&gt;Chat&lt;/h1&gt;
-&lt;form id=&quot;chatForm&quot;&gt;
-    &lt;label for=&quot;fromBox&quot;&gt;Your Name:&lt;/label&gt;
-    &lt;input id=&quot;fromBox&quot; type=&quot;text&quot;/&gt;
-    &lt;br /&gt;
-    &lt;label for=&quot;toBox&quot;&gt;Send to:&lt;/label&gt;
-    &lt;input id=&quot;toBox&quot; type=&quot;text&quot;/&gt;
-    &lt;br /&gt;
-    &lt;label for=&quot;chatBox&quot;&gt;Message:&lt;/label&gt;
-    &lt;input id=&quot;chatBox&quot; type=&quot;text&quot;/&gt;
-    &lt;button type=&quot;submit&quot;&gt;Chat&lt;/button&gt;
-&lt;/form&gt;
-
-&lt;div id=&quot;chatResult&quot;&gt;&lt;/div&gt;
-</pre>
-
-<p><strong>JavaScript</strong></p>
-<pre class="brush:js">
-$( "#chatForm" ).on( "submit", function(e) {
+  clickedIt: function(e){
     e.preventDefault();
 
-    // Collect the details of the chat from our UI
-    var text = $( "#chatBox" ).val(),
-        from = $( "#fromBox" ).val(),
-        to = $( "#toBox" ).val();
+    // assume this triggers "menu:click:foo"
+    MyFramework.trigger("menu:click:" + this.model.get("name"));
+  }
 
-    // Publish data from the chat to the newMessage topic
-    mediator.publish( "newMessage" , { message: text, from: from, to: to } );
 });
 
-// Append new messages as they come through
-function displayChat( data ) {
-    var date = new Date(),
-        msg = data.from + " said \"" + data.message + "\" to " + data.to;
+// ... somewhere else in the app
 
-    $( "#chatResult" )
-        .prepend("<p>" + msg + " (" + date.toLocaleTimeString() + ")</p>");
-}
+var MyWorkflow = function(){
+  MyFramework.on("menu:click:foo", this.doStuff, this);
+};
 
-// Log messages
-function logChat( data ) {
-    if ( window.console ) {
-        console.log( data );
-    }
-}
-
-
-
-// Subscribe to new chat messages being submitted
-// via the mediator
-mediator.subscribe( "newMessage", displayChat );
-mediator.subscribe( "newMessage", logChat );
-
-
-// The following will however only work with the more advanced implementation:
-
-function amITalkingToMyself( data ) {
-    return data.from === data.to;
-}
-
-function iAmClearlyCrazy( data ) {
-    $( "#chatResult" ).prepend("<p>" + data.from + " is talking to himself.</p>");
-}
-
- mediator.Subscribe( amITalkingToMyself, iAmClearlyCrazy );
-
+MyWorkflow.prototype.doStuff = function(){
+  // instantiate multiple objects here.
+  // set up event handlers for those objects.
+  // coordinate all of the objects into a meaningful workflow.
+};
 </pre>
+
+<p>In this example, when the MenuItem with the right model is clicked, the <code>“menu:click:foo”</code> event will be triggered. An instance of the “MyWorkflow” object, assuming one is already instantiated, will handle this specific event and will coordinate all of the objects that it knows about, to create the desired user experience and workflow.</p>
+
+<p>An event aggregator and a mediator have been combined to create a much more meaningful experience in both the code and the application itself. We now have a clean separation between the menu and the workflow through an event aggregator and we are still keeping the workflow itself clean and maintainable through the use of a mediator.</p>
 
 <p>
 <h3 id="advantagesanddisadvantages">
@@ -2924,17 +2629,6 @@ Perhaps the biggest downside of using the pattern is that it can introduce a sin
 <p>At the end of the day, tight coupling causes all kinds of headaches and this is just another alternative solution, but one which can work very well if implemented correctly.</p>
 
 </p>
-<h3 id="mediatorvsobserver">
-  <a href="#mediatorvsobserver" class="subhead-link">#</a>
-  Mediator Vs. Observer
-</h3>
-<p>
-Developers often wonder what the differences are between the Mediator pattern and the Observer pattern. Admittedly, there is a bit of overlap, but let's refer back to the GoF for an explanation:</p>
-<p>
-<em>"In the Observer pattern, there is no single object that encapsulates a constraint. Instead, the Observer and the Subject must cooperate to maintain the constraint. Communication patterns are determined by the way observers and subjects are interconnected: a single subject usually has many observers, and sometimes the observer of one subject is a subject of another observer."</em></p>
-
-<p>
- Both Mediators and Observers promote loose coupling, however, the Mediator achieves this by having objects communicate strictly through the Mediator. The Observer pattern creates observable objects which publish events of interest occur to objects which are subscribed to them.</p>
 
 <h3 id="mediatorvsfacade">
   <a href="#mediatorvsfacade" class="subhead-link">#</a>
