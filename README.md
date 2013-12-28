@@ -1,3 +1,7 @@
+# Learning JavaScript Design Patterns
+
+<img src="https://raw.github.com/addyosmani/essential-js-design-patterns/1.5.2/cover/cover.jpg" width="350px"/>
+
 #### Introduction
 
 This is the repo for 'Learning JavaScript Design Patterns', an open-source book on JavaScript patterns also released for sale (should you wish to support the project that way) via [O'Reilly Media](http://shop.oreilly.com/product/0636920025832.do).
