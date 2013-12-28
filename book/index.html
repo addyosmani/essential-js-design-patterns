@@ -3995,18 +3995,26 @@ MacbookDecorator.prototype = {
 };
 </pre>
 
-<p>What's happening in the above sample is that the <code>Macbook</code> Decorator is taking an object to use as the component. It's using the <code>Macbook</code> interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes just by using the <code>Macbook</code> Decorator - simply call the superclass constructor and any methods can be overridden as per necessary.</p>
+<p>What's happening in the above sample is that the <code>Macbook</code> Decorator accepts an object (a Macbook) to use as our base component. It's using the <code>Macbook</code> interface we defined earlier and for each method is just calling the same method on the component. We can now create our option classes for what can be added, just by using the <code>Macbook</code> Decorator.</p>
 
 <pre  class="brush: js">
 
+// First, define a way to extend an object a
+// with the properties in object b. We'll use
+// this shortly!
+function extend( a, b ){
+    for( var key in b )
+        if( b.hasOwnProperty(key) )
+            a[key] = b[key];
+    return a;
+}
+
 var CaseDecorator = function( macbook ){
-
-   // call the superclass's constructor next
-   this.superclass.constructor( macbook );
-
+   this.macbook = macbook;
 };
 
-// Let's now extend the superclass
+// Let's now extend (decorate) the CaseDecorator
+// with a MacbookDecorator
 extend( CaseDecorator, MacbookDecorator );
 
 CaseDecorator.prototype.addCase = function(){
@@ -4017,7 +4025,8 @@ CaseDecorator.prototype.getPrice = function(){
     return this.macbook.getPrice() + 45.00;
 };
 </pre>
-<p>As we can see, most of this is relatively straight-forward to implement. What we're doing is overriding the <code>addCase()</code> and <code>getPrice()</code> methods that need to be decorated and we're achieving this by first executing the component's method and then adding to it.</p>
+
+<p>What we're doing here is overriding the <code>addCase()</code> and <code>getPrice()</code> methods that need to be decorated and we're achieving this by first calling these methods on the original <code>macbook</code> and then simply appending a string or numeric value (e.g 45.00) to them accordingly.</p>
 
 <p>As there's been quite a lot of information presented in this section so far, let's try to bring it all together in a single example that will hopefully highlight what we have learned.</p>
 
@@ -4030,10 +4039,10 @@ var myMacbookPro = new MacbookPro();
 console.log( myMacbookPro.getPrice() );
 
 // Decorate the macbook
-myMacbookPro = new CaseDecorator( myMacbookPro );
+var decoratedMacbookPro = new CaseDecorator( myMacbookPro );
 
 // This will return 945.00
-console.log( myMacbookPro.getPrice() );
+console.log( decoratedMacbookPro.getPrice() );
 </pre>
 
 <p>As decorators are able to modify objects dynamically, they're a perfect pattern for changing existing systems. Occasionally, it's just simpler to create decorators around an object versus the trouble of maintaining individual sub-classes for each object type. This makes maintaining applications that may require a large number of sub-classed objects significantly more straight-forward.</p>
