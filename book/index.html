@@ -4583,12 +4583,11 @@ var stateManager = {
 
     var self = this;
 
-    $( "#container" ).unbind().on( "click" , function ( e ) {
-      var target = $( e.target );
-        if ( target.is( "div.toggle") ) {
-          self.handleClick( target );
-        }
-    });
+    $( "#container" )
+          .unbind()
+          .on( "click" , "div.toggle", function ( e ) {
+            self.handleClick( e.target );
+          });
   },
 
   handleClick: function ( elem ) {
