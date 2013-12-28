@@ -1,0 +1,21 @@
+{
+  "name": "essential-js-design-patterns",
+  "version": "1.5.3",
+  "description": "A book on JavaScript Design Patterns",
+  "main": "book/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/addyosmani/essential-js-design-patterns"
+  },
+  "keywords": [
+    "javascript",
+    "patterns",
+    "book"
+  ],
+  "author": "Addy Osmani",
+  "license": "Creative Commons Attribution-No Derivative Works",
+  "bugs": {
+    "url": "https://github.com/addyosmani/essential-js-design-patterns/issues"
+  },
+  "homepage": "https://github.com/addyosmani/essential-js-design-patterns"
+}
