@@ -1,3 +1,8 @@
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Build Status](https://travis-ci.org/addyosmani/essential-js-design-patterns.png)](https://travis-ci.org/addyosmani/essential-js-design-patterns)
+
+
+
 # Learning JavaScript Design Patterns
 
 <img src="https://raw.github.com/addyosmani/essential-js-design-patterns/1.5.2/cover/cover.jpg" width="350px"/>
