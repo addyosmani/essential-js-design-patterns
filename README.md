@@ -28,6 +28,15 @@ If you would like to help improve the project, please feel free to send over a p
 * Atomic commits make it easier to review changes. If you can separate changes out in this form, it'll save us time when trying to land.
 * Please review the version of the book [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/) before requesting a change. It is updated more frequently than the physical version of the book but we do bring changes back in every few months.
 
+#### Building the project
+
+Build the project: `grunt build`
+Preview: `grunt serve`
+
+#### Additional formats
+
+The project is currently authored in HTML, however we do plan on introducing builds for other formats (PDF, ePub) shortly. In the mean time, official releases for other formats can be obtained via O'Reilly.
+
 ###Translations
 
 If you would like to get involved with translating this project to another language, please open up a new issue. O'Reilly have a process for handling translations to ensure that they go through the same review process that the English version goes through.
