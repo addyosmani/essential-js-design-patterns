@@ -2,7 +2,8 @@
   "name": "jsdp",
   "private": true,
   "dependencies": {
-    "jquery": "~1.10.2"
+    "jquery": "~1.10.2",
+    "codecode": "~0.1.2"
   },
   "devDependencies": {}
 }

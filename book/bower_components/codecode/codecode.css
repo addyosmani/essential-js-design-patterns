@@ -1,0 +1,58 @@
+.acodecode {
+  cursor: pointer;
+}
+
+.acodecodeactive {
+  cursor: default;
+}
+
+.codecodecode {
+  position: fixed;
+  z-index: 100;
+  left: 2%;
+  bottom: -30px;
+  width: 96%;
+  height: 0;
+  max-height: 270px;
+  text-align: left;
+}
+
+.codecodecode > div {
+  box-shadow: 0 0 3px #444;
+}
+
+.codecodecontrols {
+  height: 30px;
+  margin-top: -30px;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, .8);
+  border-radius: 8px 8px 0 0;
+}
+
+.codecodecontrols a {
+  float: left;
+  line-height: 30px;
+  margin-left: 6px;
+  font-family: Arial;
+  font-size: 12px;
+}
+
+.codecodecontrols .closeCodeCode {
+  float: right;
+  margin-right: 6px;
+}
+
+.codecode,
+.acodecode.codecode {
+  border-radius: 0 !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow: auto !important;
+  cursor: default !important;
+}
+
+div.codecode [id^=highlighter] div.bar.show,
+div.codecode [id^=highlighter] div.toolbar {
+  display: none !important;
+};
