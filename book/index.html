@@ -3,29 +3,28 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Learning JavaScript Design Patterns</title>
-        <meta name="description" content="An open-source book on JavaScript Design Patterns">
-        <meta name="author" content="Addy Osmani">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css styles/vendor.css -->
-        <!-- bower:css -->
-        <!-- endbower -->
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/style.css" >
-        <link rel="stylesheet" href="styles/shCore.css">
-        <link rel="stylesheet" href="styles/shThemeRDark.css">
-        <link rel="stylesheet" href="styles/oreilly.css">
-        <!-- endbuild -->
-    </head>
-    <body>
-        <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Learning JavaScript Design Patterns</title>
+    <meta name="description" content="An open-source book on JavaScript Design Patterns">
+    <meta name="author" content="Addy Osmani">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/codecode/codecode.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="styles/style.css" >
+    <link rel="stylesheet" href="styles/shCore.css">
+    <link rel="stylesheet" href="styles/shThemeRDark.css">
+    <link rel="stylesheet" href="styles/oreilly.css">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
 
 
@@ -8971,29 +8970,26 @@ console.log("test", myApp);
   <!-- end .container --></div>
 
 
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="scripts/vendor/shCore.js"></script>
+    <script src="scripts/vendor/shBrushJScript.js"></script>
+    <script src="bower_components/codecode/codecode.js"></script>
+    <!-- endbuild -->
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/jquery/jquery.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+    <script> $(SyntaxHighlighter.all); </script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-46754295-1');ga('send','pageview');
-        </script>
-
-        <!-- build:js scripts/main.js -->
-        <script src="scripts/vendor/jquery-1.9.1.min.js"></script>
-        <script src="scripts/vendor/shCore.js"></script>
-        <script src="scripts/vendor/shBrushJScript.js"></script>
-        <script src="scripts/vendor/codecode.js"></script>
-        <script> $(SyntaxHighlighter.all); </script>
-        <!-- endbuild -->
-</body>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-46754295-1');ga('send','pageview');
+    </script>
+  </body>
 </html>
