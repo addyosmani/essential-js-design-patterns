@@ -2805,55 +2805,55 @@ var beget = (function () {
 <p><pre  class="brush: js">
 (function(){
 
-  var CarManager = {
+  var carManager = {
 
-      // request information
-      requestInfo: function( model, id ){
-        return "The information for " + model + " with ID " + id + " is foobar";
-      },
+    // request information
+    requestInfo: function( model, id ){
+      return "The information for " + model + " with ID " + id + " is foobar";
+    },
 
-      // purchase the car
-      buyVehicle: function( model, id ){
-        return "You have successfully purchased Item " + id + ", a " + model;
-      },
+    // purchase the car
+    buyVehicle: function( model, id ){
+      return "You have successfully purchased Item " + id + ", a " + model;
+    },
 
-      // arrange a viewing
-      arrangeViewing: function( model, id ){
-        return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
-      }
+    // arrange a viewing
+    arrangeViewing: function( model, id ){
+      return "You have successfully booked a viewing of " + model + " ( " + id + " ) ";
+    }
 
-    };
+  };
 
 })();
 </pre></p>
 
-<p>Taking a look at the above code, it would be trivial to invoke our <code>CarManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
+<p>Taking a look at the above code, it would be trivial to invoke our <code>carManager</code> methods by directly accessing the object. We would all be forgiven for thinking there is nothing wrong with this - technically, it's completely valid JavaScript. There are however scenarios where this may be disadvantageous.</p>
 
-<p>For example, imagine if the core API behind the <code>CarManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
+<p>For example, imagine if the core API behind the <code>carManager</code> changed. This would require all objects directly accessing these methods within our application to also be modified. This could be viewed as a layer of coupling which effectively goes against the OOP methodology of loosely coupling objects as much as possible. Instead, we could solve this problem by abstracting the API away further.</p>
 
-<p>Let's now expand on our <code>CarManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>CarManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
+<p>Let's now expand on our <code>carManager</code> so that our application of the Command pattern results in the following: accept any named methods that can be performed on the <code>carManager</code> object, passing along any data that might be used such as the Car model and ID.</p>
 
 <p>Here is what we would like to be able to achieve:</p>
-
+    
 <p><pre  class="brush: js">
-CarManager.execute( "buyVehicle", "Ford Escort", "453543" );
+carManager.execute( "buyVehicle", "Ford Escort", "453543" );
 </pre>
 </p>
 <p>
-As per this structure we should now add a definition for the "CarManager.execute" method as follows:
+As per this structure we should now add a definition for the <code>carManager.execute</code> method as follows:
 </p>
 <p><pre  class="brush: js">
-CarManager.execute = function ( name ) {
-    return CarManager[name] && CarManager[name].apply( CarManager, [].slice.call(arguments, 1) );
+carManager.execute = function ( name ) {
+    return carManager[name] && carManager[name].apply( carManager, [].slice.call(arguments, 1) );
 };
 </pre></p>
 <p>Our final sample calls would thus look as follows:</p>
 
 <p><pre  class="brush: js">
-CarManager.execute( "arrangeViewing", "Ferrari", "14523" );
-CarManager.execute( "requestInfo", "Ford Mondeo", "54323" );
-CarManager.execute( "requestInfo", "Ford Escort", "34232" );
-CarManager.execute( "buyVehicle", "Ford Escort", "34232" );
+carManager.execute( "arrangeViewing", "Ferrari", "14523" );
+carManager.execute( "requestInfo", "Ford Mondeo", "54323" );
+carManager.execute( "requestInfo", "Ford Escort", "34232" );
+carManager.execute( "buyVehicle", "Ford Escort", "34232" );
 </pre></p>
 <p>&nbsp;</p>
 
@@ -2973,7 +2973,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 
 <p>Did you know however that <code>getElementById()</code> on its own is significantly faster by a high order of magnitude? Take a look at this jsPerf test to see results on a per-browser level: <a href="http://jsperf.com/getelementbyid-vs-jquery-id">http://jsperf.com/getelementbyid-vs-jquery-id</a>. Now of course, we have to keep in mind that jQuery (and Sizzle - its selector engine) are doing a lot more behind the scenes to optimize our query (and that a jQuery object, not just a DOM node is returned). </p>
 
-<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById("identifier")</code> or <code>jQuery.getbyClass("identifier")</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
+<p>The challenge with this particular Facade is that in order to provide an elegant selector function capable of accepting and parsing multiple types of queries, there is an implicit cost of abstraction. The user isn't required to access <code>jQuery.getById("identifier")</code> or <code>jQuery.getByClass("identifier")</code> and so on. That said, the trade-off in performance has been tested in practice over the years and given the success of jQuery, a simple Facade actually worked out very well for the team.</p>
 
 <p>When using the pattern, try to be aware of any performance costs involved and make a call on whether they are worth the level of abstraction offered.</p>
 
@@ -3128,47 +3128,47 @@ When applied to the wrong type of problem, this pattern can introduce an unneces
 
 <p>An Abstract Factory should be used where a system must be independent from the way the objects it creates are generated or it needs to work with multiple types of objects.</p>
 
-<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named AbstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
+<p>An example which is both simple and easier to understand is a vehicle factory, which defines ways to get or register vehicles types. The abstract factory can be named abstractVehicleFactory. The Abstract factory will allow the definition of types of vehicle like "car" or "truck" and concrete factories will implement only classes that fulfill the vehicle contract (e.g <code>Vehicle.prototype.drive</code> and <code>Vehicle.prototype.breakDown</code>).</p>
 
 <pre class="brush: js">
-  var AbstractVehicleFactory = (function () {
+var abstractVehicleFactory = (function () {
 
-    // Storage for our vehicle types
-    var types = {};
+  // Storage for our vehicle types
+  var types = {};
 
-    return {
-        getVehicle: function ( type, customizations ) {
-            var Vehicle = types[type];
+  return {
+      getVehicle: function ( type, customizations ) {
+          var Vehicle = types[type];
 
-            return (Vehicle ? new Vehicle(customizations) : null);
-        },
+          return (Vehicle ? new Vehicle(customizations) : null);
+      },
 
-        registerVehicle: function ( type, Vehicle ) {
-            var proto = Vehicle.prototype;
+      registerVehicle: function ( type, Vehicle ) {
+          var proto = Vehicle.prototype;
 
-            // only register classes that fulfill the vehicle contract
-            if ( proto.drive && proto.breakDown ) {
-                types[type] = Vehicle;
-            }
+          // only register classes that fulfill the vehicle contract
+          if ( proto.drive && proto.breakDown ) {
+              types[type] = Vehicle;
+          }
 
-            return AbstractVehicleFactory;
-        }
-    };
+          return abstractVehicleFactory;
+      }
+  };
 })();
 
 
 // Usage:
 
-AbstractVehicleFactory.registerVehicle( "car", Car );
-AbstractVehicleFactory.registerVehicle( "truck", Truck );
+abstractVehicleFactory.registerVehicle( "car", Car );
+abstractVehicleFactory.registerVehicle( "truck", Truck );
 
 // Instantiate a new car based on the abstract vehicle type
-var car = AbstractVehicleFactory.getVehicle( "car" , {
+var car = abstractVehicleFactory.getVehicle( "car" , {
             color: "lime green",
             state: "like new" } );
 
 // Instantiate a new truck in a similar manner
-var truck = AbstractVehicleFactory.getVehicle( "truck" , {
+var truck = abstractVehicleFactory.getVehicle( "truck" , {
             wheelSize: "medium",
             color: "neon yellow" } );
 </pre>
@@ -3264,23 +3264,23 @@ var myMixins = {
 
 <pre class="brush: js">
 // A skeleton carAnimator constructor
-function carAnimator(){
+function CarAnimator(){
   this.moveLeft = function(){
     console.log( "move left" );
   };
 }
 
 // A skeleton personAnimator constructor
-function personAnimator(){
+function PersonAnimator(){
   this.moveRandomly = function(){ /*..*/ };
 }
 
 // Extend both constructors with our Mixin
-_.extend( carAnimator.prototype, myMixins );
-_.extend( personAnimator.prototype, myMixins );
+_.extend( CarAnimator.prototype, myMixins );
+_.extend( PersonAnimator.prototype, myMixins );
 
 // Create a new instance of carAnimator
-var myAnimator = new carAnimator();
+var myAnimator = new CarAnimator();
 myAnimator.moveLeft();
 myAnimator.moveDown();
 myAnimator.stop();
@@ -3303,10 +3303,10 @@ myAnimator.stop();
 // Define a simple Car constructor
 var Car = function ( settings ) {
 
-        this.model = settings.model || "no model provided";
-        this.color = settings.color || "no colour provided";
+    this.model = settings.model || "no model provided";
+    this.color = settings.color || "no colour provided";
 
-    };
+};
 
 // Mixin
 var Mixin = function () {};
@@ -3344,11 +3344,11 @@ function augment( receivingClass, givingClass ) {
             // check to make sure the receiving class doesn't
             // have a method of the same name as the one currently
             // being processed
-            if ( !Object.hasOwnProperty(receivingClass.prototype, methodName) ) {
+            if ( !Object.hasOwnProperty.call(receivingClass.prototype, methodName) ) {
                 receivingClass.prototype[methodName] = givingClass.prototype[methodName];
             }
 
-            // Alternatively:
+            // Alternatively (check prototype chain as well):
             // if ( !receivingClass.prototype[methodName] ) {
             //  receivingClass.prototype[methodName] = givingClass.prototype[methodName];
             // }
@@ -3422,7 +3422,7 @@ mySportsCar.driveSideways();
 <pre  class="brush: js">
 
 // A vehicle constructor
-function vehicle( vehicleType ){
+function Vehicle( vehicleType ){
 
     // some sane defaults
     this.vehicleType = vehicleType || "car";
@@ -3432,14 +3432,14 @@ function vehicle( vehicleType ){
 }
 
 // Test instance for a basic vehicle
-var testInstance = new vehicle( "car" );
+var testInstance = new Vehicle( "car" );
 console.log( testInstance );
 
 // Outputs:
 // vehicle: car, model:default, license: 00000-000
 
 // Lets create a new instance of vehicle, to be decorated
-var truck = new vehicle( "truck" );
+var truck = new Vehicle( "truck" );
 
 // New functionality we're decorating vehicle with
 truck.setModel = function( modelName ){
@@ -3460,7 +3460,7 @@ console.log( truck );
 // vehicle:truck, model:CAT, color: blue
 
 // Demonstrate "vehicle" is still unaltered
-var secondInstance = new vehicle( "car" );
+var secondInstance = new Vehicle( "car" );
 console.log( secondInstance );
 
 // Outputs:
@@ -3483,7 +3483,7 @@ function MacBook() {
 }
 
 // Decorator 1
-function Memory( macbook ) {
+function memory( macbook ) { 
 
   var v = macbook.cost();
   macbook.cost = function() {
@@ -3493,7 +3493,7 @@ function Memory( macbook ) {
 }
 
 // Decorator 2
-function Engraving( macbook ){
+function engraving( macbook ){
 
   var v = macbook.cost();
   macbook.cost = function(){
@@ -3503,7 +3503,7 @@ function Engraving( macbook ){
 }
 
 // Decorator 3
-function Insurance( macbook ){
+function insurance( macbook ){
 
   var v = macbook.cost();
   macbook.cost = function(){
@@ -3512,10 +3512,10 @@ function Insurance( macbook ){
 
 }
 
-var mb = new MacBook();
-Memory( mb );
-Engraving( mb );
-Insurance( mb );
+var mb = new MacBook(); 
+memory( mb ); 
+engraving( mb );
+insurance( mb );
 
 // Outputs: 1522
 console.log( mb.cost() );
