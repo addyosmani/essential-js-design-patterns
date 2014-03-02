@@ -1298,7 +1298,8 @@ YUI
 Similarly, we can also implement the Module pattern when building applications using YUI3. The following example is heavily based on the original YUI Module pattern implementation by Eric Miraglia, but again, isn't vastly different from the vanilla JavaScript version:
 </p>
 <pre  class="brush: js">
-Y.namespace( "store.basket" ) = (function () {
+Y.namespace( "store.basket" ) ;
+Y.store.basket = (function () {
 
     var myPrivateVar, myPrivateMethod;
 
@@ -1358,7 +1359,7 @@ var myLibrary = library(function () {
       // module implementation
     }
   };
-})();
+}());
 
 </pre>
 
