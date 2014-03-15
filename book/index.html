@@ -2332,8 +2332,6 @@ It's left up to the subscribers to those topics to then delegate what happens wi
   // ratings.
   $.subscribe( "/new/rating", function( e, data ){
 
-    var compiledTemplate;
-
     if( data ){
 
       $( "#ratings" ).append( ratingsTemplate( data ) );
