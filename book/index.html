@@ -3034,10 +3034,14 @@ VehicleFactory.prototype.vehicleClass = Car;
 // Our Factory method for creating new Vehicle instances
 VehicleFactory.prototype.createVehicle = function ( options ) {
 
-  if( options.vehicleType === "car" ){
-    this.vehicleClass = Car;
-  }else{
-    this.vehicleClass = Truck;
+  switch(options.vehicleType){
+    case "car":
+      this.vehicleClass = Car;
+      break;
+    case "truck":
+      this.vehicleClass = Truck;
+      break;
+    //defaults to VehicleFactory.prototype.vehicleClass (Car)
   }
 
   return new this.vehicleClass( options );
