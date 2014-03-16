@@ -2397,13 +2397,13 @@ Notice how in our sample below, one topic notification is made when a user indic
 
 &lt;div id="lastQuery"&gt;&lt;/div&gt;
 
-&lt;div id="searchResults"&gt;&lt;/div&gt;
+&lt;ol id="searchResults"&gt;&lt;/ol&gt;
 
 
 
 &lt;script id="resultTemplate" type="text/html"&gt;
     <% _.each(items, function( item ){  %>
-            &lt;li&gt;&lt;p&gt;&lt;img src="<%= item.media.m %>"/&gt;&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="<%= item.media.m %>"/&gt;&lt;/li&gt;
     <% });%>
 &lt;/script&gt;
 
