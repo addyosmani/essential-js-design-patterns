@@ -4424,7 +4424,7 @@ Note: Although we may believe that simply caching our jQuery code may offer just
   <li>A Model represented domain-specific data and was ignorant of the user-interface (Views and Controllers). When a model changed, it would inform its observers.</li>
    <li>A View represented the current state of a Model. The Observer pattern was used for letting the View know whenever the Model was updated or modified.</li>
   <li>Presentation was taken care of by the View, but there wasn't just a single View and Controller - a View-Controller pair was required for each section or element being displayed on the screen.</li>
-  <li>The Controllers role in this pair was handling user interaction (such as key-presses and actions e.g clicks), making decisions for the View.</li>
+  <li>The Controllers role in this pair was handling user interaction (such as key-presses and actions e.g. clicks), making decisions for the View.</li>
 
 </ul>
 
@@ -4548,7 +4548,7 @@ var buildPhotoView = function ( photoModel, photoController ) {
 
 <p>It has long been considered (and proven) a performance bad practice to manually create large blocks of HTML markup in-memory through string concatenation. Developers doing so have fallen prey to inperformantly iterating through their data, wrapping it in nested divs and using outdated techniques such as <code>document.write</code> to inject the "template" into the DOM. As this typically means keeping scripted markup inline with our standard markup, it can quickly become both difficult to read and more importantly, maintain such disasters, especially when building non-trivially sized applications.</p>
 
-<p>JavaScript templating solutions (such as Handlebars.js and Mustache) are often used to define templates for views as markup (either stored externally or within script tags with a custom type - e.g text/template) containing template variables. Variables may be delimitated using a variable syntax (e.g {{name}}) and frameworks are typically smart enough to accept data in a JSON form (of which model instances can be converted to) such that we only need be concerned with maintaining clean models and clean templates. Most of the grunt work to do with population is taken care of by the framework itself. This has a large number of benefits, particularly when opting to store templates externally as this can give way to templates being dynamically loaded on an as-needed basis when it comes to building larger applications.</p>
+<p>JavaScript templating solutions (such as Handlebars.js and Mustache) are often used to define templates for views as markup (either stored externally or within script tags with a custom type - e.g text/template) containing template variables. Variables may be delimitated using a variable syntax (e.g {{name}}) and frameworks are typically smart enough to accept data in a JSON form (which model instances can be converted to) such that we only need be concerned with maintaining clean models and clean templates. Most of the grunt work to do with population is taken care of by the framework itself. This has a large number of benefits, particularly when opting to store templates externally as this can give way to templates being dynamically loaded on an as-needed basis when it comes to building larger applications.</p>
 
 <p>Below we can see two examples of HTML templates. One implemented using the popular Handlebars.js framework and another using Underscore's templates.</p>
 <p><strong>Handlebars.js:</strong></p>
@@ -4569,7 +4569,7 @@ var buildPhotoView = function ( photoModel, photoController ) {
   &lt;/div&gt;
 &lt;/li&gt;
 </pre>
-<p>Note that templates are not themselves views. Developers coming from a Struts Model 2 architecture may feel like a template *is a view, but it isn't. A view is an object which observes a model and keeps the visual representation up-to-date. A template *might* be a declarative way to specify part or even all of a view object so that it can be generated from the template specification.</p>
+<p>Note that templates are not themselves views. Developers coming from a Struts Model 2 architecture may feel like a template *is* a view, but it isn't. A view is an object which observes a model and keeps the visual representation up-to-date. A template *might* be a declarative way to specify part or even all of a view object so that it can be generated from the template specification.</p>
 
 <p>It is also worth noting that in classical web development, navigating between independent views required the use of a page refresh. In Single-page JavaScript applications however, once data is fetched from a server via Ajax, it can simply be dynamically rendered in a new view within the same page without any such refresh being necessary.</p>
 
