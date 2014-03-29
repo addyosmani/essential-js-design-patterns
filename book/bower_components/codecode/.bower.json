@@ -1,0 +1,27 @@
+{
+  "name": "codecode",
+  "version": "0.1.2",
+  "author": "Stephen Sawchuk",
+  "description": "codecode allows your readers to dock your syntax-highlighted code blocks to the bottom of the page, allowing them to refer back without losing their place in your article.",
+  "homepage": "http://stephenplusplus.github.io/codecode",
+  "main": [
+    "codecode.js",
+    "codecode.css"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stephenplusplus/codecode.git"
+  },
+  "dependencies": {
+    "jquery": ">= 1.8.0"
+  },
+  "_release": "0.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.2",
+    "commit": "4cd82899a3c3296ac940fc390cc7d1de91d445f6"
+  },
+  "_source": "git://github.com/stephenplusplus/codecode.git",
+  "_target": "~0.1.2",
+  "_originalSource": "codecode"
+}
