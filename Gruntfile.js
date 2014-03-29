@@ -83,7 +83,6 @@ module.exports = function (grunt) {
                     port: 9001,
                     base: [
                         '.tmp',
-                        'test',
                         '<%= yeoman.app %>'
                     ]
                 }
@@ -328,7 +327,6 @@ module.exports = function (grunt) {
                 'copy:styles'
             ],
             dist: [
-                'compass',
                 'copy:styles',
                 'imagemin',
                 'svgmin'
@@ -356,20 +354,6 @@ module.exports = function (grunt) {
         grunt.task.run(['serve']);
     });
 
-    grunt.registerTask('test', function(target) {
-        if (target !== 'watch') {
-            grunt.task.run([
-                'clean:server',
-                'concurrent:test',
-                'autoprefixer',
-            ]);
-        }
-
-        grunt.task.run([
-            'connect:test',
-            'mocha'
-        ]);
-    });
 
     grunt.registerTask('build', [
         'clean:dist',
@@ -386,7 +370,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', [
         'newer:jshint',
-        'test',
         'build'
     ]);
 };
