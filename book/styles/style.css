@@ -66,7 +66,6 @@ h4:hover .subhead-link {
 
 /* ~~ this fixed width container surrounds the other divs ~~ */
 .container {
-	width: 740px;
 	background: #FFF;
 	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout */
 }
@@ -163,3 +162,4 @@ pre {
 div.syntaxhighlighter {
   padding: 1em 0;
 }
+

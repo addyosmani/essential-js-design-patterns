@@ -223,7 +223,6 @@ container: 12*60px (unit) + 13*16px (gutter) = 928px = 58em = 100%
 
 .container {
   max-width: 940px;
-  width:expression(document.body.clientWidth > 940? "940px": "auto" );
   margin: 0 auto;
   padding: 0 16px;
   text-align: left;
@@ -717,8 +716,18 @@ a.anchor:hover {
 
 
 
-@media screen and (max-device-width: 680px), screen and (max-width: 680px) {
+/* Smartphones ----------- */
+@media (max-width : 320px) {
+/* Styles */
+  .container { max-width: 300px; }
+  #reviews { display: none; }
+}
 
+/* Tablets (portrait) ----------- */
+@media (min-width : 768px) and (max-width : 1024px) {
+/* Styles */
+  .container { max-width: 740px; width: 740px;}
+/*
   .span2, .span3, .span4, .span6, .span8, .span10 {
     width: 100%;
     margin-right: 0;
@@ -731,12 +740,6 @@ a.anchor:hover {
     height: 1em;
     margin-bottom: 1.5em;
   }
-
-
-
-}
-
-@media screen and (max-device-width: 680px), screen and (max-width: 680px) {
   .stage {
     background-position: 50% -3.5em;
     padding: 24em 1.5em 1.5em 1.5em;
@@ -760,5 +763,11 @@ a.anchor:hover {
     min-height: 400px;
     height:auto !important;
     height: 400px;
-  }
+  }*/
+}
+
+/* Desktops and laptops ----------- */
+@media (min-width : 1025px) {
+/* Styles */
+  .container { width: 740px; }
 }
