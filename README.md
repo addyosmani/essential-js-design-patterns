@@ -5,7 +5,7 @@
 
 # Learning JavaScript Design Patterns
 
-<img src="https://raw.github.com/addyosmani/essential-js-design-patterns/1.5.2/cover/cover.jpg" width="350px"/>
+<img src="https://raw.github.com/addyosmani/essential-js-design-patterns/master/cover/cover.jpg" width="350px"/>
 
 This is the source code for Learning JavaScript Design Patterns. It is licensed under the Creative Commons Attribution-Non Commercial-Share Alike 3.0 license. I hope you enjoy it, I hope it helps you learn , and I hope you'll support O'Reilly and me by purchasing a print copy of the book at [O'Reilly.com](http://shop.oreilly.com/product/0636920025832.do).
 
@@ -23,7 +23,7 @@ I'm always welcome to feedback on how the book can be improved.
 
 If you would like to help improve the project, please feel free to send over a pull request. Some useful notes:
 
-* All changes should be made against the 1.5.2 branch.
+* All changes should be made against the master branch.
 * The source of the book is currently in `book/index.html`.
 * Atomic commits make it easier to review changes. If you can separate changes out in this form, it'll save us time when trying to land.
 * Please review the version of the book [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/) before requesting a change. It is updated more frequently than the physical version of the book but we do bring changes back in every few months.
