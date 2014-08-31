@@ -8534,8 +8534,13 @@ console.log( namespace );
 
     // public methods and properties
     namespace.foobar = "foobar";
+
+    namespace.say = function ( msg ) {
+        speak( msg );
+    };
+
     namespace.sayHello = function () {
-        speak( "hello world" );
+        namespace.say( "hello world" );
     };
 
     // private method
@@ -8572,9 +8577,7 @@ console.log( namespace.foobar2 );
 
     // public method
     namespace.sayGoodbye = function () {
-        console.log( namespace.foo );
-        console.log( namespace.bar );
-        speak( "goodbye" );
+        namespace.say( "goodbye" );
     }
 })( window.namespace = window.namespace || {});
 
