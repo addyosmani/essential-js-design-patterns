@@ -3233,7 +3233,7 @@ var Superhero = function( firstName, lastName , powers ){
     this.powers = powers;
 };
 
-SuperHero.prototype = Object.create( Person.prototype );
+Superhero.prototype = Object.create( Person.prototype );
 var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
 console.log( superman );
 
