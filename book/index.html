@@ -2873,7 +2873,7 @@ carManager.execute( "buyVehicle", "Ford Escort", "34232" );
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a "facade" or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p>
+This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoids us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p>
 
 <p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
