@@ -1,6 +1,6 @@
 {
   "name": "essential-js-design-patterns",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "A book on JavaScript Design Patterns",
   "main": "book/index.html",
   "repository": {
