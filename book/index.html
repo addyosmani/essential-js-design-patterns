@@ -2581,7 +2581,7 @@ var orgChart = {
 
 <p>jQuery’s on method as an event aggregator is a great example of too many objects to listen to. If you have 10, 20 or 200 DOM elements that can trigger a “click” event, it might be a bad idea to set up a listener on all of them individually. This could quickly deteriorate performance of the application and user experience. Instead, using jQuery’s on method allows us to aggregate all of the events and reduce the overhead of 10, 20, or 200 event handlers down to 1.</p>
 
-<p>Indirect relationships are also a great time to use event aggregators. In modern webapps applications, it is very common to have multiple view objects that need to communicate, but have no direct relationship. For example, a menu system might have a view that handles the menu item clicks. But we don’t want the menu to be directly tied to the content views that show all of the details and information when a menu item is clicked. Having the content and menu coupled together would make the code very difficult to maintain, in the long run. Instead, we can use an event aggregator to trigger “menu:click:foo” events, and have a “foo” object handle the click event to show its content on the screen.</p>
+<p>Indirect relationships are also a great time to use event aggregators. In modern applications, it is very common to have multiple view objects that need to communicate, but have no direct relationship. For example, a menu system might have a view that handles the menu item clicks. But we don’t want the menu to be directly tied to the content views that show all of the details and information when a menu item is clicked. Having the content and menu coupled together would make the code very difficult to maintain, in the long run. Instead, we can use an event aggregator to trigger “menu:click:foo” events, and have a “foo” object handle the click event to show its content on the screen.</p>
 
 <h6>Mediator Use</h6>
 
@@ -2873,7 +2873,7 @@ carManager.execute( "buyVehicle", "Ford Escort", "34232" );
 Facades are a structural pattern which can often be seen in JavaScript libraries like jQuery where, although an implementation may support methods with a wide range of behaviors, only a "facade" or limited abstraction of these methods is presented to the public for use.</p>
 
 <p>
-This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoid us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p>
+This allows us to interact with the Facade directly rather than the subsystem behind the scenes. Whenever we use jQuery's <code>$(el).css()</code> or <code>$(el).animate()</code> methods, we're actually using a Facade - the simpler public interface that avoids us having to manually call the many internal methods in jQuery core required to get some behavior working. This also avoids the need to manually interact with DOM APIs and maintain state variables.</p>
 
 <p>The jQuery core methods should be considered intermediate abstractions. The more immediate burden to developers is the DOM API and facades are what make the jQuery library so easy to use.</p>
 
@@ -3233,7 +3233,7 @@ var Superhero = function( firstName, lastName , powers ){
     this.powers = powers;
 };
 
-SuperHero.prototype = Object.create( Person.prototype );
+Superhero.prototype = Object.create( Person.prototype );
 var superman = new Superhero( "Clark" ,"Kent" , ["flight","heat-vision"] );
 console.log( superman );
 
