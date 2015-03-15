@@ -49,4 +49,4 @@ This book is released under a Creative Commons Attribution-Noncommercial- No Der
 
 What this means it that the project is free to read and use, but the license does not permit commercial use of the material (i.e you can freely print out the book for your own use, but you can't sell it). I'm trying to best to publish all of my books in a free + purchased (if you would like to support these projects) form so I would greatly appreciate it if you would respect these terms.
 
-Copyright Addy Osmani, 2014.
+Copyright Addy Osmani, 2015.
