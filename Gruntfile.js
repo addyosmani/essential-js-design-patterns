@@ -1,4 +1,3 @@
-// Generated on 2013-12-29 using generator-webapp 0.4.5
 'use strict';
 
 // # Globbing
