@@ -7,7 +7,7 @@
 
 <img src="https://raw.github.com/addyosmani/essential-js-design-patterns/master/cover/cover.jpg" width="350px"/>
 
-This is the source code for Learning JavaScript Design Patterns. It is licensed under the Creative Commons Attribution-Non Commercial-Share Alike 3.0 license. I hope you enjoy it, I hope it helps you learn , and I hope you'll support O'Reilly and me by purchasing a print copy of the book at [O'Reilly.com](http://shop.oreilly.com/product/0636920025832.do).
+This is the source code for Learning JavaScript Design Patterns. It is licensed under the Creative Commons Attribution-Non Commercial-Share Alike 3.0 license. I hope you enjoy it, I hope it helps you learn, and I hope you'll support O'Reilly and me by purchasing a print copy of the book at [O'Reilly.com](http://shop.oreilly.com/product/0636920025832.do).
 
 Design patterns are reusable solutions to commonly occurring problems in software development and are a very useful tool to have at your disposal. You can read the latest version [online](http://addyosmani.com/resources/essentialjsdesignpatterns/book/) for free at any time. 
 
