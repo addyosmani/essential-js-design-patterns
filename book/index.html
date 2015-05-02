@@ -1111,11 +1111,11 @@ console.log( basketModule.getTotal() );
 
 // Outputs: undefined
 // This is because the basket itself is not exposed as a part of our
-// the public API
+// public API
 console.log( basketModule.basket );
 
 // This also won't work as it only exists within the scope of our
-// basketModule closure, but not the returned public object
+// basketModule closure, but not in the returned public object
 console.log( basket );
 </pre>
 <p>
@@ -1251,8 +1251,8 @@ Ext.namespace("myNameSpace");
 myNameSpace.app = function () {
 
   // do NOT access DOM from here; elements don't exist yet
-  // private variables
 
+  // private variables
   var btn1,
       privVar1 = 11;
 
