@@ -26,6 +26,9 @@ var myModule = {
             this.myConfig = newConfig;
             return ( this.myConfig.language );
         }
+    },
+    retThis: function () {
+        return this
     }
 };
 

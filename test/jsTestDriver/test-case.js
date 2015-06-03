@@ -1,14 +1,15 @@
-GreeterTest = TestCase("GreeterTest");
-GreeterTest.prototype.testGreet = function () {
-    var greeter = myModule.saySomething();
-// Outputs: Caching is: enabled
-    myModule.reportMyConfig();
-// Outputs: fr
-    myModule.updateMyConfig({
+ObjectModule = TestCase("GreeterTest");
+ObjectModule.prototype.testGreet = function () {
+    var say1 = myModule.saySomething();
+    var say2=myModule.reportMyConfig();
+    var say3=myModule.updateMyConfig({
         language: "fr",
         useCaching: false
     });
-// Outputs: Caching is: disabled
-    myModule.reportMyConfig();
-    assertEquals('Where in the world is Paul Irish today?', greeter);
+    var say4=myModule.reportMyConfig();
+    assertEquals('Where in the world is Paul Irish today?', say1);
+    assertEquals('Caching is: enabled',say2)
+    assertEquals('fr',say3)
+    assertEquals('Caching is: disabled',say4)
+    assertEquals(myModule,myModule.retThis())
 };
