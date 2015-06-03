@@ -1,0 +1,23 @@
+server: http://localhost:4224
+
+load:
+  - book-code.js
+
+test:
+  - test-case.js
+
+#exclude:
+# - uselessfile.js
+
+#serve:
+# - css/main.css
+
+#proxy:
+# - {matcher: "*", server: "http://localhost/whatever"}
+
+#plugin:
+# - name: "coverage"
+#   jar: "lib/jstestdriver/coverage.jar"
+#   module: "com.google.jstestdriver.coverage.CoverageModule"
+
+timeout: 90

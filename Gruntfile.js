@@ -129,7 +129,7 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
+                    urls: ['http://<%= connect.options.hostname %>:<%= connect.test.options.port %>/index.html']
                 }
             }
         },
@@ -330,6 +330,9 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+        jstestdriver: {
+            files: ["src-test/unit/jsTestDriver.conf", "src-test/integration/jsTestDriver.conf"]
         }
     });
 
