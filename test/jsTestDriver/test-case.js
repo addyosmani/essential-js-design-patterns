@@ -1,5 +1,5 @@
 ObjectModule = TestCase("ObjectTest");
-ObjectModule.prototype.testGreet = function () {
+ObjectModule.prototype.test = function () {
     var say1 = myModule.saySomething();
     var say2 = myModule.reportMyConfig();
     var say3 = myModule.updateMyConfig({
@@ -8,13 +8,13 @@ ObjectModule.prototype.testGreet = function () {
     });
     var say4 = myModule.reportMyConfig();
     assertEquals('Where in the world is Paul Irish today?', say1);
-    assertEquals('Caching is: enabled', say2)
+    assertEquals('Caching is: disabled', say2)
     assertEquals('fr', say3)
     assertEquals('Caching is: disabled', say4)
     assertEquals(myModule, myModule.retThis())
 };
-ObjectModule = TestCase("GreeterTest");
-ObjectModule.prototype.testGreet = function () {
+ClosureModule = TestCase("ClosureModuleTest");
+ClosureModule.prototype.test = function () {
     var newCounter = modulePattern.incrementCounter();
     var newCounter1 = modulePattern.resetCounter();
     assertEquals(1, newCounter);
@@ -22,5 +22,11 @@ ObjectModule.prototype.testGreet = function () {
     var counter = Infinity
     assertEquals(Infinity, counter)
     //variable in object accessed firstly
-    assertNotEquals(Infinity,modulePattern.getCounter())
+    assertNotEquals(Infinity, modulePattern.getCounter())
+};
+//observer pattern by ES6
+ObserveModule = TestCase("ObserveTest");
+ObserveModule.prototype.test = function () {
+    var foo = observeMethod();
+    assertTrue(foo)
 };

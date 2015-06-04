@@ -2,6 +2,7 @@ server: http://localhost:4224
 
 load:
   - book-code.js
+  - other.js
 
 test:
   - test-case.js
