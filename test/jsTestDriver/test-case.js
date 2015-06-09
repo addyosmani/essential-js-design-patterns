@@ -8,7 +8,7 @@ ObjectModule.prototype.test = function () {
     });
     var say4 = myModule.reportMyConfig();
     assertEquals('Where in the world is Paul Irish today?', say1);
-    assertEquals('Caching is: disabled', say2)
+    assertEquals('Caching is: enabled', say2)
     assertEquals('fr', say3)
     assertEquals('Caching is: disabled', say4)
     assertEquals(myModule, myModule.retThis())
@@ -27,6 +27,14 @@ ClosureModule.prototype.test = function () {
 //observer pattern by ES6
 ObserveModule = TestCase("ObserveTest");
 ObserveModule.prototype.test = function () {
-    var foo = observeMethod();
-    assertTrue(foo)
+    var obj = {};
+    var obj1 = observeMethod(obj, function (data) {
+        assertEquals({},data)
+    });
+    obj.a = 'a'
+    //asynchronous
+    assertUndefined(obj1)
+    assertTrue($.isEmptyObject(obj1))
+    //assertEquals('',obj.type)
+    //change.type, change.name, change.oldValue
 };

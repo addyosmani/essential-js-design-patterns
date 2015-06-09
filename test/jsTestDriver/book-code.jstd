@@ -1,6 +1,7 @@
 server: http://localhost:4224
 
 load:
+  - ../bower_components/jquery/jquery.min.js
   - book-code.js
   - other.js
 

@@ -3,6 +3,7 @@ var myModule = {
     // object literals can contain properties and methods.
     // e.g we can define a further object for module configuration:
     myConfig: {
+        iniCaching:true,
         useCaching: true,
         language: "en"
     },
@@ -12,7 +13,7 @@ var myModule = {
     },
     // output a value based on the current configuration
     reportMyConfig: function () {
-        return ( "Caching is: " + ( this.myConfig.useCaching ? "enabled" : "disabled") );
+        return ( "Caching is: " + ( this.myConfig.iniCaching ? "enabled" : "disabled") );
     },
     // override the current configuration
     updateMyConfig: function (newConfig) {
