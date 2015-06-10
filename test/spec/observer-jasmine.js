@@ -1,11 +1,6 @@
 //observer pattern by ES6
 describe('observe test', function () {
-    beforeEach(function(done) {
-        setTimeout(function() {
-            done();
-        }, 5000);
-    });
-    it("Observer test", function (assert) {
+    it("Observer test", function (done) {
         var obj = {}, obj1 = null, obj2 = null;
         obj1 = observeMethod(obj, function (data) {
             obj2 = data
@@ -14,7 +9,7 @@ describe('observe test', function () {
             expect('a').toEqual(obj2.name);
             expect(undefined).toEqual(obj2.oldValue);
             //change.type, change.name, change.oldValue
-            //done()
+            done()
         });
         obj.a = 'a'
         //not ret val
