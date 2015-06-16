@@ -313,6 +313,7 @@ module.exports = function (grunt) {
                     specs: [
                         'book/bower_components/jquery/dist/jquery.min.js',
                         'test/spec/ui.js',
+                        'test/spec/native.js',
                         'test/spec/ui-test.js'
                     ],
                     //outfile:'test.html'

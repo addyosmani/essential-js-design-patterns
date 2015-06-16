@@ -38,9 +38,9 @@ describe("7 essential javascript functions", function () {
         }, 1000)
     })
     it("once", function () {
-        var i=0
-        var obj={}
-        obj.canOnlyFireOnce = once(function() {
+        var i = 0
+        var obj = {}
+        obj.canOnlyFireOnce = once(function () {
             expect(true).toBeTruthy()
             i++
             console.log('Fired!');
@@ -48,6 +48,15 @@ describe("7 essential javascript functions", function () {
         obj.canOnlyFireOnce();
         obj.canOnlyFireOnce();
         expect(i).toEqual(1)
-
+    });
+    it("get url", function () {
+        var url = '/something';
+        expect(getAbsoluteUrl(url)).toEqual(location.protocol + '//' + location.host + url);
+    });
+    it("detect native method", function () {
+        expect(isNative(parseFloat)).toEqual(true)
+        function myCustomFunction() {
+        }
+        expect(isNative(myCustomFunction)).toEqual(false)
     });
 });
