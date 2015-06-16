@@ -310,14 +310,24 @@ module.exports = function (grunt) {
             pivotal: {
                 //src: ['test/spec/*.js'],
                 options: {
-                    specs: 'test/spec/ui-test.js',
+                    specs: [
+                        'book/bower_components/jquery/dist/jquery.min.js',
+                        'test/spec/ui.js',
+                        'test/spec/ui-test.js'
+                    ],
                     //outfile:'test.html'
                     //helpers: 'test/es6-firefox/utilities.js'
                 }
             }
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
         }
     });
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
