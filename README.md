@@ -30,6 +30,7 @@ If you would like to help improve the project, please feel free to send over a p
 
 #### Building the project
 
+Install dependencies : `npm install`
 Build the project: `grunt`
 Preview: `grunt serve`
 
