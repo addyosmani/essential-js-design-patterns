@@ -1124,7 +1124,7 @@ The methods above are effectively namespaced inside <code>basketModule</code>.</
 <p>Notice how the scoping function in the above basket module is wrapped around all of our functions, which we then call and immediately store the return value of. This has a number of advantages including:</p>
 
 <ul>
-  <li>The freedom to have private functions which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they're considered truly private.</li>
+  <li>The freedom to have private functions and private members which can only be consumed by our module. As they aren't exposed to the rest of the page (only our exported API is), they're considered truly private.</li>
   <li>Given that functions are declared normally and are named, it can be easier to show call stacks in a debugger when we're attempting to discover what function(s) threw an exception.</li>
   <li>As T.J Crowder has pointed out in the past, it also enables us to return different functions depending on the environment. In the past, I've seen developers use this to perform UA testing in order to provide a code-path in their module specific to IE, but we can easily opt for feature detection these days to achieve a similar goal.</li>
 </ul>
