@@ -1512,8 +1512,6 @@ var mySingleton = (function () {
 
     var privateVariable = "Im also private";
 
-    var privateRandomNumber = Math.random();
-
     return {
 
       // Public methods and variables
@@ -1521,11 +1519,7 @@ var mySingleton = (function () {
         console.log( "The public can see me!" );
       },
 
-      publicProperty: "I am also public",
-
-      getRandomNumber: function() {
-        return privateRandomNumber;
-      }
+      publicProperty: "I am also public"
 
     };
 
@@ -1557,13 +1551,7 @@ var myBadSingleton = (function () {
 
     // Singleton
 
-    var privateRandomNumber = Math.random();
-
     return {
-
-      getRandomNumber: function() {
-        return privateRandomNumber;
-      }
 
     };
 
@@ -1588,16 +1576,11 @@ var myBadSingleton = (function () {
 
 var singleA = mySingleton.getInstance();
 var singleB = mySingleton.getInstance();
-console.log( singleA.getRandomNumber() === singleB.getRandomNumber() ); // true
+console.log( singleA === singleB ); // true
 
 var badSingleA = myBadSingleton.getInstance();
 var badSingleB = myBadSingleton.getInstance();
-console.log( badSingleA.getRandomNumber() !== badSingleB.getRandomNumber() ); // true
-
-// Note: as we are working with random numbers, there is a
-// mathematical possibility both numbers will be the same,
-// however unlikely. The above example should otherwise still
-// be valid.
+console.log( badSingleA !== badSingleB ); // true
 </pre>
 
 <p>What makes the Singleton is the global access to the instance (generally through <code>MySingleton.getInstance()</code>) as we don't (at least in static languages) call <code>new MySingleton()</code> directly. This is however possible in JavaScript.</p>
