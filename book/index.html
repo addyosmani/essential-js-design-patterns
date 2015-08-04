@@ -5226,7 +5226,7 @@ ko.applyBindings( viewModel );
 
 <p>Unlike some more traditional programming languages however, the current iteration of JavaScript (<a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMA-262</a>) doesn't provide developers with the means to import such modules of code in a clean, organized manner. It's one of the concerns with specifications that haven't required great thought until more recent years where the need for more organized JavaScript applications became apparent.</p>
 
-<p>Instead, developers at present are left to fall back on variations of the <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">module</a> or <a href="http://rmurphey.com/2009/10/15/using-objects-to-organize-your-code">object literal</a> patterns, which we covered earlier in the book. With many of these, module scripts are strung together in the DOM with namespaces being described by a single global object where it's still possible to incur naming collisions in our architecture. There's also no clean way to handle dependency management without some manual effort or third party tools.</p>
+<p>Instead, developers at present are left to fall back on variations of the <a href="http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth">module</a> or <a href="http://rmurphey.com/blog/2009/10/15/using-objects-to-organize-your-code/">object literal</a> patterns, which we covered earlier in the book. With many of these, module scripts are strung together in the DOM with namespaces being described by a single global object where it's still possible to incur naming collisions in our architecture. There's also no clean way to handle dependency management without some manual effort or third party tools.</p>
 
 
 <p>Whilst native solutions to these problems will be arriving in <a href="http://wiki.ecmascript.org/doku.php?id=harmony:modules">ES Harmony</a> (likely to be the next version of JavaScript), the good news is that writing modular JavaScript has never been easier and we can start doing it today.</p>
@@ -5302,7 +5302,7 @@ define( "myModule",
 
         // create your module here
         var myModule = {
-            doStuff:function () {
+            doStuff: function () {
                 console.log( "Yay! Stuff" );
             }
         };
@@ -5341,8 +5341,8 @@ define( "myModule",
 // callback (foo and bar) so that they can similarly be accessed
 
 require(["foo", "bar"], function ( foo, bar ) {
-        // rest of your code here
-        foo.doSomething();
+    // rest of your code here
+    foo.doSomething();
 });
 </pre>
 
@@ -5384,7 +5384,7 @@ define( ["./templates", "text!./template.md","css!./template.css" ],
 
 });
 </pre>
-<p><div class="alert-message"><strong>Note:</strong> Although css! is included for loading CSS dependencies in the above example, it's important to remember that this approach has some caveats such as it not being fully possible to establish when the CSS is fully loaded. Depending on how we approach our build process, it may also result in CSS being included as a dependency in the optimized file, so use CSS as a loaded dependency in such cases with caution. If interested in doing the above, we can also explore @VIISON's RequireJS CSS plugin further here: https://github.com/VIISON/RequireCSS</div></p>
+<p><div class="alert-message"><strong>Note:</strong> Although css! is included for loading CSS dependencies in the above example, it's important to remember that this approach has some caveats such as it not being fully possible to establish when the CSS is fully loaded. Depending on how we approach our build process, it may also result in CSS being included as a dependency in the optimized file, so use CSS as a loaded dependency in such cases with caution. If interested in doing the above, we can also explore @VIISON's RequireJS CSS plugin further <a href="https://github.com/VIISON/RequireCSS">here</a>.</div></p>
 
 
 <h4>Loading AMD Modules Using RequireJS</h4>
@@ -5475,6 +5475,8 @@ define(["dojo", "dijit', "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit 
 </pre>
 
 
+
+<p>&nbsp;</p>
 <div class="hr"></div>
 
 <h3>AMD Module Design Patterns (Dojo)</h3>
@@ -8932,13 +8934,13 @@ console.log("test", myApp);
 <h1 id="references"><span id="internal-source-marker_0.05095413855216446">References</span>
 </h1>
 <ol id="references-list">
-  <li>Design Principles and Design Patterns - Robert C Martin<a href="http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf">http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf</a></li>
+  <li>Design Principles and Design Patterns - Robert C Martin <a href="http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf">http://www.objectmentor.com/resources/articles/Principles_and_Patterns.pdf</a></li>
   <li>Ralph Johnson - Special Issue of ACM On Patterns and Pattern Languages - <a href="http://www.cs.wustl.edu/%7Eschmidt/CACM-editorial.html">http://www.cs.wustl.edu/~schmidt/CACM-editorial.html</a></li>
   <li>Hillside Engineering Design Patterns Library - <a href="http://hillside.net/patterns/">http://hillside.net/patterns/</a></li>
   <li>Pro JavaScript Design Patterns - Ross Harmes and Dustin Diaz <a href="http://jsdesignpatterns.com/">http://jsdesignpatterns.com/</a></li>
   <li>Design Pattern Definitions - <a href="http://en.wikipedia.org/wiki/Design_Patterns">http://en.wikipedia.org/wiki/Design_Patterns</a></li>
   <li>Patterns and Software Terminology <a href="http://www.cmcrossroads.com/bradapp/docs/patterns-intro.html">http://www.cmcrossroads.com/bradapp/docs/patterns-intro.html</a></li>
-  <li>Reap the benefits of Design Patterns - Jeff Juday <a href="http://articles.techrepublic.com.com/5100-10878_11-5173591.html">http://articles.techrepublic.com.com/5100-10878_11-5173591.html</a></li>
+  <li>Reap the benefits of Design Patterns - Jeff Juday <a href="http://www.techrepublic.com/article/reap-the-benefits-of-design-patterns-in-software-development/">http://articles.techrepublic.com.com/5100-10878_11-5173591.html</a></li>
   <li>JavaScript Design Patterns - Subramanyan Guhan <a href="http://www.slideshare.net/rmsguhan/javascript-design-patterns">http://www.slideshare.net/rmsguhan/javascript-design-patterns</a></li>
   <li>What Are Design Patterns and Do I Need Them? - James Moaoriello <a href="http://www.developer.com/design/article.php/1474561">http://www.developer.com/design/article.php/1474561</a></li>
   <li>Software Design Patterns - Alex Barnett <a href="http://alexbarnett.net/blog/archive/2007/07/20/software-design-patterns.aspx">http://alexbarnett.net/blog/archive/2007/07/20/software-design-patterns.aspx</a></li>
@@ -8960,15 +8962,13 @@ console.log("test", myApp);
   <li>Design Patterns Explained - <a href="http://c2.com/cgi/wiki?DesignPatterns">http://c2.com/cgi/wiki?DesignPatterns</a></li>
   <li>Mixins explained <a href="http://en.wikipedia.org/wiki/Mixin">http://en.wikipedia.org/wiki/Mixin</a></li>
   <li>Working with GoF's Design Patterns In JavaScript <a href="http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.all">http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.all</a></li>
-  <li>Using Object.create<a href="http://stackoverflow.com/questions/2709612/using-object-create-instead-of-new">http://stackoverflow.com/questions/2709612/using-object-create-instead-of-new</a>
+  <li>Using Object.create <a href="http://stackoverflow.com/questions/2709612/using-object-create-instead-of-new">http://stackoverflow.com/questions/2709612/using-object-create-instead-of-new</a>
   <li>t3knomanster's JavaScript Design Patterns - <a href="http://t3knomanser.livejournal.com/922171.html">http://t3knomanser.livejournal.com/922171.html</a></li>
-  <li>Working with GoF Design Patterns In JavaScript Programming - <a href="http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.7">http://aspalliance.com/1782_Working_with_GoFs_Design_Patterns_in_JavaScript_Programming.7</a></li>
   <li>JavaScript Advantages - Object Literals <a href="http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal">http://stackoverflow.com/questions/1600130/javascript-advantages-of-object-literal</a></li>
   <li>JavaScript Class Patterns - Liam McLennan <a href="http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx">http://geekswithblogs.net/liammclennan/archive/2011/02/06/143842.aspx</a></li>
   <li>Understanding proxies in jQuery - <a href="http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery">http://stackoverflow.com/questions/4986329/understanding-proxy-in-jquery</a></li>
   <li>Observer Pattern Using JavaScript - <a href="http://www.codeproject.com/Articles/13914/Observer-Design-Pattern-Using-JavaScript">http://www.codeproject.com/Articles/13914/Observer-Design-Pattern-Using-JavaScript</a></li>
   <li>Speaking on the Observer pattern - <a href="http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html">http://www.javaworld.com/javaworld/javaqa/2001-05/04-qa-0525-observer.html</a></li>
-  <li>Singleton examples in JavaScript - Hardcode.nl - <a href="http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm">http://www.hardcode.nl/subcategory_1/article_526-singleton-examples-in-javascript.htm</a></li>
 </ol>
 <p>
 </p>
