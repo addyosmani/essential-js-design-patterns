@@ -1839,7 +1839,7 @@ function Observer(){
 <p>
 <pre class="brush: js">
 // Extend an object with an extension
-function extend( extension, obj ){
+function extend( obj, extension ){
   for ( var key in extension ){
     obj[key] = extension[key];
   }
@@ -1855,7 +1855,7 @@ var controlCheckbox = document.getElementById( "mainCheckbox" ),
 // Concrete Subject
 
 // Extend the controlling checkbox with the Subject class
-extend( new Subject(), controlCheckbox );
+extend( controlCheckbox, new Subject() );
 
 // Clicking the checkbox will trigger notifications to its observers
 controlCheckbox.onclick = function(){
@@ -1873,7 +1873,7 @@ function addNewObserver(){
   check.type = "checkbox";
 
   // Extend the checkbox with the Observer class
-  extend( new Observer(), check );
+  extend( check, new Observer() );
 
   // Override with custom update behaviour
   check.update = function( value ){
