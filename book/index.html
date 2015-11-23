@@ -2987,7 +2987,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 </h2>
 
 
-<p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
+<p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us to use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
 
 <p>Imagine that we have a UI factory where we are asked to create a type of UI component. Rather than creating this component directly using the <code>new</code> operator or via another creational constructor, we ask a Factory object for a new component instead. We inform the Factory what type of object is required (e.g "Button", "Panel") and it instantiates this, returning it to us for use.</p>
 
