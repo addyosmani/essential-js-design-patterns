@@ -199,13 +199,9 @@ Whilst this book is targeted at both beginners and intermediate developers, a ba
 
     <p>So, why is it important to understand patterns and be familiar with them? Design patterns have three main benefits: </p>
     <ol start="1" type="1">
-      <ol>
-        <ol>
-          <li><strong>Patterns are proven solutions:</strong> They provide solid approaches to solving issues in software development using proven techniques that reflect the experience and insights the developers that helped define them bring to the pattern.</li>
-          <li><strong>Patterns can be easily reused: </strong>A pattern usually reflects an out of the box solution that can be adapted to suit our own needs. This feature makes them quite robust.</li>
-          <li><strong>Patterns can be expressive: </strong>When we look at a pattern there&rsquo;s generally a set structure and <em>vocabulary</em> to the solution presented that can help express rather large solutions quite elegantly.</li>
-        </ol>
-      </ol>
+      <li><strong>Patterns are proven solutions:</strong> They provide solid approaches to solving issues in software development using proven techniques that reflect the experience and insights the developers that helped define them bring to the pattern.</li>
+      <li><strong>Patterns can be easily reused: </strong>A pattern usually reflects an out of the box solution that can be adapted to suit our own needs. This feature makes them quite robust.</li>
+      <li><strong>Patterns can be expressive: </strong>When we look at a pattern there&rsquo;s generally a set structure and <em>vocabulary</em> to the solution presented that can help express rather large solutions quite elegantly.</li>
     </ol>
     <p>Patterns are <strong>not</strong> an exact solution. It&rsquo;s important that we remember the role of a pattern is merely to provide us with a solution scheme. Patterns don&rsquo;t solve all design problems nor do they replace good software designers, however, they <strong>do</strong> support them. Next we&rsquo;ll take a look at some of the other advantages patterns have to offer. </p>
     <ul>
@@ -1033,7 +1029,7 @@ var myNamespace = (function () {
 </p>
 
 <p>
-Looking at another example, below we can see a shopping basket implemented using this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of our application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (ie. <code>addItem()</code>, <code>getItemCount()</code> etc). </p>
+Looking at another example, below we can see a shopping basket implemented using this pattern. The module itself is completely self-contained in a global variable called <code>basketModule</code>. The <code>basket</code> array in the module is kept private and so other parts of our application are unable to directly read it. It only exists with the module's closure and so the only methods able to access it are those with access to its scope (i.e. <code>addItem()</code>, <code>getItemCount()</code> etc). </p>
 
 <pre class="brush: js">
 
@@ -1340,8 +1336,7 @@ jQuery
 <p>
 There are a number of ways in which jQuery code unspecific to plugins can be wrapped inside the Module pattern. Ben Cherry previously suggested an implementation where a function wrapper is used around module definitions in the event of there being a number of commonalities between modules. </p>
 <p>
-In the following example, a <code>library</code> function is defined which declares a new library and automatically binds up the <code>init</code> function to <code>document.ready</code> when new libraries (ie. modules) are created.</p>
-
+In the following example, a <code>library</code> function is defined which declares a new library and automatically binds up the <code>init</code> function to <code>document.ready</code> when new libraries (i.e. modules) are created.</p>
 <pre class="brush: js">
 
 function library( module ) {
@@ -2059,7 +2054,7 @@ var pubsub = {};
     // or listened to
     var topics = {};
 
-    // An topic identifier
+    // A topic identifier
     var subUid = -1;
 
     // Publish or broadcast events of interest
@@ -2988,7 +2983,7 @@ In this example, calling <code>module.facade()</code> will actually trigger a se
 </h2>
 
 
-<p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
+<p>The Factory pattern is another creational pattern concerned with the notion of creating objects. Where it differs from the other patterns in its category is that it doesn't explicitly require us to use a constructor. Instead, a Factory can provide a generic interface for creating objects, where we can specify the type of factory object we wish to be created.</p>
 
 <p>Imagine that we have a UI factory where we are asked to create a type of UI component. Rather than creating this component directly using the <code>new</code> operator or via another creational constructor, we ask a Factory object for a new component instead. We inform the Factory what type of object is required (e.g "Button", "Panel") and it instantiates this, returning it to us for use.</p>
 
@@ -8249,12 +8244,12 @@ $("#elem").plugin({
 <p>One popular pattern for namespacing in JavaScript is opting for a single global variable as our primary object of reference. A skeleton implementation of this where we return an object with functions and properties can be found below:</p>
 <pre class="brush: js">
 var myApplication = (function () {
-        function(){
-            //...
-        },
-        return{
-            //...
-        }
+  function() {
+    //...
+  },
+  return {
+    //...
+  }
 })();
 
 </pre>
@@ -8265,7 +8260,7 @@ var myApplication = (function () {
 <p>One solution to the above problem, as mentioned by <a href="http://michaux.ca/articles/javascript-namespacing">Peter Michaux</a>, is to use prefix namespacing. It's a simple concept at heart, but the idea is we select a unique prefix namespace we wish to use (in this example, <code>myApplication_</code>) and then define any methods, variables or other objects after the prefix as follows:</p>
 <pre class="brush: js">var myApplication_propertyA = {};
 var myApplication_propertyB = {};
-function myApplication_myMethod(){
+function myApplication_myMethod() {
   //...
 }
 </pre>
@@ -8273,42 +8268,42 @@ function myApplication_myMethod(){
 
 <p>This aside, the biggest issue with the pattern is that it can result in a large number of global objects once our application starts to grow. There is also quite a heavy reliance on our prefix not being used by any other developers in the global namespace, so be careful if opting to use this.</p>
 
-<p>For more on Peter's views about the single global variable pattern, read his excellent post on them <a href="http://michaux.ca/articles/javascript-namespacing">http://michaux.ca/articles/javascript-namespacing</a>.</p>
+<p>For more on Peter's views about the single global variable pattern, read his excellent post on them <a href="http://peter.michaux.ca/articles/javascript-namespacing">http://peter.michaux.ca/articles/javascript-namespacing</a>.</p>
 
 <h3>3. Object literal notation</h3>
 <p>Object literal notation (which we also cover in the module pattern section of the book) can be thought of as an object containing a collection of key:value pairs with a colon separating each pair of keys and values where keys can also represent new namespaces.</p>
 <pre class="brush: js">
 var myApplication = {
 
-    // As we've seen, we can easily define functionality for
-    // this object literal..
-    getInfo:function(){
-      //...
-    },
+  // As we've seen, we can easily define functionality for
+  // this object literal..
+  getInfo: function() {
+    //...
+  },
 
-    // but we can also populate it to support
-    // further object namespaces containing anything
-    // anything we wish:
-    models: {},
-    views: {
-        pages: {}
-    },
-    collections: {}
+  // but we can also populate it to support
+  // further object namespaces containing anything
+  // anything we wish:
+  models: {},
+  views: {
+      pages: {}
+  },
+  collections: {}
 };
 </pre>
 <p>One can also opt for adding properties directly to the namespace:</p>
 <pre class="brush: js">
-myApplication.foo = function(){
-    return "bar";
+myApplication.foo = function() {
+  return "bar";
 }
 
 myApplication.utils = {
-    toString:function(){
-        //...
-    },
-    export: function(){
-        //...
-    }
+  toString: function() {
+      //...
+  },
+  export: function() {
+      //...
+  }
 }
 </pre>
 <p>Object literals have the advantage of not polluting the global namespace but assist in organizing code and parameters logically. They are truly beneficial if we wish to create easily-readable structures that can be expanded to support deep nesting. Unlike simple global variables, object literals often also take into account tests for the existence of a variable by the same name so the chances of collision occurring are significantly reduced.</p>
@@ -8390,30 +8385,30 @@ myPlugin.defaults = {};
 
 var namespace = (function () {
 
-    // defined within the local scope
-    var privateMethod1 = function () { /* ... */ },
-        privateMethod2 = function () { /* ... */ }
-        privateProperty1 = "foobar";
+  // defined within the local scope
+  var privateMethod1 = function () { /* ... */ },
+      privateMethod2 = function () { /* ... */ }
+      privateProperty1 = "foobar";
 
-    return {
+  return {
 
-        // the object literal returned here can have as many
-        // nested depths as we wish, however as mentioned,
-        // this way of doing things works best for smaller,
-        // limited-scope applications in my personal opinion
-        publicMethod1: privateMethod1,
+    // the object literal returned here can have as many
+    // nested depths as we wish, however as mentioned,
+    // this way of doing things works best for smaller,
+    // limited-scope applications in my personal opinion
+    publicMethod1: privateMethod1,
 
-        // nested namespace with public properties
-        properties:{
-            publicProperty1: privateProperty1
-        },
+    // nested namespace with public properties
+    properties: {
+        publicProperty1: privateProperty1
+    },
 
-        // another tested namespace
-        utils:{
-            publicMethod2: privateMethod2
-        }
-        ...
+    // another tested namespace
+    utils: {
+        publicMethod2: privateMethod2
     }
+    ...
+  }
 })();
 </pre>
 <p>The benefit of object literals is that they offer us a very elegant key/value syntax to work with; one where we're able to easily encapsulate any distinct logic or functionality for our application in a way that clearly separates it from others and provides a solid foundation for extending our code.</p>
@@ -8422,22 +8417,21 @@ var namespace = (function () {
 <pre class="brush: js">
 var myConfig = {
 
-    language: "english",
+  language: "english",
 
-    defaults: {
-        enableGeolocation: true,
-        enableSharing: false,
-        maxPhotos: 20
-    },
+  defaults: {
+    enableGeolocation: true,
+    enableSharing: false,
+    maxPhotos: 20
+  },
 
-    theme: {
-        skin: "a",
-        toolbars: {
-            index: "ui-navigation-toolbar",
-            pages: "ui-custom-toolbar"
-        }
+  theme: {
+    skin: "a",
+    toolbars: {
+      index: "ui-navigation-toolbar",
+      pages: "ui-custom-toolbar"
     }
-
+  }
 }
 
 </pre>
@@ -8507,11 +8501,11 @@ var foobar = function () { arguments.callee(); }
 // here a namespace object is passed as a function
 // parameter, where we assign public methods and
 // properties to it
-(function( o ){
-    o.foo = "foo";
-    o.bar = function(){
-        return "bar";
-    };
+(function( o ) {
+  o.foo = "foo";
+  o.bar = function() {
+    return "bar";
+  };
 })( namespace );
 
 console.log( namespace );
@@ -8528,29 +8522,29 @@ console.log( namespace );
 
 ;(function ( namespace, undefined ) {
 
-    // private properties
-    var foo = "foo",
-        bar = "bar";
+  // private properties
+  var foo = "foo",
+      bar = "bar";
 
-    // public methods and properties
-    namespace.foobar = "foobar";
+  // public methods and properties
+  namespace.foobar = "foobar";
 
-    namespace.say = function ( msg ) {
-        speak( msg );
-    };
+  namespace.say = function ( msg ) {
+    speak( msg );
+  };
 
-    namespace.sayHello = function () {
-        namespace.say( "hello world" );
-    };
+  namespace.sayHello = function () {
+    namespace.say( "hello world" );
+  };
 
-    // private method
-    function speak(msg) {
-        console.log( "You said: " + msg );
-    };
+  // private method
+  function speak(msg) {
+    console.log( "You said: " + msg );
+  };
 
-    // check to evaluate whether "namespace" exists in the
-    // global namespace - if not, assign window.namespace an
-    // object literal
+  // check to evaluate whether "namespace" exists in the
+  // global namespace - if not, assign window.namespace an
+  // object literal
 
 })( window.namespace = window.namespace || {} );
 
@@ -8573,12 +8567,12 @@ console.log( namespace.foobar2 );
 </pre>
 <p>Extensibility is of course key to any scalable namespacing pattern and IIFEs can be used to achieve this quite easily. In the below example, our "namespace" is once again passed as an argument to our anonymous function and is then extended (or decorated) with further functionality:</p>
 <pre class="brush: js">// let's extend the namespace with new functionality
-(function( namespace, undefined ){
+(function( namespace, undefined ) {
 
-    // public method
-    namespace.sayGoodbye = function () {
-        namespace.say( "goodbye" );
-    }
+  // public method
+  namespace.sayGoodbye = function () {
+    namespace.say( "goodbye" );
+  }
 })( window.namespace = window.namespace || {});
 
 // Outputs: goodbye
@@ -8599,11 +8593,11 @@ myApp.utils = {};
   var val = 5;
 
   this.getValue = function () {
-      return val;
+    return val;
   };
 
   this.setValue = function( newVal ) {
-      val = newVal;
+    val = newVal;
   }
 
   // also introduce a new sub-namespace
@@ -8615,8 +8609,8 @@ myApp.utils = {};
 // which we defined via the utilities module
 
 (function () {
-    this.diagnose = function(){
-        return "diagnosis";
+    this.diagnose = function() {
+      return "diagnosis";
     }
 }).apply( myApp.utils.tools );
 
@@ -8648,18 +8642,18 @@ var ns = ns || {},
     ns2 = ns2 || {};
 
 // the module/namespace creator
-var creator = function( val ){
+var creator = function( val ) {
 
-    var val = val || 0;
+  var val = val || 0;
 
-    this.next = function () {
-        return val++
-    };
+  this.next = function () {
+    return val++
+  };
 
-    this.reset = function () {
-        val = 0;
-    }
-}
+  this.reset = function () {
+    val = 0;
+  };
+};
 
 creator.call( ns );
 
@@ -8681,15 +8675,15 @@ creator.call( ns2, 5000 );
 <p>As we've reviewed, nested namespaces can provide an organized hierarchy of structure for a unit of code. An example of such a namespace could be the following: <i>application.utilities.drawing.canvas.2d</i>. This can also be expanded using the object literal pattern to be:</p>
 <pre class="brush: js">
 var application = {
-      utilities:{
-          drawing:{
-              canvas:{
-                  2d:{
-                          //...
-                  }
-              }
-          }
+  utilities: {
+    drawing: {
+      canvas: {
+        2d:{
+          //...
+        }
+      }
     }
+  }
 };
 </pre>
 
@@ -8705,22 +8699,22 @@ var myApp = myApp || {};
 // a convenience function for parsing string namespaces and
 // automatically generating nested namespaces
 function extend( ns, ns_string ) {
-    var parts = ns_string.split("."),
-        parent = ns,
-        pl;
+  var parts = ns_string.split("."),
+      parent = ns,
+      pl;
 
-    pl = parts.length;
+  pl = parts.length;
 
-    for ( var i = 0; i &lt; pl; i++ ) {
-        // create a property if it doesn't exist
-        if ( typeof parent[parts[i]] === "undefined" ) {
-            parent[parts[i]] = {};
-        }
-
-        parent = parent[parts[i]];
+  for ( var i = 0; i &lt; pl; i++ ) {
+    // create a property if it doesn't exist
+    if ( typeof parent[parts[i]] === "undefined" ) {
+      parent[parts[i]] = {};
     }
 
-    return parent;
+    parent = parent[parts[i]];
+  }
+
+  return parent;
 }
 
 // Usage:
@@ -8787,19 +8781,19 @@ drawing.plot( 98, 50,60 );
 
 function extend( destination, source ) {
 
-    var toString = Object.prototype.toString,
-        objTest = toString.call({});
+  var toString = Object.prototype.toString,
+      objTest = toString.call({});
 
-    for ( var property in source ) {
-        if ( source[property] &amp;&amp; objTest === toString.call(source[property]) ) {
-            destination[property] = destination[property] || {};
-            extend(destination[property], source[property]);
-        } else {
-            destination[property] = source[property];
-        }
+  for ( var property in source ) {
+    if ( source[property] &amp;&amp; objTest === toString.call(source[property]) ) {
+      destination[property] = destination[property] || {};
+      extend(destination[property], source[property]);
+    } else {
+      destination[property] = source[property];
     }
-    return destination;
+  }
 
+  return destination;
 };
 
 console.group( "objExtend namespacing tests" );
@@ -8809,8 +8803,9 @@ var myNS = myNS || {};
 
 // 1. extend namespace with a "utils" object
 extend(myNS, {
-        utils:{
-        }
+  utils:{
+    //...
+  }
 });
 
 console.log( "test 1", myNS);
@@ -8818,15 +8813,15 @@ console.log( "test 1", myNS);
 
 // 2. extend with multiple depths (namespace.hello.world.wave)
 extend(myNS, {
-                hello:{
-                        world:{
-                                wave:{
-                                    test: function(){
-                                        //...
-                                    }
-                                }
-                        }
-                }
+  hello: {
+    world: {
+      wave: {
+        test: function() {
+          //...
+        }
+      }
+    }
+  }
 });
 
 // test direct assignment works as expected
@@ -8839,21 +8834,20 @@ console.log( "test 2", myNS );
 // overwritten during extension
 
 myNS.library = {
-        foo:function () {}
+  foo:function () {}
 };
 
 extend( myNS, {
-        library:{
-                bar:function(){
-                    //...
-                }
-        }
+  library: {
+    bar: function() {
+      //...
+    }
+  }
 });
 
 // confirmed that extend is operating safely (as expected)
 // myNS now also contains library.foo, library.bar
 console.log( "test 3", myNS );
-
 
 // 4. what if we wanted easier access to a specific namespace without having
 // to type the whole namespace out each time?
@@ -8867,7 +8861,7 @@ console.log( "test 4", myNS);
 console.groupEnd();
 
 </pre>
-<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. One may find the Underscore.js <code>extend()</code> method a simpler, more cross-browser implementation to start with <a href="http://documentcloud.github.com/underscore/docs/underscore.html#section-67">http://documentcloud.github.com/underscore/docs/underscore.html#section-67</a>. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: <a href="https://github.com/addyosmani/jquery.parts">https://github.com/addyosmani/jquery.parts</a>.</p>
+<p><strong>Note:</strong> The above implementation is not cross-browser compatible for all objects and should be considered a proof-of-concept only. One may find the Underscore.js <code>extend()</code> method a simpler, more cross-browser implementation to start with <a href="http://documentcloud.github.io/underscore/docs/underscore.html#section-82">http://documentcloud.github.io/underscore/docs/underscore.html#section-82</a>. Alternatively, a version of the jQuery $.extend() method extracted from core can be found here: <a href="https://github.com/addyosmani/jquery.parts">https://github.com/addyosmani/jquery.parts</a>.</p>
 
 <p>For developers that are going to use jQuery in their application, one can achieve the exact same object namespace extensibility with <code>$.extend</code> as follows:</p>
 <pre class="brush: js">// top-level namespace
@@ -8875,7 +8869,7 @@ var myApp = myApp || {};
 
 // directly assign a nested namespace
 myApp.library = {
-  foo:function(){
+  foo: function() {
     //...
   }
 };
@@ -8885,11 +8879,11 @@ myApp.library = {
 // with the same name but with a different function
 // signature: $.extend( deep, target, object1, object2 )
 $.extend( true, myApp, {
-    library:{
-        bar:function(){
-            //...
-        }
+  library:{
+    bar: function(){
+      //...
     }
+  }
 });
 
 console.log("test", myApp);
