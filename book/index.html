@@ -4007,23 +4007,22 @@ function testFlyweight(){
 
 
   // The flavors ordered.
-  var flavors = new CoffeeFlavor(),
+  var flavors = [],
 
   // The tables for the orders.
-    tables = new CoffeeOrderContext(),
+    tables = [],
 
   // Number of orders made
     ordersMade = 0,
 
   // The CoffeeFlavorFactory instance
-    flavorFactory;
+    flavorFactory = new CoffeeFlavorFactory();
 
   function takeOrders( flavorIn, table) {
-     flavors[ordersMade] = flavorFactory.getCoffeeFlavor( flavorIn );
-     tables[ordersMade++] = new CoffeeOrderContext( table );
+     flavors.push( flavorFactory.getCoffeeFlavor( flavorIn ) );
+     tables.push( new CoffeeOrderContext( table ) );
+     ordersMade++;
   }
-
-   flavorFactory = new CoffeeFlavorFactory();
 
    takeOrders("Cappuccino", 2);
    takeOrders("Cappuccino", 2);
