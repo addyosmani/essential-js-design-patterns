@@ -4209,7 +4209,7 @@ var BookRecordManager = (function () {
     // add a new book into the library system
     addBookRecord: function ( id, title, author, genre, pageCount, publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate, availability ) {
 
-      var book = bookFactory.createBook( title, author, genre, pageCount, publisherID, ISBN );
+      var book = BookFactory.createBook( title, author, genre, pageCount, publisherID, ISBN );
 
       bookRecordDatabase[id] = {
         checkoutMember: checkoutMember,
