@@ -405,7 +405,10 @@ and I've modified it where necessary to suit our discussion in this section of t
 <p>I recommend using this table as reference, but do remember that there are a number of additional patterns that are not mentioned here but will be discussed later in the book.</p>
 
 <h3>A brief note on classes</h3>
-<p>Keep in mind that there will be patterns in this table that reference the concept of "classes". JavaScript is a class-less language, however classes can be simulated using functions.</p>
+
+<p><strong>Note:</strong> ES2015 introduced native support for classes to JavaScript, however, they are primarily syntactical sugar over JavaScript's existing prototype-based inheritance model. We will not be covering ES2015 classes in this book, but <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">MDN</a> has an excellent introduction to them. </p>
+
+<p>Keep in mind that there will be patterns in this table that reference the concept of "classes". In ES5, JavaScript is a class-less language, however classes can be simulated using functions.</p>
 
 <p>The most common approach to achieving this is by defining a JavaScript function where we then create an object using the <code>new</code> keyword. <code>this</code> can be used to help define new properties and methods for the object as follows:</p>
 
