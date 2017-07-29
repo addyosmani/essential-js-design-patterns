@@ -1,37 +1,28 @@
 'use strict';
-
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
-
     // Time how long tasks take. Can help when optimizing build times
     require('time-grunt')(grunt);
-
     // Define the configuration for all the tasks
     grunt.initConfig({
-
         // Project settings
         yeoman: {
             // Configurable paths
             app: 'book',
             dist: 'dist'
         },
-
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             js: {
                 files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-                tasks: ['jshint'],
-                options: {
-                    livereload: true
-                }
+                tasks: ['jshint']
             },
             jstest: {
                 files: ['test/spec/{,*/}*.js'],
@@ -50,7 +41,7 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    livereload: '<%= connect.options.livereload %>'
+                    livereload: true
                 },
                 files: [
                     '<%= yeoman.app %>/{,*/}.html',
@@ -59,14 +50,13 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
         // The actual grunt server settings
         connect: {
             options: {
                 port: 9000,
                 livereload: 35729,
                 // Change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '127.0.0.1'
             },
             livereload: {
                 options: {
@@ -94,7 +84,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-
         // Empties folders to start fresh
         clean: {
             dist: {
@@ -109,7 +98,6 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
-
         // Make sure code styles are up to par and there are no obvious mistakes
         jshint: {
             options: {
@@ -122,8 +110,6 @@ module.exports = function (grunt) {
                 'test/spec/{,*/}*.js'
             ]
         },
-
-
         // Mocha testing framework configuration options
         mocha: {
             all: {
@@ -133,9 +119,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-
-
-
         // Compiles Sass to CSS and generates necessary files if requested
         compass: {
             options: {
@@ -163,7 +146,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-
         // Add vendor prefixed styles
         autoprefixer: {
             options: {
@@ -178,7 +160,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
         // Automatically inject Bower components into the HTML file
         'bower-install': {
             app: {
@@ -186,7 +167,6 @@ module.exports = function (grunt) {
                 ignorePath: '<%= yeoman.app %>/'
             }
         },
-
         // Renames files for browser caching purposes
         rev: {
             dist: {
@@ -200,7 +180,6 @@ module.exports = function (grunt) {
                 }
             }
         },
-
         // Reads HTML for usemin blocks to enable smart builds that automatically
         // concat, minify and revision files. Creates configurations in memory so
         // additional tasks can operate on them
@@ -210,7 +189,6 @@ module.exports = function (grunt) {
             },
             html: '<%= yeoman.app %>/index.html'
         },
-
         // Performs rewrites based on rev and the useminPrepare configuration
         usemin: {
             options: {
@@ -219,7 +197,6 @@ module.exports = function (grunt) {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
         },
-
         // The following *-min tasks produce minified files in the dist folder
         imagemin: {
             dist: {
@@ -261,7 +238,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-
         // By default, your `index.html`'s <!-- Usemin block --> will take care of
         // minification. These next options are pre-configured if you do not wish
         // to use the Usemin blocks.
@@ -287,7 +263,6 @@ module.exports = function (grunt) {
         // concat: {
         //     dist: {}
         // },
-
         // Copies remaining files to places other tasks can use
         copy: {
             dist: {
@@ -313,9 +288,6 @@ module.exports = function (grunt) {
                 src: '{,*/}*.css'
             }
         },
-
-
-
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
@@ -330,15 +302,34 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+        jasmine: {
+            pivotal: {
+                //src: ['test/spec/*.js'],
+                options: {
+                    specs: [
+                        'book/bower_components/jquery/dist/jquery.min.js',
+                        'test/spec/ui.js',
+                        'test/spec/native.js',
+                        'test/spec/ui-test.js'
+                    ],
+                    //outfile:'test.html'
+                    //helpers: 'test/es6-firefox/utilities.js'
+                }
+            }
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
         }
     });
-
-
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
-
         grunt.task.run([
             'clean:server',
             'concurrent:server',
@@ -347,13 +338,10 @@ module.exports = function (grunt) {
             'watch'
         ]);
     });
-
     grunt.registerTask('server', function () {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve']);
     });
-
-
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
@@ -366,9 +354,11 @@ module.exports = function (grunt) {
         //'rev',
         'usemin'
     ]);
-
     grunt.registerTask('default', [
         'newer:jshint',
         'build'
+    ]);
+    grunt.registerTask('jasmine-build', [
+        'jasmine:pivotal:build'
     ]);
 };

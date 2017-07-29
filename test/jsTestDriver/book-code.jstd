@@ -1,0 +1,25 @@
+server: http://localhost:4224
+
+load:
+  - ../bower_components/jquery/jquery.min.js
+  - book-code.js
+  - other.js
+
+test:
+  - test-case.js
+
+#exclude:
+# - uselessfile.js
+
+#serve:
+# - css/main.css
+
+#proxy:
+# - {matcher: "*", server: "http://localhost/whatever"}
+
+#plugin:
+# - name: "coverage"
+#   jar: "lib/jstestdriver/coverage.jar"
+#   module: "com.google.jstestdriver.coverage.CoverageModule"
+
+timeout: 90
