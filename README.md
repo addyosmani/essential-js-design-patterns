@@ -15,7 +15,7 @@ Design patterns are reusable solutions to commonly occurring problems in softwar
 
 I wanted to write this book as I felt that patterns were an area a lot of new and intermediate JavaScript developers may not have had a chance to explore just yet and I'm hopeful my book will encourage you to check them out as they can be quite powerful.
 
-###Contributing and Errata
+### Contributing and Errata
 
 I'm always welcome to feedback on how the book can be improved.
 
@@ -38,13 +38,13 @@ Preview: `grunt serve`
 
 The project is currently authored in HTML, however we do plan on introducing builds for other formats (PDF, ePub) shortly. In the mean time, official releases for other formats can be obtained via O'Reilly.
 
-###Translations
+### Translations
 
 If you would like to get involved with translating this project to another language, please open up a new issue. O'Reilly have a process for handling translations to ensure that they go through the same review process that the English version goes through.
 
 So far, we've successfully had the book translated to Japanese. You can find that version on the [O'Reilly Japan](http://www.oreilly.co.jp/books/9784873116181/) site.
 
-###License
+### License
 
 This book is released under a Creative Commons Attribution-Noncommercial- No Derivative Works 3.0 United States License. 
 
