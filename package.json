@@ -3,6 +3,9 @@
   "version": "1.7.0",
   "description": "A book on JavaScript Design Patterns",
   "main": "book/index.html",
+  "scripts": {
+    "build": "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/addyosmani/essential-js-design-patterns"
