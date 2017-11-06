@@ -41,7 +41,8 @@
     "grunt-usemin": "^3.0.0",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "^2.0.0",
-    "time-grunt": "~1.0.0"
+    "time-grunt": "~1.0.0",
+    "webpack": "^3.8.1"
   },
   "engines": {
     "node": ">=0.8.0"
