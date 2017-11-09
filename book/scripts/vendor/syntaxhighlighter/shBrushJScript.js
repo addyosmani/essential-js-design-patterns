@@ -1,6 +1,6 @@
 ;(function()
 {
-	// CommonJS
+    // CommonJS
 	SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);
 
 	function Brush()
