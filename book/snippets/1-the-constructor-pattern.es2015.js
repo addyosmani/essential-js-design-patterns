@@ -4,8 +4,8 @@
 
 //********************** Snippet 1 **********************//
 
-// Each of the following options will create a new empty object:
 // [ES2015+] We used new keyword const for immutable constant declaration
+// Each of the following options will create a new empty object:
 
 const newObject = {};
 
@@ -133,7 +133,7 @@ console.log(driver.topSpeed);
 
 // [ES2015+] Below we used new class declaration, using keyword class
 // [ES2015+] We used new constructor method and method declaration
-// [ES2015+] All of it new syntax sugar above old function structures
+// [ES2015+] Classes are syntactic sugar over JavaScript's prototype-based inheritance
 // [ES2015+] We used new template literals for string interpolation
 class Car {
     constructor(model, year, miles) {
@@ -165,7 +165,7 @@ console.log(mondeo.toString());
 //*******************************************************//
 
 //********************** Snippet 1 **********************//
-// [ES2015+] Below we used new class declaration, using keyword class
+// [ES2015+] Classes are syntactic sugar over JavaScript's prototype-based inheritance
 // [ES2015+] We used new constructor method and method declaration
 // [ES2015+] All of it new syntax sugar above old function structures
 class Car {

@@ -9,10 +9,10 @@
 
 // A car "class"
 
-// Below we used new class declaration, using keyword class
-// We used new constructor method and method declaration
-// All of it new syntax sugar above old structures
-// We used new template literals for string interpolation
+// [ES2015+] Below we used new class declaration, using keyword class
+// [ES2015+] We used new constructor method and method declaration
+// [ES2015+] Classes are syntactic sugar over JavaScript's prototype-based inheritance
+// [ES2015+] We used new template literals for string interpolation
 class Car {
     constructor(model) {
         this.model = model;
@@ -31,7 +31,7 @@ class Car {
 
 // Usage:
 
-// We used new keyword const for immutable constant declaration
+// [ES2015+] We used new keyword const for immutable constant declaration
 const myCar = new Car("ford");
 
 myCar.year = "2010";
