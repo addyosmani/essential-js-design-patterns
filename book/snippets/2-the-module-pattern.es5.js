@@ -255,7 +255,11 @@ var myModule = (function () {
  
 })();
 
-//********************** Snippet 3 **********************//
+//*******************************************************//
+// Toolkit And Framework-specific Module Pattern Implementations
+//*******************************************************//
+
+//********************** Snippet 1 **********************//
 
 var store = window.store || {};
  
@@ -271,7 +275,7 @@ store.basket.core = {
   // ...rest of our logic
 };
 
-//********************** Snippet 4 **********************//
+//********************** Snippet 2 **********************//
 
 require(["dojo/_base/customStore"], function( store ){
  
@@ -294,7 +298,7 @@ require(["dojo/_base/customStore"], function( store ){
  
 });
 
-//********************** Snippet 5 **********************//
+//********************** Snippet 3 **********************//
 
 // create namespace
 Ext.namespace("myNameSpace");
@@ -342,7 +346,7 @@ myNameSpace.app = function () {
   };
 }();
 
-//********************** Snippet 6 **********************//
+//********************** Snippet 4 **********************//
 
 Y.namespace( "store.basket" ) ;
 Y.store.basket = (function () {
@@ -375,7 +379,7 @@ Y.store.basket = (function () {
  
 })();
 
-//********************** Snippet 7 **********************//
+//********************** Snippet 5 **********************//
 
 function library( module ) {
  

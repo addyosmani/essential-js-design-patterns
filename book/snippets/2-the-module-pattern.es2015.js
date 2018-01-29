@@ -412,7 +412,6 @@ Y.store.basket = ((() => {
 }))();
 
 //********************** Snippet 5 **********************//
-// TODO: Check jQuery
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] We used new arrow function syntax
 
