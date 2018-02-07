@@ -104,7 +104,7 @@ console.log(movingTruck);
 // [ES2015+] The extends keyword is used to create a class which is a child of another class.
 // [ES2015+] We have new pattern implementation with new inheritance
 // [ES2015+] We used new keyword const for immutable constant declaration
-
+// [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
 class TruckFactory extends VehicleFactory {
     constructor() {
         super()

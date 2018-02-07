@@ -95,7 +95,7 @@ class Observer {
 // [ES2015+] We used new arrow function syntax
 
 // Concrete Subject
-
+// [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
 class ConcreteSubject extends Subject {
     constructor(element) {
         super();

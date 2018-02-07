@@ -67,7 +67,7 @@ class VehiclePrototype {
     }
 }
 // [ES2015+] The extends keyword is used to create a class which is a child of another class.
-
+// [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
 class Vehicle extends VehiclePrototype {
     constructor(model) {
         super(model);

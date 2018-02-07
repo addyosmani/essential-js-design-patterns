@@ -25,6 +25,7 @@ class Person {
 const clark = new Person("Clark", "Kent");
 
 // Define a subclass constructor for for "Superhero":
+// [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
 class Superhero extends Person {
     constructor(firstName, lastName, powers) {
 
