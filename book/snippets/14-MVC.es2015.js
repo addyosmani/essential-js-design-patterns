@@ -1,10 +1,10 @@
-
 //*******************************************************//
 // Models
 //*******************************************************//
+// [ES2015+] We used new keyword const for immutable constant declaration
 
 //********************** Snippet 1 **********************//
-var Photo = Backbone.Model.extend({
+const Photo = Backbone.Model.extend({
  
   // Default attributes for the photo
   defaults: {
@@ -21,7 +21,7 @@ var Photo = Backbone.Model.extend({
 });
 
 //********************** Snippet 2 **********************//
-var PhotoGallery = Backbone.Collection.extend({
+const PhotoGallery = Backbone.Collection.extend({
  
   // Reference to this collection's model.
   model: Photo,
@@ -46,7 +46,6 @@ var PhotoGallery = Backbone.Collection.extend({
 //*******************************************************//
 
 //********************** Snippet 1 **********************//
-// [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] We used new arrow function syntax
 
 const buildPhotoView = (photoModel, photoController) => {
@@ -109,7 +108,7 @@ const buildPhotoView = (photoModel, photoController) => {
 //********************** Snippet 1 **********************//
 // Controllers in Spine are created by inheriting from Spine.Controller
 
-var PhotosController = Spine.Controller.sub({
+const PhotosController = Spine.Controller.sub({
  
   init: function () {
     this.item.bind( "update", this.proxy( this.render ));
@@ -129,12 +128,12 @@ var PhotosController = Spine.Controller.sub({
 });
 
 //********************** Snippet 2 **********************//
-var PhotoRouter = Backbone.Router.extend({
+const PhotoRouter = Backbone.Router.extend({
   routes: { "photos/:id": "route" },
  
   route: function( id ) {
-    var item = photoCollection.get( id );
-    var view = new PhotoView( { model: item } );
+    const item = photoCollection.get( id );
+    const view = new PhotoView( { model: item } );
  
     $('.content').html( view.render().el );
   }
