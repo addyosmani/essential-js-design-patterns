@@ -9,30 +9,19 @@
 
 // A constructor for defining new cars
 class Car {
-    constructor({
-        doors,
-        state,
-        color
-    }) {
-
+    constructor({ doors, state, color }) {
         // some defaults
         this.doors = doors || 4;
-        this.state = state || "brand new";
-        this.color = color || "silver";
-
+        this.state = state || 'brand new';
+        this.color = color || 'silver';
     }
 }
 // A constructor for defining new trucks
 class Truck {
-    constructor({
-        state,
-        wheelSize,
-        color
-    }) {
-
-        this.state = state || "used";
-        this.wheelSize = wheelSize || "large";
-        this.color = color || "blue";
+    constructor({ state, wheelSize, color }) {
+        this.state = state || 'used';
+        this.wheelSize = wheelSize || 'large';
+        this.color = color || 'blue';
     }
 }
 
@@ -48,28 +37,26 @@ class VehicleFactory {
     }
     // Our Factory method for creating new Vehicle instances
     createVehicle(options) {
-
         switch (options.vehicleType) {
-            case "car":
+            case 'car':
                 this.vehicleClass = Car;
                 break;
-            case "truck":
+            case 'truck':
                 this.vehicleClass = Truck;
                 break;
-                //defaults to VehicleFactory.prototype.vehicleClass (Car)
+            //defaults to VehicleFactory.prototype.vehicleClass (Car)
         }
 
         return new this.vehicleClass(options);
-
     }
 }
 
 // Create an instance of our factory that makes cars
 const carFactory = new VehicleFactory();
 const car = carFactory.createVehicle({
-    vehicleType: "car",
-    color: "yellow",
-    doors: 6
+    vehicleType: 'car',
+    color: 'yellow',
+    doors: 6,
 });
 
 // Test to confirm our car was created using the vehicleClass/prototype Car
@@ -84,10 +71,10 @@ console.log(car);
 // [ES2015+] We used new keyword const for immutable constant declaration
 
 const movingTruck = carFactory.createVehicle({
-    vehicleType: "truck",
-    state: "like new",
-    color: "red",
-    wheelSize: "small"
+    vehicleType: 'truck',
+    state: 'like new',
+    color: 'red',
+    wheelSize: 'small',
 });
 
 // Test to confirm our truck was created with the vehicleClass/prototype Truck
@@ -107,15 +94,15 @@ console.log(movingTruck);
 // [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
 class TruckFactory extends VehicleFactory {
     constructor() {
-        super()
+        super();
         this.vehicleClass = Truck;
     }
 }
 const truckFactory = new TruckFactory();
 const myBigTruck = truckFactory.createVehicle({
-    state: "omg..so bad.",
-    color: "pink",
-    wheelSize: "so big"
+    state: 'omg..so bad.',
+    color: 'pink',
+    wheelSize: 'so big',
 });
 
 // Confirms that myBigTruck was created with the prototype Truck
@@ -134,21 +121,21 @@ console.log(myBigTruck);
 // [ES2015+] Below we used new class declaration, using keyword class
 // [ES2015+] We used new constructor method and method declaration
 // [ES2015+] Classes are syntactic sugar over JavaScript's prototype-based inheritance
-// [ES2015+] The static keyword defines a static method for a class. 
-// [ES2015+] Static methods are called without instantiating their class and cannot be called through a class instance. 
+// [ES2015+] The static keyword defines a static method for a class.
+// [ES2015+] Static methods are called without instantiating their class and cannot be called through a class instance.
 // [ES2015+] Static methods are often used to create utility functions for an application.
 // [ES2015+] We used new keyword const for immutable constant declaration
 
 class AbstractVehicleFactory {
     constructor() {
-         // Storage for our vehicle types
+        // Storage for our vehicle types
         this.types = {};
     }
 
     static getVehicle(type, customizations) {
         const Vehicle = this.types[type];
 
-        return (Vehicle ? new Vehicle(customizations) : null);
+        return Vehicle ? new Vehicle(customizations) : null;
     }
 
     static registerVehicle(type, Vehicle) {
@@ -165,17 +152,17 @@ class AbstractVehicleFactory {
 
 // Usage:
 
-abstractVehicleFactory.registerVehicle("car", Car);
-abstractVehicleFactory.registerVehicle("truck", Truck);
+abstractVehicleFactory.registerVehicle('car', Car);
+abstractVehicleFactory.registerVehicle('truck', Truck);
 
 // Instantiate a new car based on the abstract vehicle type
-const car = abstractVehicleFactory.getVehicle("car", {
-    color: "lime green",
-    state: "like new"
+const car = abstractVehicleFactory.getVehicle('car', {
+    color: 'lime green',
+    state: 'like new',
 });
 
 // Instantiate a new truck in a similar manner
-const truck = abstractVehicleFactory.getVehicle("truck", {
-    wheelSize: "medium",
-    color: "neon yellow"
+const truck = abstractVehicleFactory.getVehicle('truck', {
+    wheelSize: 'medium',
+    color: 'neon yellow',
 });

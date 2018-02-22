@@ -5,29 +5,28 @@
 // [ES2015+] We used new arrow function syntax
 // [ES2015+] We have new pattern implementation with new keywords import and export
 
-let privateVar = "Ben Cherry";
-const publicVar = "Hey there!";
+let privateVar = 'Ben Cherry';
+const publicVar = 'Hey there!';
 
 const privateFunction = () => {
-    console.log(`Name:${privateVar}`);
-}
+  console.log(`Name:${privateVar}`);
+};
 
-// [ES2015+] Parentheses are optional when there's only one parameter name:
+// [ES2015+] Parentheses are optional when there's only one parameter
 const publicSetName = strName => {
-    privateVar = strName;
-}
+  privateVar = strName;
+};
 
 const publicGetName = () => {
-    privateFunction();
-}
-
+  privateFunction();
+};
 
 // Reveal public pointers to
 // private functions and properties
 const myRevealingModule = {
-    setName: publicSetName,
-    greeting: publicVar,
-    getName: publicGetName
+  setName: publicSetName,
+  greeting: publicVar,
+  getName: publicGetName,
 };
 
 // [ES2015+] Default export module, without name
@@ -37,7 +36,8 @@ export default myRevealingModule;
 // [ES2015+] The import statement is used to import bindings which are exported by another module.
 import myRevealingModule from './myRevealingModule';
 
-myRevealingModule.setName("Paul Kinlan");
+myRevealingModule.setName('Paul Kinlan');
+
 
 //********************** Snippet 2 **********************//
 // [ES2015+] We used new keyword const for immutable constant declaration

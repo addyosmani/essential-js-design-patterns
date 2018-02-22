@@ -2,17 +2,15 @@
 // [ES2015+] We used new keyword const for immutable constant declaration
 
 const myCar = {
-
-    name: "Ford Escort",
+    name: 'Ford Escort',
 
     drive() {
         console.log("Weeee. I'm driving!");
     },
 
     panic() {
-        console.log("Wait. How do you stop this thing?");
-    }
-
+        console.log('Wait. How do you stop this thing?');
+    },
 };
 
 // Use Object.create to instantiate a new car
@@ -28,22 +26,20 @@ console.log(yourCar.name);
 const vehicle = {
     getModel() {
         console.log(`The model of this vehicle is..${this.model}`);
-    }
+    },
 };
 
 const car = Object.create(vehicle, {
-
-    "id": {
+    id: {
         value: MY_GLOBAL.nextId(),
         // writable:false, configurable:false by default
-        enumerable: true
+        enumerable: true,
     },
 
-    "model": {
-        value: "Ford",
-        enumerable: true
-    }
-
+    model: {
+        value: 'Ford',
+        enumerable: true,
+    },
 });
 
 //********************** Snippet 3 **********************//
@@ -59,12 +55,10 @@ class VehiclePrototype {
     }
 
     getModel() {
-        console.log("The model of this vehicle is.." + this.model);
+        console.log('The model of this vehicle is..' + this.model);
     }
 
-    Clone() {
-
-    }
+    Clone() {}
 }
 // [ES2015+] The extends keyword is used to create a class which is a child of another class.
 // [ES2015+] A constructor can use the super keyword to call the constructor of the super class.
@@ -77,7 +71,7 @@ class Vehicle extends VehiclePrototype {
     }
 }
 
-const car = new Vehicle("Ford Escort");
+const car = new Vehicle('Ford Escort');
 const car2 = car.Clone();
 car2.getModel();
 
@@ -88,14 +82,13 @@ car2.getModel();
 // [ES2015+] We used new constructor method
 // [ES2015+] We still could use Object.prototype for adding new methods, because internally we use the same structure
 
-const beget = ((() => {
-
+const beget = (() => {
     class F {
-      constructor() {}
+        constructor() {}
     }
 
     return proto => {
         F.prototype = proto;
         return new F();
     };
-}))();
+})();

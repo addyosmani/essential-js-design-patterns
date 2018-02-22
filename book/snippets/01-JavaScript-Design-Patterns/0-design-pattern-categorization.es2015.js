@@ -2,7 +2,7 @@
 // A brief note on classes
 //*******************************************************//
 
-// Section contains description of ES2015, but not use it. 
+// Section contains description of ES2015, but not use it.
 // I suggest remove the description and put the new examples.
 
 //********************** Snippet 1 **********************//
@@ -16,25 +16,23 @@
 class Car {
     constructor(model) {
         this.model = model;
-        this.color = "silver";
-        this.year = "2012";
+        this.color = 'silver';
+        this.year = '2012';
     }
 
     getInfo() {
         return `${this.model} ${this.year}`;
-    };
-
+    }
 }
 
 //********************** Snippet 2 **********************//
 
-
 // Usage:
 
 // [ES2015+] We used new keyword const for immutable constant declaration
-const myCar = new Car("ford");
+const myCar = new Car('ford');
 
-myCar.year = "2010";
+myCar.year = '2010';
 
 console.log(myCar.getInfo());
 

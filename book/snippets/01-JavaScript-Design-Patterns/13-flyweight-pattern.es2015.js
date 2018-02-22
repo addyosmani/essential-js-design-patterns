@@ -2,9 +2,8 @@
 // Implementing Classical Flyweights
 //*******************************************************//
 //********************** Snippet 1 **********************//
-// TODO: Think about reimplementing. Function.prototype looks bad
 // Simulate pure virtual inheritance/"implement" keyword for JS
-Function.prototype.implementsFor = function (parentClassOrObject) {
+Function.prototype.implementsFor = function(parentClassOrObject) {
   if (parentClassOrObject.constructor === Function) {
     // Normal Inheritance
     this.prototype = new parentClassOrObject();
@@ -25,46 +24,40 @@ Function.prototype.implementsFor = function (parentClassOrObject) {
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [SE2015+] We used new keyword let, which declares a block scope local variable
 // [ES2015+] We used new arrow function syntax
-// [ES2015+] Parentheses are optional when there is only one parameter name
+// [ES2015+] Parentheses are optional when there is only one parameter
 
 // Flyweight object
 const CoffeeOrder = {
-
   // Interfaces
   serveCoffee(context) {},
-  getFlavor() {}
-
+  getFlavor() {},
 };
-
-
 
 // ConcreteFlyweight object that creates ConcreteFlyweight
 // Implements CoffeeOrder
 function CoffeeFlavor(newFlavor) {
-
   const flavor = newFlavor;
 
   // If an interface has been defined for a feature
   // implement the feature
-  if (typeof this.getFlavor === "function") {
+  if (typeof this.getFlavor === 'function') {
     this.getFlavor = () => flavor;
   }
 
-  if (typeof this.serveCoffee === "function") {
-    this.serveCoffee = (context) => {
-      console.log(`Serving Coffee flavor ${flavor} to table number ${context.getTable()}`);
+  if (typeof this.serveCoffee === 'function') {
+    this.serveCoffee = context => {
+      console.log(
+        `Serving Coffee flavor ${flavor} to table number ${context.getTable()}`
+      );
     };
   }
-
 }
-
 
 // Implement interface for CoffeeOrder
 CoffeeFlavor.implementsFor(CoffeeOrder);
 
-
 // Handle table numbers for a coffee order
-const CoffeeOrderContext = (tableNumber) => {
+const CoffeeOrderContext = tableNumber => {
   return {
     getTable() {
       return tableNumber;
@@ -72,16 +65,14 @@ const CoffeeOrderContext = (tableNumber) => {
   };
 };
 
-
 const CoffeeFlavorFactory = () => {
   const flavors = {};
   let length = 0;
 
   return {
     getCoffeeFlavor(flavorName) {
-
       let flavor = flavors[flavorName];
-      if (typeof flavor === "undefined") {
+      if (typeof flavor === 'undefined') {
         flavor = new CoffeeFlavor(flavorName);
         flavors[flavorName] = flavor;
         length++;
@@ -117,27 +108,29 @@ const testFlyweight = () => {
     ordersMade++;
   }
 
-  takeOrders("Cappuccino", 2);
-  takeOrders("Cappuccino", 2);
-  takeOrders("Frappe", 1);
-  takeOrders("Frappe", 1);
-  takeOrders("Xpresso", 1);
-  takeOrders("Frappe", 897);
-  takeOrders("Cappuccino", 97);
-  takeOrders("Cappuccino", 97);
-  takeOrders("Frappe", 3);
-  takeOrders("Xpresso", 3);
-  takeOrders("Cappuccino", 3);
-  takeOrders("Xpresso", 96);
-  takeOrders("Frappe", 552);
-  takeOrders("Cappuccino", 121);
-  takeOrders("Xpresso", 121);
+  takeOrders('Cappuccino', 2);
+  takeOrders('Cappuccino', 2);
+  takeOrders('Frappe', 1);
+  takeOrders('Frappe', 1);
+  takeOrders('Xpresso', 1);
+  takeOrders('Frappe', 897);
+  takeOrders('Cappuccino', 97);
+  takeOrders('Cappuccino', 97);
+  takeOrders('Frappe', 3);
+  takeOrders('Xpresso', 3);
+  takeOrders('Cappuccino', 3);
+  takeOrders('Xpresso', 96);
+  takeOrders('Frappe', 552);
+  takeOrders('Cappuccino', 121);
+  takeOrders('Xpresso', 121);
 
   for (let i = 0; i < ordersMade; ++i) {
     flavors[i].serveCoffee(tables[i]);
   }
-  console.log(" ");
-  console.log(`total CoffeeFlavor objects made: ${flavorFactory.getTotalCoffeeFlavorsMade()}`);
+  console.log(' ');
+  console.log(
+    `total CoffeeFlavor objects made: ${flavorFactory.getTotalCoffeeFlavorsMade()}`
+  );
 };
 
 //*******************************************************//
@@ -149,9 +142,20 @@ const testFlyweight = () => {
 // [ES2015+] We used new constructor method and method declaration
 // [ES2015+] We used new keyword const for immutable constant declaration
 
-
 class Book {
-  constructor(id, title, author, genre, pageCount, publisherID, ISBN, checkoutDate, checkoutMember, dueReturnDate, availability) {
+  constructor(
+    id,
+    title,
+    author,
+    genre,
+    pageCount,
+    publisherID,
+    ISBN,
+    checkoutDate,
+    checkoutMember,
+    dueReturnDate,
+    availability
+  ) {
     this.id = id;
     this.title = title;
     this.author = author;
@@ -178,28 +182,28 @@ class Book {
   }
 
   // For brevity, other getters are not shown
-  updateCheckoutStatus(bookID, newStatus, checkoutDate, checkoutMember, newReturnDate) {
-
+  updateCheckoutStatus(
+    bookID,
+    newStatus,
+    checkoutDate,
+    checkoutMember,
+    newReturnDate
+  ) {
     this.id = bookID;
     this.availability = newStatus;
     this.checkoutDate = checkoutDate;
     this.checkoutMember = checkoutMember;
     this.dueReturnDate = newReturnDate;
-
   }
 
   extendCheckoutPeriod(bookID, newReturnDate) {
-
     this.id = bookID;
     this.dueReturnDate = newReturnDate;
-
   }
 
   isPastDue(bookID) {
-
     const currentDate = new Date();
     return currentDate.getTime() > Date.parse(this.dueReturnDate);
-
   }
 }
 
@@ -207,17 +211,14 @@ class Book {
 // [ES2015+] We used new keyword const for immutable constant declaration
 
 // Flyweight optimized version
-const Book = function (title, author, genre, pageCount, publisherID, ISBN) {
-
+const Book = function(title, author, genre, pageCount, publisherID, ISBN) {
   this.title = title;
   this.author = author;
   this.genre = genre;
   this.pageCount = pageCount;
   this.publisherID = publisherID;
   this.ISBN = ISBN;
-
 };
-
 
 //*******************************************************//
 // Converting code to use the Flyweight pattern
@@ -314,48 +315,45 @@ class BookRecordManager {
 </div>
 
 //********************** Snippet 2 **********************//
-  // [ES2015+] We used new keyword const for immutable constant declaration
-  // [ES2015+] We used new arrow function syntax
-  // [ES2015+] We used the destructuring assignment syntax that makes it possible to unpack values from data structures into distinct variables.
+// [ES2015+] We used new keyword const for immutable constant declaration
+// [ES2015+] We used new arrow function syntax
+// [ES2015+] We used the destructuring assignment syntax that makes it possible to unpack values from data structures into distinct variables.
 
-  const stateManager = {
+const stateManager = {
+  fly() {
+    const self = this;
 
-    fly() {
+    $('#container')
+      .unbind()
+      .on('click', 'div.toggle', ({ target }) => {
+        self.handleClick(target);
+      });
+  },
 
-      const self = this;
-
-      $("#container")
-        .unbind()
-        .on("click", "div.toggle", ({
-          target
-        }) => {
-          self.handleClick(target);
-        });
-    },
-
-    handleClick(elem) {
-      $(elem).find("span").toggle("slow");
-    }
-  };
-
+  handleClick(elem) {
+    $(elem)
+      .find('span')
+      .toggle('slow');
+  },
+};
 
 //********************** Snippet 3 **********************//
 // [ES2015+] We used new template literals for string interpolation
 
-$("div").on("click", function () {
-  console.log(`You clicked: ${$( this ).attr( "id" )}`);
+$('div').on('click', function() {
+  console.log(`You clicked: ${$(this).attr('id')}`);
 });
 
 // we should avoid using the DOM element to create a
 // jQuery object (with the overhead that comes with it)
 // and just use the DOM element itself like this:
 
-$("div").on("click", function () {
+$('div').on('click', function() {
   console.log(`You clicked:${this.id}`);
 });
 
 //********************** Snippet 4 **********************//
-$("a").map(function () {
+$('a').map(function() {
   return $(this).text();
 });
 
@@ -363,25 +361,22 @@ $("a").map(function () {
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] We used new arrow function syntax
 
-
-jQuery.single = ((o => {
-
+jQuery.single = (o => {
   const collection = jQuery([1]);
   return element => {
-
     // Give collection the element:
     collection[0] = element;
 
     // Return the collection:
     return collection;
-
   };
-}))();
+})();
 
 //********************** Snippet 6 **********************//
-$("div").on("click", function () {
-
-  const html = jQuery.single(this).next().html();
+$('div').on('click', function() {
+  const html = jQuery
+    .single(this)
+    .next()
+    .html();
   console.log(html);
-
 });

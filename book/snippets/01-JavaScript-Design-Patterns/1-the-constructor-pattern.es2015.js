@@ -15,7 +15,6 @@ const newObject = Object.create(Object.prototype);
 // or
 const newObject = new Object();
 
-
 //********************** Snippet 2 **********************//
 
 // ECMAScript 3 compatible approaches
@@ -23,27 +22,20 @@ const newObject = new Object();
 // 1. Dot syntax
 
 // Set properties
-newObject.someKey = "Hello World";
+newObject.someKey = 'Hello World';
 
 // Get properties
 // [ES2015+] We used new keyword const for immutable constant declaration
 const value = newObject.someKey;
 
-
-
 // 2. Square bracket syntax
-// This syntax requred if key name contains spaces 
-// This syntax requred if key name stored in variable
 
 // Set properties
-newObject["Some Key"] = "Hello World";
-newObject[VariableName] = "Hello World";
+newObject['Some Key'] = 'Hello World';
 
 // Get properties
 // [ES2015+] We used new keyword const for immutable constant declaration
-const value = newObject["Some Key"];
-const value = newObject[VariableName];
-
+const value = newObject['Some Key'];
 
 // ECMAScript 5 only compatible approaches
 // For more information see: http://kangax.github.com/es5-compat-table/
@@ -51,13 +43,12 @@ const value = newObject[VariableName];
 // 3. Object.defineProperty
 
 // Set properties
-Object.defineProperty(newObject, "someKey", {
+Object.defineProperty(newObject, 'someKey', {
     value: "for more control of the property's behavior",
     writable: true,
     enumerable: true,
-    configurable: true
+    configurable: true,
 });
-
 
 // If the above feels a little difficult to read, a short-hand could
 // be written as follows:
@@ -68,7 +59,7 @@ const defineProp = (obj, key, value) => {
         value: value,
         writable: true,
         enumerable: true,
-        configurable: true
+        configurable: true,
     };
     Object.defineProperty(obj, key, config);
 };
@@ -78,34 +69,30 @@ const defineProp = (obj, key, value) => {
 const person = Object.create(Object.prototype);
 
 // Populate the object with properties
-defineProp(person, "car", "Delorean");
-defineProp(person, "dateOfBirth", "1981");
-defineProp(person, "hasBeard", false);
+defineProp(person, 'car', 'Delorean');
+defineProp(person, 'dateOfBirth', '1981');
+defineProp(person, 'hasBeard', false);
 
 console.log(person);
 // Outputs: Object {car: "Delorean", dateOfBirth: "1981", hasBeard: false}
-
 
 // 4. Object.defineProperties
 
 // Set properties
 Object.defineProperties(newObject, {
-
-    "someKey": {
-        value: "Hello World",
-        writable: true
+    someKey: {
+        value: 'Hello World',
+        writable: true,
     },
 
-    "anotherKey": {
-        value: "Foo bar",
-        writable: false
-    }
-
+    anotherKey: {
+        value: 'Foo bar',
+        writable: false,
+    },
 });
 
 // Getting properties for 3. and 4. can be done using any of the
 // options in 1. and 2.
-
 
 //********************** Snippet 3 **********************//
 
@@ -116,14 +103,13 @@ Object.defineProperties(newObject, {
 const driver = Object.create(person);
 
 // Set some properties for the driver
-defineProp(driver, "topSpeed", "100mph");
+defineProp(driver, 'topSpeed', '100mph');
 
 // Get an inherited property (1981)
 console.log(driver.dateOfBirth);
 
 // Get the property we set (100mph)
 console.log(driver.topSpeed);
-
 
 //*******************************************************//
 // Basic Constructors
@@ -151,8 +137,8 @@ class Car {
 
 // We can create new instances of the car
 // [ES2015+] We used new keyword const for immutable constant declaration
-const civic = new Car("Honda Civic", 2009, 20000);
-const mondeo = new Car("Ford Mondeo", 2010, 5000);
+const civic = new Car('Honda Civic', 2009, 20000);
+const mondeo = new Car('Ford Mondeo', 2010, 5000);
 
 // and then open our browser console to view the
 // output of the toString() method being called on
@@ -180,14 +166,14 @@ class Car {
 // Object.prototype so as to avoid redefining the prototype object
 // [ES2015+] We still could use Object.prototype for adding new methods, because internally we use the same structure
 // [ES2015+] We used new template literals for string interpolation
-Car.prototype.toString = function () {
+Car.prototype.toString = function() {
     return `${this.model} has done ${this.miles} miles`;
 };
 
 // Usage:
 // [ES2015+] We used new keyword const for immutable constant declaration
-const civic = new Car("Honda Civic", 2009, 20000);
-const mondeo = new Car("Ford Mondeo", 2010, 5000);
+const civic = new Car('Honda Civic', 2009, 20000);
+const mondeo = new Car('Ford Mondeo', 2010, 5000);
 
 console.log(civic.toString());
 console.log(mondeo.toString());
