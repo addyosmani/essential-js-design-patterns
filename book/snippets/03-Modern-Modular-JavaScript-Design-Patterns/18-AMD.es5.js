@@ -90,7 +90,7 @@ define( ["./templates", "text!./template.md","css!./template.css" ],
         // do something with our templates here
     }
  
-});
+);
 
 //********************** Snippet 6 **********************//
 require(["app/myModule"],
@@ -151,7 +151,7 @@ define(["dojo/cookie", "dijit/Tooltip"], function( cookie, Tooltip ){
 });
 
 //********************** Snippet 3 **********************//
-define(["dojo", "dijit', "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit ){
+define(["dojo", "dijit", "dojo/cookie", "dijit/Tooltip"], function( dojo, dijit ){
   var cookieValue = dojo.cookie( "cookieName" );
   new dijit.Tooltip(...);
 });

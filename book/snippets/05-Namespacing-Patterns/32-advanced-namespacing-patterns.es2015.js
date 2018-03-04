@@ -101,7 +101,7 @@ drawing.plot(98, 50, 60);
 //********************** Snippet 1 **********************//
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] We used new arrow function syntax
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 // extend.js
 // Written by Andrew Dupont, optimized by Addy Osmani
@@ -189,7 +189,7 @@ console.groupEnd();
 
 //********************** Snippet 2 **********************//
 // [ES2015+] We used new keyword const for immutable constant declaration
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 // top-level namespace
 const myApp = myApp || {};

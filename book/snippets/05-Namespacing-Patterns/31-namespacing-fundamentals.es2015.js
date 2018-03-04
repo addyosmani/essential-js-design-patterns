@@ -28,7 +28,7 @@ function myApplication_myMethod() {
 // 3. Object literal notation
 //*******************************************************//
 // [ES2015+] We used new keyword const for immutable constant declaration
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 //********************** Snippet 1 **********************//
 const myApplication = {
@@ -50,7 +50,7 @@ const myApplication = {
 
 //********************** Snippet 2 **********************//
 // [ES2015+] We used new arrow function syntax
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 // [ES2015+] Equivalent to: => { return "bar"; }
 myApplication.foo = () => 'bar';
 

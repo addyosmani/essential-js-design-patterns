@@ -640,7 +640,7 @@ $(document).on('pagecreate', ({ target }) => {
 
 //********************** Snippet 1 **********************//
 // [ES2015+] We used new arrow function syntax
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 /*!
  * jQuery UI Widget + RequireJS module boilerplate (for 1.8/9+)
@@ -764,7 +764,7 @@ require({
 //*******************************************************//
 // [ES2015+] We used new arrow function syntax
 // [ES2015+] We used new keyword const for immutable constant declaration
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 //********************** Snippet 1 **********************//
 /*!
@@ -832,7 +832,7 @@ html
 //********************** Snippet 4 **********************//
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] We used new arrow function syntax
-// [ES2015+] We used new constructor object method declaration
+// [ES2015+] We used new object method declaration
 
 /*
  * "Highly configurable" mutable plugin boilerplate
