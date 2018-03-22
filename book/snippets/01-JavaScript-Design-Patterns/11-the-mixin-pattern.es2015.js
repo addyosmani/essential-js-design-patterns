@@ -13,6 +13,7 @@ class Person {
         this.gender = 'male';
     }
 }
+
 //********************** Snippet 2 **********************//
 // [ES2015+] We used new keyword const for immutable constant declaration
 // [ES2015+] Below we used new class declaration, using keyword class
@@ -133,11 +134,10 @@ class Mixin {
 // [ES2015+] The rest parameter syntax allows us to represent an indefinite number of arguments as an array.
 const augment = (receivingClass, givingClass, ...methodsNames) => {
     // only provide certain methods
-    if (methodsNames.length === 0) {
+    if (methodsNames.length !== 0) {
         // [ES2015+] New function map calls a provided callback function once for each element in an array, in order.
         methodsNames.map(methodName => {
-            receivingClass.prototype[methodName] =
-                givingClass.prototype[methodName];
+            receivingClass.prototype[methodName] = givingClass.prototype[methodName];
         });
 
         // provide all methods
@@ -147,18 +147,8 @@ const augment = (receivingClass, givingClass, ...methodsNames) => {
             // check to make sure the receiving class doesn't
             // have a method of the same name as the one currently
             // being processed
-            if (
-                !Object.hasOwnProperty.call(
-                    receivingClass.prototype,
-                    methodName
-                )
-            ) {
-                receivingClass.prototype[methodName] =
-                    givingClass.prototype[methodName];
-                // Alternatively (check prototype chain as well):
-                // if ( !receivingClass.prototype[methodName] ) {
-                // receivingClass.prototype[methodName] = givingClass.prototype[methodName];
-                // }
+            if (!Object.hasOwnProperty.call(receivingClass.prototype, methodName)) {
+                receivingClass.prototype[methodName] = givingClass.prototype[methodName];
             }
         });
     }
