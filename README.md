@@ -48,6 +48,6 @@ So far, we've successfully had the book translated to Japanese. You can find tha
 
 This book is released under a Creative Commons Attribution-Noncommercial- No Derivative Works 3.0 United States License. 
 
-What this means it that the project is free to read and use, but the license does not permit commercial use of the material (i.e you can freely print out the book for your own use, but you can't sell it). I'm trying to best to publish all of my books in a free + purchased (if you would like to support these projects) form so I would greatly appreciate it if you would respect these terms.
+What this means it that the project is free to read and use, but the license does not permit commercial use of the material (i.e you can freely print out the book for your own use, but you can't sell it). I'm trying the best to publish all of my books in a free + purchased form (if you would like to support these projects) so I would greatly appreciate it if you would respect these terms.
 
 Copyright Addy Osmani, 2017.
