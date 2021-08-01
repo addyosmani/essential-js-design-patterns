@@ -3028,7 +3028,7 @@ function VehicleFactory() {}
 VehicleFactory.prototype.vehicleClass = Car;
 
 // Our Factory method for creating new Vehicle instances
-VehicleFactory.prototype.createVehicle = function ( options ) {
+VehicleFactory.prototype.createVehicle = function ( options = {} ) {
 
   switch(options.vehicleType){
     case "car":
